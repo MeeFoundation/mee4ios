@@ -9,6 +9,19 @@
 		<string>PublicSans-Light.ttf</string>
 		<string>PublicSans-Medium.ttf</string>
 		<string>PublicSans-SemiBold.ttf</string>
-	</array>
+  </array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.swift.mee-ios-client</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>mee-client</string>
+			</array>
+		</dict>
+  </array>
 </dict>
 </plist>

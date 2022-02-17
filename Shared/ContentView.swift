@@ -9,24 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ConsentPage()
-//        NavigationView {
-//            ZStack {
-//                Rectangle()
-//                    .foregroundColor(Colors.background)
-//                    .edgesIgnoringSafeArea(.all)
-//                NavigationLink(
-//                    destination: ConsentPage(),
-//                    label: {
-//                        Text("Consent Page")
-//                    }
-//                )
-//                .font(.largeTitle)
-//                .navigationTitle("")
-//                .navigationBarTitleDisplayMode(.inline)
-//            }
-//        }
-    }
+        ConsentPage().padding().onOpenURL { url in
+            print(url)
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {
