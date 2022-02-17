@@ -76,7 +76,7 @@ struct ConsentPage: View {
 
                 Spacer()
                 Button(action: {}){
-                    Link("APPROVE", destination: URL(string: "http://localhost:3001/?interest=sweets")!)
+                    Link("APPROVE", destination: URL(string: "http://localhost:3000/?interest=sweets")!)
                 }
                 .padding()
                 .foregroundColor(Colors.mainButtonColor)
