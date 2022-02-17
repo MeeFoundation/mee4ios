@@ -75,16 +75,20 @@ struct ConsentPage: View {
                 }
 
                 Spacer()
-                Button(action: {}){
-                    Link("APPROVE", destination: URL(string: "http://localhost:3000/?interest=sweets")!)
+                    HStack {
+                    Button(action: {}){
+                        Link("APPROVE", destination: URL(string: "http://localhost:3000/?interest=sweets")!)
+                    }
+                    .padding()
+                    .foregroundColor(Colors.mainButtonColor)
+                        Spacer()
+                    Button(action: {}){
+                        Text("DECLINE")
+                    }
+                    .padding()
+                    .foregroundColor(.red)
                 }
-                .padding()
-                .foregroundColor(Colors.mainButtonColor)
-                Button(action: {}){
-                    Text("DECLINE")
-                }
-                .padding()
-                .foregroundColor(.red)
+                .padding(.top, 10.0)
             }
             .padding(.horizontal, 10.0)
             
