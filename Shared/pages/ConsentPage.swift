@@ -50,7 +50,9 @@ struct ConsentPage: View {
                 ScrollView {
                     ForEach(data.entries) { entry in
                         ConsentEntry(consentEntry: entry)
-                    }.padding(.bottom, 20.0)
+                    }
+                    .padding(.bottom, 20.0)
+                    .padding(.trailing, 10.0)
                 }
                 HStack {
                     Text("Scopes: ")
