@@ -12,6 +12,7 @@ struct ContentView: View {
         ConsentPage().padding().onOpenURL { url in
             print(url)
         }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
