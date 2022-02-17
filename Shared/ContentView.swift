@@ -6,16 +6,34 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ConsentPage()
+//        NavigationView {
+//            ZStack {
+//                Rectangle()
+//                    .foregroundColor(Colors.background)
+//                    .edgesIgnoringSafeArea(.all)
+//                NavigationLink(
+//                    destination: ConsentPage(),
+//                    label: {
+//                        Text("Consent Page")
+//                    }
+//                )
+//                .font(.largeTitle)
+//                .navigationTitle("")
+//                .navigationBarTitleDisplayMode(.inline)
+//            }
+//        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        Group {
+            ContentView()
+        }
     }
 }
