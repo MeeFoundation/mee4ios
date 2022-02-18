@@ -17,6 +17,16 @@
 		946D2E0727BB9A960055175C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DDD27BB9A960055175C /* ContentView.swift */; };
 		946D2E0827BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
 		946D2E0927BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
+		948AD54827BF8E0A00A98D88 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948AD54727BF8E0A00A98D88 /* SafariWebExtensionHandler.swift */; };
+		948AD54B27BF8E0A00A98D88 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 948AD54A27BF8E0A00A98D88 /* _locales */; };
+		948AD54D27BF8E0A00A98D88 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 948AD54C27BF8E0A00A98D88 /* images */; };
+		948AD54F27BF8E0A00A98D88 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 948AD54E27BF8E0A00A98D88 /* manifest.json */; };
+		948AD55127BF8E0A00A98D88 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 948AD55027BF8E0A00A98D88 /* background.js */; };
+		948AD55327BF8E0A00A98D88 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 948AD55227BF8E0A00A98D88 /* content.js */; };
+		948AD55527BF8E0A00A98D88 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 948AD55427BF8E0A00A98D88 /* popup.html */; };
+		948AD55727BF8E0A00A98D88 /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 948AD55627BF8E0A00A98D88 /* popup.css */; };
+		948AD55927BF8E0A00A98D88 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 948AD55827BF8E0A00A98D88 /* popup.js */; };
+		948AD55D27BF8E0A00A98D88 /* Mee Safari Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 948AD54527BF8E0A00A98D88 /* Mee Safari Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A550854727BD1C4600C5A2D1 /* PublicSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */; };
 		A550854827BD1C4600C5A2D1 /* PublicSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */; };
 		A550854927BD1C4600C5A2D1 /* PublicSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853627BD1C4300C5A2D1 /* PublicSans-SemiBoldItalic.ttf */; };
@@ -82,7 +92,28 @@
 			remoteGlobalIDString = 946D2DE827BB9A960055175C;
 			remoteInfo = "mee-ios-client (macOS)";
 		};
+		948AD55B27BF8E0A00A98D88 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946D2DD727BB9A950055175C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 948AD54427BF8E0A00A98D88;
+			remoteInfo = "Mee Safari Extension";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		948AD55E27BF8E0A00A98D88 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				948AD55D27BF8E0A00A98D88 /* Mee Safari Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		946D2DDC27BB9A960055175C /* mee_ios_clientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mee_ios_clientApp.swift; sourceTree = "<group>"; };
@@ -97,6 +128,18 @@
 		946D2DFC27BB9A960055175C /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		946D2E0027BB9A960055175C /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		948AD54527BF8E0A00A98D88 /* Mee Safari Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Mee Safari Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		948AD54727BF8E0A00A98D88 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		948AD54A27BF8E0A00A98D88 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
+		948AD54C27BF8E0A00A98D88 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		948AD54E27BF8E0A00A98D88 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		948AD55027BF8E0A00A98D88 /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		948AD55227BF8E0A00A98D88 /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		948AD55427BF8E0A00A98D88 /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
+		948AD55627BF8E0A00A98D88 /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
+		948AD55827BF8E0A00A98D88 /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
+		948AD55A27BF8E0A00A98D88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mee-ios-client (iOS).entitlements"; sourceTree = "<group>"; };
 		A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PublicSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		A550853627BD1C4300C5A2D1 /* PublicSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PublicSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		A550853727BD1C4400C5A2D1 /* PublicSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PublicSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -153,18 +196,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		948AD54227BF8E0A00A98D88 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		946D2DD627BB9A950055175C = {
 			isa = PBXGroup;
 			children = (
+				948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */,
 				A550856C27BD243500C5A2D1 /* mee-ios-client--iOS--Info.plist */,
 				A550856B27BD1C4E00C5A2D1 /* ios */,
 				946D2DDB27BB9A960055175C /* Shared */,
 				946D2DEA27BB9A960055175C /* macOS */,
 				946D2DF327BB9A960055175C /* Tests iOS */,
 				946D2DFF27BB9A960055175C /* Tests macOS */,
+				948AD54627BF8E0A00A98D88 /* Mee Safari Extension */,
 				946D2DE427BB9A960055175C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -173,7 +225,6 @@
 			isa = PBXGroup;
 			children = (
 				A550856E27BD2E1400C5A2D1 /* helpers */,
-				A550853427BD1A8E00C5A2D1 /* extensions */,
 				A550853227BD196D00C5A2D1 /* assets */,
 				A550853127BD195F00C5A2D1 /* pages */,
 				A550853027BD18CD00C5A2D1 /* model */,
@@ -192,6 +243,7 @@
 				946D2DE927BB9A960055175C /* mee-ios-client.app */,
 				946D2DF027BB9A960055175C /* Tests iOS.xctest */,
 				946D2DFC27BB9A960055175C /* Tests macOS.xctest */,
+				948AD54527BF8E0A00A98D88 /* Mee Safari Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +272,31 @@
 				946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		948AD54627BF8E0A00A98D88 /* Mee Safari Extension */ = {
+			isa = PBXGroup;
+			children = (
+				948AD54727BF8E0A00A98D88 /* SafariWebExtensionHandler.swift */,
+				948AD55A27BF8E0A00A98D88 /* Info.plist */,
+				948AD54927BF8E0A00A98D88 /* Resources */,
+			);
+			path = "Mee Safari Extension";
+			sourceTree = "<group>";
+		};
+		948AD54927BF8E0A00A98D88 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				948AD54A27BF8E0A00A98D88 /* _locales */,
+				948AD54C27BF8E0A00A98D88 /* images */,
+				948AD54E27BF8E0A00A98D88 /* manifest.json */,
+				948AD55027BF8E0A00A98D88 /* background.js */,
+				948AD55227BF8E0A00A98D88 /* content.js */,
+				948AD55427BF8E0A00A98D88 /* popup.html */,
+				948AD55627BF8E0A00A98D88 /* popup.css */,
+				948AD55827BF8E0A00A98D88 /* popup.js */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A550852F27BD18C200C5A2D1 /* components */ = {
@@ -262,13 +339,6 @@
 				A550856D27BD2CB600C5A2D1 /* publicSans */,
 			);
 			path = fonts;
-			sourceTree = "<group>";
-		};
-		A550853427BD1A8E00C5A2D1 /* extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = extensions;
 			sourceTree = "<group>";
 		};
 		A550856B27BD1C4E00C5A2D1 /* ios */ = {
@@ -321,10 +391,12 @@
 				946D2DDF27BB9A960055175C /* Sources */,
 				946D2DE027BB9A960055175C /* Frameworks */,
 				946D2DE127BB9A960055175C /* Resources */,
+				948AD55E27BF8E0A00A98D88 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				948AD55C27BF8E0A00A98D88 /* PBXTargetDependency */,
 			);
 			name = "mee-ios-client (iOS)";
 			productName = "mee-ios-client (iOS)";
@@ -384,6 +456,23 @@
 			productReference = 946D2DFC27BB9A960055175C /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		948AD54427BF8E0A00A98D88 /* Mee Safari Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 948AD56127BF8E0A00A98D88 /* Build configuration list for PBXNativeTarget "Mee Safari Extension" */;
+			buildPhases = (
+				948AD54127BF8E0A00A98D88 /* Sources */,
+				948AD54227BF8E0A00A98D88 /* Frameworks */,
+				948AD54327BF8E0A00A98D88 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mee Safari Extension";
+			productName = "Mee Safari Extension";
+			productReference = 948AD54527BF8E0A00A98D88 /* Mee Safari Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -408,6 +497,9 @@
 						CreatedOnToolsVersion = 13.1;
 						TestTargetID = 946D2DE827BB9A960055175C;
 					};
+					948AD54427BF8E0A00A98D88 = {
+						CreatedOnToolsVersion = 13.1;
+					};
 				};
 			};
 			buildConfigurationList = 946D2DDA27BB9A950055175C /* Build configuration list for PBXProject "mee-ios-client" */;
@@ -427,6 +519,7 @@
 				946D2DE827BB9A960055175C /* mee-ios-client (macOS) */,
 				946D2DEF27BB9A960055175C /* Tests iOS */,
 				946D2DFB27BB9A960055175C /* Tests macOS */,
+				948AD54427BF8E0A00A98D88 /* Mee Safari Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -498,6 +591,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		948AD54327BF8E0A00A98D88 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				948AD55127BF8E0A00A98D88 /* background.js in Resources */,
+				948AD55727BF8E0A00A98D88 /* popup.css in Resources */,
+				948AD55527BF8E0A00A98D88 /* popup.html in Resources */,
+				948AD54D27BF8E0A00A98D88 /* images in Resources */,
+				948AD54F27BF8E0A00A98D88 /* manifest.json in Resources */,
+				948AD54B27BF8E0A00A98D88 /* _locales in Resources */,
+				948AD55327BF8E0A00A98D88 /* content.js in Resources */,
+				948AD55927BF8E0A00A98D88 /* popup.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -549,6 +657,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		948AD54127BF8E0A00A98D88 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				948AD54827BF8E0A00A98D88 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -561,6 +677,11 @@
 			isa = PBXTargetDependency;
 			target = 946D2DE827BB9A960055175C /* mee-ios-client (macOS) */;
 			targetProxy = 946D2DFD27BB9A960055175C /* PBXContainerItemProxy */;
+		};
+		948AD55C27BF8E0A00A98D88 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 948AD54427BF8E0A00A98D88 /* Mee Safari Extension */;
+			targetProxy = 948AD55B27BF8E0A00A98D88 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -679,8 +800,10 @@
 		946D2E0D27BB9A960055175C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "mee-ios-client (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
@@ -711,8 +834,10 @@
 		946D2E0E27BB9A960055175C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "mee-ios-client (iOS).entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
@@ -898,6 +1023,69 @@
 			};
 			name = Release;
 		};
+		948AD55F27BF8E0A00A98D88 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4UGU9PNWK8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Mee Safari Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Mee Safari Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.safari-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		948AD56027BF8E0A00A98D88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4UGU9PNWK8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Mee Safari Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Mee Safari Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.safari-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -942,6 +1130,15 @@
 			buildConfigurations = (
 				946D2E1627BB9A960055175C /* Debug */,
 				946D2E1727BB9A960055175C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		948AD56127BF8E0A00A98D88 /* Build configuration list for PBXNativeTarget "Mee Safari Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				948AD55F27BF8E0A00A98D88 /* Debug */,
+				948AD56027BF8E0A00A98D88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
