@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ConsentPage().padding().onOpenURL { url in
+        ConsentPage().onOpenURL { url in
             print(url)
         }
     }
