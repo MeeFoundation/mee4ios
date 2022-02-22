@@ -9,9 +9,40 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        ConsentPage().onOpenURL { url in
-            print(url)
-        }
+            NavigationView {
+                ZStack {
+                    Background()
+                    VStack {
+                        
+                        NavigationLink(
+                            destination: ConsentPage().onOpenURL { url in
+                                print(url)
+                            }
+                            .navigationBarTitle("", displayMode: .inline)
+                            .navigationBarBackButtonHidden(true)
+                            .navigationBarHidden(true)
+                        ){
+                            Text("Consent Page")
+                                .font(.largeTitle)
+                        }
+                        NavigationLink(
+                            destination: LoginPage()
+                        ){
+                            Text("Login")
+                                .font(.largeTitle)
+                        }
+                        NavigationLink(
+                            destination: SignUpPage()
+                        ){
+                            Text("Sign Up")
+                                .font(.largeTitle)
+                        }
+                    }
+                }
+                
+            }
+        
+            
     }
 }
 

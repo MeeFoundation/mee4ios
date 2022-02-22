@@ -45,7 +45,7 @@ struct ConsentEntry: View {
                     .padding(2)
                     .overlay(
                         RoundedRectangle(cornerRadius: 0)
-                            .stroke(Colors.text, lineWidth: 2)
+                            .stroke(Colors.mainButtonColor, lineWidth: 2)
                     )
                     .font(.custom(FontNameManager.PublicSans.regular, size: 10))
             }

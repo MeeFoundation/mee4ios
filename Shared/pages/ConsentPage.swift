@@ -14,9 +14,7 @@ struct ConsentPage: View {
         ConsentEntryModel(name: "Mee Orders", value: "", canRead: true, canWrite: true, hasValue: false)], scopes: ["OpenId", "Email", "First Name"])
     var body: some View {
         ZStack {
-            Rectangle()
-                .foregroundColor(Colors.background)
-                .edgesIgnoringSafeArea(.all)
+            Background()
             VStack {
                 HStack {
                     Image("meeLogo").resizable().scaledToFit()
@@ -79,14 +77,9 @@ struct ConsentPage: View {
                     Button(action: {}){
                         Link("APPROVE", destination: URL(string: "http://localhost:3000/?interest=sweets")!)
                     }
-                    .padding()
-                    .foregroundColor(Colors.mainButtonColor)
+                    .buttonStyle(MainButtonStyle())
                         Spacer()
-                    Button(action: {}){
-                        Text("DECLINE")
-                    }
-                    .padding()
-                    .foregroundColor(.red)
+                        DestructiveButton("DECLINE", action: {})
                 }
                 .padding(.top, 10.0)
             }
