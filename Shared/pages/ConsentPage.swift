@@ -78,8 +78,8 @@ struct ConsentPage: View {
                         Link("APPROVE", destination: URL(string: "http://localhost:3000/?interest=sweets")!)
                     }
                     .buttonStyle(MainButtonStyle())
-                        Spacer()
-                        DestructiveButton("DECLINE", action: {})
+                    Spacer()
+                    DestructiveButton("DECLINE", action: {})
                 }
                 .padding(.top, 10.0)
             }

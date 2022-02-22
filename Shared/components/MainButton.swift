@@ -39,10 +39,10 @@ struct DestructiveButton: View {
     var body: some View {
         Button(action: action)
             {
-                BasicText(text: title)
+                BasicText(text: title, color: .red)
             }
             .padding()
-            .foregroundColor(Color.red)
+            .foregroundColor(.red)
     }
 }
 

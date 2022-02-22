@@ -7,7 +7,12 @@
 
 import SwiftUI
 
+enum CurrentPage: Hashable {
+  case home, consent
+}
+
 struct ContentView: View {
+    @State var currentPage:CurrentPage?
     var body: some View {
             NavigationView {
                 ZStack {
@@ -15,33 +20,44 @@ struct ContentView: View {
                     VStack {
                         
                         NavigationLink(
-                            destination: ConsentPage().onOpenURL { url in
-                                print(url)
-                            }
+                            destination: ConsentPage()
                             .navigationBarTitle("", displayMode: .inline)
                             .navigationBarBackButtonHidden(true)
                             .navigationBarHidden(true)
+                            , tag: CurrentPage.consent
+                            , selection: $currentPage
                         ){
                             Text("Consent Page")
                                 .font(.largeTitle)
                         }
-                        NavigationLink(
+                            NavigationLink(
                             destination: LoginPage()
                         ){
                             Text("Login")
                                 .font(.largeTitle)
+                                .padding(.top, 10.0)
                         }
                         NavigationLink(
                             destination: SignUpPage()
                         ){
                             Text("Sign Up")
                                 .font(.largeTitle)
+                                .padding(.top, 10.0)
                         }
                     }
                 }
                 
             }
-        
+            .onOpenURL { url in
+                if (url.host != nil) {
+                    switch (url.host) {
+                        case "consent":
+                            currentPage = CurrentPage.consent
+                        default: break
+                        
+                    }
+                }
+            }
             
     }
 }

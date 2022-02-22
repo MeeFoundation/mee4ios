@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct BasicText: View {
-    private var text: String
+    var text: String
+    var color = Colors.text
+    
 
-    init(text: String) {
-        self.text = text
-    }
     
     var body: some View {
         Text(text)
-            .foregroundColor(Colors.text)
+            .foregroundColor(color)
             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
     }
 }
