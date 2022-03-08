@@ -8,26 +8,28 @@
 import SwiftUI
 
 struct LoginPage: View {
-    @State var userName = ""
-    @State var password = ""
+    @State var loginForm = LoginForm(username: "", password: "")
+    @ObservedObject var navigationState: NavigationState
     var body: some View {
         ZStack {
             Background()
             VStack {
                 Image("meeLogo").resizable().scaledToFit().padding(.horizontal, 50.0).padding(.bottom, 20.0).padding(.top, 50.0)
                 Group {
-                    InputView("Username", text: $userName)
+                    InputView("Username", text: $loginForm.username)
                 }
                 .padding(.top, 15.0)
                 .padding(.bottom, 20.0)
                 Group {
-                    SecureInputView("Password", text: $password)
+                    SecureInputView("Password", text: $loginForm.password)
                 }
                 .padding(.top, 15.0)
                 Spacer()
                 HStack {
                     MainButton("Login", action: {})
-                    SecondaryButton("Sign Up", action: {})
+                    SecondaryButton("Sign Up", action: {
+                        navigationState.currentPage = NavigationPages.signUp
+                    })
                 }
             }
             .padding(.horizontal, 50.0)

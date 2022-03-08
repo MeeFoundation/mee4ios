@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-enum CurrentPage: Hashable {
-  case home, consent
+enum NavigationPages: Hashable {
+  case home, consent, signUp, login
 }
 
 struct ContentView: View {
-    @State var currentPage:CurrentPage?
+
+    @StateObject var navigationState = NavigationState()
+    
     var body: some View {
             NavigationView {
                 ZStack {
@@ -24,14 +26,16 @@ struct ContentView: View {
                             .navigationBarTitle("", displayMode: .inline)
                             .navigationBarBackButtonHidden(true)
                             .navigationBarHidden(true)
-                            , tag: CurrentPage.consent
-                            , selection: $currentPage
+                            ,tag: NavigationPages.consent
+                            ,selection: $navigationState.currentPage
                         ){
                             Text("Consent Page")
                                 .font(.largeTitle)
                         }
                             NavigationLink(
-                            destination: LoginPage()
+                                destination: LoginPage(navigationState: navigationState)
+                            ,tag: NavigationPages.login
+                            ,selection: $navigationState.currentPage
                         ){
                             Text("Login")
                                 .font(.largeTitle)
@@ -39,6 +43,8 @@ struct ContentView: View {
                         }
                         NavigationLink(
                             destination: SignUpPage()
+                            ,tag: NavigationPages.signUp
+                            ,selection: $navigationState.currentPage
                         ){
                             Text("Sign Up")
                                 .font(.largeTitle)
@@ -52,7 +58,7 @@ struct ContentView: View {
                 if (url.host != nil) {
                     switch (url.host) {
                         case "consent":
-                            currentPage = CurrentPage.consent
+                        navigationState.currentPage = NavigationPages.consent
                         default: break
                         
                     }
@@ -63,6 +69,7 @@ struct ContentView: View {
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
             ContentView()

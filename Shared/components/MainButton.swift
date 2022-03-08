@@ -19,7 +19,9 @@ struct MainButton: View {
     var body: some View {
         Button(action: action)
             {
-                BasicText(text: title)
+                Text(title)
+                    .foregroundColor(Colors.text)
+                    .font(.custom(FontNameManager.PublicSans.medium, size: 18))
             }
             .padding()
             .foregroundColor(Colors.mainButtonColor)
@@ -39,10 +41,13 @@ struct DestructiveButton: View {
     var body: some View {
         Button(action: action)
             {
-                BasicText(text: title, color: .red)
+                Text(title)
+                    .foregroundColor(.red)
+                    .font(.custom(FontNameManager.PublicSans.medium, size: 18))
             }
             .padding()
             .foregroundColor(.red)
+            
     }
 }
 

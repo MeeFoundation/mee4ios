@@ -13,7 +13,7 @@ struct LibraryImage: View {
     @State var showAction: Bool = false
     @State var showImagePicker: Bool = false
 
-    @State var uiImage: UIImage? = nil
+    @Binding var uiImage: UIImage?
 
     var sheet: ActionSheet {
         ActionSheet(

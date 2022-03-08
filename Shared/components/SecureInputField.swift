@@ -12,40 +12,56 @@ struct SecureInputView: View {
     @Binding private var text: String
     @State private var isSecured: Bool = true
     private var title: String
+    @Binding var error: String
     
-    init(_ title: String, text: Binding<String>) {
+    init(_ title: String, text: Binding<String>, error: Binding<String>? = nil) {
         self.title = title
         self._text = text
+        self._error = error ?? Binding.constant("")
     }
     
     var body: some View {
+        VStack {
         ZStack(alignment: .trailing) {
             if isSecured {
                 SecureField(title, text: $text)
                     .frame(height: 48)
-                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 6))
+                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                     .cornerRadius(5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(Colors.text, lineWidth: 1.0)
+                            .stroke(error == "" ? Colors.text : Color.red, lineWidth: 1.0)
                     )
+                    .onChange(of: text) { [] newValue in
+                        error = ""
+                    }
             } else {
                 TextField(title, text: $text)
+                    .font(.custom(FontNameManager.PublicSans.regular, size: 16))
                     .frame(height: 48)
-                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 6))
+                    .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                     .cornerRadius(5)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(Colors.text, lineWidth: 1.0)
+                            .stroke(error == "" ? Colors.text : Color.red, lineWidth: 1.0)
                     )
+                    .onChange(of: text) { [] newValue in
+                        error = ""
+                    }
             }
             Button(action: {
                 isSecured.toggle()
             }) {
                 Image(systemName: self.isSecured ? "eye.slash" : "eye")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 10.0, height: 10.0)
                     .accentColor(.gray)
-                    .padding(.trailing, 4.0)
+                    .padding(.trailing, 15.0)
+                
             }
+        }
+        error != "" ? Text(error).foregroundColor(.red) : nil
         }
     }
 }
