@@ -18,3 +18,11 @@ struct SignupForm {
     var firstName = ""
     var image: UIImage? = nil
 }
+
+struct SignupFormState {
+    var userName: String? = nil
+    var email: String? = nil
+    var password: String? = nil
+    var passwordRepeat: String? = nil
+    var firstName: String? = nil
+}

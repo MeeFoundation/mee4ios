@@ -12,4 +12,5 @@ struct Colors {
     static let background = Color("backgroundColor")
     static let text = Color("textColor")
     static let mainButtonColor = Color("mainButtonColor")
+    static let error = Color.red
 }

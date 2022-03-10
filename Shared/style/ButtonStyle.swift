@@ -19,7 +19,7 @@ struct MainButtonStyle: ButtonStyle {
 }
 
 struct DestructiveButtonStyle: ButtonStyle {
-    var color: Color = Color.red
+    var color: Color = Colors.error
     
     public func makeBody(configuration: MainButtonStyle.Configuration) -> some View {
         

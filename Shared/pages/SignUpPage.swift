@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpPage: View {
     @State var signupForm = SignupForm(step: 0, userName: "", email: "", password: "", passwordRepeat: "", firstName: "")
-    @State var signupFormError = SignupForm(userName: "", email: "", password: "", passwordRepeat: "", firstName: "")
+    @State var signupFormError = SignupFormState()
     
     func checkSignupFormProfileError() -> Bool {
         if signupForm.firstName.range(of: firstNameValidationString, options:.regularExpression) == nil { signupFormError.firstName = "First Name should be at least 2 symbols" }
@@ -18,7 +18,7 @@ struct SignUpPage: View {
     }
     
     func checkSignupFormUserdataError() -> Bool {
-        signupFormError = SignupForm(userName: "", email: "", password: "", passwordRepeat: "", firstName: "")
+        signupFormError = SignupFormState()
         if signupForm.passwordRepeat != signupForm.password { signupFormError.passwordRepeat = "Passwords must match" }
         if signupForm.email.range(of: emailValidationString, options:.regularExpression) == nil { signupFormError.email = "Please enter correct email" }
         if signupForm.userName.range(of: usernameValidationString, options:.regularExpression) == nil { signupFormError.userName = "Username should be at least 2 symbols" }

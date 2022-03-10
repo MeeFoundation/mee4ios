@@ -7,15 +7,27 @@
 
 import SwiftUI
 
-struct BasicText: View {
-    var text: String
-    var color = Colors.text
-    
+enum VerticalAlign {
+    case left
+    case right
+    case center
+}
 
+struct BasicText: View {
+    var text: String?
+    var color = Colors.text
+    var size: CGFloat = 18
+    var align: VerticalAlign? = VerticalAlign.center
     
     var body: some View {
-        Text(text)
-            .foregroundColor(color)
-            .font(.custom(FontNameManager.PublicSans.regular, size: 18))
+        if text != nil {
+            HStack {
+                if align == VerticalAlign.right { Spacer() }
+                Text(text!)
+                    .foregroundColor(color)
+                    .font(.custom(FontNameManager.PublicSans.regular, size: size))
+                if align == VerticalAlign.left { Spacer() }
+            }
+        }
     }
 }
