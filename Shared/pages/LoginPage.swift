@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginPage: View {
-    @State var loginForm = LoginForm(username: "", password: "")
+    @State var loginForm = LoginForm()
     @ObservedObject var navigationState: NavigationState
     var body: some View {
         ZStack {

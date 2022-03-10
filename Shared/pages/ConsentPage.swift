@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct ConsentPage: View {
-    @State var data = ConsentModel(name: "Eat Naked Kitchen",entries: [ConsentEntryModel(name: "First Name",value: "", isRequired: true, canRead: true),
-        ConsentEntryModel(name: "Email", value: "", isRequired: true, canRead: true),
-        ConsentEntryModel(name: "Date Of Birth", value: "", canRead: true),
-        ConsentEntryModel(name: "Mee Orders", value: "", canRead: true, canWrite: true, hasValue: false)], scopes: ["OpenId", "Email", "First Name"])
+    @StateObject var data = ConsentState()
     var body: some View {
         ZStack {
             Background()
@@ -33,7 +30,7 @@ struct ConsentPage: View {
                     
                 }
                 .padding(.bottom, 10.0)
-                Text(data.name)
+                Text(data.consent.name)
                     .foregroundColor(Colors.text)
                     .font(.custom(FontNameManager.PublicSans.bold, size: 25))
                     .padding(.bottom, 5.0)
@@ -46,7 +43,7 @@ struct ConsentPage: View {
 //                })
                 Spacer()
                 ScrollView {
-                    ForEach(data.entries) { entry in
+                    ForEach(data.consent.entries) { entry in
                         ConsentEntry(consentEntry: entry)
                     }
                     .padding(.bottom, 20.0)
@@ -56,7 +53,7 @@ struct ConsentPage: View {
                     Text("Scopes: ")
                         .foregroundColor(Colors.text)
                         .font(.custom(FontNameManager.PublicSans.bold, size: 18))
-                    Text("\(data.scopes.joined(separator: ", "))")
+                    Text("\(data.consent.scopes.joined(separator: ", "))")
                         .foregroundColor(Colors.text)
                         .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     Spacer()

@@ -16,7 +16,7 @@ struct ConsentModel {
 struct ConsentEntryModel: Identifiable {
     let id = UUID()
     let name: String
-    let value: String
+    let value: String? = nil
     var isRequired: Bool = false
     var canRead: Bool = false
     var canWrite: Bool = false

@@ -8,30 +8,30 @@
 import SwiftUI
 
 struct SignUpPage: View {
-    @State var signupForm = SignupForm(step: 0, userName: "", email: "", password: "", passwordRepeat: "", firstName: "")
+    @State var signupForm = SignupForm()
     @State var signupFormError = SignupFormState()
     
     func checkSignupFormProfileError() -> Bool {
-        if signupForm.firstName.range(of: firstNameValidationString, options:.regularExpression) == nil { signupFormError.firstName = "First Name should be at least 2 symbols" }
-        if signupForm.firstName == "" { signupFormError.firstName = "Please enter First Name" }
-        return signupFormError.firstName == ""
+        if signupForm.firstName?.range(of: firstNameValidationString, options:.regularExpression) == nil { signupFormError.firstName = "First Name should be at least 2 symbols" }
+        if signupForm.firstName == nil { signupFormError.firstName = "Please enter First Name" }
+        return signupFormError.firstName == nil
     }
     
     func checkSignupFormUserdataError() -> Bool {
         signupFormError = SignupFormState()
         if signupForm.passwordRepeat != signupForm.password { signupFormError.passwordRepeat = "Passwords must match" }
-        if signupForm.email.range(of: emailValidationString, options:.regularExpression) == nil { signupFormError.email = "Please enter correct email" }
-        if signupForm.userName.range(of: usernameValidationString, options:.regularExpression) == nil { signupFormError.userName = "Username should be at least 2 symbols" }
-        if signupForm.password.range(of: passwordValidationString, options:.regularExpression) == nil { signupFormError.password = "Password should be at least 2 symbols" }
-        if signupForm.userName == "" { signupFormError.userName = "Please enter username" }
-        if signupForm.email == "" { signupFormError.email = "Please enter email" }
-        if signupForm.password == "" { signupFormError.password = "Please enter password" }
+        if signupForm.email?.range(of: emailValidationString, options:.regularExpression) == nil { signupFormError.email = "Please enter correct email" }
+        if signupForm.userName?.range(of: usernameValidationString, options:.regularExpression) == nil { signupFormError.userName = "Username should be at least 2 symbols" }
+        if signupForm.password?.range(of: passwordValidationString, options:.regularExpression) == nil { signupFormError.password = "Password should be at least 2 symbols" }
+        if signupForm.userName == nil { signupFormError.userName = "Please enter username" }
+        if signupForm.email == nil { signupFormError.email = "Please enter email" }
+        if signupForm.password == nil { signupFormError.password = "Please enter password" }
 
         
-        return signupFormError.userName == "" &&
-                signupFormError.email == "" &&
-                signupFormError.password == "" &&
-                signupFormError.passwordRepeat == ""
+        return signupFormError.userName == nil &&
+                signupFormError.email == nil &&
+                signupFormError.password == nil &&
+                signupFormError.passwordRepeat == nil
     }
         var body: some View {
             ZStack {

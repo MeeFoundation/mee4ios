@@ -8,6 +8,6 @@
 import Foundation
 
 struct LoginForm {
-    var username = ""
-    var password = ""
+    var username: String? = nil
+    var password: String? = nil
 }

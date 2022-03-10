@@ -11,11 +11,11 @@ import UIKit
 
 struct SignupForm {
     var step = 0
-    var userName = ""
-    var email = ""
-    var password = ""
-    var passwordRepeat = ""
-    var firstName = ""
+    var userName: String? = nil
+    var email: String? = nil
+    var password: String? = nil
+    var passwordRepeat: String? = nil
+    var firstName: String? = nil
     var image: UIImage? = nil
 }
 

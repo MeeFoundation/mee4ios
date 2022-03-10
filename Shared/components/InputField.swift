@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct InputView: View {
-    @Binding private var text: String
+    @Binding private var text: String?
     private var title: String
     @Binding var error: String?
     
-    init(_ title: String, text: Binding<String>, error: Binding<String?>? = nil) {
+    init(_ title: String, text: Binding<String?>, error: Binding<String?>? = nil) {
         self.title = title
         self._text = text
         self._error = error ?? Binding.constant(nil)
@@ -20,7 +20,7 @@ struct InputView: View {
     
     var body: some View {
         VStack {
-            TextField(title, text: $text)
+            TextField(title, text: optionalBinding(binding: $text))
                 .font(.custom(FontNameManager.PublicSans.regular, size: 16))
                 .frame(height: 48)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
@@ -31,7 +31,7 @@ struct InputView: View {
                         .stroke(error == nil ? Colors.text : Colors.error, lineWidth: 1.0)
                 )
                 .onChange(of: text) { [] newValue in
-                    error = ""
+                    error = nil
                 }
             BasicText(text: error, color: Colors.error, size: 14, align: VerticalAlign.left)
         }

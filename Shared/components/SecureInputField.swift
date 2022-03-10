@@ -9,12 +9,12 @@ import SwiftUI
 
 struct SecureInputView: View {
     
-    @Binding private var text: String
+    @Binding private var text: String?
     @State private var isSecured: Bool = true
     private var title: String
     @Binding var error: String?
     
-    init(_ title: String, text: Binding<String>, error: Binding<String?>? = nil) {
+    init(_ title: String, text: Binding<String?>, error: Binding<String?>? = nil) {
         self.title = title
         self._text = text
         self._error = error ?? Binding.constant(nil)
@@ -24,7 +24,7 @@ struct SecureInputView: View {
         VStack {
         ZStack(alignment: .trailing) {
             if isSecured {
-                SecureField(title, text: $text)
+                SecureField(title, text: optionalBinding(binding: $text))
                     .frame(height: 48)
                     .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                     .cornerRadius(5)
@@ -33,10 +33,10 @@ struct SecureInputView: View {
                             .stroke(error == nil ? Colors.text : Colors.error, lineWidth: 1.0)
                     )
                     .onChange(of: text) { [] newValue in
-                        error = ""
+                        error = nil
                     }
             } else {
-                TextField(title, text: $text)
+                TextField(title, text: optionalBinding(binding: $text, fallback: ""))
                     .font(.custom(FontNameManager.PublicSans.regular, size: 16))
                     .frame(height: 48)
                     .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
