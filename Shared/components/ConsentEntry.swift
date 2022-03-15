@@ -11,7 +11,7 @@ struct ConsentEntry: View {
     var entry: ConsentEntryModel
     @State var isOn = true
     @State var isOpen = false
-    @State var value = ""
+    @State var value: String?
     init (consentEntry: ConsentEntryModel) {
         self.entry = consentEntry
         value = self.entry.value
@@ -36,7 +36,7 @@ struct ConsentEntry: View {
                 
                 Spacer()
  
-                if isOn && !(entry.isRequired && value == "") { Image(systemName: "checkmark")
+                if isOn && !(entry.isRequired && value == nil) { Image(systemName: "checkmark")
                         .foregroundColor(.green)
                 }
 
@@ -45,13 +45,13 @@ struct ConsentEntry: View {
                     .padding(2)
                     .overlay(
                         RoundedRectangle(cornerRadius: 0)
-                            .stroke(Colors.text, lineWidth: 2)
+                            .stroke(Colors.mainButtonColor, lineWidth: 2)
                     )
                     .font(.custom(FontNameManager.PublicSans.regular, size: 10))
             }
             if isOpen {
                 Group {
-                    TextField(entry.name, text: $value)
+                    TextField(entry.name, text:  optionalBinding(binding: $value))
                         .frame(height: 48)
                         .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 6))
                         .cornerRadius(5)
@@ -74,7 +74,7 @@ struct ConsentEntry: View {
 
 struct Previews_ConsentEntry_Previews: PreviewProvider {
     static var previews: some View {
-        ConsentEntry(consentEntry: ConsentEntryModel(name: "First Name",value: "", isRequired: true, canRead: true)
+        ConsentEntry(consentEntry: ConsentEntryModel(name: "First Name", isRequired: true, canRead: true)
         )
     }
 }
