@@ -46,23 +46,15 @@ struct SignUpPage: View {
                                 Group {
                                     InputView("Username", text: $signupForm.userName, error: $signupFormError.userName)
                                 }
-                                .padding(.top, 15.0)
-                                .padding(.bottom, 20.0)
                                 Group {
                                     InputView("Email", text: $signupForm.email, error: $signupFormError.email)
                                 }
-                                .padding(.top, 15.0)
-                                .padding(.bottom, 20.0)
                                 Group {
-                                    SecureInputView("Password", text: $signupForm.password, error: $signupFormError.password)
+                                    SecureInputView("Password", text: $signupForm.password, error: $signupFormError.password ,showAdditionalIcons: true)
                                 }
-                                .padding(.top, 15.0)
-                                .padding(.bottom, 20.0)
                                 Group {
                                     SecureInputView("Repeat Password", text: $signupForm.passwordRepeat, error: $signupFormError.passwordRepeat)
                                 }
-                                .padding(.top, 15.0)
-                                .padding(.bottom, 20.0)
                                 Spacer()
                               
                         }
@@ -108,7 +100,6 @@ struct SignUpPage: View {
                         }
                         if (signupForm.step < 3) {
                             MainButton("Next", action: {
-                                print(signupForm)
                                 switch (signupForm.step) {
                                 case 0:
                                     if checkSignupFormUserdataError() {
@@ -132,7 +123,7 @@ struct SignUpPage: View {
                     }
                     
                 }
-                .padding(.horizontal, 50.0)
+                .padding(.horizontal, 20)
             }
         }
 }

@@ -10,30 +10,41 @@ import SwiftUI
 struct InputView: View {
     @Binding private var text: String?
     private var title: String
+    private var type: UITextContentType?
     @Binding var error: String?
     
-    init(_ title: String, text: Binding<String?>, error: Binding<String?>? = nil) {
+    init(_ title: String, text: Binding<String?>, error: Binding<String?>? = nil, type: UITextContentType? = .username) {
         self.title = title
         self._text = text
         self._error = error ?? Binding.constant(nil)
+        self.type = type
     }
     
     var body: some View {
-        VStack {
-            TextField(title, text: optionalBinding(binding: $text))
-                .font(.custom(FontNameManager.PublicSans.regular, size: 16))
-                .frame(height: 48)
+        ZStack {
+            VStack{
+                VStack {
+                    if text != nil { BasicText(text: title, color: Colors.text, size: 12, align: VerticalAlign.left) }
+                    TextField(title, text: optionalBinding(binding: $text))
+                        .disableAutocorrection(true)
+                        .font(.custom(FontNameManager.PublicSans.regular, size: 16))
+                        .textContentType(type)
+                        .padding(0)
+                        .onChange(of: text) { [] newValue in
+                            error = nil
+                        }
+                }
+                .frame(height: 58)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 .padding(0)
-                .cornerRadius(5)
+                .cornerRadius(10)
                 .overlay(
-                    RoundedRectangle(cornerRadius: 5)
+                    RoundedRectangle(cornerRadius: 10)
                         .stroke(error == nil ? Colors.text : Colors.error, lineWidth: 1.0)
                 )
-                .onChange(of: text) { [] newValue in
-                    error = nil
-                }
-            BasicText(text: error, color: Colors.error, size: 14, align: VerticalAlign.left)
+                BasicText(text: error, color: Colors.error, size: 14, align: VerticalAlign.left)
+            }
         }
+        .padding(.bottom, 10)
     }
 }

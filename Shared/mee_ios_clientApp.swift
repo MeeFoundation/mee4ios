@@ -12,6 +12,8 @@ struct mee_ios_clientApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(StorageState())
+                .environmentObject(NavigationState())
         }
     }
 }
