@@ -33,6 +33,10 @@
 		A53F79CE27DA1BBC00A62589 /* optionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79CC27DA1BBC00A62589 /* optionalBinding.swift */; };
 		A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79CF27DA2DFC00A62589 /* ConsentState.swift */; };
 		A53F79D127DA2DFC00A62589 /* ConsentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79CF27DA2DFC00A62589 /* ConsentState.swift */; };
+		A53F79D327E08B9D00A62589 /* MainViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79D227E08B9D00A62589 /* MainViewPage.swift */; };
+		A53F79D427E08B9D00A62589 /* MainViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79D227E08B9D00A62589 /* MainViewPage.swift */; };
+		A53F79D627E0D56800A62589 /* PasswordManagerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79D527E0D56800A62589 /* PasswordManagerPage.swift */; };
+		A53F79D727E0D56800A62589 /* PasswordManagerPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79D527E0D56800A62589 /* PasswordManagerPage.swift */; };
 		A550854727BD1C4600C5A2D1 /* PublicSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */; };
 		A550854827BD1C4600C5A2D1 /* PublicSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */; };
 		A550854927BD1C4600C5A2D1 /* PublicSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853627BD1C4300C5A2D1 /* PublicSans-SemiBoldItalic.ttf */; };
@@ -105,6 +109,69 @@
 		A55085C627CE428200C5A2D1 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C427CE428100C5A2D1 /* LoginForm.swift */; };
 		A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
 		A55085CA27CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
+		A5A6F04C27F5DFB700BEDBDC /* authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214B27E8D7AA0070B444 /* authentication.swift */; };
+		A5A6F04D27F5E39100BEDBDC /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085B827C3B61E00C5A2D1 /* MainButton.swift */; };
+		A5A6F04E27F602E000BEDBDC /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215A27EB2D8C0070B444 /* Switch.swift */; };
+		A5A6F04F27F6E8A500BEDBDC /* urlTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213C27E22B520070B444 /* urlTools.swift */; };
+		A5A6F05027F706CD00BEDBDC /* PublicSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854327BD1C4500C5A2D1 /* PublicSans-Black.ttf */; };
+		A5A6F05127F706CD00BEDBDC /* PublicSans-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854227BD1C4500C5A2D1 /* PublicSans-BlackItalic.ttf */; };
+		A5A6F05227F706CD00BEDBDC /* PublicSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854527BD1C4500C5A2D1 /* PublicSans-Bold.ttf */; };
+		A5A6F05327F706CD00BEDBDC /* PublicSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854027BD1C4500C5A2D1 /* PublicSans-BoldItalic.ttf */; };
+		A5A6F05427F706CD00BEDBDC /* PublicSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853B27BD1C4400C5A2D1 /* PublicSans-ExtraBold.ttf */; };
+		A5A6F05527F706CD00BEDBDC /* PublicSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853A27BD1C4400C5A2D1 /* PublicSans-ExtraBoldItalic.ttf */; };
+		A5A6F05627F706CD00BEDBDC /* PublicSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854427BD1C4500C5A2D1 /* PublicSans-ExtraLight.ttf */; };
+		A5A6F05727F706CD00BEDBDC /* PublicSans-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853E27BD1C4500C5A2D1 /* PublicSans-ExtraLightItalic.ttf */; };
+		A5A6F05827F706CD00BEDBDC /* PublicSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853827BD1C4400C5A2D1 /* PublicSans-Italic.ttf */; };
+		A5A6F05927F706CD00BEDBDC /* PublicSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853F27BD1C4500C5A2D1 /* PublicSans-Light.ttf */; };
+		A5A6F05A27F706CD00BEDBDC /* PublicSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853D27BD1C4500C5A2D1 /* PublicSans-LightItalic.ttf */; };
+		A5A6F05B27F706CD00BEDBDC /* PublicSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853C27BD1C4500C5A2D1 /* PublicSans-Medium.ttf */; };
+		A5A6F05C27F706CD00BEDBDC /* PublicSans-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854627BD1C4600C5A2D1 /* PublicSans-MediumItalic.ttf */; };
+		A5A6F05D27F706CD00BEDBDC /* PublicSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853727BD1C4400C5A2D1 /* PublicSans-Regular.ttf */; };
+		A5A6F05E27F706CD00BEDBDC /* PublicSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */; };
+		A5A6F05F27F706CD00BEDBDC /* PublicSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853627BD1C4300C5A2D1 /* PublicSans-SemiBoldItalic.ttf */; };
+		A5A6F06027F706CD00BEDBDC /* PublicSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550854127BD1C4500C5A2D1 /* PublicSans-Thin.ttf */; };
+		A5A6F06127F706CD00BEDBDC /* PublicSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A550853927BD1C4400C5A2D1 /* PublicSans-ThinItalic.ttf */; };
+		A5A6F06327F7075A00BEDBDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
+		A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB212E27E1DF850070B444 /* StorageListItem.swift */; };
+		A5DB213027E1DF850070B444 /* StorageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB212E27E1DF850070B444 /* StorageListItem.swift */; };
+		A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */; };
+		A5DB213327E1F3F60070B444 /* PasswordEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */; };
+		A5DB213D27E22B520070B444 /* urlTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213C27E22B520070B444 /* urlTools.swift */; };
+		A5DB213E27E22B520070B444 /* urlTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213C27E22B520070B444 /* urlTools.swift */; };
+		A5DB214027E23D2D0070B444 /* StorageItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213F27E23D2D0070B444 /* StorageItemDetails.swift */; };
+		A5DB214127E23D2D0070B444 /* StorageItemDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213F27E23D2D0070B444 /* StorageItemDetails.swift */; };
+		A5DB214327E3321C0070B444 /* StorageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214227E3321C0070B444 /* StorageState.swift */; };
+		A5DB214427E3321C0070B444 /* StorageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214227E3321C0070B444 /* StorageState.swift */; };
+		A5DB214627E37A690070B444 /* keyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214527E37A690070B444 /* keyChain.swift */; };
+		A5DB214727E37A690070B444 /* keyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214527E37A690070B444 /* keyChain.swift */; };
+		A5DB214A27E37C040070B444 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = A5DB214927E37C040070B444 /* KeychainAccess */; };
+		A5DB214C27E8D7AA0070B444 /* authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214B27E8D7AA0070B444 /* authentication.swift */; };
+		A5DB214D27E8D7AA0070B444 /* authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214B27E8D7AA0070B444 /* authentication.swift */; };
+		A5DB214F27EA2B420070B444 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214E27EA2B420070B444 /* Popup.swift */; };
+		A5DB215027EA2B420070B444 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214E27EA2B420070B444 /* Popup.swift */; };
+		A5DB215227EA2B690070B444 /* PopupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215127EA2B690070B444 /* PopupWindow.swift */; };
+		A5DB215327EA2B690070B444 /* PopupWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215127EA2B690070B444 /* PopupWindow.swift */; };
+		A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215427EB10940070B444 /* PasswordGenerator.swift */; };
+		A5DB215627EB10940070B444 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215427EB10940070B444 /* PasswordGenerator.swift */; };
+		A5DB215B27EB2D8C0070B444 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215A27EB2D8C0070B444 /* Switch.swift */; };
+		A5DB215C27EB2D8C0070B444 /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215A27EB2D8C0070B444 /* Switch.swift */; };
+		A5DB215E27EB32D60070B444 /* passwordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215D27EB32D60070B444 /* passwordGenerator.swift */; };
+		A5DB215F27EB32D60070B444 /* passwordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB215D27EB32D60070B444 /* passwordGenerator.swift */; };
+		A5DB216227EDDECA0070B444 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB216127EDDECA0070B444 /* AuthenticationServices.framework */; };
+		A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB216327EDE9FA0070B444 /* autoFill.swift */; };
+		A5DB216527EDE9FA0070B444 /* autoFill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB216327EDE9FA0070B444 /* autoFill.swift */; };
+		A5DB216727EDFF0B0070B444 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB216127EDDECA0070B444 /* AuthenticationServices.framework */; };
+		A5DB216D27F1B2260070B444 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5DB216127EDDECA0070B444 /* AuthenticationServices.framework */; };
+		A5DB217027F1B2260070B444 /* CredentialProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB216F27F1B2260070B444 /* CredentialProviderViewController.swift */; };
+		A5DB217827F1B2260070B444 /* Mee Credential Provider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5DB216C27F1B2260070B444 /* Mee Credential Provider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A5DB21D127F47D0D0070B444 /* keyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB214527E37A690070B444 /* keyChain.swift */; };
+		A5DB21D227F47D810070B444 /* PasswordEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */; };
+		A5DB21D627F47EF20070B444 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = A5DB21D527F47EF20070B444 /* KeychainAccess */; };
+		A5DB21DC27F597C00070B444 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB21CF27F3472E0070B444 /* Buttons.swift */; };
+		A5DB21DE27F59B110070B444 /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550857F27BD550000C5A2D1 /* Themes.swift */; };
+		A5DB21DF27F5A38F0070B444 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085A627BFEB1A00C5A2D1 /* ButtonStyle.swift */; };
+		A5DB21E027F5A40C0070B444 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085BB27C3DA1A00C5A2D1 /* Text.swift */; };
+		A5DB21E127F5A4470070B444 /* fontHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550856F27BD2E3700C5A2D1 /* fontHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +196,13 @@
 			remoteGlobalIDString = 948AD54427BF8E0A00A98D88;
 			remoteInfo = "Mee Safari Extension";
 		};
+		A5DB217627F1B2260070B444 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946D2DD727BB9A950055175C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5DB216B27F1B2260070B444;
+			remoteInfo = "Mee Credential Provider";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -138,6 +212,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				A5DB217827F1B2260070B444 /* Mee Credential Provider.appex in Embed App Extensions */,
 				948AD55D27BF8E0A00A98D88 /* Mee Safari Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -173,6 +248,8 @@
 		A53F79C627D647B400A62589 /* validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = validation.swift; sourceTree = "<group>"; };
 		A53F79CC27DA1BBC00A62589 /* optionalBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = optionalBinding.swift; sourceTree = "<group>"; };
 		A53F79CF27DA2DFC00A62589 /* ConsentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentState.swift; sourceTree = "<group>"; };
+		A53F79D227E08B9D00A62589 /* MainViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPage.swift; sourceTree = "<group>"; };
+		A53F79D527E0D56800A62589 /* PasswordManagerPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordManagerPage.swift; sourceTree = "<group>"; };
 		A550853527BD1C4300C5A2D1 /* PublicSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PublicSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		A550853627BD1C4300C5A2D1 /* PublicSans-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PublicSans-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		A550853727BD1C4400C5A2D1 /* PublicSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PublicSans-Regular.ttf"; sourceTree = "<group>"; };
@@ -210,6 +287,26 @@
 		A55085C127CE33C500C5A2D1 /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
 		A55085C427CE428100C5A2D1 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		A55085C827CF741500C5A2D1 /* CurrentPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPageState.swift; sourceTree = "<group>"; };
+		A5DB212E27E1DF850070B444 /* StorageListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageListItem.swift; sourceTree = "<group>"; };
+		A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryModel.swift; sourceTree = "<group>"; };
+		A5DB213C27E22B520070B444 /* urlTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urlTools.swift; sourceTree = "<group>"; };
+		A5DB213F27E23D2D0070B444 /* StorageItemDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageItemDetails.swift; sourceTree = "<group>"; };
+		A5DB214227E3321C0070B444 /* StorageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageState.swift; sourceTree = "<group>"; };
+		A5DB214527E37A690070B444 /* keyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyChain.swift; sourceTree = "<group>"; };
+		A5DB214B27E8D7AA0070B444 /* authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = authentication.swift; sourceTree = "<group>"; };
+		A5DB214E27EA2B420070B444 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		A5DB215127EA2B690070B444 /* PopupWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWindow.swift; sourceTree = "<group>"; };
+		A5DB215427EB10940070B444 /* PasswordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
+		A5DB215A27EB2D8C0070B444 /* Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Switch.swift; sourceTree = "<group>"; };
+		A5DB215D27EB32D60070B444 /* passwordGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = passwordGenerator.swift; sourceTree = "<group>"; };
+		A5DB216127EDDECA0070B444 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.2.sdk/System/Library/Frameworks/AuthenticationServices.framework; sourceTree = DEVELOPER_DIR; };
+		A5DB216327EDE9FA0070B444 /* autoFill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = autoFill.swift; sourceTree = "<group>"; };
+		A5DB216627EDFF0A0070B444 /* Mee Safari Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Mee Safari Extension.entitlements"; sourceTree = "<group>"; };
+		A5DB216C27F1B2260070B444 /* Mee Credential Provider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Mee Credential Provider.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5DB216F27F1B2260070B444 /* CredentialProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderViewController.swift; sourceTree = "<group>"; };
+		A5DB217427F1B2260070B444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5DB217527F1B2260070B444 /* Mee_Credential_Provider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mee_Credential_Provider.entitlements; sourceTree = "<group>"; };
+		A5DB21CF27F3472E0070B444 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +314,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5DB216227EDDECA0070B444 /* AuthenticationServices.framework in Frameworks */,
+				A5DB214A27E37C040070B444 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +344,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5DB216727EDFF0B0070B444 /* AuthenticationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5DB216927F1B2260070B444 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5DB21D627F47EF20070B444 /* KeychainAccess in Frameworks */,
+				A5DB216D27F1B2260070B444 /* AuthenticationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,13 +371,16 @@
 				946D2DF327BB9A960055175C /* Tests iOS */,
 				946D2DFF27BB9A960055175C /* Tests macOS */,
 				948AD54627BF8E0A00A98D88 /* Mee Safari Extension */,
+				A5DB216E27F1B2260070B444 /* Mee Credential Provider */,
 				946D2DE427BB9A960055175C /* Products */,
+				A5DB216027EDDECA0070B444 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		946D2DDB27BB9A960055175C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A5DB213527E21D080070B444 /* extention */,
 				A55085C727CF73E700C5A2D1 /* state */,
 				A55085A527BFEB0B00C5A2D1 /* style */,
 				A550856E27BD2E1400C5A2D1 /* helpers */,
@@ -291,6 +403,7 @@
 				946D2DF027BB9A960055175C /* Tests iOS.xctest */,
 				946D2DFC27BB9A960055175C /* Tests macOS.xctest */,
 				948AD54527BF8E0A00A98D88 /* Mee Safari Extension.appex */,
+				A5DB216C27F1B2260070B444 /* Mee Credential Provider.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -324,6 +437,7 @@
 		948AD54627BF8E0A00A98D88 /* Mee Safari Extension */ = {
 			isa = PBXGroup;
 			children = (
+				A5DB216627EDFF0A0070B444 /* Mee Safari Extension.entitlements */,
 				948AD54727BF8E0A00A98D88 /* SafariWebExtensionHandler.swift */,
 				948AD55A27BF8E0A00A98D88 /* Info.plist */,
 				948AD54927BF8E0A00A98D88 /* Resources */,
@@ -358,6 +472,11 @@
 				A55085B827C3B61E00C5A2D1 /* MainButton.swift */,
 				A55085BB27C3DA1A00C5A2D1 /* Text.swift */,
 				A55085BE27C3E07200C5A2D1 /* SelectImage.swift */,
+				A5DB212E27E1DF850070B444 /* StorageListItem.swift */,
+				A5DB213F27E23D2D0070B444 /* StorageItemDetails.swift */,
+				A5DB215127EA2B690070B444 /* PopupWindow.swift */,
+				A5DB215427EB10940070B444 /* PasswordGenerator.swift */,
+				A5DB215A27EB2D8C0070B444 /* Switch.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -368,6 +487,7 @@
 				A550858B27BE4A7200C5A2D1 /* ConsentEntryModel.swift */,
 				A55085C127CE33C500C5A2D1 /* SignupForm.swift */,
 				A55085C427CE428100C5A2D1 /* LoginForm.swift */,
+				A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -378,6 +498,8 @@
 				A550857227BD473B00C5A2D1 /* ConsentPage.swift */,
 				A55085AC27C3AA0400C5A2D1 /* LoginPage.swift */,
 				A55085AF27C3AA6000C5A2D1 /* SignUpPage.swift */,
+				A53F79D227E08B9D00A62589 /* MainViewPage.swift */,
+				A53F79D527E0D56800A62589 /* PasswordManagerPage.swift */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -401,6 +523,7 @@
 		A550856B27BD1C4E00C5A2D1 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				A5DB21E227F5A77D0070B444 /* helpers */,
 			);
 			path = ios;
 			sourceTree = "<group>";
@@ -436,6 +559,11 @@
 				A550856F27BD2E3700C5A2D1 /* fontHelpers.swift */,
 				A53F79C627D647B400A62589 /* validation.swift */,
 				A53F79CC27DA1BBC00A62589 /* optionalBinding.swift */,
+				A5DB213C27E22B520070B444 /* urlTools.swift */,
+				A5DB214527E37A690070B444 /* keyChain.swift */,
+				A5DB214B27E8D7AA0070B444 /* authentication.swift */,
+				A5DB215D27EB32D60070B444 /* passwordGenerator.swift */,
+				A5DB216327EDE9FA0070B444 /* autoFill.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -453,8 +581,51 @@
 			children = (
 				A55085C827CF741500C5A2D1 /* CurrentPageState.swift */,
 				A53F79CF27DA2DFC00A62589 /* ConsentState.swift */,
+				A5DB214227E3321C0070B444 /* StorageState.swift */,
 			);
 			path = state;
+			sourceTree = "<group>";
+		};
+		A5DB213527E21D080070B444 /* extention */ = {
+			isa = PBXGroup;
+			children = (
+				A5DB214E27EA2B420070B444 /* Popup.swift */,
+			);
+			path = extention;
+			sourceTree = "<group>";
+		};
+		A5DB216027EDDECA0070B444 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5DB216127EDDECA0070B444 /* AuthenticationServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5DB216E27F1B2260070B444 /* Mee Credential Provider */ = {
+			isa = PBXGroup;
+			children = (
+				A5DB21CE27F347170070B444 /* components */,
+				A5DB216F27F1B2260070B444 /* CredentialProviderViewController.swift */,
+				A5DB217427F1B2260070B444 /* Info.plist */,
+				A5DB217527F1B2260070B444 /* Mee_Credential_Provider.entitlements */,
+			);
+			path = "Mee Credential Provider";
+			sourceTree = "<group>";
+		};
+		A5DB21CE27F347170070B444 /* components */ = {
+			isa = PBXGroup;
+			children = (
+				A5DB21CF27F3472E0070B444 /* Buttons.swift */,
+			);
+			path = components;
+			sourceTree = "<group>";
+		};
+		A5DB21E227F5A77D0070B444 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,8 +644,12 @@
 			);
 			dependencies = (
 				948AD55C27BF8E0A00A98D88 /* PBXTargetDependency */,
+				A5DB217727F1B2260070B444 /* PBXTargetDependency */,
 			);
 			name = "mee-ios-client (iOS)";
+			packageProductDependencies = (
+				A5DB214927E37C040070B444 /* KeychainAccess */,
+			);
 			productName = "mee-ios-client (iOS)";
 			productReference = 946D2DE327BB9A960055175C /* mee-ios-client.app */;
 			productType = "com.apple.product-type.application";
@@ -549,6 +724,26 @@
 			productReference = 948AD54527BF8E0A00A98D88 /* Mee Safari Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		A5DB216B27F1B2260070B444 /* Mee Credential Provider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5DB217927F1B2260070B444 /* Build configuration list for PBXNativeTarget "Mee Credential Provider" */;
+			buildPhases = (
+				A5DB216827F1B2260070B444 /* Sources */,
+				A5DB216927F1B2260070B444 /* Frameworks */,
+				A5DB216A27F1B2260070B444 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Mee Credential Provider";
+			packageProductDependencies = (
+				A5DB21D527F47EF20070B444 /* KeychainAccess */,
+			);
+			productName = "Mee Credential Provider";
+			productReference = A5DB216C27F1B2260070B444 /* Mee Credential Provider.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -556,8 +751,8 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1310;
-				LastUpgradeCheck = 1310;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					946D2DE227BB9A960055175C = {
 						CreatedOnToolsVersion = 13.1;
@@ -576,6 +771,9 @@
 					948AD54427BF8E0A00A98D88 = {
 						CreatedOnToolsVersion = 13.1;
 					};
+					A5DB216B27F1B2260070B444 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 				};
 			};
 			buildConfigurationList = 946D2DDA27BB9A950055175C /* Build configuration list for PBXProject "mee-ios-client" */;
@@ -587,6 +785,9 @@
 				Base,
 			);
 			mainGroup = 946D2DD627BB9A950055175C;
+			packageReferences = (
+				A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = 946D2DE427BB9A960055175C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -596,6 +797,7 @@
 				946D2DEF27BB9A960055175C /* Tests iOS */,
 				946D2DFB27BB9A960055175C /* Tests macOS */,
 				948AD54427BF8E0A00A98D88 /* Mee Safari Extension */,
+				A5DB216B27F1B2260070B444 /* Mee Credential Provider */,
 			);
 		};
 /* End PBXProject section */
@@ -682,6 +884,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5DB216A27F1B2260070B444 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5A6F06327F7075A00BEDBDC /* Assets.xcassets in Resources */,
+				A5A6F05027F706CD00BEDBDC /* PublicSans-Black.ttf in Resources */,
+				A5A6F05127F706CD00BEDBDC /* PublicSans-BlackItalic.ttf in Resources */,
+				A5A6F05227F706CD00BEDBDC /* PublicSans-Bold.ttf in Resources */,
+				A5A6F05327F706CD00BEDBDC /* PublicSans-BoldItalic.ttf in Resources */,
+				A5A6F05427F706CD00BEDBDC /* PublicSans-ExtraBold.ttf in Resources */,
+				A5A6F05527F706CD00BEDBDC /* PublicSans-ExtraBoldItalic.ttf in Resources */,
+				A5A6F05627F706CD00BEDBDC /* PublicSans-ExtraLight.ttf in Resources */,
+				A5A6F05727F706CD00BEDBDC /* PublicSans-ExtraLightItalic.ttf in Resources */,
+				A5A6F05827F706CD00BEDBDC /* PublicSans-Italic.ttf in Resources */,
+				A5A6F05927F706CD00BEDBDC /* PublicSans-Light.ttf in Resources */,
+				A5A6F05A27F706CD00BEDBDC /* PublicSans-LightItalic.ttf in Resources */,
+				A5A6F05B27F706CD00BEDBDC /* PublicSans-Medium.ttf in Resources */,
+				A5A6F05C27F706CD00BEDBDC /* PublicSans-MediumItalic.ttf in Resources */,
+				A5A6F05D27F706CD00BEDBDC /* PublicSans-Regular.ttf in Resources */,
+				A5A6F05E27F706CD00BEDBDC /* PublicSans-SemiBold.ttf in Resources */,
+				A5A6F05F27F706CD00BEDBDC /* PublicSans-SemiBoldItalic.ttf in Resources */,
+				A5A6F06027F706CD00BEDBDC /* PublicSans-Thin.ttf in Resources */,
+				A5A6F06127F706CD00BEDBDC /* PublicSans-ThinItalic.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -691,16 +919,29 @@
 			files = (
 				A550857027BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A55085B027C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
+				A5DB214027E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
 				A55085B327C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085BF27C3E07200C5A2D1 /* SelectImage.swift in Sources */,
 				A55085B627C3B55400C5A2D1 /* InputField.swift in Sources */,
+				A5DB213D27E22B520070B444 /* urlTools.swift in Sources */,
 				A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */,
+				A5DB215227EA2B690070B444 /* PopupWindow.swift in Sources */,
+				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
+				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
+				A5DB214627E37A690070B444 /* keyChain.swift in Sources */,
+				A53F79D327E08B9D00A62589 /* MainViewPage.swift in Sources */,
+				A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */,
+				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0627BB9A960055175C /* ContentView.swift in Sources */,
 				A55085AD27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
 				A550858C27BE4A7200C5A2D1 /* ConsentEntryModel.swift in Sources */,
+				A5DB214C27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CD27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
+				A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */,
+				A5DB215B27EB2D8C0070B444 /* Switch.swift in Sources */,
 				A550858627BE3B1400C5A2D1 /* Line.swift in Sources */,
+				A5DB215E27EB32D60070B444 /* passwordGenerator.swift in Sources */,
 				A550859227BFD40700C5A2D1 /* Background.swift in Sources */,
 				A55085C227CE33C500C5A2D1 /* SignupForm.swift in Sources */,
 				A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
@@ -711,7 +952,9 @@
 				946D2E0427BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
 				A55085A727BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
 				A550857327BD473B00C5A2D1 /* ConsentPage.swift in Sources */,
+				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085B927C3B61E00C5A2D1 /* MainButton.swift in Sources */,
+				A53F79D627E0D56800A62589 /* PasswordManagerPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,16 +964,29 @@
 			files = (
 				A550857127BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A55085B127C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
+				A5DB214127E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
 				A55085B427C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085C027C3E07200C5A2D1 /* SelectImage.swift in Sources */,
 				A55085B727C3B55400C5A2D1 /* InputField.swift in Sources */,
+				A5DB213E27E22B520070B444 /* urlTools.swift in Sources */,
 				A53F79D127DA2DFC00A62589 /* ConsentState.swift in Sources */,
+				A5DB215327EA2B690070B444 /* PopupWindow.swift in Sources */,
+				A5DB214427E3321C0070B444 /* StorageState.swift in Sources */,
+				A5DB215027EA2B420070B444 /* Popup.swift in Sources */,
+				A5DB214727E37A690070B444 /* keyChain.swift in Sources */,
+				A53F79D427E08B9D00A62589 /* MainViewPage.swift in Sources */,
+				A5DB216527EDE9FA0070B444 /* autoFill.swift in Sources */,
+				A5DB215627EB10940070B444 /* PasswordGenerator.swift in Sources */,
 				A550858127BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0727BB9A960055175C /* ContentView.swift in Sources */,
 				A55085AE27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
 				A550858D27BE4A7200C5A2D1 /* ConsentEntryModel.swift in Sources */,
+				A5DB214D27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CE27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
+				A5DB213027E1DF850070B444 /* StorageListItem.swift in Sources */,
+				A5DB215C27EB2D8C0070B444 /* Switch.swift in Sources */,
 				A550858727BE3B1400C5A2D1 /* Line.swift in Sources */,
+				A5DB215F27EB32D60070B444 /* passwordGenerator.swift in Sources */,
 				A550859327BFD40700C5A2D1 /* Background.swift in Sources */,
 				A55085C327CE33C500C5A2D1 /* SignupForm.swift in Sources */,
 				A55085CA27CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
@@ -741,7 +997,9 @@
 				946D2E0527BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
 				A55085A827BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
 				A550857427BD473B00C5A2D1 /* ConsentPage.swift in Sources */,
+				A5DB213327E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085BA27C3B61E00C5A2D1 /* MainButton.swift in Sources */,
+				A53F79D727E0D56800A62589 /* PasswordManagerPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,6 +1029,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5DB216827F1B2260070B444 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5A6F04F27F6E8A500BEDBDC /* urlTools.swift in Sources */,
+				A5A6F04E27F602E000BEDBDC /* Switch.swift in Sources */,
+				A5A6F04D27F5E39100BEDBDC /* MainButton.swift in Sources */,
+				A5A6F04C27F5DFB700BEDBDC /* authentication.swift in Sources */,
+				A5DB21E127F5A4470070B444 /* fontHelpers.swift in Sources */,
+				A5DB21E027F5A40C0070B444 /* Text.swift in Sources */,
+				A5DB21DF27F5A38F0070B444 /* ButtonStyle.swift in Sources */,
+				A5DB21DE27F59B110070B444 /* Themes.swift in Sources */,
+				A5DB21DC27F597C00070B444 /* Buttons.swift in Sources */,
+				A5DB21D227F47D810070B444 /* PasswordEntryModel.swift in Sources */,
+				A5DB21D127F47D0D0070B444 /* keyChain.swift in Sources */,
+				A5DB217027F1B2260070B444 /* CredentialProviderViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -788,6 +1065,11 @@
 			isa = PBXTargetDependency;
 			target = 948AD54427BF8E0A00A98D88 /* Mee Safari Extension */;
 			targetProxy = 948AD55B27BF8E0A00A98D88 /* PBXContainerItemProxy */;
+		};
+		A5DB217727F1B2260070B444 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5DB216B27F1B2260070B444 /* Mee Credential Provider */;
+			targetProxy = A5DB217627F1B2260070B444 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -917,12 +1199,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Mee Client";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -951,12 +1234,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Mee Client";
+				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -978,6 +1262,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1006,6 +1291,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1132,6 +1418,7 @@
 		948AD55F27BF8E0A00A98D88 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Mee Safari Extension/Mee Safari Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
@@ -1163,6 +1450,7 @@
 		948AD56027BF8E0A00A98D88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Mee Safari Extension/Mee Safari Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
@@ -1182,6 +1470,65 @@
 					SafariServices,
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.safari-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A5DB217A27F1B2260070B444 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Mee Credential Provider/Mee_Credential_Provider.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4UGU9PNWK8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Mee Credential Provider/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Mee Credential Provider";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.Extention";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A5DB217B27F1B2260070B444 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_ENTITLEMENTS = "Mee Credential Provider/Mee_Credential_Provider.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4UGU9PNWK8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Mee Credential Provider/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Mee Credential Provider";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.Extention";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1249,7 +1596,40 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		A5DB217927F1B2260070B444 /* Build configuration list for PBXNativeTarget "Mee Credential Provider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5DB217A27F1B2260070B444 /* Debug */,
+				A5DB217B27F1B2260070B444 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A5DB214927E37C040070B444 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		A5DB21D527F47EF20070B444 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 946D2DD727BB9A950055175C /* Project object */;
 }

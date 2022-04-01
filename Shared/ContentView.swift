@@ -6,65 +6,120 @@
 //
 
 import SwiftUI
+import Mee_Credential_Provider
+import AuthenticationServices
 
 enum NavigationPages: Hashable {
-  case home, consent, signUp, login
+  case home, consent, signUp, login, passwordManager
 }
 
 struct ContentView: View {
-
-    @StateObject var navigationState = NavigationState()
+    @EnvironmentObject private var navigationState: NavigationState
+    @Environment(\.scenePhase) var scenePhase
+    init() {
+ 
+    }
+    
+    private var authenticationEnabled = true
+    @State var isAuthenticated: Bool = false
+    @State var appWasMinimized: Bool = false
+    
+    func setAuthenticated (result: Bool) {
+        isAuthenticated = result
+    }
+    
+    func tryAuthenticate() {
+        if authenticationEnabled {
+            requestLocalAuthentication(setAuthenticated)
+        } else {
+            isAuthenticated = true
+        }
+    }
+    
+    func setUnlocked(result: Bool) {
+        appWasMinimized = !result
+    }
+    
+    func tryReauthenticate() {
+        if authenticationEnabled {
+            requestLocalAuthentication(setUnlocked)
+        } else {
+            isAuthenticated = true
+        }
+    }
     
     var body: some View {
-            NavigationView {
-                ZStack {
-                    Background()
-                    VStack {
-                        
-                        NavigationLink(
-                            destination: ConsentPage()
-                            .navigationBarTitle("", displayMode: .inline)
-                            .navigationBarBackButtonHidden(true)
-                            .navigationBarHidden(true)
-                            ,tag: NavigationPages.consent
-                            ,selection: $navigationState.currentPage
-                        ){
-                            Text("Consent Page")
-                                .font(.largeTitle)
-                        }
-                            NavigationLink(
-                                destination: LoginPage(navigationState: navigationState)
-                            ,tag: NavigationPages.login
-                            ,selection: $navigationState.currentPage
-                        ){
-                            Text("Login")
-                                .font(.largeTitle)
-                                .padding(.top, 10.0)
-                        }
-                        NavigationLink(
-                            destination: SignUpPage()
-                            ,tag: NavigationPages.signUp
-                            ,selection: $navigationState.currentPage
-                        ){
-                            Text("Sign Up")
-                                .font(.largeTitle)
-                                .padding(.top, 10.0)
-                        }
-                    }
+        ZStack {
+            Group {
+                if isAuthenticated {
+                    NavigationPage()
+                } else {
+                    LoginPage()
                 }
-                
             }
-            .onOpenURL { url in
-                if (url.host != nil) {
-                    switch (url.host) {
-                        case "consent":
-                        navigationState.currentPage = NavigationPages.consent
-                        default: break
-                        
+        }
+        .onAppear(perform: tryAuthenticate)
+        .onChange(of: scenePhase) { newPhase in
+                        if newPhase == .active {
+                            print("active")
+                            if appWasMinimized {tryReauthenticate()}
+                        } else if newPhase == .inactive {
+                            print("inactive")
+                            appWasMinimized = true
+                        } else if newPhase == .background {
+                            print("background")
+                            appWasMinimized = true
+                        }
                     }
-                }
+    }
+}
+
+struct NavigationPage: View {
+    @EnvironmentObject private var navigationState: NavigationState
+    var body: some View {
+        NavigationView {
+            ZStack {
+                Background()
+                    VStack {
+//                        NavigationLink(
+//                            destination: ConsentPage()
+//                            .navigationBarTitle("", displayMode: .inline)
+//                            .navigationBarBackButtonHidden(true)
+//                            .navigationBarHidden(true)
+//                            ,tag: NavigationPages.consent
+//                            ,selection: $navigationState.currentPage
+//                        ){
+//                            Text("Consent Page")
+//                                .font(.largeTitle)
+//                        }
+
+                        NavigationLink(
+                            destination: MainViewPage()
+                            ,tag: NavigationPages.passwordManager
+                            ,selection: $navigationState.currentPage
+                        ){
+//                            Text("Tabs")
+//                                .font(.largeTitle)
+//                                .padding(.top, 10.0)
+                        }
+//                        Button("Add password to keychain") {
+//                            let keychain = KeyChain()
+//                            print(keychain.getAllItems())
+//                        }
+                    }
             }
             
+        }
+        .onOpenURL { url in
+            if (url.host != nil) {
+                switch (url.host) {
+                    case "consent":
+                    navigationState.currentPage = NavigationPages.consent
+                    default: break
+                    
+                }
+            }
+        }
     }
 }
 

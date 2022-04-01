@@ -8,5 +8,6 @@
 import Foundation
 
 class NavigationState: ObservableObject {
-    @Published var currentPage:NavigationPages?
+    @Published var currentPage:NavigationPages? = NavigationPages.passwordManager
 }
+

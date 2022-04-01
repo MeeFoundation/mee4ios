@@ -10,22 +10,38 @@ import SwiftUI
 struct MainButton: View {
     private var action: () -> Void
     private var title: String
+    private var image: Image?
+    private var fullWidth: Bool?
+    private var width: CGFloat?
+    private var isDisabled: Bool?
     
-    init(_ title: String, action: @escaping () -> Void) {
+    private var color: Color
+    
+    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false) {
         self.title = title
         self.action = action
+        self.image = image
+        self.fullWidth = fullWidth
+        self.width = width
+        self.isDisabled = isDisabled
+        self.color = isDisabled! ? Color.gray : Colors.mainButtonColor
     }
     
     var body: some View {
         Button(action: action)
             {
-                Text(title)
-                    .foregroundColor(Colors.text)
-                    .font(.custom(FontNameManager.PublicSans.medium, size: 18))
+                HStack {
+                    if fullWidth! {Spacer()}
+                    image?.resizable().scaledToFit()
+                    BasicText(text: title, color: color)
+                    if fullWidth! {Spacer()}
+                }
             }
-            .padding()
-            .foregroundColor(Colors.mainButtonColor)
-            .buttonStyle(RoundedCorners(color: Colors.mainButtonColor, background: Colors.background))
+            .foregroundColor(color)
+            .frame(height: 48)
+            .frame(width: width)
+            .buttonStyle(RoundedCorners(color: color, background: Colors.background.opacity(0)))
+            .disabled(isDisabled!)
     }
 }
 
@@ -64,6 +80,29 @@ struct SecondaryButton: View {
         Button(action: action)
             {
                 BasicText(text: title)
+            }
+            .padding()
+            .foregroundColor(Colors.mainButtonColor)
+    }
+}
+
+struct AddButton: View {
+    private var action: () -> Void
+    
+    init(_ action: @escaping () -> Void) {
+        self.action = action
+    }
+    
+    var body: some View {
+        Button(action: action)
+            {
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(Colors.mainButtonColor)
+                    .background(Colors.mainButtonSecondaryColor)
+                    .clipShape(Circle())
             }
             .padding()
             .foregroundColor(Colors.mainButtonColor)
