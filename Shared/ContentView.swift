@@ -52,7 +52,7 @@ struct ContentView: View {
         ZStack {
             Group {
                 if isAuthenticated {
-                    NavigationPage()
+                    NavigationPage().disabled(appWasMinimized)
                 } else {
                     LoginPage()
                 }
@@ -65,7 +65,6 @@ struct ContentView: View {
                             if appWasMinimized {tryReauthenticate()}
                         } else if newPhase == .inactive {
                             print("inactive")
-                            appWasMinimized = true
                         } else if newPhase == .background {
                             print("background")
                             appWasMinimized = true

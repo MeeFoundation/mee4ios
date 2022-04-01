@@ -47,6 +47,7 @@ class KeyChain {
     }
     
     func updateCredentialStore() {
+        print("updating store")
         self.store.getState { state in
             if state.isEnabled {
                 var creds: [ASPasswordCredentialIdentity] = []
@@ -97,7 +98,7 @@ class KeyChain {
     
     func getItemByName (name: String) -> PasswordEntryModel? {
         do {
-            let oneItem = try keychain.authenticationPrompt("Authenticate to login to server").get(name)
+            let oneItem = try keychain.authenticationPrompt("Authenticate to use Quick Type Bar").get(name)
             if oneItem == nil {return nil}
             return self.decodeItem(oneItem!)
         } catch {
