@@ -10,10 +10,13 @@ import Mee_Credential_Provider
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-  case home, consent, signUp, login, passwordManager
+  case home, consent, signUp, login, passwordManager, emptyApp
 }
 
 struct ContentView: View {
+    @AppStorage("launchedBefore") var launchedBefore: Bool = false
+ 
+    
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
     init() {
@@ -29,15 +32,18 @@ struct ContentView: View {
     }
     
     func tryAuthenticate() {
-        if authenticationEnabled {
-            requestLocalAuthentication(setAuthenticated)
-        } else {
-            isAuthenticated = true
+        if launchedBefore  {
+            if authenticationEnabled {
+                requestLocalAuthentication(setAuthenticated)
+            } else {
+                isAuthenticated = true
+            }
         }
     }
     
     func setUnlocked(result: Bool) {
         appWasMinimized = !result
+        isAuthenticated = result
     }
     
     func tryReauthenticate() {
@@ -51,14 +57,22 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Group {
-                if isAuthenticated {
-                    NavigationPage().disabled(appWasMinimized)
-                } else {
-                    LoginPage()
+                if !launchedBefore  {
+                    FirstRunPage()
+                }  else {
+                    if isAuthenticated {
+                        NavigationPage().disabled(appWasMinimized)
+                    } else {
+                        LoginPage()
+                    }
                 }
             }
         }
+        .font(Font.custom("PublicSans-Regular", size: 16))
         .onAppear(perform: tryAuthenticate)
+        .onChange(of: launchedBefore) {launchedBeforeNewState in
+            tryAuthenticate()
+        }
         .onChange(of: scenePhase) { newPhase in
                         if newPhase == .active {
                             print("active")
@@ -67,9 +81,24 @@ struct ContentView: View {
                             print("inactive")
                         } else if newPhase == .background {
                             print("background")
+                            if (navigationState.currentPage == NavigationPages.consent) {
+                                navigationState.currentPage = NavigationPages.emptyApp
+                            }
+
                             appWasMinimized = true
                         }
-                    }
+        }
+        .onOpenURL { url in
+            print(url)
+            if (url.host != nil) {
+                switch (url.host) {
+                    case "consent":
+                    navigationState.currentPage = NavigationPages.consent
+                    default: break
+                    
+                }
+            }
+        }
     }
 }
 
@@ -80,21 +109,23 @@ struct NavigationPage: View {
             ZStack {
                 Background()
                     VStack {
-//                        NavigationLink(
-//                            destination: ConsentPage()
-//                            .navigationBarTitle("", displayMode: .inline)
-//                            .navigationBarBackButtonHidden(true)
-//                            .navigationBarHidden(true)
-//                            ,tag: NavigationPages.consent
-//                            ,selection: $navigationState.currentPage
-//                        ){
-//                            Text("Consent Page")
-//                                .font(.largeTitle)
-//                        }
+                        NavigationLink(
+                            destination: ConsentPage()
+                            .navigationBarTitle("", displayMode: .inline)
+                            .navigationBarBackButtonHidden(true)
+                            .navigationBarHidden(true)
+                            ,tag: NavigationPages.consent
+                            ,selection: $navigationState.currentPage
+                        ){
+                            Text("Consent Page")
+                                .font(.largeTitle)
+                        }
 
                         NavigationLink(
-                            destination: MainViewPage()
-                            ,tag: NavigationPages.passwordManager
+                            destination: EmptyAppPage()
+                            .navigationBarBackButtonHidden(true)
+                            .navigationBarHidden(true)
+                            ,tag: NavigationPages.emptyApp
                             ,selection: $navigationState.currentPage
                         ){
 //                            Text("Tabs")
@@ -108,25 +139,6 @@ struct NavigationPage: View {
                     }
             }
             
-        }
-        .onOpenURL { url in
-            if (url.host != nil) {
-                switch (url.host) {
-                    case "consent":
-                    navigationState.currentPage = NavigationPages.consent
-                    default: break
-                    
-                }
-            }
-        }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        Group {
-            ContentView()
         }
     }
 }

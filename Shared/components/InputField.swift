@@ -12,12 +12,14 @@ struct InputView: View {
     private var title: String
     private var type: UITextContentType?
     @Binding var error: String?
+    private var autocapitalization: Bool?
     
-    init(_ title: String, text: Binding<String?>, error: Binding<String?>? = nil, type: UITextContentType? = .username) {
+    init(_ title: String, text: Binding<String?>, error: Binding<String?>? = nil, type: UITextContentType? = .username, autocapitalization: Bool? = false) {
         self.title = title
         self._text = text
         self._error = error ?? Binding.constant(nil)
         self.type = type
+        self.autocapitalization = autocapitalization
     }
     
     var body: some View {
@@ -29,6 +31,7 @@ struct InputView: View {
                         .disableAutocorrection(true)
                         .font(.custom(FontNameManager.PublicSans.regular, size: 16))
                         .textContentType(type)
+                        .autocapitalization(autocapitalization! ? .sentences : .none)
                         .padding(0)
                         .onChange(of: text) { [] newValue in
                             error = nil

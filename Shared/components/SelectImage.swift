@@ -41,7 +41,7 @@ struct LibraryImage: View {
 
             if (uiImage == nil) {
                 Image(systemName: "camera.on.rectangle")
-                    .foregroundColor(Colors.mainButtonColor)
+                    .foregroundColor(Colors.mainButtonTextColor)
                     .background(
                         Colors.background
                             .frame(width: 150, height: 150)
@@ -49,7 +49,7 @@ struct LibraryImage: View {
                     .padding(.all, 75.0)
                     .overlay(
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Colors.mainButtonColor, lineWidth: 2)
+                                .stroke(Colors.mainButtonTextColor, lineWidth: 2)
                         )
                     .onTapGesture {
                         self.showImagePicker = true

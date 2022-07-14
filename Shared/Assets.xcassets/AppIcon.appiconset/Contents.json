@@ -1,109 +1,109 @@
 {
   "images" : [
     {
-      "filename" : "Mee Medium 40x40.jpg",
+      "filename" : "mee_logo_20x2_iphone.jpg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "Mee Medium 60x60.jpg",
+      "filename" : "mee_logo_20x3_iphone.jpg",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "Mee Medium 58x58.jpg",
+      "filename" : "mee_logo_29x2_iphone.jpg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "Mee Medium 87x87.jpg",
+      "filename" : "mee_logo_29x3_iphone.jpg",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "Mee Medium 80x80.jpg",
+      "filename" : "mee_logo_40x2_iphone.jpg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "Mee Medium 120x120-1.jpg",
+      "filename" : "mee_logo_40x3_iphone.jpg",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "Mee Medium 120x120.jpg",
+      "filename" : "mee_logo_60x2.jpg",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "Mee Medium 180x180.jpg",
+      "filename" : "mee_logo_60x3.jpg",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "Mee Medium 20x20.jpg",
+      "filename" : "mee_logo_20x1.jpg",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "Mee Medium 40x40-1.jpg",
+      "filename" : "mee_logo_20x2.jpg",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "Mee Medium 29x29.jpg",
+      "filename" : "mee_logo_29x1.jpg",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "Mee Medium 58x58-1.jpg",
+      "filename" : "mee_logo_29x2.jpg",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "Mee Medium 40x40-2.jpg",
+      "filename" : "mee_logo_40x1.jpg",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "Mee Medium 80x80-1.jpg",
+      "filename" : "mee_logo_40x2.jpg",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "Mee Medium 76x76.jpg",
+      "filename" : "mee_logo_76x1.jpg",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "Mee Medium 152x152.jpg",
+      "filename" : "mee_logo_76x2.jpg",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "Mee Medium 167x167.jpg",
+      "filename" : "mee_logo_83.5.jpg",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "Mee Medium 1024x1024.jpg",
+      "filename" : "mee_logo_1024.jpg",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"

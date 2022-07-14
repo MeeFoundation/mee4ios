@@ -19,35 +19,20 @@ struct ConsentEntry: View {
     var body: some View {
         VStack{
             HStack {
-                Toggle(isOn: $isOn) {
- 
-                }
-                .frame(width: 60)
-                .disabled(entry.isRequired)
+                Image(getConsentEntryImageByType(entry.type)).resizable().scaledToFit()
+                    .frame(width: 18, height: 18, alignment: .center)
+                    .padding(.trailing, 13)
                 Button(action: {
                     if (entry.hasValue) {
                         isOpen = !isOpen
                     }
                 }) {
-                    Text("\(entry.name)\(entry.isRequired ? Text(" *").foregroundColor(.red) : Text(""))")
-                    .foregroundColor(Colors.text)
+                    Text(entry.name)
+                    .foregroundColor(Colors.meeBrand)
                     .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                 }
                 
                 Spacer()
- 
-                if isOn && !(entry.isRequired && value == nil) { Image(systemName: "checkmark")
-                        .foregroundColor(.green)
-                }
-
-                    
-                Text("\(entry.canRead ? "Read" : "")\(entry.canWrite ? "Write" : "")")
-                    .padding(2)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 0)
-                            .stroke(Colors.mainButtonColor, lineWidth: 2)
-                    )
-                    .font(.custom(FontNameManager.PublicSans.regular, size: 10))
             }
             if isOpen {
                 Group {
@@ -63,18 +48,14 @@ struct ConsentEntry: View {
                 .padding(.horizontal, 10.0)
                 .padding(.top, 15.0)
             }
-            Line()
-                .stroke(style: StrokeStyle(lineWidth: 1))
-                .frame(height: 1)
-                .opacity(0.1)
         }
-        .padding(.vertical, 5.0)
+        .padding(.bottom, 8.0)
     }
 }
 
-struct Previews_ConsentEntry_Previews: PreviewProvider {
-    static var previews: some View {
-        ConsentEntry(consentEntry: ConsentEntryModel(name: "First Name", isRequired: true, canRead: true)
-        )
-    }
-}
+//struct Previews_ConsentEntry_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ConsentEntry(consentEntry: ConsentEntryModel(name: "First Name", isRequired: true, canRead: true)
+//        )
+//    }
+//}

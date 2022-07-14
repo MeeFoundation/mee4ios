@@ -11,7 +11,14 @@ import SwiftUI
 struct Colors {
     static let background = Color("backgroundColor")
     static let text = Color("textColor")
-    static let mainButtonColor = Color("mainButtonColor")
-    static let mainButtonSecondaryColor = Color("mainButtonSecondaryColor")
+    static let textGrey = Color("textColorGrey")
+    static let mainButtonBgColor = Color("mainButtonBgColor")
+    static let mainButtonTextColor = Color("mainButtonTextColor")
+    static let secondaryButtonTextColor = Color("secondaryButtonTextColor")
+    static let secondaryButtonBgColor = Color("secondaryButtonBgColor")
+    static let meeBrand = Color("meeBrandColor")
     static let error = Color.red
+    static let inactive = Color.gray
+    static let popupBackground = Color("popupBackgroundColor")
+    static let inactiveBackground = Color("inactiveBackgroundColor")
 }

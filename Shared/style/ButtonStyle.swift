@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainButtonStyle: ButtonStyle {
-    var color: Color = Colors.mainButtonColor
+    var color: Color = Colors.mainButtonTextColor
     
     public func makeBody(configuration: MainButtonStyle.Configuration) -> some View {
         
@@ -36,12 +36,12 @@ struct RoundedCorners: ButtonStyle {
     
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .background(background)
-            .padding(10)
+            .padding(18)
             .overlay(
                    RoundedRectangle(cornerRadius: 10)
-                       .stroke(color, lineWidth: 1)
+                       .stroke(color)
                )
+            .background(Color.black)
             .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
         }
 }

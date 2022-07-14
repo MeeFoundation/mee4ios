@@ -9,35 +9,68 @@ import SwiftUI
 
 struct ConsentPage: View {
     @StateObject var data = ConsentState()
+    @Environment(\.openURL) var openURL
+    @State private var showCertified = false
     var body: some View {
         ZStack {
-            Background()
-            VStack {
-                HStack {
-                    Image("meeLogo").resizable().scaledToFit()
-                    Line()
-                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
-                        .frame(height: 1)
-                    Image(systemName: "checkmark.circle.fill")
-                        .foregroundColor(.green)
-                        .font(.system(size: 30))
-                    Line()
-                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
-                        .frame(height: 1)
-                    Text("ENK")
-                        .foregroundColor(Colors.text)
-                        .font(.custom(FontNameManager.PublicSans.bold, size: 31))
-                    
+            BackgroundWhite()
+
+            if showCertified {
+                VStack {
+                    WebView(request: URLRequest(url: URL(string: "https://getmee.org/#/mee-certified")!))
+                        .padding(.horizontal, 10)
+                    SecondaryButton("Close", action: {
+                        showCertified.toggle()
+                    })
                 }
-                .padding(.bottom, 10.0)
+            } else {
+            VStack(spacing: 0) {
+                VStack {
+                    HStack {
+                        Image("meeLogo").resizable().scaledToFit()
+                            .frame(width: 48, alignment: .center)
+                        Line()
+                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                            .frame(height: 1)
+                            .foregroundColor(Colors.meeBrand)
+                        VStack {
+                            Image("meeCertifiedLogo").resizable().scaledToFit()
+                                .frame(width: 48, height: 48, alignment: .center)
+                        }
+                        Line()
+                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                            .frame(height: 1)
+                            .foregroundColor(Colors.meeBrand)
+                        Image("nyTimesLogo").resizable().scaledToFit()
+                            .frame(width: 48, height: 48, alignment: .center)
+                    }
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            showCertified.toggle()
+                        }) {
+                            BasicText(text: "Mee-certified", color: Colors.meeBrand, size: 14, underline: true)
+                        }
+                        Spacer()
+                    }
+                    .offset(x: 0, y: -7)
+                }
+                .padding(.bottom, 24.0)
+                .padding(.top, 30)
                 Text(data.consent.name)
                     .foregroundColor(Colors.text)
-                    .font(.custom(FontNameManager.PublicSans.bold, size: 25))
-                    .padding(.bottom, 5.0)
-                Text("Needs access to following information:")
-                    .foregroundColor(Colors.text)
-                    .font(.custom(FontNameManager.PublicSans.regular, size: 18))
-                    .padding(.bottom, 35.0)
+                    .font(.custom(FontNameManager.PublicSans.bold, size: 30))
+                HStack {
+                    Image("lockIcon").resizable().scaledToFit()
+                        .frame(height: 24)
+                    Text(data.consent.url)
+                        .foregroundColor(Colors.meeBrand)
+                        .font(.custom(FontNameManager.PublicSans.bold, size: 30))
+                }
+                Text("Needs access to the following data:")
+                    .foregroundColor(Colors.textGrey)
+                    .font(.custom(FontNameManager.PublicSans.medium, size: 18))
+                    .padding(.bottom, 24.0)
 //                Button(action: buttonAction, label: {
 //                    Text("Tap Here")
 //                })
@@ -49,51 +82,31 @@ struct ConsentPage: View {
                     .padding(.bottom, 20.0)
                     .padding(.trailing, 10.0)
                 }
-                HStack {
-                    Text("Scopes: ")
-                        .foregroundColor(Colors.text)
-                        .font(.custom(FontNameManager.PublicSans.bold, size: 18))
-                    Text("\(data.consent.scopes.joined(separator: ", "))")
-                        .foregroundColor(Colors.text)
-                        .font(.custom(FontNameManager.PublicSans.regular, size: 18))
-                    Spacer()
-                }
+ 
                 .padding(.bottom, 10.0)
-                HStack {
-                    Text("*")
-                        .foregroundColor(.red)
-                        .font(.custom(FontNameManager.PublicSans.bold, size: 18))
-                    Text("- required attribute")
-                        .foregroundColor(Colors.text)
-                        .font(.custom(FontNameManager.PublicSans.regular, size: 18))
-                    Spacer()
-                }
+
 
                 Spacer()
-                    HStack {
-                    Button(action: {}){
-                        Link("APPROVE", destination: URL(string: "http://localhost:3000/?interest=sweets")!)
-                    }
-                    .buttonStyle(MainButtonStyle())
-                    Spacer()
-                    DestructiveButton("DECLINE", action: {})
+                    VStack {
+                        RejectButton("Decline", action: {
+                            openURL(URL(string: "http://localhost:3001/#/reject")!)
+                        }, fullWidth: true)
+                        SecondaryButton("Approve", action: {
+                            openURL(URL(string: "http://localhost:3001/?interest=world-news")!)
+                        }, fullWidth: true)
                 }
                 .padding(.top, 10.0)
+                .padding(.bottom, 30)
             }
-            .padding(.horizontal, 10.0)
+            .padding(.horizontal, 16.0)
             
         }
         
     }
+    }
     func buttonAction(){
 
     }
-        
+                                                     
     
-}
-
-struct Previews_ConsentPage_Previews: PreviewProvider {
-    static var previews: some View {
-        ConsentPage()
-    }
 }

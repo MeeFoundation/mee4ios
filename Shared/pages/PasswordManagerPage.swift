@@ -25,8 +25,8 @@ struct PasswordManagerPage: View {
                         ZStack {
                             HStack {
                                 Image(systemName: "key.fill")
-                                    .foregroundColor(selectedTab == .Passwords ? Colors.mainButtonColor : Color.gray)
-                                BasicText(text: "Passwords", color: selectedTab == .Passwords ? Colors.mainButtonColor : Color.gray, size: 14)
+                                    .foregroundColor(selectedTab == .Passwords ? Colors.mainButtonTextColor : Color.gray)
+                                BasicText(text: "Passwords", color: selectedTab == .Passwords ? Colors.mainButtonTextColor : Color.gray, size: 14)
                             }
                             .onTapGesture {
                                 self.selectedTab = .Passwords
@@ -35,8 +35,8 @@ struct PasswordManagerPage: View {
                         Spacer()
                         HStack {
                             Image(systemName: "creditcard")
-                                .foregroundColor(selectedTab == .CreditCards ? Colors.mainButtonColor : Color.gray)
-                            BasicText(text: "Credit Cards", color: selectedTab == .CreditCards ? Colors.mainButtonColor : Color.gray, size: 14)
+                                .foregroundColor(selectedTab == .CreditCards ? Colors.mainButtonTextColor : Color.gray)
+                            BasicText(text: "Credit Cards", color: selectedTab == .CreditCards ? Colors.mainButtonTextColor : Color.gray, size: 14)
                         }
                         .onTapGesture {
                             self.selectedTab = .CreditCards

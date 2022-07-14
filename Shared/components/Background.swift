@@ -14,3 +14,27 @@ struct Background: View {
             .edgesIgnoringSafeArea(.all)
     }
 }
+
+struct BackgroundFaded: View {
+    var body: some View {
+        Rectangle()
+            .foregroundColor(Color.black.opacity(0.4))
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct BackgroundColor: View {
+    var body: some View {
+        Rectangle()
+            .foregroundColor(Colors.meeBrand)
+            .edgesIgnoringSafeArea(.all)
+    }
+}
+
+struct BackgroundWhite: View {
+    var body: some View {
+        Rectangle()
+            .foregroundColor(Color.white)
+            .edgesIgnoringSafeArea(.all)
+    }
+}

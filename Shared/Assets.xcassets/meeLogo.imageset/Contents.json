@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Mee Word Mark White.svg",
+      "filename" : "meeAppLogo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,7 +12,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "Mee Word Mark Blue.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -23,7 +22,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Mee Word Mark White-1.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },

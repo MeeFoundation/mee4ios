@@ -54,7 +54,7 @@ struct MainViewPage: View {
                     Text("2FA")
                 }
         }
-        .accentColor(Colors.mainButtonColor)
+        .accentColor(Colors.mainButtonTextColor)
         .background(Colors.background.edgesIgnoringSafeArea(.all))
         .navigationBarTitle(getNavBarTitleText())
         .navigationBarBackButtonHidden(true)

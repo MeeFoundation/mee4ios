@@ -58,7 +58,7 @@ struct ListButton: View {
                 }
                 .frame(height: 32)
             }
-            .buttonStyle(RoundedCorners(color: Colors.mainButtonColor, background: Colors.background.opacity(0)))
+            .buttonStyle(RoundedCorners(color: Colors.mainButtonTextColor, background: Colors.background.opacity(0)))
             .padding(.top, 10)
             .padding(.horizontal, 10)
     }

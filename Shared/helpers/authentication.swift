@@ -45,3 +45,30 @@ func requestLocalAuthentication (_ completion: @escaping ((Bool) -> ())) {
         print("biometrics unavailable")
     }
 }
+
+func biometricType() -> BiometricType {
+    let authContext = LAContext()
+    if #available(iOS 11, *) {
+        let _ = authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        switch(authContext.biometryType) {
+        case .none:
+            return .none
+        case .touchID:
+            return .touch
+        case .faceID:
+            return .face
+        default:
+            return .none
+        }
+    } else {
+        return authContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) ? .touch : .none
+    }
+}
+
+let biometricsTypeText = biometricType() == .touch ? "Touch ID" : biometricType() == .face ? "Face ID" : "passcode"
+
+enum BiometricType {
+    case none
+    case touch
+    case face
+}

@@ -42,7 +42,7 @@ struct StorageItemDetails: View {
                     keychain.editItem(item: item)
                     saveEntry(item)
                     goBack()
-                }, image: Image(systemName: "opticaldisc"), fullWidth: true)
+                }, image: Image(systemName: "externaldrive.fill.badge.checkmark"), fullWidth: true)
                 DestructiveButton("Cancel", action: {
                     removeEntry()
                     goBack()

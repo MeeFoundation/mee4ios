@@ -8,14 +8,38 @@
 import Foundation
 
 struct ConsentModel {
-    var name: String
+    let name: String
+    let url: String
     var entries: [ConsentEntryModel]
-    var scopes: [String]
+}
+
+enum ConsentEntryType {
+    case id
+    case name
+    case email
+    case card
+    case date
+}
+
+func getConsentEntryImageByType (_ entryType: ConsentEntryType) -> String {
+    switch entryType {
+    case ConsentEntryType.id:
+        return "keyIcon"
+    case ConsentEntryType.name:
+        return "personIcon"
+    case ConsentEntryType.email:
+        return "letterIcon"
+    case ConsentEntryType.card:
+        return "cardIcon"
+    case ConsentEntryType.date:
+        return "calendarIcon"
+    }
 }
 
 struct ConsentEntryModel: Identifiable {
     let id = UUID()
     let name: String
+    let type: ConsentEntryType
     let value: String? = nil
     var isRequired: Bool = false
     var canRead: Bool = false

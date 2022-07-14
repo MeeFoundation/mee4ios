@@ -10,36 +10,39 @@ import SwiftUI
 struct LoginPage: View {
     @State var loginForm = LoginForm()
     @EnvironmentObject private var navigationState: NavigationState
+    
     var body: some View {
         NavigationView {
             ZStack {
-                Background()
+                BackgroundFaded()
                 VStack {
-                    Image("meeLogo").resizable().scaledToFit().padding(.horizontal, 50.0).padding(.bottom, 20.0).padding(.top, 50.0)
-                    Group {
-                        InputView("Username", text: $loginForm.username)
+                    ZStack {
+                        Image("meeLogoInactive").resizable().scaledToFit()
                     }
-                    .padding(.top, 15.0)
-                    .padding(.bottom, 20.0)
-                    Group {
-                        SecureInputView("Password", text: $loginForm.password)
-                    }
-                    .padding(.top, 15.0)
+                    .padding(.horizontal, 115.0).padding(.top, 35.0)
+//                    Group {
+//                        InputView("Username", text: $loginForm.username)
+//                    }
+//                    .padding(.top, 15.0)
+//                    .padding(.bottom, 20.0)
+//                    Group {
+//                        SecureInputView("Password", text: $loginForm.password)
+//                    }
+//                    .padding(.top, 15.0)
                     Spacer()
-                    HStack {
-                        MainButton("Login", action: {})
-                        NavigationLink(
-                            destination: SignUpPage()
-                            ,tag: NavigationPages.signUp
-                            ,selection: $navigationState.currentPage
-                        ) {
-                            SecondaryButton("Sign Up", action: {
-                                navigationState.currentPage = NavigationPages.signUp
-                            })
-                        }
-                    }
+//                    HStack {
+//                        MainButton("Login", action: {})
+//                        NavigationLink(
+//                            destination: SignUpPage()
+//                            ,tag: NavigationPages.signUp
+//                            ,selection: $navigationState.currentPage
+//                        ) {
+//                            SecondaryButton("Sign Up", action: {
+//                                navigationState.currentPage = NavigationPages.signUp
+//                            })
+//                        }
+//                    }
                 }
-                .padding(.horizontal, 50.0)
             }
         }
     }

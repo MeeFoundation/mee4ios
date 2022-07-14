@@ -83,7 +83,7 @@ struct SecureInputView: View {
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 15.0, height: 15.0)
-                                .accentColor(self.isSecured ? .gray : Colors.mainButtonColor)
+                                .accentColor(self.isSecured ? .gray : Colors.mainButtonTextColor)
                         }
                     }
                     

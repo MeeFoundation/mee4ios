@@ -50,10 +50,10 @@ struct SignUpPage: View {
                                     InputView("Email", text: $signupForm.email, error: $signupFormError.email)
                                 }
                                 Group {
-                                    SecureInputView("Password", text: $signupForm.password, error: $signupFormError.password ,showAdditionalIcons: true)
+                                    SecureInputView("Password", text: $signupForm.password, error: $signupFormError.password)
                                 }
                                 Group {
-                                    SecureInputView("Repeat Password", text: $signupForm.passwordRepeat, error: $signupFormError.passwordRepeat)
+                                    SecureInputView("Repeat Password", text: $signupForm.passwordRepeat, error: $signupFormError.passwordRepeat, showAdditionalIcons: true)
                                 }
                                 Spacer()
                               
@@ -61,7 +61,7 @@ struct SignUpPage: View {
                         case 1: Group{
                             Image(systemName: "folder.fill")
                                 .resizable()
-                                .foregroundColor(Colors.mainButtonColor)
+                                .foregroundColor(Colors.mainButtonTextColor)
                                 .scaledToFit()
                                 .padding(.horizontal, 70.0)
                                 .padding(.top, 100)
