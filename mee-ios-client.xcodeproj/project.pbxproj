@@ -303,6 +303,11 @@
 		A5D30C85287C5AF100481E85 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		A5D30C88287DBD7300481E85 /* EmptyAppPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAppPage.swift; sourceTree = "<group>"; };
 		A5D30C8B287F0F2B00481E85 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
+=======
+		A5D30C8E288815EE00481E85 /* librust.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = librust.a; path = rust/lib/librust.a; sourceTree = "<group>"; };
+		A5D30C9128886A7200481E85 /* passParameterToAppOverAppstore.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = passParameterToAppOverAppstore.md; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		A5DB212E27E1DF850070B444 /* StorageListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageListItem.swift; sourceTree = "<group>"; };
 		A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryModel.swift; sourceTree = "<group>"; };
 		A5DB213C27E22B520070B444 /* urlTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urlTools.swift; sourceTree = "<group>"; };
@@ -379,6 +384,7 @@
 		946D2DD627BB9A950055175C = {
 			isa = PBXGroup;
 			children = (
+				A5D30C9128886A7200481E85 /* passParameterToAppOverAppstore.md */,
 				948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */,
 				A550856C27BD243500C5A2D1 /* mee-ios-client--iOS--Info.plist */,
 				A550856B27BD1C4E00C5A2D1 /* ios */,
