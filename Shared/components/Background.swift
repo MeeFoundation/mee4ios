@@ -38,3 +38,11 @@ struct BackgroundWhite: View {
             .edgesIgnoringSafeArea(.all)
     }
 }
+
+struct BackgroundYellow: View {
+    var body: some View {
+        Rectangle()
+            .foregroundColor(Colors.meeBrandYellow)
+            .edgesIgnoringSafeArea(.all)
+    }
+}

@@ -17,6 +17,8 @@ struct Colors {
     static let secondaryButtonTextColor = Color("secondaryButtonTextColor")
     static let secondaryButtonBgColor = Color("secondaryButtonBgColor")
     static let meeBrand = Color("meeBrandColor")
+    static let meeBrandYellow = Color("meeBrandYellowColor")
+    static let textYellow = Color("textYellowColor")
     static let error = Color.red
     static let inactive = Color.gray
     static let popupBackground = Color("popupBackgroundColor")

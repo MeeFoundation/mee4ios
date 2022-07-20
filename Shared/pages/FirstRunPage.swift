@@ -8,13 +8,13 @@
 import SwiftUI
 
 enum FirstRunPages: Hashable {
-  case prepare, faceId, faceIdSet, initializing
+  case welcome, prepare, faceId, faceIdSet, initializing
 }
 
 
 struct FirstRunPage: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
-    @State private var currentPage = FirstRunPages.prepare
+    @State private var currentPage = FirstRunPages.welcome
     
     func tryAuthenticate() {
         currentPage = FirstRunPages.faceId
@@ -41,6 +41,8 @@ struct FirstRunPage: View {
                 ZStack {
                     FirstRunPageInitializing(onNext: finishInitializing)
                 }.background(Colors.background)
+            } else if currentPage == FirstRunPages.welcome {
+                FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare})
             } else {
             ZStack {
                 BackgroundFaded()
@@ -62,6 +64,34 @@ struct FirstRunPage: View {
     
 }
 
+struct FirstRunPageWelcome: View {
+    var onNext: () -> Void
+    var body: some View {
+        ZStack {
+            BackgroundYellow()
+            VStack(spacing: 0) {
+                Image("meeEntry").resizable().scaledToFit()
+                    .overlay(VStack(spacing: 0) {
+                        HStack {
+                            BasicText(text:"Hello. ", color: Colors.textYellow, size: 30, fontName: FontNameManager.PublicSans.bold)
+                            BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: 30, fontName: FontNameManager.PublicSans.regularItalic)
+                        }
+                        BasicText(text:"I’m your digital twin - a digital representation of you. My job is to increase your privacy online. I do this by storing information about you in a secret database on this phone. When apps or websites want to know something about you, they ask me first. Under your direction, I share as much or as little as you tell me to.", color: Colors.meeBrand, size: 14).frame(width: 290)
+                            .lineSpacing(5)
+                            .padding(.top, 10)
+                    }.padding(.top, 50)
+                             , alignment: .top)
+                RejectButton("Continue", action: onNext, fullWidth: true)
+                .padding(.horizontal, 16)
+                Spacer()
+            }
+            .padding(.top, 52)
+            .padding(.horizontal, 8)
+            
+        }.ignoresSafeArea(.all)
+    }
+}
+
 struct FirstRunPagePrepare: View {
     var onNext: () -> Void
     
@@ -72,12 +102,16 @@ struct FirstRunPagePrepare: View {
                     .frame(width: 60.5, height: 60.5, alignment: .center)
                     .padding(.top, 14)
                     .zIndex(10)
-                Text("Secure your Data!").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
-                    .lineSpacing(41)
-                    .padding(.bottom, 8)
-                Text("Please set up \(biometricsTypeText), otherwise you can't use Mee")
+                Text("Set up your Digital \n Twin").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
                     .fixedSize(horizontal: false, vertical: true)
-                    .multilineTextAlignment(.center).padding(.horizontal, 60)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    
+                Text("To store your data, Mee contains a secure vault, which is safely encrypted by \(biometricsTypeText). \nPlease set up \(biometricsTypeText).")
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 16)
                     .padding(.bottom, 64)
                 MainButton("Continue", action: onNext, fullWidth: true)
                     .padding(.horizontal, 16)

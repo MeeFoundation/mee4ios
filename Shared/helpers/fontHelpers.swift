@@ -24,5 +24,6 @@ struct FontNameManager {
     static let bold = "PublicSans-Bold"
     static let medium = "PublicSans-Medium"
     static let semibold = "PublicSans-SemiBold"
+    static let regularItalic = "PublicSans-Italic"
   }
 }

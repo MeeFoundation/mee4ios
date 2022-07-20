@@ -17,6 +17,7 @@
 	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>PublicSans-Italic.ttf</string>
 		<string>PublicSans-Regular.ttf</string>
 		<string>PublicSans-Bold.ttf</string>
 		<string>PublicSans-Light.ttf</string>
