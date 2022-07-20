@@ -14,6 +14,12 @@ struct mee_ios_clientApp: App {
             ContentView()
                 .environmentObject(StorageState())
                 .environmentObject(NavigationState())
+                .onAppear(){
+                    let result = rust_hello("world")
+                    let swift_result = String(cString: result!)
+                    rust_hello_free(UnsafeMutablePointer(mutating: result))
+                    print(swift_result)
+                }
         }
     }
 }
