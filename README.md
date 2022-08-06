@@ -1,5 +1,4 @@
-# mee-ios-client
-iOS Mee client
+#iOS Mee Privacy Agent
 
 ## License
 Copyright 2022 The Mee Project, Inc.
