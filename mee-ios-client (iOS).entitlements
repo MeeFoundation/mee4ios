@@ -4,14 +4,12 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:b3a3-190-2-146-228.ngrok.io</string>
+		<string>applinks:getmee.org</string>
 	</array>
 	<key>com.apple.developer.authentication-services.autofill-credential-provider</key>
 	<true/>
 	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>group.mee.credentials.share</string>
-	</array>
+	<array/>
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)com.swift.mee-ios-client.share</string>

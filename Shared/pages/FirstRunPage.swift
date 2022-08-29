@@ -15,6 +15,7 @@ enum FirstRunPages: Hashable {
 struct FirstRunPage: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @State private var currentPage = FirstRunPages.welcome
+    @Environment(\.openURL) var openURL
     
     func tryAuthenticate() {
         currentPage = FirstRunPages.faceId
@@ -33,6 +34,7 @@ struct FirstRunPage: View {
     
     func finishInitializing() {
         launchedBefore = true
+//        openURL(URL(string: "http://localhost:3000/#/app-redirect")!)
     }
     
     var body: some View {
@@ -76,12 +78,12 @@ struct FirstRunPageWelcome: View {
                             BasicText(text:"Hello. ", color: Colors.textYellow, size: 30, fontName: FontNameManager.PublicSans.bold)
                             BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: 30, fontName: FontNameManager.PublicSans.regularItalic)
                         }
-                        BasicText(text:"I’m your digital twin - a digital representation of you. My job is to increase your privacy online. I do this by storing information about you in a secret database on this phone. When apps or websites want to know something about you, they ask me first. Under your direction, I share as much or as little as you tell me to.", color: Colors.meeBrand, size: 14).frame(width: 290)
+                        BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: 14).frame(width: 290)
                             .lineSpacing(5)
-                            .padding(.top, 10)
+                            .padding(.top, 5)
                     }.padding(.top, 50)
                              , alignment: .top)
-                RejectButton("Continue", action: onNext, fullWidth: true)
+                RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
                 .padding(.horizontal, 16)
                 Spacer()
             }

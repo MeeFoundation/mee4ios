@@ -40,9 +40,10 @@ struct ConsentEntryModel: Identifiable {
     let id = UUID()
     let name: String
     let type: ConsentEntryType
-    let value: String? = nil
+    var value: String?
     var isRequired: Bool = false
     var canRead: Bool = false
     var canWrite: Bool = false
     var hasValue: Bool = true
+    var isOn: Bool = false
 }

@@ -54,13 +54,32 @@ struct ContentView: View {
         }
     }
     
+    func processUrl(url: URL) {
+        if (url.host == "getmee.org") {
+            let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
+            let components = URL.init(string: sanitizedUrl)?.pathComponents ?? []
+      
+            if (components.count > 1) {
+                switch (components[1]) {
+                case "consent":
+                    print("partner: ", components[1])
+                    navigationState.currentPage = NavigationPages.consent
+                    
+                default: break
+            
+                }
+            }
+            
+        }
+    }
+    
     var body: some View {
         ZStack {
             Group {
                 if !launchedBefore  {
                     FirstRunPage()
                 }  else {
-                    if isAuthenticated {
+                    if isAuthenticated && !appWasMinimized {
                         NavigationPage().disabled(appWasMinimized)
                     } else {
                         LoginPage()
@@ -76,6 +95,15 @@ struct ContentView: View {
         .onChange(of: scenePhase) { newPhase in
                         if newPhase == .active {
                             print("active")
+                            if (!launchedBefore && UIPasteboard.general.hasStrings) {
+                                let clipboard = UIPasteboard.general.string
+                                let url = URL.init(string: clipboard ?? "")
+                                if (url != nil) {
+                                    UIPasteboard.general.string = nil
+                                    processUrl(url: url!)
+                                }
+                            }
+                            
                             if appWasMinimized {tryReauthenticate()}
                         } else if newPhase == .inactive {
                             print("inactive")
@@ -90,14 +118,7 @@ struct ContentView: View {
         }
         .onOpenURL { url in
             print(url)
-            if (url.host != nil) {
-                switch (url.host) {
-                    case "consent":
-                    navigationState.currentPage = NavigationPages.consent
-                    default: break
-                    
-                }
-            }
+            processUrl(url: url)
         }
     }
 }

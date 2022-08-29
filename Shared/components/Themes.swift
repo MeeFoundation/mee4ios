@@ -12,6 +12,7 @@ struct Colors {
     static let background = Color("backgroundColor")
     static let text = Color("textColor")
     static let textGrey = Color("textColorGrey")
+    static let grey = Color("greyColor")
     static let mainButtonBgColor = Color("mainButtonBgColor")
     static let mainButtonTextColor = Color("mainButtonTextColor")
     static let secondaryButtonTextColor = Color("secondaryButtonTextColor")
@@ -23,4 +24,5 @@ struct Colors {
     static let inactive = Color.gray
     static let popupBackground = Color("popupBackgroundColor")
     static let inactiveBackground = Color("inactiveBackgroundColor")
+    
 }

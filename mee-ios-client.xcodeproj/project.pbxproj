@@ -134,6 +134,12 @@
 		A5A6F06327F7075A00BEDBDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
 		A5A6F06527FB59F800BEDBDC /* PasswordGeneratorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */; };
 		A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */; };
+		A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEB28A417BB00677ADD /* Expander.swift */; };
+		A5AA4CED28A417BB00677ADD /* Expander.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEB28A417BB00677ADD /* Expander.swift */; };
+		A5AA4CEF28AAAAA500677ADD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEE28AAAAA400677ADD /* View.swift */; };
+		A5AA4CF028AAAAA500677ADD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEE28AAAAA400677ADD /* View.swift */; };
+		A5AA4CF228ABEBE700677ADD /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CF128ABEBE700677ADD /* Checkbox.swift */; };
+		A5AA4CF328ABEBE800677ADD /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CF128ABEBE700677ADD /* Checkbox.swift */; };
 		A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C822878624D00481E85 /* FirstRunPage.swift */; };
 		A5D30C842878624D00481E85 /* FirstRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C822878624D00481E85 /* FirstRunPage.swift */; };
 		A5D30C86287C5AF100481E85 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C85287C5AF100481E85 /* LoadingCircle.swift */; };
@@ -299,6 +305,9 @@
 		A55085C827CF741500C5A2D1 /* CurrentPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPageState.swift; sourceTree = "<group>"; };
 		A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorList.swift; sourceTree = "<group>"; };
 		A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordEntry.swift; sourceTree = "<group>"; };
+		A5AA4CEB28A417BB00677ADD /* Expander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expander.swift; sourceTree = "<group>"; };
+		A5AA4CEE28AAAAA400677ADD /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		A5AA4CF128ABEBE700677ADD /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		A5D30C822878624D00481E85 /* FirstRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunPage.swift; sourceTree = "<group>"; };
 		A5D30C85287C5AF100481E85 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		A5D30C88287DBD7300481E85 /* EmptyAppPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAppPage.swift; sourceTree = "<group>"; };
@@ -379,7 +388,6 @@
 		946D2DD627BB9A950055175C = {
 			isa = PBXGroup;
 			children = (
-				A5D30C9128886A7200481E85 /* passParameterToAppOverAppstore.md */,
 				948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */,
 				A550856C27BD243500C5A2D1 /* mee-ios-client--iOS--Info.plist */,
 				A550856B27BD1C4E00C5A2D1 /* ios */,
@@ -497,6 +505,8 @@
 				A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */,
 				A5D30C85287C5AF100481E85 /* LoadingCircle.swift */,
 				A5D30C8B287F0F2B00481E85 /* WebView.swift */,
+				A5AA4CEB28A417BB00677ADD /* Expander.swift */,
+				A5AA4CF128ABEBE700677ADD /* Checkbox.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -613,6 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				A5DB214E27EA2B420070B444 /* Popup.swift */,
+				A5AA4CEE28AAAAA400677ADD /* View.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -960,6 +971,7 @@
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0627BB9A960055175C /* ContentView.swift in Sources */,
 				A5D30C89287DBD7300481E85 /* EmptyAppPage.swift in Sources */,
+				A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */,
 				A55085AD27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
 				A5D30C8C287F0F2C00481E85 /* WebView.swift in Sources */,
 				A550858C27BE4A7200C5A2D1 /* ConsentEntryModel.swift in Sources */,
@@ -971,6 +983,8 @@
 				A5DB215E27EB32D60070B444 /* passwordGenerator.swift in Sources */,
 				A550859227BFD40700C5A2D1 /* Background.swift in Sources */,
 				A55085C227CE33C500C5A2D1 /* SignupForm.swift in Sources */,
+				A5AA4CEF28AAAAA500677ADD /* View.swift in Sources */,
+				A5AA4CF228ABEBE700677ADD /* Checkbox.swift in Sources */,
 				A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
 				A55085C527CE428200C5A2D1 /* LoginForm.swift in Sources */,
 				A55085BC27C3DA1A00C5A2D1 /* Text.swift in Sources */,
@@ -996,6 +1010,7 @@
 				A5DB214127E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
 				A55085B427C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085C027C3E07200C5A2D1 /* SelectImage.swift in Sources */,
+				A5AA4CED28A417BB00677ADD /* Expander.swift in Sources */,
 				A55085B727C3B55400C5A2D1 /* InputField.swift in Sources */,
 				A5DB213E27E22B520070B444 /* urlTools.swift in Sources */,
 				A53F79D127DA2DFC00A62589 /* ConsentState.swift in Sources */,
@@ -1010,6 +1025,7 @@
 				A550858127BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0727BB9A960055175C /* ContentView.swift in Sources */,
 				A55085AE27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
+				A5AA4CF028AAAAA500677ADD /* View.swift in Sources */,
 				A550858D27BE4A7200C5A2D1 /* ConsentEntryModel.swift in Sources */,
 				A5DB214D27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CE27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
@@ -1018,6 +1034,7 @@
 				A550858727BE3B1400C5A2D1 /* Line.swift in Sources */,
 				A5DB215F27EB32D60070B444 /* passwordGenerator.swift in Sources */,
 				A550859327BFD40700C5A2D1 /* Background.swift in Sources */,
+				A5AA4CF328ABEBE800677ADD /* Checkbox.swift in Sources */,
 				A5D30C8D287F0F2C00481E85 /* WebView.swift in Sources */,
 				A55085C327CE33C500C5A2D1 /* SignupForm.swift in Sources */,
 				A55085CA27CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
@@ -1225,9 +1242,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "mee-ios-client (iOS).entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4UGU9PNWK8;
+				DEVELOPMENT_TEAM = 59TG46326T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
@@ -1244,8 +1262,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1260,9 +1279,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "mee-ios-client (iOS).entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 4UGU9PNWK8;
+				DEVELOPMENT_TEAM = 59TG46326T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
@@ -1279,8 +1299,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1470,7 +1491,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.safari-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client.safari-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1502,7 +1523,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.safari-extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client.safari-extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1532,7 +1553,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.Extention";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client.Extention";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1561,7 +1582,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.swift.mee-ios-client.Extention";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client.Extention";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

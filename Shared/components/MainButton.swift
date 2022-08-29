@@ -137,10 +137,11 @@ struct RejectButton: View {
     private var fullWidth: Bool?
     private var width: CGFloat?
     private var isDisabled: Bool?
+    private var withBorder: Bool?
     
     private var color: Color
     
-    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false) {
+    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false, withBorder: Bool? = false) {
         self.title = title
         self.action = action
         self.image = image
@@ -148,8 +149,8 @@ struct RejectButton: View {
         self.width = width
         self.isDisabled = isDisabled
         self.color = isDisabled! ? Colors.inactive : Colors.secondaryButtonBgColor
+        self.withBorder = withBorder
     }
-    
     var body: some View {
         Button(action: action)
             {
@@ -165,7 +166,7 @@ struct RejectButton: View {
             .background(Colors.secondaryButtonTextColor)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
-                .stroke(Colors.secondaryButtonBgColor, lineWidth: 5)
+                    .stroke(Colors.secondaryButtonBgColor, lineWidth: withBorder! ? 5 : 0)
                 )
             .cornerRadius(10)
             .disabled(isDisabled!)
@@ -192,5 +193,42 @@ struct AddButton: View {
             }
             .padding()
             .foregroundColor(Colors.mainButtonTextColor)
+    }
+}
+
+struct DelayedActionButton: View {
+    let title: String
+    let action:  () -> Void
+    let delay: CGFloat
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State private var progress: CGFloat = 0
+
+    var body: some View {
+        Button(action: action)
+            {
+                HStack {
+                    Spacer()
+                    Image("roundIcon").resizable().frame(width: 18, height: 18)
+                        .overlay(BasicText(text: "\(Int(delay - progress))", color: .white, size: 12, fontName: FontNameManager.PublicSans.medium), alignment: .center)
+                    BasicText(text: title, color: Colors.secondaryButtonTextColor, size: 18, fontName: FontNameManager.PublicSans.semibold)
+                    Spacer()
+                }
+            }
+            .padding(15)
+            .background(Colors.secondaryButtonBgColor)
+            .cornerRadius(10)
+            .onReceive(timer) { time in
+                print("\(Int(delay - progress))")
+                if progress >= delay {
+                    timer.upstream.connect().cancel()
+                    if progress == delay {
+                        action()
+                    }
+                    
+                }
+                if progress < delay {
+                    progress += 1
+                }
+            }
     }
 }

@@ -35,6 +35,7 @@ struct PopupWindow<Presenting>: View where Presenting: View {
                 .opacity(self.isShowing ? 1 : 0)
 
             }
+            
 
         }
 
