@@ -28,10 +28,12 @@ struct Checkbox: View {
                 .shadow(color: Color.black.opacity(0.1), radius: 3.0, x: 0, y: 1.0)
                 .cornerRadius(10)
                 .offset(x: isToggled ? 11 : -11, y: 0)
-                .animation(Animation.linear(duration: 0.1))
             
         )
         .frame(width: 44, height: 44, alignment: .center)
-        .onTapGesture { isToggled.toggle() }
+        .onTapGesture { withAnimation {
+            isToggled.toggle()
+        }
+        }
     }
 }
