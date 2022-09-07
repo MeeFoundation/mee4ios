@@ -98,7 +98,7 @@ struct SecondaryButton: View {
     private var image: Image?
     private var fullWidth: Bool?
     private var width: CGFloat?
-    private var isDisabled: Bool?
+    private var isDisabled: Bool
     
     private var color: Color
     
@@ -108,25 +108,28 @@ struct SecondaryButton: View {
         self.image = image
         self.fullWidth = fullWidth
         self.width = width
-        self.isDisabled = isDisabled
-        self.color = isDisabled! ? Colors.inactive : Colors.secondaryButtonTextColor
+        self.isDisabled = isDisabled == nil ? false : isDisabled!
+        self.color = Colors.secondaryButtonTextColor
     }
     
     var body: some View {
-        Button(action: action)
-            {
-                HStack {
-                    if fullWidth! {Spacer()}
-                    image?.resizable().scaledToFit()
-                    BasicText(text: title, color: color, size: 18, fontName: FontNameManager.PublicSans.semibold)
-                    if fullWidth! {Spacer()}
+        ZStack {
+            Button(action: action)
+                {
+                    HStack {
+                        if fullWidth! {Spacer()}
+                        image?.resizable().scaledToFit()
+                        BasicText(text: title, color: color, size: 18, fontName: FontNameManager.PublicSans.semibold)
+                        if fullWidth! {Spacer()}
+                    }
                 }
-            }
-            .frame(width: width)
-            .padding(15)
-            .background(Colors.secondaryButtonBgColor)
-            .cornerRadius(10)
-            .disabled(isDisabled!)
+                .frame(width: width)
+                .padding(15)
+                .background(Colors.secondaryButtonBgColor.opacity(isDisabled ? 0.5 : 1))
+                .cornerRadius(10)
+        }
+        .disabled(isDisabled)
+        
     }
 }
 

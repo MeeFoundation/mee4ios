@@ -81,7 +81,6 @@ struct ConsentEntryInput: View {
 
 struct ConsentEntry: View {
     @Binding var entry: ConsentEntryModel
-    @State var isOn = true
     @State var isOpen: Bool
     init(entry: Binding<ConsentEntryModel>) {
         self._entry = entry
@@ -89,11 +88,11 @@ struct ConsentEntry: View {
     }
     
     func validateEntry() {
-        entry.isIncorrect = false
-
-        if ((entry.isRequired || isOn) && (entry.value == nil || entry.value!.isEmpty)) {
-            entry.isIncorrect = true
-        }
+//        entry.isIncorrect = false
+//
+//        if ((entry.isRequired || isOn) && (entry.value == nil || entry.value!.isEmpty)) {
+//            entry.isIncorrect = true
+//        }
     }
     
     var body: some View {
@@ -123,7 +122,7 @@ struct ConsentEntry: View {
                 
                 Spacer()
                 if !entry.isRequired {
-                    Checkbox(isToggled: $isOn)
+                    Checkbox(isToggled: $entry.isOn)
                 }
                 
             }
@@ -132,7 +131,7 @@ struct ConsentEntry: View {
             }
         }
         .onChange(of: entry.value, perform: { _ in validateEntry() })
-        .onChange(of: isOn, perform: { _ in validateEntry() })
+        .onChange(of: entry.isOn, perform: { _ in validateEntry() })
         .onAppear(perform: { validateEntry() })
     }
 }

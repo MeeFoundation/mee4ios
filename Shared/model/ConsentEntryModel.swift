@@ -46,5 +46,7 @@ struct ConsentEntryModel: Identifiable {
     var canWrite: Bool = false
     var hasValue: Bool = true
     var isOn: Bool = false
-    var isIncorrect: Bool = false
+    var isIncorrect: Bool {
+        return (isRequired || isOn) && (value == nil || value!.isEmpty)
+    }
 }

@@ -113,7 +113,7 @@ struct ConsentPageNew: View {
                         SecondaryButton("Approve and Continue", action: {
                             onAccept()
                             openURL(URL(string: "https://demo-dev.getmee.org/?interest=world-news")!)
-                        }, fullWidth: true)
+                        }, fullWidth: true, isDisabled: data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) != nil)
                 }
                 .padding(.bottom, 30)
                 .padding(.top, 0)
