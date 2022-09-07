@@ -188,6 +188,8 @@
 		A5DB21DF27F5A38F0070B444 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085A627BFEB1A00C5A2D1 /* ButtonStyle.swift */; };
 		A5DB21E027F5A40C0070B444 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085BB27C3DA1A00C5A2D1 /* Text.swift */; };
 		A5DB21E127F5A4470070B444 /* fontHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A550856F27BD2E3700C5A2D1 /* fontHelpers.swift */; };
+		A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F50A28C8B4480065058A /* TabBar.swift */; };
+		A5E0F50C28C8B4480065058A /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F50A28C8B4480065058A /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -332,6 +334,7 @@
 		A5DB217427F1B2260070B444 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5DB217527F1B2260070B444 /* Mee_Credential_Provider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mee_Credential_Provider.entitlements; sourceTree = "<group>"; };
 		A5DB21CF27F3472E0070B444 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
+		A5E0F50A28C8B4480065058A /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +510,7 @@
 				A5D30C8B287F0F2B00481E85 /* WebView.swift */,
 				A5AA4CEB28A417BB00677ADD /* Expander.swift */,
 				A5AA4CF128ABEBE700677ADD /* Checkbox.swift */,
+				A5E0F50A28C8B4480065058A /* TabBar.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -954,6 +958,7 @@
 				A550857027BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A55085B027C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
 				A5DB214027E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
+				A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */,
 				A55085B327C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085BF27C3E07200C5A2D1 /* SelectImage.swift in Sources */,
 				A5A6F06527FB59F800BEDBDC /* PasswordGeneratorList.swift in Sources */,
@@ -1050,6 +1055,7 @@
 				A5DB213327E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085BA27C3B61E00C5A2D1 /* MainButton.swift in Sources */,
 				A53F79D727E0D56800A62589 /* PasswordManagerPage.swift in Sources */,
+				A5E0F50C28C8B4480065058A /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1255,7 +1261,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1292,7 +1298,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

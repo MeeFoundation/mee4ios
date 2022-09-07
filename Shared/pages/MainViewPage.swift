@@ -7,62 +7,44 @@
 
 import SwiftUI
 
-struct MainViewPage: View {
-    @State var selectedTab: MainViewTabs
-    func getNavBarTitleText () -> String {
-        switch selectedTab {
-            case MainViewTabs.Storage:
-                return "Storage"
-
-            case MainViewTabs.Profile:
-                return "Profile"
-            
-            case MainViewTabs.Mfa:
-                return "2FA"
-        }
-    }
-   
-    init() {
-        UITabBar.appearance().backgroundColor = UIColor(Colors.background)
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Colors.text)]
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(Colors.text)]
-        self.selectedTab = MainViewTabs.Storage
-    }
+struct DashboardView: View {
     var body: some View {
-        TabView(selection: $selectedTab) {
-            PasswordManagerPage()
-//                .badge(1)
-                .tag(MainViewTabs.Storage)
-                .tabItem {
-                    Image(systemName: "key.fill").renderingMode(.template)
-                    BasicText(text: "Storage")
+        ZStack {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    Image("userAvatarFrameImage").resizable().frame(width: 48, height: 48)
+                        .overlay {
+                            Image(systemName: "person.crop.circle.fill").resizable().frame(width: 32, height: 32).foregroundColor(.white)
+                        }
+                        .padding(.leading, 16)
+                    Image("addNewUserImage").resizable().frame(width: 32, height: 32).padding(.leading, 16)
+                    Spacer()
+                    Image("notificationImage").resizable().frame(width: 24, height: 24).padding(.trailing, 24)
                 }
-            VStack {
-                Text("Profile")
+                .padding(.bottom, 16)
+                .padding(.top, 53)
+                .frame(height: 117)
+                .frame(maxWidth: .infinity)
+                .background(.white.opacity(0.5))
+                Image("meeDashboardImage").resizable().frame(width: 266, height: 410, alignment: Alignment.center)
+                    .padding(.top, 72)
                 Spacer()
             }
-            .tag(MainViewTabs.Profile)
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("Profile")
-                }
-            Text("2FA")
-                .tag(MainViewTabs.Mfa)
-                .tabItem {
-                    Image(systemName: "iphone.homebutton")
-                    Text("2FA")
-                }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .accentColor(Colors.mainButtonTextColor)
-        .background(Colors.background.edgesIgnoringSafeArea(.all))
-        .navigationBarTitle(getNavBarTitleText())
-        .navigationBarBackButtonHidden(true)
         
+        .background(Colors.meeBrandYellow)
     }
-    enum MainViewTabs {
-        case Storage
-        case Profile
-        case Mfa
+}
+
+struct MainViewPage: View {
+    var tabItems = [TabBarItem(id: 0, Icon: Image("dashboardImage"), tabName: "Dashboard", Element: AnyView(DashboardView())),
+                    TabBarItem(id: 1, Icon: Image("chatImage"), tabName: "Chat", Element: AnyView(DashboardView())),
+                    TabBarItem(id: 2, Icon: Image("menuImage"), tabName: "Menu", Element: AnyView(DashboardView())),]
+
+    var body: some View {
+        TabBar(items: tabItems)
+
+        
     }
 }

@@ -13,7 +13,7 @@ import AuthenticationServices
 class KeyChain {
     let store = ASCredentialIdentityStore.shared
     init() {
-        keychain = Keychain(service: "mee-ios-client", accessGroup: "4UGU9PNWK8.com.swift.mee-ios-client.share").synchronizable(true)
+        keychain = Keychain(service: "mee-ios-client", accessGroup: "59TG46326T.org.getmee.ios-client.share").synchronizable(true)
     }
     private var keychain: Keychain
     let encoder = JSONEncoder()

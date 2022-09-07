@@ -10,7 +10,7 @@ import Mee_Credential_Provider
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-  case home, consent, signUp, login, passwordManager, emptyApp
+  case home, consent, signUp, login, passwordManager, mainViewPage
 }
 
 struct ContentView: View {
@@ -110,7 +110,7 @@ struct ContentView: View {
                         } else if newPhase == .background {
                             print("background")
                             if (navigationState.currentPage == NavigationPages.consent) {
-                                navigationState.currentPage = NavigationPages.emptyApp
+                                navigationState.currentPage = NavigationPages.mainViewPage
                             }
 
                             appWasMinimized = true
@@ -138,25 +138,16 @@ struct NavigationPage: View {
                             ,tag: NavigationPages.consent
                             ,selection: $navigationState.currentPage
                         ){
-                            Text("Consent Page")
-                                .font(.largeTitle)
                         }
 
                         NavigationLink(
-                            destination: EmptyAppPage()
+                            destination: MainViewPage()
                             .navigationBarBackButtonHidden(true)
                             .navigationBarHidden(true)
-                            ,tag: NavigationPages.emptyApp
+                            ,tag: NavigationPages.mainViewPage
                             ,selection: $navigationState.currentPage
                         ){
-//                            Text("Tabs")
-//                                .font(.largeTitle)
-//                                .padding(.top, 10.0)
                         }
-//                        Button("Add password to keychain") {
-//                            let keychain = KeyChain()
-//                            print(keychain.getAllItems())
-//                        }
                     }
             }
             

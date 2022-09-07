@@ -1,10 +1,3 @@
-//
-//  ConsentEntry.swift
-//  mee-ios-client
-//
-//  Created by Anthony Ivanov on 17.02.2022.
-//
-
 import SwiftUI
 import Foundation
 
@@ -17,17 +10,19 @@ func getDateFormatter () -> DateFormatter {
 
 struct ConsentEntryInput: View {
     @Binding var value: String?
+    var isIncorrect: Bool
     var name: String
     var readOnly: Bool
     var isRequired: Bool
     var type: ConsentEntryType
     
-    init(value: Binding<String?>, name: String, readOnly: Bool, isRequired: Bool, type: ConsentEntryType) {
+    init(value: Binding<String?>, name: String, readOnly: Bool, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool) {
         self._value = value
         self.name = name
         self.readOnly = readOnly
         self.isRequired = isRequired
         self.type = type
+        self.isIncorrect = isIncorrect
     }
     @State private var calendarVisible = false
     @State private var date: Date = Date()
@@ -43,12 +38,8 @@ struct ConsentEntryInput: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(lineWidth: 1.0)
-                        .fill((isRequired && (value == nil || value!.isEmpty)) ? Colors.error : Colors.grey)
+                        .fill(isIncorrect ? Colors.error : Colors.grey)
                 )
-                .onChange(of: date, perform: { value in
-                    //calendarVisible = false
-                    print(value)
-                })
                 .if(type == .date) { $0.overlay( Button(action: {
                     calendarVisible = true
                 }) {
@@ -81,7 +72,6 @@ struct ConsentEntryInput: View {
                         }
                     }
                     .accentColor(.red)
-                    //.frame(width: 320, height: 400)
                 }
         }
         .padding(.horizontal, 1)
@@ -90,55 +80,60 @@ struct ConsentEntryInput: View {
 }
 
 struct ConsentEntry: View {
-    var entry: Binding<ConsentEntryModel>
+    @Binding var entry: ConsentEntryModel
     @State var isOn = true
     @State var isOpen: Bool
     init(entry: Binding<ConsentEntryModel>) {
-        self.entry = entry
+        self._entry = entry
         _isOpen = State(initialValue: entry.wrappedValue.isRequired && (entry.wrappedValue.value?.isEmpty ?? true))
+    }
+    
+    func validateEntry() {
+        entry.isIncorrect = false
+
+        if ((entry.isRequired || isOn) && (entry.value == nil || entry.value!.isEmpty)) {
+            entry.isIncorrect = true
+        }
     }
     
     var body: some View {
         VStack{
             HStack {
                 Button(action: {
-                    if (!isOpen || !(entry.wrappedValue.value?.isEmpty ?? true)) {
+                    if (!isOpen || !(entry.value?.isEmpty ?? true)) {
                         isOpen = !isOpen
                     }
-                }) { Image(getConsentEntryImageByType(entry.wrappedValue.type)).resizable().scaledToFit()
+                }) { Image(getConsentEntryImageByType(entry.type)).resizable().scaledToFit()
                         .frame(width: 18, height: 18, alignment: .center)
                         .padding(.trailing, 13)
                 }
-                if (isOpen && entry.wrappedValue.isRequired) {
-                    ConsentEntryInput(value: entry.value, name: entry.wrappedValue.name, readOnly: !entry.wrappedValue.canWrite, isRequired: entry.wrappedValue.isRequired, type: entry.wrappedValue.type)
+                if (isOpen && entry.isRequired) {
+                    ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
                 } else {
                     Button(action: {
-                        if (entry.wrappedValue.hasValue) {
+                        if (entry.hasValue) {
                             isOpen = !isOpen
                         }
                     }) {
-                        Text(entry.wrappedValue.name)
+                        Text(entry.name)
                             .foregroundColor(Colors.meeBrand)
                             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     }
                 }
                 
                 Spacer()
-                if !entry.wrappedValue.isRequired {
+                if !entry.isRequired {
                     Checkbox(isToggled: $isOn)
                 }
                 
             }
-            if (isOpen && !entry.wrappedValue.isRequired) {
-                ConsentEntryInput(value: entry.value, name: entry.wrappedValue.name, readOnly: !entry.wrappedValue.canWrite, isRequired: entry.wrappedValue.isRequired, type: entry.wrappedValue.type)
+            if (isOpen && !entry.isRequired) {
+                ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
             }
         }
+        .onChange(of: entry.value, perform: { _ in validateEntry() })
+        .onChange(of: isOn, perform: { _ in validateEntry() })
+        .onAppear(perform: { validateEntry() })
     }
 }
 
-//struct Previews_ConsentEntry_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConsentEntry(consentEntry: ConsentEntryModel(name: "First Name", isRequired: true, canRead: true)
-//        )
-//    }
-//}

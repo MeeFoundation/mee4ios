@@ -11,6 +11,10 @@ struct ConsentPageNew: View {
     @StateObject var data = ConsentState()
     @Environment(\.openURL) var openURL
     @State private var showCertified = false
+    var onAccept: () -> Void
+    init(onAccept: @escaping () -> Void) {
+        self.onAccept = onAccept
+    }
     var body: some View {
         ZStack {
             BackgroundWhite()
@@ -107,6 +111,7 @@ struct ConsentPageNew: View {
                             openURL(URL(string: "https://demo-dev.getmee.org/reject")!)
                         }, fullWidth: true)
                         SecondaryButton("Approve and Continue", action: {
+                            onAccept()
                             openURL(URL(string: "https://demo-dev.getmee.org/?interest=world-news")!)
                         }, fullWidth: true)
                 }
@@ -190,7 +195,8 @@ struct ConsentPageExisting: View {
 
             if showAnimation {
                 ConsentPageAnimation {
-                    showAnimation = false
+                    openURL(URL(string: "https://demo-dev.getmee.org/?interest=world-news")!)
+                    // showAnimation = false
                 }
             } else {
             VStack(spacing: 0) {
@@ -250,7 +256,7 @@ struct ConsentPageExisting: View {
 
 
 struct ConsentPage: View {
-    private var isReturningUser = false
+    @AppStorage("isReturningUser") var isReturningUser: Bool = false
     private func onNext () {
         
     }
@@ -259,7 +265,9 @@ struct ConsentPage: View {
             ConsentPageExisting()
         }
         else {
-            ConsentPageNew()
+            ConsentPageNew(){
+                isReturningUser = true
+            }
         }
     }
 }
