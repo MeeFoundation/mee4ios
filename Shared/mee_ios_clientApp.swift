@@ -14,6 +14,8 @@ struct mee_ios_clientApp: App {
             ContentView()
                 .environmentObject(StorageState())
                 .environmentObject(NavigationState())
+                .environmentObject(ConsentState())
+                .environmentObject(PartnersState())
         }
     }
 }

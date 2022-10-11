@@ -22,7 +22,7 @@ struct Checkbox: View {
                 .foregroundColor(.white)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Colors.grey, lineWidth: 1)
+                        .stroke(Colors.gray, lineWidth: 1)
                 )
                 .shadow(color: Color.black.opacity(0.06), radius: 2.0, x: 0, y: 1.0)
                 .shadow(color: Color.black.opacity(0.1), radius: 3.0, x: 0, y: 1.0)

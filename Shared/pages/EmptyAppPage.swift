@@ -43,5 +43,6 @@ struct EmptyAppPage: View {
                 .ignoresSafeArea(edges: .bottom)
             }
         }
+        
     }
 }

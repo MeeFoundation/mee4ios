@@ -8,13 +8,14 @@
 import SwiftUI
 
 enum FirstRunPages: Hashable {
-  case welcome, prepare, faceId, faceIdSet, initializing
+    case welcome, prepare, faceId, faceIdSet, initializing
 }
 
 
 struct FirstRunPage: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @State private var currentPage = FirstRunPages.welcome
+    @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
     
     func tryAuthenticate() {
@@ -34,7 +35,7 @@ struct FirstRunPage: View {
     
     func finishInitializing() {
         launchedBefore = true
-//        openURL(URL(string: "http://localhost:3000/#/app-redirect")!)
+        openURL(URL(string: "https://getmee.org/#/installed")!)
     }
     
     var body: some View {
@@ -46,27 +47,30 @@ struct FirstRunPage: View {
             } else if currentPage == FirstRunPages.welcome {
                 FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare})
             } else {
-            ZStack {
-                BackgroundFaded()
-                VStack {
-                    ZStack {
-                        Image("meeLogoInactive").resizable().scaledToFit()
+                ZStack {
+                    BackgroundFaded()
+                    VStack {
+                        ZStack {
+                            Image("meeLogoInactive")
+                                .resizable()
+                                .scaledToFit()
+                        }
+                        .padding(.horizontal, sizeClass == .compact ? 115.0 : 330).padding(.top,  sizeClass == .compact ? 35.0 : 150)
+                        Spacer()
+                        if currentPage == FirstRunPages.prepare {FirstRunPagePrepare(onNext: tryAuthenticate)}
+                        if currentPage == FirstRunPages.faceIdSet {FirstRunPageFaceIdSet(onNext: startInitializing
+                        )}
+                        
                     }
-                    .padding(.horizontal, 115.0).padding(.top, 35.0)
-                    Spacer()
-                    if currentPage == FirstRunPages.prepare {FirstRunPagePrepare(onNext: tryAuthenticate)}
-                    if currentPage == FirstRunPages.faceIdSet {FirstRunPageFaceIdSet(onNext: startInitializing
-                    )}
-                     
-                }
-                .ignoresSafeArea(edges: .bottom)
-            }}
-        }
+                    .ignoresSafeArea(edges: .bottom)
+                }}
+        }.navigationViewStyle(.stack)
     }
     
 }
 
 struct FirstRunPageWelcome: View {
+    @Environment(\.horizontalSizeClass) var sizeClass
     var onNext: () -> Void
     var body: some View {
         ZStack {
@@ -75,16 +79,19 @@ struct FirstRunPageWelcome: View {
                 Image("meeEntry").resizable().scaledToFit()
                     .overlay(VStack(spacing: 0) {
                         HStack {
-                            BasicText(text:"Hello. ", color: Colors.textYellow, size: 30, fontName: FontNameManager.PublicSans.bold)
-                            BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: 30, fontName: FontNameManager.PublicSans.regularItalic)
+                            BasicText(text:"Hello. ", color: Colors.textYellow, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.bold)
+                            BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.regularItalic)
                         }
-                        BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: 14).frame(width: 290)
+                        BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: sizeClass == .compact ? 14 : 25)
+                            .frame(maxWidth: 500)
                             .lineSpacing(5)
                             .padding(.top, 5)
-                    }.padding(.top, 50)
+                            .padding(.horizontal, 30)
+                    }.padding(.top, sizeClass == .compact ? 50 : 100)
                              , alignment: .top)
                 RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
-                .padding(.horizontal, 16)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, sizeClass == .compact ? 0 : 20)
                 Spacer()
             }
             .padding(.top, 52)
@@ -104,13 +111,13 @@ struct FirstRunPagePrepare: View {
                     .frame(width: 60.5, height: 60.5, alignment: .center)
                     .padding(.top, 14)
                     .zIndex(10)
-                Text("Set up your Digital \n Twin").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
+                Text("Set up \(biometricsTypeText)").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
                     .padding(.bottom, 16)
-                    
-                Text("To store your data, Mee contains a secure vault, which is safely encrypted by \(biometricsTypeText). \nPlease set up \(biometricsTypeText).")
+                
+                Text("Mee uses \(biometricsTypeText) to make sure that you are the only person who can open the app.")
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
@@ -176,7 +183,7 @@ struct FirstRunPageInitializing: View {
                         .zIndex(10)
                         .padding(.vertical, 50)
                         .padding(.horizontal, 37)
-                        
+                    
                     LoadingCircle(progress: progress, width: !self.finalAnimation ? 171 : 171 * animationMultiplier, height: !self.finalAnimation ? 171 : 171 * animationMultiplier)
                 }
                 .transition(.scale)
@@ -206,7 +213,7 @@ struct FirstRunPageInitializing: View {
                     withAnimation{
                         finalAnimation = true
                     }
-//                             onNext()
+                    //                             onNext()
                 } else if progress < 0.1 {
                     text = "Creating a context in the Mee Data Storage"
                 } else if progress < 0.4 {
@@ -218,7 +225,7 @@ struct FirstRunPageInitializing: View {
                 } else {
                     text = ""
                 }
-
+                
                 progress += 0.02
             }
             .frame(maxWidth: .infinity)

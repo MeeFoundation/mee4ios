@@ -10,11 +10,12 @@ import SwiftUI
 struct Expander<Content>: View where Content: View {
     let content: () -> Content
     let title: String
-    @State var isOpen = false
+    @Binding var isOpen: Bool
 
-    init(title: String, @ViewBuilder content: @escaping () -> Content) {
+    init(title: String, isOpen: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) {
         self.content = content
         self.title = title
+        self._isOpen = isOpen
     }
 
     var body: some View {

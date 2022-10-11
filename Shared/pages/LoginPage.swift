@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginPage: View {
     @State var loginForm = LoginForm()
     @EnvironmentObject private var navigationState: NavigationState
+    @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
         NavigationView {
@@ -17,9 +18,11 @@ struct LoginPage: View {
                 BackgroundFaded()
                 VStack {
                     ZStack {
-                        Image("meeLogoInactive").resizable().scaledToFit()
+                        Image("meeLogoInactive")
+                            .resizable()
+                            .scaledToFit()
                     }
-                    .padding(.horizontal, 115.0).padding(.top, 35.0)
+                    .padding(.horizontal, sizeClass == .compact ? 115.0 : 330).padding(.top,  sizeClass == .compact ? 35.0 : 150)
 //                    Group {
 //                        InputView("Username", text: $loginForm.username)
 //                    }
@@ -45,6 +48,7 @@ struct LoginPage: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
     }
     
 }

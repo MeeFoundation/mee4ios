@@ -38,7 +38,7 @@ struct ConsentEntryInput: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(lineWidth: 1.0)
-                        .fill(isIncorrect ? Colors.error : Colors.grey)
+                        .fill(isIncorrect ? Colors.error : Colors.gray)
                 )
                 .if(type == .date) { $0.overlay( Button(action: {
                     calendarVisible = true
@@ -81,10 +81,8 @@ struct ConsentEntryInput: View {
 
 struct ConsentEntry: View {
     @Binding var entry: ConsentEntryModel
-    @State var isOpen: Bool
     init(entry: Binding<ConsentEntryModel>) {
         self._entry = entry
-        _isOpen = State(initialValue: entry.wrappedValue.isRequired && (entry.wrappedValue.value?.isEmpty ?? true))
     }
     
     func validateEntry() {
@@ -99,19 +97,19 @@ struct ConsentEntry: View {
         VStack{
             HStack {
                 Button(action: {
-                    if (!isOpen || !(entry.value?.isEmpty ?? true)) {
-                        isOpen = !isOpen
+                    if (!entry.isOpen || !(entry.value?.isEmpty ?? true)) {
+                        entry.isOpen = !entry.isOpen
                     }
                 }) { Image(getConsentEntryImageByType(entry.type)).resizable().scaledToFit()
                         .frame(width: 18, height: 18, alignment: .center)
                         .padding(.trailing, 13)
                 }
-                if (isOpen && entry.isRequired) {
+                if (entry.isOpen && entry.isRequired) {
                     ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
                 } else {
                     Button(action: {
                         if (entry.hasValue) {
-                            isOpen = !isOpen
+                            entry.isOpen = !entry.isOpen
                         }
                     }) {
                         Text(entry.name)
@@ -126,11 +124,15 @@ struct ConsentEntry: View {
                 }
                 
             }
-            if (isOpen && !entry.isRequired) {
+            if (entry.isOpen && !entry.isRequired) {
                 ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
             }
         }
-        .onChange(of: entry.value, perform: { _ in validateEntry() })
+        .onChange(of: entry.value, perform: { _ in
+            entry.isOpen = true
+            validateEntry()
+            
+        })
         .onChange(of: entry.isOn, perform: { _ in validateEntry() })
         .onAppear(perform: { validateEntry() })
     }

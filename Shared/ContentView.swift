@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Mee_Credential_Provider
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
@@ -15,7 +14,7 @@ enum NavigationPages: Hashable {
 
 struct ContentView: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
- 
+    @EnvironmentObject var data: ConsentState
     
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
@@ -48,23 +47,41 @@ struct ContentView: View {
     
     func tryReauthenticate() {
         if authenticationEnabled {
-            requestLocalAuthentication(setUnlocked)
+            if (launchedBefore) {
+                requestLocalAuthentication(setUnlocked)
+            }
         } else {
             isAuthenticated = true
         }
     }
     
     func processUrl(url: URL) {
-        if (url.host == "getmee.org") {
+        if (url.host == "getmee.org" || url.host == "www.getmee.org") {
             let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
             let components = URL.init(string: sanitizedUrl)?.pathComponents ?? []
       
             if (components.count > 1) {
+                print("components[1]:", components[1])
                 switch (components[1]) {
                 case "consent":
-                    print("partner: ", components[1])
-                    navigationState.currentPage = NavigationPages.consent
-                    
+                    do {
+                        guard let jsonString = components[2].fromBase64() else {
+                            return
+                        }
+                        guard let partnerDataJson = jsonString.data(using: .utf8) else {
+                            return
+                        }
+                        let partnerData: PartnerData = try JSONDecoder().decode(PartnerData.self, from: partnerDataJson)
+                        data.consent.id = partnerData.partnerId
+                        data.consent.name = partnerData.partnerName
+                        data.consent.url = partnerData.partnerUrl
+                        data.consent.imageUrl = partnerData.partnerImageUrl
+                        data.consent.displayUrl = partnerData.partnerDisplayedUrl
+                        print("partnerData", partnerData)
+                        navigationState.currentPage = NavigationPages.consent
+                    } catch {
+                        return
+                    }
                 default: break
             
                 }
@@ -95,14 +112,14 @@ struct ContentView: View {
         .onChange(of: scenePhase) { newPhase in
                         if newPhase == .active {
                             print("active")
-                            if (!launchedBefore && UIPasteboard.general.hasStrings) {
-                                let clipboard = UIPasteboard.general.string
-                                let url = URL.init(string: clipboard ?? "")
-                                if (url != nil) {
-                                    UIPasteboard.general.string = nil
-                                    processUrl(url: url!)
-                                }
-                            }
+//                            if (!launchedBefore && UIPasteboard.general.hasStrings) {
+//                                let clipboard = UIPasteboard.general.string
+//                                let url = URL.init(string: clipboard ?? "")
+//                                if (url != nil) {
+//                                    UIPasteboard.general.string = nil
+//                                    processUrl(url: url!)
+//                                }
+//                            }
                             
                             if appWasMinimized {tryReauthenticate()}
                         } else if newPhase == .inactive {
@@ -127,6 +144,7 @@ struct NavigationPage: View {
     @EnvironmentObject private var navigationState: NavigationState
     var body: some View {
         NavigationView {
+            
             ZStack {
                 Background()
                     VStack {
@@ -150,7 +168,7 @@ struct NavigationPage: View {
                         }
                     }
             }
-            
         }
+        .navigationViewStyle(.stack)
     }
 }
