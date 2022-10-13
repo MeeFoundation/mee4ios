@@ -45,7 +45,7 @@ struct FirstRunPage: View {
                     FirstRunPageInitializing(onNext: finishInitializing)
                 }.background(Colors.background)
             } else if currentPage == FirstRunPages.welcome {
-                FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare})
+                FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare}, isInitialization: true)
             } else {
                 ZStack {
                     BackgroundFaded()
@@ -72,6 +72,7 @@ struct FirstRunPage: View {
 struct FirstRunPageWelcome: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     var onNext: () -> Void
+    var isInitialization: Bool? = false
     var body: some View {
         ZStack {
             BackgroundYellow()
@@ -82,12 +83,22 @@ struct FirstRunPageWelcome: View {
                             BasicText(text:"Hello. ", color: Colors.textYellow, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.bold)
                             BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.regularItalic)
                         }
-                        BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: sizeClass == .compact ? 14 : 25)
-                            .frame(maxWidth: 500)
-                            .lineSpacing(5)
-                            .padding(.top, 5)
-                            .padding(.horizontal, 30)
-                    }.padding(.top, sizeClass == .compact ? 50 : 100)
+                        if isInitialization! {
+                            BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: sizeClass == .compact ? 14 : 25)
+                                .frame(maxWidth: 500)
+                                .lineSpacing(5)
+                                .padding(.top, 5)
+                                .padding(.horizontal, 30)
+                        } else {
+                            BasicText(text:" I’m your privacy agent. \nI’m here to increase your privacy online. \nWhen apps or websites want to know something about you, I share as much or as little as you tell me to.", color: Colors.meeBrand, size: sizeClass == .compact ? 16 : 27)
+                                .frame(maxWidth: 500)
+                                .lineSpacing(5)
+                                .padding(.top, sizeClass == .compact ? 16 : 25)
+                                .padding(.horizontal, 40)
+                            
+                            
+                        }
+                    }.padding(.top, sizeClass == .compact ? isInitialization! ? 50 : 58 : isInitialization! ? 100 : 116)
                              , alignment: .top)
                 RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
                     .padding(.horizontal, 16)

@@ -79,7 +79,7 @@ struct PartnerEntry: View  {
                     Image(partner.isMeeCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
                     Spacer()
                 }
-               
+                
                 BasicText(text: partner.displayUrl, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
             }
             .padding(.leading, 8)
@@ -265,6 +265,7 @@ struct ConsentsList: View {
     @State var existingPartners: [PartnersModel]?
     @State var otherPartners: [PartnersModel]?
     @State var showWelcome: Bool?
+    @State var showCompatibleWarning: Bool = false
     func removeConsent(_ id: String) {
         if let partnerIndex = existingPartners?.firstIndex(where: { p in
             p.id == id
@@ -337,6 +338,31 @@ struct ConsentsList: View {
                         .frame(maxWidth: .infinity)
                     }
                     .navigationViewStyle(.stack)
+                    .overlay(alignment: Alignment.bottom) {
+                        VStack {
+                            HStack {
+                                Image("meeCertifiedLogo").resizable().scaledToFit().frame(width: 20)
+                                BasicText(text:"Mee-certified?", color: Colors.meeBrand, size: 14, underline: true)
+                            }
+                            Button(action: {
+                                showCompatibleWarning = true
+                            }) {
+                                HStack {
+                                    Image("meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
+                                    BasicText(text:"Mee-compatible?", color: Colors.meeBrand, size: 14, underline: true)
+                                }
+                            }
+                        }
+                        .padding(.bottom, 20)
+                        
+                    }
+                    .overlay {
+                        WarningPopup(text: "Your data will not be protected by HIL and will be treated according to the terms of service and privacy policy of the website.") {
+                            showCompatibleWarning = false
+                        }
+                        .ignoresSafeArea(.all)
+                        .opacity(showCompatibleWarning ? 1 : 0)
+                    }
                 } else {
                     FirstRunPageWelcome() {
                         showWelcome = false
@@ -370,6 +396,7 @@ struct MainViewPage: View {
     var body: some View {
         //        TabBar(items: tabItems)
         ConsentsList()
+        
         
     }
 }

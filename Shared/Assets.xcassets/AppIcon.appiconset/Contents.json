@@ -1,109 +1,109 @@
 {
   "images" : [
     {
-      "filename" : "mee_logo_20x2_iphone.jpg",
+      "filename" : "meeAppLogo40,20.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "mee_logo_20x3_iphone.jpg",
+      "filename" : "meeAppLogo60,20.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "mee_logo_29x2_iphone.jpg",
+      "filename" : "meeAppLogo58,29.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "mee_logo_29x3_iphone.jpg",
+      "filename" : "meeAppLogo87,29.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "mee_logo_40x2_iphone.jpg",
+      "filename" : "meeAppLogo80,40.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "mee_logo_40x3_iphone.jpg",
+      "filename" : "meeAppLogo120,40.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "mee_logo_60x2.jpg",
+      "filename" : "meeAppLogo120,60.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "mee_logo_60x3.jpg",
+      "filename" : "meeAppLogo180,60.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "mee_logo_20x1.jpg",
+      "filename" : "meeAppLogo20,20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "mee_logo_20x2.jpg",
+      "filename" : "meeAppLogo40,20 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "mee_logo_29x1.jpg",
+      "filename" : "meeAppLogo29,29.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "mee_logo_29x2.jpg",
+      "filename" : "meeAppLogo58,29 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "mee_logo_40x1.jpg",
+      "filename" : "meeAppLogo40,40.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "mee_logo_40x2.jpg",
+      "filename" : "meeAppLogo80,40 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "mee_logo_76x1.jpg",
+      "filename" : "meeAppLogo76,76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "mee_logo_76x2.jpg",
+      "filename" : "meeAppLogo152,76.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "mee_logo_83.5.jpg",
+      "filename" : "meeLogo167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "mee_logo_1024.jpg",
+      "filename" : "meeAppLogo1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
