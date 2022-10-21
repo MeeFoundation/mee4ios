@@ -109,7 +109,6 @@
 		A5AA4CF328ABEBE800677ADD /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CF128ABEBE700677ADD /* Checkbox.swift */; };
 		A5C0EE4C28EB594500790179 /* keyChainConsents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* keyChainConsents.swift */; };
 		A5C0EE4D28EB594500790179 /* keyChainConsents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* keyChainConsents.swift */; };
-		A5C0EE8E28F85A9400790179 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = A5C0EE8D28F85A9400790179 /* JWTDecode */; };
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5C0EE9128F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C822878624D00481E85 /* FirstRunPage.swift */; };
@@ -285,7 +284,6 @@
 			files = (
 				A5DB216227EDDECA0070B444 /* AuthenticationServices.framework in Frameworks */,
 				A5DB214A27E37C040070B444 /* KeychainAccess in Frameworks */,
-				A5C0EE8E28F85A9400790179 /* JWTDecode in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,7 +565,6 @@
 			name = "mee-ios-client (iOS)";
 			packageProductDependencies = (
 				A5DB214927E37C040070B444 /* KeychainAccess */,
-				A5C0EE8D28F85A9400790179 /* JWTDecode */,
 			);
 			productName = "mee-ios-client (iOS)";
 			productReference = 946D2DE327BB9A960055175C /* mee-ios-client.app */;
@@ -1022,7 +1019,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 59TG46326T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
@@ -1033,6 +1030,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1070,6 +1068,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1322,11 +1321,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A5C0EE8D28F85A9400790179 /* JWTDecode */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5C0EE8C28F85A9300790179 /* XCRemoteSwiftPackageReference "JWTDecode" */;
-			productName = JWTDecode;
-		};
 		A5DB214927E37C040070B444 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */;

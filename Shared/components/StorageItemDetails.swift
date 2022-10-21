@@ -23,8 +23,10 @@ struct StorageItemDetails: View {
     }
     
     func goBack () {
-        if !isNewEntry! {
-            self.mode.wrappedValue.dismiss()
+        if let isNewEntry {
+            if !isNewEntry {
+                self.mode.wrappedValue.dismiss()
+            }
         }
     }
     
@@ -52,7 +54,7 @@ struct StorageItemDetails: View {
         }
         .ignoresSafeArea(.keyboard)
         .padding(.horizontal, 20)
-        .padding(.top, isNewEntry! ? 50 : 0)
+        .padding(.top, isNewEntry ?? false ? 50 : 0)
         .navigationBarTitle(item.name ?? "")
         .onDisappear() {
             

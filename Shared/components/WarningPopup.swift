@@ -24,6 +24,8 @@ struct WarningPopup: View {
                             .zIndex(10)
                         Text(text)
                             .fixedSize(horizontal: false, vertical: true)
+                            .foregroundColor(Colors.text)
+                            .font(.custom(FontNameManager.PublicSans.regular , size: 18))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 16)

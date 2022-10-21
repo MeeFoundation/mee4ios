@@ -61,11 +61,14 @@ struct ConsentEntryModel: Identifiable, Codable {
     var forceOpen: Bool?
     var isOpen: Bool {
         get {
-            if forceOpen == nil {
-                return isRequired && (value?.isEmpty ?? true)
+            if let forceOpen {
+                return forceOpen
             } else {
-                return forceOpen!
+                if let value {
+                    return isRequired && (value.isEmpty)
+                }
             }
+            return false
         }
         set(newValue) {
             forceOpen = newValue

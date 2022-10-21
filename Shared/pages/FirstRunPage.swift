@@ -18,6 +18,8 @@ struct FirstRunPage: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
     
+    let installedUrl = URL(string: "https://meeproject.org/#/installed")
+    
     func tryAuthenticate() {
         currentPage = FirstRunPages.faceId
         requestLocalAuthentication({result in
@@ -35,17 +37,20 @@ struct FirstRunPage: View {
     
     func finishInitializing() {
         launchedBefore = true
-        openURL(URL(string: "https://getmee.org/#/installed")!)
+        if let installedUrl {
+            openURL(installedUrl)
+        }
+        
     }
     
     var body: some View {
-        NavigationView {
+        ZStack {
             if currentPage == FirstRunPages.initializing {
                 ZStack {
                     FirstRunPageInitializing(onNext: finishInitializing)
                 }.background(Colors.background)
             } else if currentPage == FirstRunPages.welcome {
-                FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare}, isInitialization: true)
+                FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare})
             } else {
                 ZStack {
                     BackgroundFaded()
@@ -64,7 +69,7 @@ struct FirstRunPage: View {
                     }
                     .ignoresSafeArea(edges: .bottom)
                 }}
-        }.navigationViewStyle(.stack)
+        }
     }
     
 }
@@ -79,26 +84,24 @@ struct FirstRunPageWelcome: View {
             VStack(spacing: 0) {
                 Image("meeEntry").resizable().scaledToFit()
                     .overlay(VStack(spacing: 0) {
-                        HStack {
-                            BasicText(text:"Hello. ", color: Colors.textYellow, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.bold)
-                            BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.regularItalic)
-                        }
-                        if isInitialization! {
-                            BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: sizeClass == .compact ? 14 : 25)
-                                .frame(maxWidth: 500)
-                                .lineSpacing(5)
-                                .padding(.top, 5)
-                                .padding(.horizontal, 30)
-                        } else {
-                            BasicText(text:" I’m your privacy agent. \nI’m here to increase your privacy online. \nWhen apps or websites want to know something about you, I share as much or as little as you tell me to.", color: Colors.meeBrand, size: sizeClass == .compact ? 16 : 27)
-                                .frame(maxWidth: 500)
-                                .lineSpacing(5)
-                                .padding(.top, sizeClass == .compact ? 16 : 25)
-                                .padding(.horizontal, 40)
-                            
-                            
-                        }
-                    }.padding(.top, sizeClass == .compact ? isInitialization! ? 50 : 58 : isInitialization! ? 100 : 116)
+//                        HStack {
+//                            BasicText(text:"Hello. ", color: Colors.textYellow, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.bold)
+//                            BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.regularItalic)
+//                        }
+//                        if isInitialization! {
+//                            BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: sizeClass == .compact ? 14 : 25)
+//                                .frame(maxWidth: 500)
+//                                .lineSpacing(5)
+//                                .padding(.top, 5)
+//                                .padding(.horizontal, 30)
+//                        } else {
+//                            BasicText(text:" I’m your privacy agent. \nI’m here to increase your privacy online. \nWhen apps or websites want to know something about you, \nI share as much or as little as you tell me to.", color: Colors.meeBrand, size: 40)
+//                                .minimumScaleFactor(0.01)
+//                                .lineSpacing(5)
+//
+//
+//                        }
+                    }.padding(.top, sizeClass == .compact ? 50 :  100)
                              , alignment: .top)
                 RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
                     .padding(.horizontal, 16)
@@ -123,12 +126,15 @@ struct FirstRunPagePrepare: View {
                     .padding(.top, 14)
                     .zIndex(10)
                 Text("Set up \(biometricsTypeText)").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
+                    .foregroundColor(Colors.text)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
                     .padding(.bottom, 16)
                 
                 Text("Mee uses \(biometricsTypeText) to make sure that you are the only person who can open the app.")
+                    .foregroundColor(Colors.text)
+                    .font(.custom(FontNameManager.PublicSans.regular , size: 18))
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 16)
@@ -155,9 +161,11 @@ struct FirstRunPageFaceIdSet: View {
                     .padding(.top, 14)
                     .zIndex(10)
                 Text("All Set!").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
+                    .foregroundColor(Colors.text)
                     .lineSpacing(41)
                     .padding(.bottom, 8)
                 Text("Use \(biometricsTypeText) next time you sign-in")
+                    .foregroundColor(Colors.text)
                     .fixedSize(horizontal: false, vertical: true)
                     .multilineTextAlignment(.center).padding(.horizontal, 60)
                     .padding(.bottom, 64)

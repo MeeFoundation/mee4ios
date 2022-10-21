@@ -26,7 +26,7 @@ struct BasicText: View {
         if text != nil {
             HStack {
                 if align == VerticalAlign.right { Spacer() }
-                Text(text!)
+                Text(text ?? "")
                     .underline(color: underline ? color : Color.white.opacity(0))
                     .foregroundColor(color)
                     .font(.custom(fontName , size: size))

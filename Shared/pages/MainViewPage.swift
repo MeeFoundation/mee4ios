@@ -175,6 +175,8 @@ struct PartnerDetails: View {
                             Image(systemName: "chevron.backward")
                             
                             Text("Back")
+                                .foregroundColor(Colors.text)
+                                .font(.custom(FontNameManager.PublicSans.regular , size: 18))
                         }
                         .padding(.leading, 9)
                     }
@@ -242,9 +244,14 @@ struct PartnerDetails: View {
                 .onAppear{
                     let consentDataString = keychain.getItemByName(name: partner.id)
                     if let consentDataString {
-                        let consentData = (consentDataString.fromBase64() ?? "").data(using: .utf8)!
                         do {
-                            consentEntries = try JSONDecoder().decode([ConsentEntryModel].self, from: consentData)
+                            if let consentDataDecodedString = consentDataString.fromBase64() {
+                                if let consentData = consentDataDecodedString.data(using: .utf8) {
+                                    consentEntries = try JSONDecoder().decode([ConsentEntryModel].self, from: consentData)
+                                }
+                                
+                            }
+                            
                         } catch {
                             
                         }
@@ -321,9 +328,17 @@ struct ConsentsList: View {
                                     }
                                     
                                     ForEach(otherPartners ?? []) { partner in
-                                        PartnerEntry(partner: partner, selection: $selection) {
+                                        Button(action: {
+                                            if partner.isMeeCertified == false {
+                                                showCompatibleWarning = true
+                                            }
                                             
+                                        }) {
+                                            PartnerEntry(partner: partner, selection: $selection) {
+                                                
+                                            }
                                         }
+                                        
                                     }
                                     Spacer()
                                 }
@@ -345,7 +360,7 @@ struct ConsentsList: View {
                                 BasicText(text:"Mee-certified?", color: Colors.meeBrand, size: 14, underline: true)
                             }
                             Button(action: {
-                                showCompatibleWarning = true
+                                
                             }) {
                                 HStack {
                                     Image("meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
@@ -374,10 +389,12 @@ struct ConsentsList: View {
             existingPartners = data.partners.filter{ partner in
                 keychain.getItemByName(name: partner.id) != nil
             }
-            if existingPartners == nil || existingPartners!.isEmpty {
-                showWelcome = true
-            } else {
-                showWelcome = false
+            if let existingPartners {
+                if existingPartners.isEmpty {
+                    showWelcome = true
+                } else {
+                    showWelcome = false
+                }
             }
             otherPartners = data.partners.filter{ partner in
                 keychain.getItemByName(name: partner.id) == nil
@@ -388,7 +405,6 @@ struct ConsentsList: View {
 }
 
 struct MainViewPage: View {
-    let keychain = KeyChainConsents()
     var tabItems = [TabBarItem(id: 0, Icon: Image("dashboardImage"), tabName: "Dashboard", Element: AnyView(DashboardView())),
                     TabBarItem(id: 1, Icon: Image("chatImage"), tabName: "Chat", Element: AnyView(DashboardView())),
                     TabBarItem(id: 2, Icon: Image("menuImage"), tabName: "Menu", Element: AnyView(DashboardView())),]

@@ -22,17 +22,22 @@ struct ConsentPageNew: View {
         }
     }
     
-    @State var isRequiredSectionOpened: Bool = false
+    @State var isRequiredSectionOpened: Bool = true
     @State var isOptionalSectionOpened: Bool = false
     @State var scrollPosition: UUID? = nil
+    let certifiedUrl = URL(string: "https://meeproject.org/#/mee-certified")
+    let rejectUrl = URL(string: "https://demo-dev.meeproject.org/reject")
     var body: some View {
         ZStack {
             BackgroundWhite()
             
             if showCertified {
                 VStack {
-                    WebView(request: URLRequest(url: URL(string: "https://getmee.org/#/mee-certified")!))
-                        .padding(.horizontal, 10)
+                    if let certifiedUrl {
+                        WebView(request: URLRequest(url: certifiedUrl))
+                            .padding(.horizontal, 10)
+                    }
+                    
                     SecondaryButton("Close", action: {
                         showCertified.toggle()
                     })
@@ -101,7 +106,7 @@ struct ConsentPageNew: View {
                         //                    Text("Tap Here")
                         //                })
                         ScrollViewReader {value in
-                            Expander(title: "See required info", isOpen: $isRequiredSectionOpened) {
+                            Expander(title: "Required", isOpen: $isRequiredSectionOpened) {
                                 ForEach($data.consent.entries.filter {$0.wrappedValue.isRequired}) { $entry in
                                     ConsentEntry(entry: $entry)
                                         .id(entry.id)
@@ -114,7 +119,7 @@ struct ConsentPageNew: View {
                                 .frame(height: 1)
                                 .foregroundColor(Colors.gray)
                                 .padding(.bottom, 16)
-                            Expander(title: "See optional info", isOpen: $isOptionalSectionOpened) {
+                            Expander(title: "Optional", isOpen: $isOptionalSectionOpened) {
                                 ForEach($data.consent.entries.filter {!$0.wrappedValue.isRequired}) { $entry in
                                     ConsentEntry(entry: $entry)
                                         .id(entry.id)
@@ -135,20 +140,23 @@ struct ConsentPageNew: View {
                     Spacer()
                     VStack {
                         RejectButton("Decline", action: {
-                            openURL(URL(string: "https://demo-dev.getmee.org/reject")!)
+                            if let rejectUrl {
+                                openURL(rejectUrl)
+                            }
                         }, fullWidth: true)
                         SecondaryButton("Approve and Continue", action: {
                             if (!hasIncorrectFields) {
                                 onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil }), data.consent.id, data.consent.url)
                             } else {
-                                let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true});
-                                if (data.consent.entries[incorrectFieldIndex!].isRequired) {
-                                    isRequiredSectionOpened = true
-                                } else {
-                                    isOptionalSectionOpened = true
+                                if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
+                                    if (data.consent.entries[incorrectFieldIndex].isRequired) {
+                                        isRequiredSectionOpened = true
+                                    } else {
+                                        isOptionalSectionOpened = true
+                                    }
+                                    data.consent.entries[incorrectFieldIndex].isOpen = true
+                                    scrollPosition = data.consent.entries[incorrectFieldIndex].id
                                 }
-                                data.consent.entries[incorrectFieldIndex!].isOpen = true
-                                scrollPosition = data.consent.entries[incorrectFieldIndex!].id
                             }
                         },
                                         fullWidth: true
@@ -156,6 +164,7 @@ struct ConsentPageNew: View {
                     }
                     .padding(.bottom, 30)
                     .padding(.top, 0)
+                    .background(.white.opacity(50))
                     
                 }
                 .padding(.horizontal, 16.0)
@@ -277,9 +286,9 @@ struct ConsentPageExisting: View {
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                     }
                     Spacer()
-                    DelayedActionButton(title: "Don’t Make me Wait", action: {
-                        openURL(URL(string: "https://demo-dev.getmee.org/?interest=world-news")!)
-                    }, delay: 5)
+//                    DelayedActionButton(title: "Don’t Make me Wait", action: {
+//                        openURL(URL(string: "https://demo-dev.meeproject.org/?interest=world-news")!)
+//                    }, delay: 5)
                     .padding(.bottom, 57.5)
                     
                     
@@ -299,6 +308,7 @@ struct ConsentPageExisting: View {
 
 
 struct ConsentPage: View {
+    var isLocked: Bool
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
     @EnvironmentObject var data: ConsentState
     @State private var isPresentingAlert: Bool = false
@@ -310,29 +320,34 @@ struct ConsentPage: View {
         //        if recoveryPassphrase == nil {
         //            isPresentingAlert = true
         //        } else {
-        openURL(URL(string: "\(url)/?token=\(jwtToken)")!)
-        isReturningUser = true
+        if let url = URL(string: "\(url)/?token=\(jwtToken)") {
+            openURL(url)
+            isReturningUser = true
+        }
+        
         //        }
     }
     var body: some View {
         ZStack {
-            if isReturningUser != nil {
-                if isReturningUser! {
-                    ConsentPageExisting() {id, url in
-                        print(id)
-                        guard let data = keyChainConsents.getItemByName(name: id) else {
-                            return
+            if !isLocked {
+                if let isReturningUser {
+                    if isReturningUser {
+                        ConsentPageExisting() {id, url in
+                            print(id)
+                            guard let data = keyChainConsents.getItemByName(name: id) else {
+                                return
+                            }
+                            print(data)
+                            onNext(data, url)
+                            
                         }
-                        print(data)
-                        onNext(data, url)
-                        
                     }
-                }
-                else {
-                    ConsentPageNew(){data, id, url in
-                        print(data)
-                        keyChainConsents.editItem(name: id, item: data.toBase64())
-                        onNext(data.toBase64(), url)
+                    else {
+                        ConsentPageNew(){data, id, url in
+                            print(data)
+                            keyChainConsents.editItem(name: id, item: data.toBase64())
+                            onNext(data.toBase64(), url)
+                        }
                     }
                 }
             }

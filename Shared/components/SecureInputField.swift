@@ -87,7 +87,7 @@ struct SecureInputView: View {
                         }
                     }
                     
-            }
+                }
                 .frame(height: 58)
                 .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15))
                 .cornerRadius(10)
@@ -95,27 +95,31 @@ struct SecureInputView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(error == nil ? Colors.text : Colors.error, lineWidth: 1.0)
                 )
-                if showAdditionalIcons! {
-                    HStack {
-                        MainButton("Generate", action: {
-                            showPasswordGenerator = true
-                        }, image: Image(systemName: "lock.rotation.open"), fullWidth: true, width: 160)
+                if let showAdditionalIcons {
+                    if showAdditionalIcons {
+                        HStack {
+                            MainButton("Generate", action: {
+                                showPasswordGenerator = true
+                            }, image: Image(systemName: "lock.rotation.open"), fullWidth: true, width: 160)
                             .sheet(isPresented: $showPasswordGenerator, content: {
                                 PasswordGenerator(){result in
                                     text = result
                                 }
                             })
-                        Spacer()
-                        MainButton("Copy", action: {
-                            if lockWithLocalAuth! && isSecured {
-                                requestLocalAuthentication(copyToClipboard)
-                            } else {
-                                copyToClipboard(success: true)
-                            }
-                        }, image: Image(systemName: "doc.on.doc"), fullWidth: true, width: 160)
+                            Spacer()
+                            MainButton("Copy", action: {
+                                if let lockWithLocalAuth {
+                                    if lockWithLocalAuth && isSecured {
+                                        requestLocalAuthentication(copyToClipboard)
+                                    } else {
+                                        copyToClipboard(success: true)
+                                    }
+                                }
+                            }, image: Image(systemName: "doc.on.doc"), fullWidth: true, width: 160)
+                        }
+                        .popup(isShowing: $copySuccessfullMessage, text: Text("Copied!"))
+                        .padding(.top, 10)
                     }
-                    .popup(isShowing: $copySuccessfullMessage, text: Text("Copied!"))
-                    .padding(.top, 10)
                 }
                 BasicText(text: error, color: Colors.error, size: 14, align: VerticalAlign.left)
             }

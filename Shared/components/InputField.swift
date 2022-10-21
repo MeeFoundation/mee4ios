@@ -31,7 +31,7 @@ struct InputView: View {
                         .disableAutocorrection(true)
                         .font(.custom(FontNameManager.PublicSans.regular, size: 16))
                         .textContentType(type)
-                        .autocapitalization(autocapitalization! ? .sentences : .none)
+                        .autocapitalization(autocapitalization ?? false ? .sentences : .none)
                         .padding(0)
                         .onChange(of: text) { [] newValue in
                             error = nil

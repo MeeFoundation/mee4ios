@@ -39,7 +39,20 @@ struct LibraryImage: View {
     var body: some View {
         VStack {
 
-            if (uiImage == nil) {
+            if let uiImage {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .frame(width: 150, height: 150)
+                    .cornerRadius(16)
+//                    .overlay(
+//                            RoundedRectangle(cornerRadius: 16)
+//                                .stroke(Colors.mainButtonColor, lineWidth: 2)
+//                        )
+                    .onTapGesture {
+                        self.showAction = true
+                    }
+               
+            } else {
                 Image(systemName: "camera.on.rectangle")
                     .foregroundColor(Colors.mainButtonTextColor)
                     .background(
@@ -53,18 +66,6 @@ struct LibraryImage: View {
                         )
                     .onTapGesture {
                         self.showImagePicker = true
-                    }
-            } else {
-                Image(uiImage: uiImage!)
-                    .resizable()
-                    .frame(width: 150, height: 150)
-                    .cornerRadius(16)
-//                    .overlay(
-//                            RoundedRectangle(cornerRadius: 16)
-//                                .stroke(Colors.mainButtonColor, lineWidth: 2)
-//                        )
-                    .onTapGesture {
-                        self.showAction = true
                     }
             }
 

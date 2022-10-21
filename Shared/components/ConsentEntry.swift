@@ -30,6 +30,8 @@ struct ConsentEntryInput: View {
     var body: some View {
         Group {
             TextField(name, text:  optionalBinding(binding: $value))
+                .preferredColorScheme(.light)
+                .foregroundColor(Colors.text)
                 .fixedSize(horizontal: false, vertical: true).disabled(readOnly)
                 .multilineTextAlignment(.leading)
                 .padding(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))

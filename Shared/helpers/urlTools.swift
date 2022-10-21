@@ -8,8 +8,13 @@
 import Foundation
 
 func getFaviconLinkFromUrl (urlString: String?) -> String {
-    let url = URL(string: urlString ?? "")
-    let host = url?.host ?? ""
-    let hostname = "https://\(host)/favicon.ico"
-    return hostname
+    if let urlString {
+        if let url = URL(string: urlString) {
+            if let host = url.host {
+                let hostname = "https://\(host)/favicon.ico"
+                return hostname
+            }
+        }
+    }
+    return ""
 }
