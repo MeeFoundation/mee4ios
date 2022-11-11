@@ -9,10 +9,13 @@ import SwiftUI
 
 struct ConsentPageNew: View {
     @EnvironmentObject var data: ConsentState
+    @EnvironmentObject var partners: PartnersState
+    @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
     @Environment(\.openURL) var openURL
     @State private var showCertified = false
+    @State private var partner: PartnersModel?
+    @State var durationPopupId: UUID? = nil
     var onAccept: (String, String, String) -> Void
-    
     init(onAccept: @escaping (String, String, String) -> Void) {
         self.onAccept = onAccept
     }
@@ -25,7 +28,6 @@ struct ConsentPageNew: View {
     @State var isRequiredSectionOpened: Bool = true
     @State var isOptionalSectionOpened: Bool = false
     @State var scrollPosition: UUID? = nil
-    let certifiedUrl = URL(string: "https://meeproject.org/#/mee-certified")
     let rejectUrl = URL(string: "https://demo-dev.meeproject.org/reject")
     var body: some View {
         ZStack {
@@ -34,8 +36,11 @@ struct ConsentPageNew: View {
             if showCertified {
                 VStack {
                     if let certifiedUrl {
-                        WebView(request: URLRequest(url: certifiedUrl))
-                            .padding(.horizontal, 10)
+                        if let compatibleUrl {
+                            WebView(request: URLRequest(url: (partner?.isMeeCertified ?? false) ? certifiedUrl : compatibleUrl))
+                                .padding(.horizontal, 10)
+                        }
+                        
                     }
                     
                     SecondaryButton("Close", action: {
@@ -56,60 +61,100 @@ struct ConsentPageNew: View {
                                     .frame(height: 1)
                                     .foregroundColor(Colors.meeBrand)
                                 VStack {
-                                    Image("meeCertifiedLogo").resizable().scaledToFit()
-                                        .frame(width: 48, height: 48, alignment: .center)
+                                    Button(action: {
+                                        showCertified.toggle()
+                                    }) {
+                                        Image((partner?.isMeeCertified ?? false) ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
+                                            .frame(width: 48, height: 48, alignment: .center)
+                                    }
+                                    .frame(width: 48, height: 48)
+                                    .onAppear{
+                                        partner = partners.partners.first(where: { partner in
+                                            partner.id == data.consent.id
+                                        })
+                                    }
+                                    
                                 }
+                                .overlay {
+                                    VStack(spacing: 0) {
+                                        Triangle()
+                                            .fill(Colors.meeBrand)
+                                            .frame(width: 12, height: 6)
+                                        VStack(spacing: 0) {
+                                            
+                                            BasicText(
+                                                text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.",
+                                                color: .white,
+                                                size: 14, textAlignment: .leading)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                            Button(action: {
+                                                isCompatibleWarningShown = true
+                                            }) {
+                                                BasicText(text: "Got it", color: .white, size:14).frame(maxWidth: .infinity, alignment: .leading)
+                                            }
+                                            .padding(.top, 16)
+                                        }
+                                        
+                                        .frame(width: 249)
+                                        .padding(.horizontal, 16)
+                                        .padding(.top, 28)
+                                        .padding(.bottom, 16)
+                                        .background(Colors.meeBrand)
+                                        .cornerRadius(10)
+                                        
+                                        
+                                    }
+                                    .opacity(!(partner?.isMeeCertified ?? false) && !isCompatibleWarningShown ? 1 : 0)
+                                    .position(x: 35,y: 122)
+                                    
+                                    
+                                }
+                                
                                 Line()
                                     .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                     .frame(height: 1)
                                     .foregroundColor(Colors.meeBrand)
                                 AsyncImage(url: URL(string: data.consent.imageUrl), content: { phase in
                                     if let image = phase.image {
-                                            image.resizable().scaledToFit()
-                                                .frame(width: 48, height: 48, alignment: .center)
-                                        } else {
-                                            Color.black
-                                        }
-                                  
+                                        image.resizable().scaledToFit()
+                                            .frame(width: 48, height: 48, alignment: .center)
+                                    } else {
+                                        ProgressView()
+                                    }
+                                    
                                 })
+                                .frame(width: 48, height: 48, alignment: .center)
                             }
-                            HStack {
-                                Spacer()
-                                Button(action: {
-                                    showCertified.toggle()
-                                }) {
-                                    BasicText(text: "Mee-certified", color: Colors.meeBrand, size: 14, underline: true)
-                                }
-                                Spacer()
-                            }
-                            .offset(x: 0, y: -7)
                         }
+                        .zIndex(1)
                         .padding(.bottom, 24.0)
                         .padding(.top, 30)
                         Text(data.consent.name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
-                        HStack {
-                            Image("lockIcon").resizable().scaledToFit()
-                                .frame(height: 24)
-                            Text(data.consent.displayUrl)
-                                .foregroundColor(Colors.meeBrand)
-                                .font(.custom(FontNameManager.PublicSans.bold, size: 30))
-                        }
-                        Text("would like access to some of your personal information")
+                        
+                        Text(data.consent.displayUrl)
+                            .foregroundColor(Colors.meeBrand)
+                            .font(.custom(FontNameManager.PublicSans.bold, size: 18))
+                        
+                        Text("would like access to your information")
                             .foregroundColor(Colors.textGrey)
                             .font(.custom(FontNameManager.PublicSans.medium, size: 18))
                             .padding(.bottom, 36.0)
                             .padding(.horizontal, 10)
                             .multilineTextAlignment(.center)
+                            .zIndex(0)
                         //                Button(action: buttonAction, label: {
                         //                    Text("Tap Here")
                         //                })
                         ScrollViewReader {value in
                             Expander(title: "Required", isOpen: $isRequiredSectionOpened) {
                                 ForEach($data.consent.entries.filter {$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry)
-                                        .id(entry.id)
+                                    ConsentEntry(entry: $entry) {
+                                        durationPopupId = entry.id
+                                    }
+                                    .id(entry.id)
                                 }
                                 .padding(.top, 16)
                             }
@@ -121,8 +166,10 @@ struct ConsentPageNew: View {
                                 .padding(.bottom, 16)
                             Expander(title: "Optional", isOpen: $isOptionalSectionOpened) {
                                 ForEach($data.consent.entries.filter {!$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry)
-                                        .id(entry.id)
+                                    ConsentEntry(entry: $entry) {
+                                        durationPopupId = entry.id
+                                    }
+                                    .id(entry.id)
                                 }
                                 .padding(.top, 16)
                             }.onChange(of: scrollPosition, perform: {newValue in
@@ -140,11 +187,13 @@ struct ConsentPageNew: View {
                     Spacer()
                     VStack {
                         RejectButton("Decline", action: {
+                            keyboardEndEditing()
                             if let rejectUrl {
                                 openURL(rejectUrl)
                             }
                         }, fullWidth: true)
                         SecondaryButton("Approve and Continue", action: {
+                            keyboardEndEditing()
                             if (!hasIncorrectFields) {
                                 onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil }), data.consent.id, data.consent.url)
                             } else {
@@ -168,8 +217,17 @@ struct ConsentPageNew: View {
                     
                 }
                 .padding(.horizontal, 16.0)
-                
+                .overlay {
+                    PopupWrapper(isVisible: durationPopupId != nil) {
+                        if let durationPopupId {
+                            ConsentDuration(consentEntries: $data.consent.entries, id: durationPopupId) {
+                                self.durationPopupId = nil
+                            }
+                        }
+                    }
+                }
             }
+            
             
         }
     }
@@ -286,10 +344,10 @@ struct ConsentPageExisting: View {
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                     }
                     Spacer()
-//                    DelayedActionButton(title: "Don’t Make me Wait", action: {
-//                        openURL(URL(string: "https://demo-dev.meeproject.org/?interest=world-news")!)
-//                    }, delay: 5)
-                    .padding(.bottom, 57.5)
+                    //                    DelayedActionButton(title: "Don’t Make me Wait", action: {
+                    //                        openURL(URL(string: "https://demo-dev.meeproject.org/?interest=world-news")!)
+                    //                    }, delay: 5)
+                        .padding(.bottom, 57.5)
                     
                     
                     
@@ -364,3 +422,4 @@ struct ConsentPage: View {
         }
     }
 }
+

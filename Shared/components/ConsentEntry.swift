@@ -83,9 +83,12 @@ struct ConsentEntryInput: View {
 
 struct ConsentEntry: View {
     @Binding var entry: ConsentEntryModel
-    init(entry: Binding<ConsentEntryModel>) {
+    var onDurationPopupShow: () -> Void
+    init(entry: Binding<ConsentEntryModel>, onDurationPopupShow: @escaping () -> Void) {
         self._entry = entry
+        self.onDurationPopupShow = onDurationPopupShow
     }
+    
     
     func validateEntry() {
 //        entry.isIncorrect = false
@@ -102,11 +105,16 @@ struct ConsentEntry: View {
                     if (!entry.isOpen || !(entry.value?.isEmpty ?? true)) {
                         entry.isOpen = !entry.isOpen
                     }
-                }) { Image(getConsentEntryImageByType(entry.type)).resizable().scaledToFit()
+                }) {
+                    Image(getConsentEntryImageByType(entry.type))
+                        .resizable()
+                        .scaledToFit()
+                        .blending(entry.isRequired || entry.isOn ? Colors.meeBrand : Colors.gray600)
                         .frame(width: 18, height: 18, alignment: .center)
                         .padding(.trailing, 13)
+                        
                 }
-                if (entry.isOpen && entry.isRequired) {
+                if ((entry.isRequired && entry.isOpen) || (!entry.isRequired && entry.isOn)) {
                     ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
                 } else {
                     Button(action: {
@@ -114,8 +122,8 @@ struct ConsentEntry: View {
                             entry.isOpen = !entry.isOpen
                         }
                     }) {
-                        Text(entry.name)
-                            .foregroundColor(Colors.meeBrand)
+                        Text((!(entry.type == ConsentEntryType.agreement) && entry.value != nil) ? entry.value! : entry.name)
+                            .foregroundColor(entry.isRequired || entry.isOn ? Colors.meeBrand : Colors.gray600)
                             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     }
                 }
@@ -123,12 +131,19 @@ struct ConsentEntry: View {
                 Spacer()
                 if !entry.isRequired {
                     Checkbox(isToggled: $entry.isOn)
+                } else {
+                    Button(action: {
+                        onDurationPopupShow()
+                    }) {
+                        Image("arrowRight").resizable().scaledToFit().frame(width: 7)
+                    }
+                    
                 }
                 
             }
-            if (entry.isOpen && !entry.isRequired) {
-                ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
-            }
+//            if (entry.isOpen && !entry.isRequired) {
+//                ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
+//            }
         }
         .onChange(of: entry.value, perform: { _ in
             entry.isOpen = true

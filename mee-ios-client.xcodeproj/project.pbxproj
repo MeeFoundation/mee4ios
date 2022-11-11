@@ -99,6 +99,10 @@
 		A55085C627CE428200C5A2D1 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C427CE428100C5A2D1 /* LoginForm.swift */; };
 		A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
 		A55085CA27CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
+		A5A4D382291433B700CA3F26 /* ConsentDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D381291433B700CA3F26 /* ConsentDuration.swift */; };
+		A5A4D383291433B700CA3F26 /* ConsentDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D381291433B700CA3F26 /* ConsentDuration.swift */; };
+		A5A4D3852914A2A000CA3F26 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D3842914A2A000CA3F26 /* Triangle.swift */; };
+		A5A4D3862914A2A000CA3F26 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D3842914A2A000CA3F26 /* Triangle.swift */; };
 		A5A6F06527FB59F800BEDBDC /* PasswordGeneratorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */; };
 		A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */; };
 		A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEB28A417BB00677ADD /* Expander.swift */; };
@@ -111,6 +115,14 @@
 		A5C0EE4D28EB594500790179 /* keyChainConsents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* keyChainConsents.swift */; };
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5C0EE9128F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
+		A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
+		A5D0F030291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
+		A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */; };
+		A5D2AAE5291C087200F9806E /* keyboardHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */; };
+		A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE6291D210E00F9806E /* ColorBlend.swift */; };
+		A5D2AAE8291D210F00F9806E /* ColorBlend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE6291D210E00F9806E /* ColorBlend.swift */; };
+		A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE9291D2FB500F9806E /* URLs.swift */; };
+		A5D2AAEB291D2FB500F9806E /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE9291D2FB500F9806E /* URLs.swift */; };
 		A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C822878624D00481E85 /* FirstRunPage.swift */; };
 		A5D30C842878624D00481E85 /* FirstRunPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C822878624D00481E85 /* FirstRunPage.swift */; };
 		A5D30C86287C5AF100481E85 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D30C85287C5AF100481E85 /* LoadingCircle.swift */; };
@@ -245,6 +257,8 @@
 		A55085C127CE33C500C5A2D1 /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
 		A55085C427CE428100C5A2D1 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		A55085C827CF741500C5A2D1 /* CurrentPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPageState.swift; sourceTree = "<group>"; };
+		A5A4D381291433B700CA3F26 /* ConsentDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentDuration.swift; sourceTree = "<group>"; };
+		A5A4D3842914A2A000CA3F26 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorList.swift; sourceTree = "<group>"; };
 		A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordEntry.swift; sourceTree = "<group>"; };
 		A5AA4CEB28A417BB00677ADD /* Expander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expander.swift; sourceTree = "<group>"; };
@@ -252,6 +266,10 @@
 		A5AA4CF128ABEBE700677ADD /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		A5C0EE4B28EB594500790179 /* keyChainConsents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyChainConsents.swift; sourceTree = "<group>"; };
 		A5C0EE8F28F86F7300790179 /* WarningPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningPopup.swift; sourceTree = "<group>"; };
+		A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWrapper.swift; sourceTree = "<group>"; };
+		A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardHelpers.swift; sourceTree = "<group>"; };
+		A5D2AAE6291D210E00F9806E /* ColorBlend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlend.swift; sourceTree = "<group>"; };
+		A5D2AAE9291D2FB500F9806E /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
 		A5D30C822878624D00481E85 /* FirstRunPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunPage.swift; sourceTree = "<group>"; };
 		A5D30C85287C5AF100481E85 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		A5D30C88287DBD7300481E85 /* EmptyAppPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyAppPage.swift; sourceTree = "<group>"; };
@@ -405,6 +423,9 @@
 				A5AA4CF128ABEBE700677ADD /* Checkbox.swift */,
 				A5E0F50A28C8B4480065058A /* TabBar.swift */,
 				A5C0EE8F28F86F7300790179 /* WarningPopup.swift */,
+				A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */,
+				A5A4D381291433B700CA3F26 /* ConsentDuration.swift */,
+				A5A4D3842914A2A000CA3F26 /* Triangle.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -499,6 +520,7 @@
 				A5DB216327EDE9FA0070B444 /* autoFill.swift */,
 				A5D7510628EB186B003CD142 /* json.swift */,
 				A5C0EE4B28EB594500790179 /* keyChainConsents.swift */,
+				A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -517,6 +539,7 @@
 				A55085C827CF741500C5A2D1 /* CurrentPageState.swift */,
 				A53F79CF27DA2DFC00A62589 /* ConsentState.swift */,
 				A5DB214227E3321C0070B444 /* StorageState.swift */,
+				A5D2AAE9291D2FB500F9806E /* URLs.swift */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -527,6 +550,7 @@
 				A5DB214E27EA2B420070B444 /* Popup.swift */,
 				A5AA4CEE28AAAAA400677ADD /* View.swift */,
 				A5D7510328EB0EE0003CD142 /* String.swift */,
+				A5D2AAE6291D210E00F9806E /* ColorBlend.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -660,7 +684,6 @@
 			mainGroup = 946D2DD627BB9A950055175C;
 			packageReferences = (
 				A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
-				A5C0EE8C28F85A9300790179 /* XCRemoteSwiftPackageReference "JWTDecode" */,
 			);
 			productRefGroup = 946D2DE427BB9A960055175C /* Products */;
 			projectDirPath = "";
@@ -751,6 +774,7 @@
 				A550857027BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A55085B027C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
 				A5D7510A28EB3E26003CD142 /* PartnerData.swift in Sources */,
+				A5A4D3852914A2A000CA3F26 /* Triangle.swift in Sources */,
 				A5DB214027E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
 				A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */,
 				A55085B327C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
@@ -769,6 +793,7 @@
 				A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */,
 				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
 				A5C0EE4C28EB594500790179 /* keyChainConsents.swift in Sources */,
+				A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0627BB9A960055175C /* ContentView.swift in Sources */,
 				A5D30C89287DBD7300481E85 /* EmptyAppPage.swift in Sources */,
@@ -779,6 +804,7 @@
 				A5DB214C27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CD27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
 				A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */,
+				A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */,
 				A5D7510728EB186B003CD142 /* json.swift in Sources */,
 				A5DB215B27EB2D8C0070B444 /* Switch.swift in Sources */,
 				A550858627BE3B1400C5A2D1 /* Line.swift in Sources */,
@@ -790,14 +816,17 @@
 				A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
 				A55085C527CE428200C5A2D1 /* LoginForm.swift in Sources */,
 				A55085BC27C3DA1A00C5A2D1 /* Text.swift in Sources */,
+				A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */,
 				A550858927BE46CE00C5A2D1 /* ConsentEntry.swift in Sources */,
 				A53F79C727D647B400A62589 /* validation.swift in Sources */,
 				946D2E0427BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
 				A5D7510428EB0EE0003CD142 /* String.swift in Sources */,
 				A55085A727BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
+				A5A4D382291433B700CA3F26 /* ConsentDuration.swift in Sources */,
 				A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */,
 				A550857327BD473B00C5A2D1 /* ConsentPage.swift in Sources */,
 				A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */,
+				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085B927C3B61E00C5A2D1 /* MainButton.swift in Sources */,
 				A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */,
@@ -811,19 +840,23 @@
 			files = (
 				A550857127BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A5D7510228E7368B003CD142 /* RecoveryPhraseSetupPage.swift in Sources */,
+				A5D0F030291422BB00D8A34F /* PopupWrapper.swift in Sources */,
 				A55085B127C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
 				A5DB214127E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
 				A55085B427C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085C027C3E07200C5A2D1 /* SelectImage.swift in Sources */,
+				A5A4D3862914A2A000CA3F26 /* Triangle.swift in Sources */,
 				A5AA4CED28A417BB00677ADD /* Expander.swift in Sources */,
 				A55085B727C3B55400C5A2D1 /* InputField.swift in Sources */,
 				A5DB213E27E22B520070B444 /* urlTools.swift in Sources */,
 				A53F79D127DA2DFC00A62589 /* ConsentState.swift in Sources */,
+				A5D2AAE5291C087200F9806E /* keyboardHelpers.swift in Sources */,
 				A5DB215327EA2B690070B444 /* PopupWindow.swift in Sources */,
 				A5DB214427E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB215027EA2B420070B444 /* Popup.swift in Sources */,
 				A5DB214727E37A690070B444 /* keyChain.swift in Sources */,
 				A53F79D427E08B9D00A62589 /* MainViewPage.swift in Sources */,
+				A5D2AAE8291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A5C0EE9128F86F7300790179 /* WarningPopup.swift in Sources */,
 				A5D30C842878624D00481E85 /* FirstRunPage.swift in Sources */,
 				A5DB216527EDE9FA0070B444 /* autoFill.swift in Sources */,
@@ -832,12 +865,14 @@
 				A550858127BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0727BB9A960055175C /* ContentView.swift in Sources */,
 				A55085AE27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
+				A5D2AAEB291D2FB500F9806E /* URLs.swift in Sources */,
 				A5AA4CF028AAAAA500677ADD /* View.swift in Sources */,
 				A550858D27BE4A7200C5A2D1 /* ConsentEntryModel.swift in Sources */,
 				A5DB214D27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CE27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
 				A5DB213027E1DF850070B444 /* StorageListItem.swift in Sources */,
 				A5DB215C27EB2D8C0070B444 /* Switch.swift in Sources */,
+				A5A4D383291433B700CA3F26 /* ConsentDuration.swift in Sources */,
 				A550858727BE3B1400C5A2D1 /* Line.swift in Sources */,
 				A5DB215F27EB32D60070B444 /* passwordGenerator.swift in Sources */,
 				A550859327BFD40700C5A2D1 /* Background.swift in Sources */,
@@ -1302,14 +1337,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A5C0EE8C28F85A9300790179 /* XCRemoteSwiftPackageReference "JWTDecode" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/auth0/JWTDecode.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";

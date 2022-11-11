@@ -9,7 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-  case consent, mainViewPage, login
+    case consent, mainViewPage, login
 }
 
 struct ContentView: View {
@@ -19,7 +19,7 @@ struct ContentView: View {
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
     init() {
- 
+        
     }
     
     private var authenticationEnabled = true
@@ -114,19 +114,19 @@ struct ContentView: View {
             tryAuthenticate()
         }
         .onChange(of: scenePhase) { newPhase in
-                        if newPhase == .active {
-                            print("active")
-                            if appWasMinimized {tryReauthenticate()}
-                        } else if newPhase == .inactive {
-                            print("inactive")
-                        } else if newPhase == .background {
-                            print("background")
-                            if (navigationState.currentPage == NavigationPages.consent) {
-                                navigationState.currentPage = NavigationPages.mainViewPage
-                            }
-
-                            appWasMinimized = true
-                        }
+            if newPhase == .active {
+                print("active")
+                if appWasMinimized {tryReauthenticate()}
+            } else if newPhase == .inactive {
+                print("inactive")
+            } else if newPhase == .background {
+                print("background")
+                if (navigationState.currentPage == NavigationPages.consent) {
+                    navigationState.currentPage = NavigationPages.mainViewPage
+                }
+                
+                appWasMinimized = true
+            }
         }
         .onOpenURL { url in
             print(url)
@@ -138,31 +138,34 @@ struct ContentView: View {
 struct NavigationPage: View {
     var isLocked: Bool
     @EnvironmentObject private var navigationState: NavigationState
+    
     var body: some View {
-            ZStack {
-                Background()
-                    VStack {
-                        NavigationLink(
-                            "Consent",
-                            destination: ConsentPage(isLocked: isLocked)
-                            .navigationBarTitle("", displayMode: .inline)
-                            .navigationBarBackButtonHidden(true)
-                            .navigationBarHidden(true)
-                            ,tag: NavigationPages.consent
-                            ,selection: $navigationState.currentPage
-                        )
-
-                        NavigationLink(
-                            "Main",
-                            destination: MainViewPage()
-                            .navigationBarBackButtonHidden(true)
-                            .navigationBarHidden(true)
-                            ,tag: NavigationPages.mainViewPage
-                            ,selection: $navigationState.currentPage
-                        )
-
-                    }
+        ZStack {
+            Background()
+            VStack {
+                NavigationLink(
+                    "Consent",
+                    destination: ConsentPage(isLocked: isLocked)
+                        .navigationBarTitle("", displayMode: .inline)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                    ,tag: NavigationPages.consent
+                    ,selection: $navigationState.currentPage
+                )
+                
+                NavigationLink(
+                    "Main",
+                    destination: MainViewPage()
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                    ,tag: NavigationPages.mainViewPage
+                    ,selection: $navigationState.currentPage
+                )
+                
             }
-        
+        }
+        .onTapGesture {
+            keyboardEndEditing()
+        }
     }
 }

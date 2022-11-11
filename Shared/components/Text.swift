@@ -21,6 +21,7 @@ struct BasicText: View {
     var textAlignment = TextAlignment.center
     var fontName: String = FontNameManager.PublicSans.regular
     var underline: Bool = false
+    var weight: Font.Weight = .regular
     
     var body: some View {
         if text != nil {
@@ -30,6 +31,7 @@ struct BasicText: View {
                     .underline(color: underline ? color : Color.white.opacity(0))
                     .foregroundColor(color)
                     .font(.custom(fontName , size: size))
+                    .fontWeight(weight)
                     .multilineTextAlignment(textAlignment)
                 if align == VerticalAlign.left { Spacer() }
             }

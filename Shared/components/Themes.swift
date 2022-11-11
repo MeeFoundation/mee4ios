@@ -26,5 +26,8 @@ struct Colors {
     static let inactive = Color.gray
     static let popupBackground = Color("popupBackgroundColor")
     static let inactiveBackground = Color("inactiveBackgroundColor")
-    
+    static let gray200 = Color("gray200Color")
+    static let gray600 = Color("gray600Color")
+    static let separatorLight = Color("separatorLightColor")
+    static let labelLight = Color("labelColorLight")
 }

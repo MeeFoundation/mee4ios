@@ -13,4 +13,5 @@ struct PartnerData: Decodable {
     let partnerUrl: String
     let partnerImageUrl: String
     let partnerDisplayedUrl: String
+    let isMobileApp: Bool
 }

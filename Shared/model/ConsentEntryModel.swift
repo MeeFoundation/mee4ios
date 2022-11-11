@@ -16,24 +16,32 @@ struct ConsentModel: Codable {
     var entries: [ConsentEntryModel]
 }
 
-struct PartnersModel: Identifiable {
+struct PartnersModel: Identifiable, Equatable {
     var id: String
     var name: String
     var url: String
     var displayUrl: String
     var imageUrl: String
     var isMeeCertified: Bool
+    var isMobileApp: Bool
 }
 
-enum ConsentEntryType: Encodable {
+enum ConsentEntryType: Codable {
     case id
     case name
     case email
     case card
     case date
+    case agreement
 }
 
-func getConsentEntryImageByType (_ entryType: ConsentEntryType) -> String {
+enum ConsentStorageDuration: Codable {
+    case temporary
+    case appLifetime
+    case manualRemove
+}
+
+func getConsentEntryImageByType (_ entryType: ConsentEntryType, isDisabled: Bool = false) -> String {
     switch entryType {
     case ConsentEntryType.id:
         return "keyIcon"
@@ -45,14 +53,18 @@ func getConsentEntryImageByType (_ entryType: ConsentEntryType) -> String {
         return "cardIcon"
     case ConsentEntryType.date:
         return "calendarIcon"
+    case ConsentEntryType.agreement:
+        return "calendarIcon"
     }
 }
 
 struct ConsentEntryModel: Identifiable, Codable {
     let id = UUID()
-    let name: String
-    let type: ConsentEntryType
+    var name: String
+    var type: ConsentEntryType
     var value: String?
+    var providedBy: String?
+    var storageDuration: ConsentStorageDuration = .manualRemove
     var isRequired: Bool = false
     var canRead: Bool = false
     var canWrite: Bool = false
@@ -78,12 +90,13 @@ struct ConsentEntryModel: Identifiable, Codable {
         return (isRequired || isOn) && (value == nil || value!.isEmpty)
     }
     private enum CodingKeys: String, CodingKey {
-        case name, value, isRequired
+        case name, value, isRequired, providedBy, hasValue, type, storageDuration
     }
-    init(name: String, type: ConsentEntryType, value: String?, isRequired: Bool? = false, canRead: Bool? = false, canWrite: Bool? = false, hasValue: Bool? = true, isOn: Bool? = false) {
+    init(name: String, type: ConsentEntryType, value: String?, providedBy: String?, isRequired: Bool? = false, canRead: Bool? = false, canWrite: Bool? = false, hasValue: Bool? = true, isOn: Bool? = false) {
         self.name = name
         self.type = type
         self.value = value
+        self.providedBy = providedBy
         self.isRequired = isRequired ?? false
         self.canRead = canRead ?? false
         self.canWrite = canWrite ?? false
@@ -100,16 +113,31 @@ struct ConsentEntryModel: Identifiable, Codable {
         if let value = try container.decodeIfPresent(String.self, forKey: .value) {
             self.value = value
         }
-        switch name {
-        case "Email":
-            self.type = ConsentEntryType.email
-        case "Private Personal Identifier":
-            self.type = ConsentEntryType.id
-        case "Date of Birth":
-            self.type = ConsentEntryType.date
-        default:
+        
+        if let type = try container.decodeIfPresent(ConsentEntryType.self, forKey: .type) {
+            self.type = type
+        } else {
             self.type = ConsentEntryType.name
         }
+        
+        if let hasValue = try container.decodeIfPresent(Bool.self, forKey: .hasValue) {
+            self.hasValue = hasValue
+        } else {
+            self.hasValue = true
+        }
+        
+        if let providedBy = try container.decodeIfPresent(String.self, forKey: .providedBy) {
+            self.providedBy = providedBy
+        } else {
+            self.providedBy = nil
+        }
+        
+        if let storageDuration = try container.decodeIfPresent(ConsentStorageDuration.self, forKey: .storageDuration) {
+            self.storageDuration = storageDuration
+        } else {
+            self.storageDuration = ConsentStorageDuration.manualRemove
+        }
+        
         if let isRequired = try container.decodeIfPresent(Bool.self, forKey: .isRequired) {
             self.isRequired = isRequired
             if !isRequired {

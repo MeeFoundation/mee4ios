@@ -16,6 +16,7 @@
 		<string>$(AppIdentifierPrefix)org.getmee.ios-client.share</string>
 		<string>$(AppIdentifierPrefix)org.getmee.ios-client.config</string>
 		<string>$(AppIdentifierPrefix)org.getmee.ios-client.consent</string>
+		<string>$(AppIdentifierPrefix)org.getmee.ios-client.connections</string>
 	</array>
 </dict>
 </plist>
