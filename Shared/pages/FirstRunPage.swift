@@ -234,13 +234,13 @@ struct FirstRunPageInitializing: View {
                     }
                     //                             onNext()
                 } else if progress < 0.1 {
-                    text = "Creating a context in the Mee Data Storage"
-                } else if progress < 0.4 {
-                    text = "Generating the context data encryption key"
-                } else if progress < 0.7 {
                     text = "Generating unique device keys"
+                } else if progress < 0.4 {
+                    text = "Generating context data encryption key"
+                } else if progress < 0.7 {
+                    text = "Generating context-specific user indentifier"
                 } else if progress < 0.9 {
-                    text = "Generating the context-specific user indentifier"
+                    text = "Creating Self in the Mee data storage"
                 } else {
                     text = ""
                 }

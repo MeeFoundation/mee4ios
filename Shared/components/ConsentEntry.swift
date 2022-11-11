@@ -122,7 +122,7 @@ struct ConsentEntry: View {
                             entry.isOpen = !entry.isOpen
                         }
                     }) {
-                        Text((!(entry.type == ConsentEntryType.agreement) && entry.value != nil) ? entry.value! : entry.name)
+                        Text((!(entry.type == ConsentEntryType.agreement) && !(entry.type == ConsentEntryType.id) && entry.value != nil) ? entry.value! : entry.name)
                             .foregroundColor(entry.isRequired || entry.isOn ? Colors.meeBrand : Colors.gray600)
                             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     }
