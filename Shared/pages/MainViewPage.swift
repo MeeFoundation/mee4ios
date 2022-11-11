@@ -199,42 +199,42 @@ struct PartnerDetails: View {
                         .padding(.top, 16)
                     }
                     Spacer()
-             
-                        Button(action: {
-                            
-                        }){
-                            HStack(spacing: 0) {
-                                BasicText(text: "Block Connection", color: Color.black, size: 17)
-                                Spacer()
-                                Image("blockIcon").resizable().scaledToFit().frame(height: 17)
-                            }
-                            .padding(.vertical, 12)
-                            .padding(.leading, 16)
-                            .padding(.trailing, 19)
-                            .background(.white)
+                    
+                    Button(action: {
+                        
+                    }){
+                        HStack(spacing: 0) {
+                            BasicText(text: "Block Connection", color: Color.black, size: 17)
+                            Spacer()
+                            Image("blockIcon").resizable().scaledToFit().frame(height: 17)
                         }
-                        .cornerRadius(12)
-                        .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
-                        .padding(.bottom, 16)
-                        .padding(.top, 80)
-                        .padding(.horizontal, 16)
-                        
-                        
+                        .padding(.vertical, 12)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 19)
+                        .background(.white)
+                    }
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
+                    .padding(.bottom, 16)
+                    .padding(.top, 80)
+                    .padding(.horizontal, 16)
+                    
+                    
                     Button(action: onRemove){
-                            HStack(spacing: 0) {
-                                BasicText(text: "Delete Connection", color: Colors.error, size: 17)
-                                Spacer()
-                                Image("trashIcon").resizable().scaledToFit().frame(height: 17)
-                            }
-                            .padding(.vertical, 12)
-                            .padding(.leading, 16)
-                            .padding(.trailing, 19)
-                            .background(.white)
+                        HStack(spacing: 0) {
+                            BasicText(text: "Delete Connection", color: Colors.error, size: 17)
+                            Spacer()
+                            Image("trashIcon").resizable().scaledToFit().frame(height: 17)
                         }
-                        .cornerRadius(12)
-                        .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
-                        .padding(.bottom, 16)
-                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .padding(.leading, 16)
+                        .padding(.trailing, 19)
+                        .background(.white)
+                    }
+                    .cornerRadius(12)
+                    .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
+                    .padding(.bottom, 16)
+                    .padding(.horizontal, 16)
                 }
                 
                 
@@ -345,28 +345,28 @@ struct ConsentsList: View {
     }
     
     var body: some View {
-        
-        ZStack {
-            if showCertifiedOrCompatible != nil {
-                VStack {
-                    if let certifiedUrl {
-                        if let compatibleUrl {
-                            WebView(request: URLRequest(url: (showCertifiedOrCompatible == .certified) ? certifiedUrl : compatibleUrl))
-                                .padding(.horizontal, 10)
+    
+            ZStack {
+                if showCertifiedOrCompatible != nil {
+                    VStack {
+                        if let certifiedUrl {
+                            if let compatibleUrl {
+                                WebView(request: URLRequest(url: (showCertifiedOrCompatible == .certified) ? certifiedUrl : compatibleUrl))
+                                    .padding(.horizontal, 10)
+                            }
+                            
                         }
                         
+                        SecondaryButton("Close", action: {
+                            showCertifiedOrCompatible = nil
+                        })
+                        .padding(.bottom, 10)
                     }
+                } else {
                     
-                    SecondaryButton("Close", action: {
-                        showCertifiedOrCompatible = nil
-                    })
-                    .padding(.bottom, 10)
-                }
-            } else {
-                
-                if showWelcome != nil {
-                    if showWelcome == false {
-                        NavigationView {
+                    if showWelcome != nil {
+                        if showWelcome == false {
+                            
                             ZStack {
                                 VStack {
                                     ZStack {
@@ -437,34 +437,29 @@ struct ConsentsList: View {
                             .ignoresSafeArea(.all)
                             .background(Color.white)
                             .frame(maxWidth: .infinity)
-                        }
-                        .navigationViewStyle(.stack)
-                        .overlay {
-                            WarningPopup(text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.") {
-                                showCompatibleWarning = false
+                            
+                        } else {
+                            FirstRunPageWelcome() {
+                                showWelcome = false
                             }
-                            .ignoresSafeArea(.all)
-                            .opacity(showCompatibleWarning ? 1 : 0)
-                        }
-                    } else {
-                        FirstRunPageWelcome() {
-                            showWelcome = false
                         }
                     }
                 }
+                
             }
+            .onAppear {
+                refreshPartnersList(true)
+            }
+            .onChange(of: existingPartnersWebApp) { newValue in
+                refreshPartnersList(false)
+            }
+            .onChange(of: existingPartnersMobileApp) { newValue in
+                refreshPartnersList(false)
+            }
+            .ignoresSafeArea(.all)
             
-        }
-        .onAppear {
-            refreshPartnersList(true)
-        }
-        .onChange(of: existingPartnersWebApp) { newValue in
-            refreshPartnersList(false)
-        }
-        .onChange(of: existingPartnersMobileApp) { newValue in
-            refreshPartnersList(false)
-        }
-        .ignoresSafeArea(.all)
+        
+        
     }
 }
 
