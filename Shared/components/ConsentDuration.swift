@@ -18,7 +18,7 @@ struct ConsentDurationEntry: View {
             HStack {
                 VStack {
                     BasicText(text: text, size: 17).frame(maxWidth: .infinity, alignment: .leading)
-                    BasicText(text: description, size: 12).frame(maxWidth: .infinity, alignment: .leading)
+                    BasicText(text: description, size: 12, textAlignment: TextAlignment.leading).frame(maxWidth: .infinity, alignment: .leading)
                 }
                 Spacer()
                 if selected {
@@ -43,9 +43,9 @@ struct ConsentDurationOption: Identifiable, Equatable {
 }
 
 let consentDurationOptions: [ConsentDurationOption] = [
-    ConsentDurationOption(name: "Ephemeral", description: "Ephemeral description here.", value: .temporary),
-    ConsentDurationOption(name: "While using app", description: "While using app description here.", value: .appLifetime),
-    ConsentDurationOption(name: "Until connection deletion", description: "Until context deletion description here.", value: .manualRemove)
+    ConsentDurationOption(name: "Ephemeral", description: "Shared with provider’s app for an instant;\r\nnever stored by provider afterwards", value: .temporary),
+    ConsentDurationOption(name: "While using app", description: "Shared with provider’s app during usage;\ndeleted by provider afterwards", value: .appLifetime),
+    ConsentDurationOption(name: "Until connection deletion", description: "Shared with provider’s app until connection\nis deleted; removed by provider afterwards", value: .manualRemove)
 ]
 
 struct ConsentDuration: View {

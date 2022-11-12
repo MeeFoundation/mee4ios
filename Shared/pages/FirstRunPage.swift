@@ -18,7 +18,7 @@ struct FirstRunPage: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
     
-    let installedUrl = URL(string: "https://meeproject.org/#/installed")
+    let installedUrl = URL(string: "https://www-dev.meeproject.org/#/installed")
     
     func tryAuthenticate() {
         currentPage = FirstRunPages.faceId

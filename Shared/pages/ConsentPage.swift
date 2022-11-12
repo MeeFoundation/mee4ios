@@ -28,7 +28,7 @@ struct ConsentPageNew: View {
     @State var isRequiredSectionOpened: Bool = true
     @State var isOptionalSectionOpened: Bool = false
     @State var scrollPosition: UUID? = nil
-    let rejectUrl = URL(string: "https://demo-dev.meeproject.org/reject")
+    let rejectUrl = URL(string: "https://demo-dev.meeproject.org/#/reject")
     var body: some View {
         ZStack {
             BackgroundWhite()
@@ -195,7 +195,7 @@ struct ConsentPageNew: View {
                         SecondaryButton("Approve and Continue", action: {
                             keyboardEndEditing()
                             if (!hasIncorrectFields) {
-                                onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil }), data.consent.id, data.consent.url)
+                                onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil && (entry.isRequired || entry.isOn) }), data.consent.id, data.consent.url)
                             } else {
                                 if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
                                     if (data.consent.entries[incorrectFieldIndex].isRequired) {

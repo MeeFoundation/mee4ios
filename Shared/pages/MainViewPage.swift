@@ -46,22 +46,20 @@ struct PartnerEntry: View  {
     let partner: PartnersModel
     let canClick: Bool
     let isDetailedView: Bool
-    @Binding var selection: String?
+    var onClick: () -> Void
     var onRemove: () -> Void
-    init(partner: PartnersModel, canClick: Bool = false, isDetailedView: Bool = false, selection: Binding<String?>, onRemove: @escaping () -> Void) {
+    init(partner: PartnersModel, canClick: Bool = false, isDetailedView: Bool = false, onRemove: @escaping () -> Void, onClick: @escaping () -> Void) {
         self.partner = partner
         self.canClick = canClick
-        self._selection = selection
         self.onRemove = onRemove
         self.isDetailedView = isDetailedView
+        self.onClick = onClick
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
         return Button(action: {
-            if canClick {
-                selection = partner.id
-            }
+            onClick()
         }){
             
             HStack {
@@ -155,9 +153,7 @@ struct PartnerDetails: View {
                 .background(Colors.backgroundAlt1)
                 .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                 ScrollView {
-                    PartnerEntry(partner: partner, canClick: false, isDetailedView: true, selection: $selection) {
-                        onRemove()
-                    }
+                    PartnerEntry(partner: partner, canClick: false, isDetailedView: true, onRemove: onRemove, onClick: {})
                     .border(Colors.meeBrand, width: 2)
                     .padding(.horizontal, 16)
                     .padding(.bottom, 48)
@@ -297,6 +293,7 @@ struct ConsentsList: View {
     @State var existingPartnersWebApp: [PartnersModel]?
     @State var otherPartnersWebApp: [PartnersModel]?
     @State var existingPartnersMobileApp: [PartnersModel]?
+    @State var firstLaunch: Bool = true
     @State var otherPartnersMobileApp: [PartnersModel]?
     @State var showWelcome: Bool?
     @State private var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
@@ -395,9 +392,15 @@ struct ConsentsList: View {
                                                     NavigationLink(destination: PartnerDetails(partner: partner, onRemove: {
                                                         removeConsent(partner.id)
                                                     }), tag: partner.id, selection: $selection){}
-                                                    PartnerEntry(partner: partner, canClick: partnersArray.editable, selection: $selection) {
+                                                    PartnerEntry(partner: partner, canClick: partnersArray.editable, onRemove: {
                                                         removeConsent(partner.id)
-                                                    }
+                                                    }, onClick: {
+                                                        if partnersArray.editable {
+                                                            selection = partner.id
+                                                        } else if !partner.isMeeCertified {
+                                                            showCompatibleWarning = true
+                                                        }
+                                                    })
                                                     .padding(.top, 8)
                                                     
                                                 }
@@ -437,6 +440,13 @@ struct ConsentsList: View {
                             .ignoresSafeArea(.all)
                             .background(Color.white)
                             .frame(maxWidth: .infinity)
+                            .overlay {
+                                WarningPopup(text: "Your data will not be protected by HIL and will be treated according to the terms of service and privacy policy of the website.") {
+                                    showCompatibleWarning = false
+                                }
+                                .ignoresSafeArea(.all)
+                                .opacity(showCompatibleWarning ? 1 : 0)
+                            }
                             
                         } else {
                             FirstRunPageWelcome() {
@@ -448,12 +458,16 @@ struct ConsentsList: View {
                 
             }
             .onAppear {
-                refreshPartnersList(true)
+                if firstLaunch {
+                    refreshPartnersList(true)
+                    firstLaunch = false
+                }
             }
             .onChange(of: existingPartnersWebApp) { newValue in
                 refreshPartnersList(false)
             }
             .onChange(of: existingPartnersMobileApp) { newValue in
+                print("change2")
                 refreshPartnersList(false)
             }
             .ignoresSafeArea(.all)
