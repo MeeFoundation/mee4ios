@@ -1,0 +1,178 @@
+//
+//  ConsentsList.swift
+//  mee-ios-client
+//
+//  Created by Anthony Ivanov on 17.11.22..
+//
+
+import SwiftUI
+
+struct ConsentsList: View {
+    let keychain = KeyChainConsents()
+    @EnvironmentObject var data: PartnersState
+    @State var selection: String? = nil
+    @State var existingPartnersWebApp: [PartnersModel]?
+    @State var otherPartnersWebApp: [PartnersModel]?
+    @State var existingPartnersMobileApp: [PartnersModel]?
+    @State var firstLaunch: Bool = true
+    @State var otherPartnersMobileApp: [PartnersModel]?
+    @State var showWelcome: Bool?
+    @State private var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
+    @State var showCompatibleWarning: Bool = false
+
+    func refreshPartnersList(_ firstLaunch: Bool) {
+        existingPartnersWebApp = data.partners.filter{ partner in
+            !partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
+        }
+        existingPartnersMobileApp = data.partners.filter{ partner in
+            partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
+        }
+        if firstLaunch {
+            if let existingPartnersWebApp {
+                if let existingPartnersMobileApp {
+                    if existingPartnersWebApp.isEmpty && existingPartnersMobileApp.isEmpty {
+                        showWelcome = true
+                    } else {
+                        showWelcome = false
+                    }
+                }
+                
+            }
+        }
+        
+        otherPartnersWebApp = data.partners.filter{ partner in
+            if partner.id == "nytcompatible" || (partner.id == "nyt" && !(existingPartnersWebApp ?? []).isEmpty) {return false}
+            return !partner.isMobileApp && keychain.getItemByName(name: partner.id) == nil
+        }
+        otherPartnersMobileApp = data.partners.filter{ partner in
+            return partner.isMobileApp && keychain.getItemByName(name: partner.id) == nil
+        }
+    }
+    
+    var body: some View {
+    
+            ZStack {
+                if showCertifiedOrCompatible != nil {
+                    VStack {
+                        if let certifiedUrl {
+                            if let compatibleUrl {
+                                WebView(request: URLRequest(url: (showCertifiedOrCompatible == .certified) ? certifiedUrl : compatibleUrl))
+                                    .padding(.horizontal, 10)
+                            }
+                            
+                        }
+                        
+                        SecondaryButton("Close", action: {
+                            showCertifiedOrCompatible = nil
+                        })
+                        .padding(.bottom, 10)
+                    }
+                } else {
+                    
+                    if showWelcome != nil {
+                        if showWelcome == false {
+                            
+                            ZStack {
+                                VStack {
+                                    ZStack {
+                                        BasicText(text: "Connections", color: .black ,size: 17, fontName: FontNameManager.PublicSans.semibold)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.top, 59)
+                                    .padding(.bottom, 10)
+                                    .background(Colors.backgroundAlt1)
+                                    .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
+                                    ScrollView {
+                                        VStack {
+                                            ForEach([PartnerArray(data: existingPartnersWebApp, name: "Sites", editable: true),
+                                                     PartnerArray(data: existingPartnersMobileApp, name: "Mobile Apps", editable: true),
+                                                     PartnerArray(data: otherPartnersWebApp, name: "Other Sites You Might Like", editable: false),
+                                                     PartnerArray(data: otherPartnersMobileApp, name: "Other Mobile Apps You Might Like", editable: false)]) { partnersArray in
+                                                if !(partnersArray.data ?? []).isEmpty {HStack {
+                                                    BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
+                                                    Spacer()
+                                                }
+                                                .padding(.leading, 4)
+                                                .padding(.top, 24)
+                                                .padding(.bottom, 4)
+                                                }
+                                                ForEach(partnersArray.data ?? []) { partner in
+                                                    NavigationLink(destination: PartnerDetails(partner: partner), tag: partner.id, selection: $selection){}
+                                                    PartnerEntry(partner: partner, hasEntry: partnersArray.editable)
+                                                        .onTapGesture(perform: {
+                                                        if partnersArray.editable {
+                                                            selection = partner.id
+                                                        } else if !partner.isMeeCertified {
+                                                            showCompatibleWarning = true
+                                                        }
+                                                    })
+                                                    .padding(.top, 8)
+                                                    
+                                                }
+                                            }
+                                            Spacer()
+                                        }
+                                        .padding(.horizontal, 16)
+                                        
+                                    }
+                                    VStack {
+                                        Button(action: {
+                                            showCertifiedOrCompatible = .certified
+                                        }) {
+                                            HStack {
+                                                Image("meeCertifiedLogo").resizable().scaledToFit().frame(width: 20)
+                                                BasicText(text:"Mee-certified?", color: Colors.meeBrand, size: 14, underline: true)
+                                            }
+                                        }
+                                        Button(action: {
+                                            showCertifiedOrCompatible = .compatible
+                                        }) {
+                                            HStack {
+                                                Image("meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
+                                                BasicText(text:"Mee-compatible?", color: Colors.meeBrand, size: 14, underline: true)
+                                            }
+                                        }
+                                    }
+                                    .padding(.bottom, 20)
+                                    .padding(.top, 10)
+                                    .frame(maxWidth: .infinity)
+                                    .background(Color.white)
+                                    
+                                }
+                                .background(Color.white)
+                                
+                            }
+                            .ignoresSafeArea(.all)
+                            .background(Color.white)
+                            .frame(maxWidth: .infinity)
+                            .overlay {
+                                WarningPopup(text: "Your data will not be protected by HIL and will be treated according to the terms of service and privacy policy of the website.") {
+                                    showCompatibleWarning = false
+                                }
+                                .ignoresSafeArea(.all)
+                                .opacity(showCompatibleWarning ? 1 : 0)
+                            }
+                            
+                        } else {
+                            FirstRunPageWelcome() {
+                                showWelcome = false
+                            }
+                        }
+                    }
+                }
+                
+            }
+            .onAppear {
+                if firstLaunch {
+                    refreshPartnersList(true)
+                    firstLaunch = false
+                } else {
+                    refreshPartnersList(false)
+                }
+            }
+            .ignoresSafeArea(.all)
+            
+        
+        
+    }
+}

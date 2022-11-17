@@ -84,23 +84,6 @@ struct FirstRunPageWelcome: View {
             VStack(spacing: 0) {
                 Image("meeEntry").resizable().scaledToFit()
                     .overlay(VStack(spacing: 0) {
-//                        HStack {
-//                            BasicText(text:"Hello. ", color: Colors.textYellow, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.bold)
-//                            BasicText(text:"It’s Mee.", color: Colors.meeBrand, size: sizeClass == .compact ? 30 : 40, fontName: FontNameManager.PublicSans.regularItalic)
-//                        }
-//                        if isInitialization! {
-//                            BasicText(text:"I invite you to join a journey to your digital self. I will be your twin in the digital world. Don’t worry, I know nothing about you yet, but I will learn you more if you wish. Any data you wish to share with Mee will be securely stored and never shared with anyone unless you tell me to. Let’s start a conversation that will lead to Mee becoming your digital alter ego.", color: Colors.meeBrand, size: sizeClass == .compact ? 14 : 25)
-//                                .frame(maxWidth: 500)
-//                                .lineSpacing(5)
-//                                .padding(.top, 5)
-//                                .padding(.horizontal, 30)
-//                        } else {
-//                            BasicText(text:" I’m your privacy agent. \nI’m here to increase your privacy online. \nWhen apps or websites want to know something about you, \nI share as much or as little as you tell me to.", color: Colors.meeBrand, size: 40)
-//                                .minimumScaleFactor(0.01)
-//                                .lineSpacing(5)
-//
-//
-//                        }
                     }.padding(.top, sizeClass == .compact ? 50 :  100)
                              , alignment: .top)
                 RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
