@@ -139,6 +139,8 @@
 		A5D7510828EB186B003CD142 /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7510628EB186B003CD142 /* json.swift */; };
 		A5D7510A28EB3E26003CD142 /* PartnerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7510928EB3E25003CD142 /* PartnerData.swift */; };
 		A5D7510B28EB3E26003CD142 /* PartnerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7510928EB3E25003CD142 /* PartnerData.swift */; };
+		A5D9E2F52922C2CA00D0E12D /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E2F42922C2CA00D0E12D /* VisualEffectView.swift */; };
+		A5D9E2F62922C2CA00D0E12D /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E2F42922C2CA00D0E12D /* VisualEffectView.swift */; };
 		A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB212E27E1DF850070B444 /* StorageListItem.swift */; };
 		A5DB213027E1DF850070B444 /* StorageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB212E27E1DF850070B444 /* StorageListItem.swift */; };
 		A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */; };
@@ -278,6 +280,7 @@
 		A5D7510328EB0EE0003CD142 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		A5D7510628EB186B003CD142 /* json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = json.swift; sourceTree = "<group>"; };
 		A5D7510928EB3E25003CD142 /* PartnerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerData.swift; sourceTree = "<group>"; };
+		A5D9E2F42922C2CA00D0E12D /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		A5DB212E27E1DF850070B444 /* StorageListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageListItem.swift; sourceTree = "<group>"; };
 		A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryModel.swift; sourceTree = "<group>"; };
 		A5DB213C27E22B520070B444 /* urlTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urlTools.swift; sourceTree = "<group>"; };
@@ -402,6 +405,7 @@
 		A550852F27BD18C200C5A2D1 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A5D9E2FA29265E7000D0E12D /* activeConsents */,
 				A550857F27BD550000C5A2D1 /* Themes.swift */,
 				A550858527BE3B1400C5A2D1 /* Line.swift */,
 				A550858827BE46CE00C5A2D1 /* ConsentEntry.swift */,
@@ -426,6 +430,7 @@
 				A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */,
 				A5A4D381291433B700CA3F26 /* ConsentDuration.swift */,
 				A5A4D3842914A2A000CA3F26 /* Triangle.swift */,
+				A5D9E2F42922C2CA00D0E12D /* VisualEffectView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -542,6 +547,13 @@
 				A5D2AAE9291D2FB500F9806E /* URLs.swift */,
 			);
 			path = state;
+			sourceTree = "<group>";
+		};
+		A5D9E2FA29265E7000D0E12D /* activeConsents */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = activeConsents;
 			sourceTree = "<group>";
 		};
 		A5DB213527E21D080070B444 /* extention */ = {
@@ -782,6 +794,7 @@
 				A5A6F06527FB59F800BEDBDC /* PasswordGeneratorList.swift in Sources */,
 				A55085B627C3B55400C5A2D1 /* InputField.swift in Sources */,
 				A5DB213D27E22B520070B444 /* urlTools.swift in Sources */,
+				A5D9E2F52922C2CA00D0E12D /* VisualEffectView.swift in Sources */,
 				A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */,
 				A5DB215227EA2B690070B444 /* PopupWindow.swift in Sources */,
 				A5D7510128E7368B003CD142 /* RecoveryPhraseSetupPage.swift in Sources */,
@@ -890,6 +903,7 @@
 				A53F79C827D647B400A62589 /* validation.swift in Sources */,
 				946D2E0527BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
 				A5D30C8A287DBD7300481E85 /* EmptyAppPage.swift in Sources */,
+				A5D9E2F62922C2CA00D0E12D /* VisualEffectView.swift in Sources */,
 				A55085A827BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
 				A550857427BD473B00C5A2D1 /* ConsentPage.swift in Sources */,
 				A5DB213327E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,

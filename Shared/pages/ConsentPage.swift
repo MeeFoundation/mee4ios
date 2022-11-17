@@ -180,43 +180,61 @@ struct ConsentPageNew: View {
                             
                             .padding(.bottom, 40)
                         }
+                        .padding(.bottom, 180)
                     }
-                    
                     
                     
                     Spacer()
-                    VStack {
-                        RejectButton("Decline", action: {
-                            keyboardEndEditing()
-                            if let rejectUrl {
-                                openURL(rejectUrl)
-                            }
-                        }, fullWidth: true)
-                        SecondaryButton("Approve and Continue", action: {
-                            keyboardEndEditing()
-                            if (!hasIncorrectFields) {
-                                onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil && (entry.isRequired || entry.isOn) }), data.consent.id, data.consent.url)
-                            } else {
-                                if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
-                                    if (data.consent.entries[incorrectFieldIndex].isRequired) {
-                                        isRequiredSectionOpened = true
-                                    } else {
-                                        isOptionalSectionOpened = true
-                                    }
-                                    data.consent.entries[incorrectFieldIndex].isOpen = true
-                                    scrollPosition = data.consent.entries[incorrectFieldIndex].id
-                                }
-                            }
-                        },
-                                        fullWidth: true
-                        )
-                    }
-                    .padding(.bottom, 30)
-                    .padding(.top, 0)
-                    .background(.white.opacity(50))
                     
                 }
                 .padding(.horizontal, 16.0)
+                .overlay(alignment: .bottom) {
+                    ZStack {
+                        
+                        VStack {
+                            RejectButton("Decline", action: {
+                                keyboardEndEditing()
+                                if let rejectUrl {
+                                    openURL(rejectUrl)
+                                }
+                            }, fullWidth: true, isTransparent: true)
+                            SecondaryButton("Approve and Connect", action: {
+                                keyboardEndEditing()
+                                if (!hasIncorrectFields) {
+                                    onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil && (entry.isRequired || entry.isOn) }), data.consent.id, data.consent.url)
+                                } else {
+                                    if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
+                                        if (data.consent.entries[incorrectFieldIndex].isRequired) {
+                                            isRequiredSectionOpened = true
+                                        } else {
+                                            isOptionalSectionOpened = true
+                                        }
+                                        data.consent.entries[incorrectFieldIndex].isOpen = true
+                                        scrollPosition = data.consent.entries[incorrectFieldIndex].id
+                                    }
+                                }
+                            },
+                                            fullWidth: true
+                            )
+                        }
+                        .padding(.bottom, 30)
+                        
+                        .padding(.top, 0)
+                        .padding(.horizontal, 16)
+                    }
+                    .background {
+                        VisualEffectView(effect: UIBlurEffect(style: .light)).opacity(0.99).ignoresSafeArea(.all)
+                    }
+                    .frame(maxHeight: 159)
+                }
+                .toolbar {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer()
+                                    Button("Done") {
+                                        keyboardEndEditing()
+                                    }
+                                }
+                            }
                 .overlay {
                     PopupWrapper(isVisible: durationPopupId != nil) {
                         if let durationPopupId {
@@ -419,6 +437,9 @@ struct ConsentPage: View {
                 // TODO: need to redirect to recovery phrase generator ans pass action url to it, so it can redirect us there after passphrase generation
                 recoveryPassphrase = "some recovery passphrase"
             }))
+        }
+        .onTapGesture {
+            keyboardEndEditing()
         }
     }
 }

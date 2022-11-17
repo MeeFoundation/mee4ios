@@ -145,10 +145,11 @@ struct RejectButton: View {
     private var width: CGFloat?
     private var isDisabled: Bool
     private var withBorder: Bool
+    private var isTransparent: Bool
     
     private var color: Color
     
-    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false, withBorder: Bool? = false) {
+    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false, withBorder: Bool? = false, isTransparent: Bool? = false) {
         self.title = title
         self.action = action
         self.image = image
@@ -157,6 +158,7 @@ struct RejectButton: View {
         self.isDisabled = isDisabled ?? false
         self.color = isDisabled ?? false ? Colors.inactive : Colors.secondaryButtonBgColor
         self.withBorder = withBorder ?? false
+        self.isTransparent = isTransparent ?? false
     }
     var body: some View {
         Button(action: action)
@@ -172,7 +174,7 @@ struct RejectButton: View {
             }
             .frame(width: width)
             .padding(15)
-            .background(Colors.secondaryButtonTextColor)
+            .background(Colors.secondaryButtonTextColor.opacity(isTransparent ? 0 : 1))
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(Colors.secondaryButtonBgColor, lineWidth: withBorder ? 5 : 0)
