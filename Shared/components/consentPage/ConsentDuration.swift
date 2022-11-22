@@ -7,32 +7,6 @@
 
 import SwiftUI
 
-struct ConsentDurationEntry: View {
-    var text: String
-    var description: String
-    var selected: Bool
-    var onClick: () -> Void
-    
-    var body: some View {
-        Button(action: onClick) {
-            HStack {
-                VStack {
-                    BasicText(text: text, size: 17).frame(maxWidth: .infinity, alignment: .leading)
-                    BasicText(text: description, size: 12, textAlignment: TextAlignment.leading).frame(maxWidth: .infinity, alignment: .leading)
-                }
-                Spacer()
-                if selected {
-                    Image("blueCheckmark").resizable().scaledToFit().frame(width: 15)
-                    
-                }
-            }
-            
-        }
-        .padding(.vertical, 8)
-        
-    }
-}
-
 struct ConsentDurationOption: Identifiable, Equatable {
     var id: String {
         return name
@@ -41,12 +15,6 @@ struct ConsentDurationOption: Identifiable, Equatable {
     var description: String
     var value: ConsentStorageDuration
 }
-
-let consentDurationOptions: [ConsentDurationOption] = [
-    ConsentDurationOption(name: "Ephemeral", description: "Shared with provider’s app for an instant;\r\nnever stored by provider afterwards", value: .temporary),
-    ConsentDurationOption(name: "While using app", description: "Shared with provider’s app during usage;\ndeleted by provider afterwards", value: .appLifetime),
-    ConsentDurationOption(name: "Until connection deletion", description: "Shared with provider’s app until connection\nis deleted; removed by provider afterwards", value: .manualRemove)
-]
 
 struct ConsentDuration: View {
     @Binding var consentEntries: [ConsentEntryModel]
