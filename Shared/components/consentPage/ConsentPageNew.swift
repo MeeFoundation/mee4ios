@@ -12,9 +12,7 @@ struct ConsentPageNew: View {
     @EnvironmentObject var partners: PartnersState
     @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
     @Environment(\.openURL) var openURL
-    @State private var showCertified = false
-    @State private var partner: PartnersModel?
-    @State var durationPopupId: UUID? = nil
+    @State private var state = ConsentPageNewState()
     var onAccept: (String, String, String) -> Void
     init(onAccept: @escaping (String, String, String) -> Void) {
         self.onAccept = onAccept
@@ -24,27 +22,23 @@ struct ConsentPageNew: View {
             data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) != nil;
         }
     }
-    
-    @State var isRequiredSectionOpened: Bool = true
-    @State var isOptionalSectionOpened: Bool = false
-    @State var scrollPosition: UUID? = nil
     let rejectUrl = URL(string: "https://demo-dev.meeproject.org/#/reject")
     var body: some View {
         ZStack {
             BackgroundWhite()
             
-            if showCertified {
+            if state.showCertified {
                 VStack {
                     if let certifiedUrl {
                         if let compatibleUrl {
-                            WebView(request: URLRequest(url: (partner?.isMeeCertified ?? false) ? certifiedUrl : compatibleUrl))
+                            WebView(request: URLRequest(url: (state.partner?.isMeeCertified ?? false) ? certifiedUrl : compatibleUrl))
                                 .padding(.horizontal, 10)
                         }
                         
                     }
                     
                     SecondaryButton("Close", action: {
-                        showCertified.toggle()
+                        state.showCertified.toggle()
                     })
                 }
             } else {
@@ -62,14 +56,14 @@ struct ConsentPageNew: View {
                                     .foregroundColor(Colors.meeBrand)
                                 VStack {
                                     Button(action: {
-                                        showCertified.toggle()
+                                        state.showCertified.toggle()
                                     }) {
-                                        Image((partner?.isMeeCertified ?? false) ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
+                                        Image((state.partner?.isMeeCertified ?? false) ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
                                             .frame(width: 48, height: 48, alignment: .center)
                                     }
                                     .frame(width: 48, height: 48)
                                     .onAppear{
-                                        partner = partners.partners.first(where: { partner in
+                                        state.partner = partners.partners.first(where: { partner in
                                             partner.id == data.consent.id
                                         })
                                     }
@@ -77,7 +71,7 @@ struct ConsentPageNew: View {
                                 }
                                 .overlay {
                                     Hint(show: $isCompatibleWarningShown, text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.")
-                                    .opacity(!(partner?.isMeeCertified ?? false) && !isCompatibleWarningShown ? 1 : 0)
+                                        .opacity(!(state.partner?.isMeeCertified ?? false) && !isCompatibleWarningShown ? 1 : 0)
                                     .position(x: 35,y: 122)
                                     
                                     
@@ -119,10 +113,10 @@ struct ConsentPageNew: View {
                             .zIndex(0)
 
                         ScrollViewReader {value in
-                            Expander(title: "Required", isOpen: $isRequiredSectionOpened) {
+                            Expander(title: "Required", isOpen: $state.isRequiredSectionOpened) {
                                 ForEach($data.consent.entries.filter {$0.wrappedValue.isRequired}) { $entry in
                                     ConsentEntry(entry: $entry) {
-                                        durationPopupId = entry.id
+                                        state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)
                                 }
@@ -134,15 +128,15 @@ struct ConsentPageNew: View {
                                 .frame(height: 1)
                                 .foregroundColor(Colors.gray)
                                 .padding(.bottom, 16)
-                            Expander(title: "Optional", isOpen: $isOptionalSectionOpened) {
+                            Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
                                 ForEach($data.consent.entries.filter {!$0.wrappedValue.isRequired}) { $entry in
                                     ConsentEntry(entry: $entry) {
-                                        durationPopupId = entry.id
+                                        state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)
                                 }
                                 .padding(.top, 16)
-                            }.onChange(of: scrollPosition, perform: {newValue in
+                            }.onChange(of: state.scrollPosition, perform: {newValue in
                                 withAnimation {
                                     value.scrollTo(newValue)
                                 }
@@ -175,12 +169,12 @@ struct ConsentPageNew: View {
                                 } else {
                                     if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
                                         if (data.consent.entries[incorrectFieldIndex].isRequired) {
-                                            isRequiredSectionOpened = true
+                                            state.isRequiredSectionOpened = true
                                         } else {
-                                            isOptionalSectionOpened = true
+                                            state.isOptionalSectionOpened = true
                                         }
                                         data.consent.entries[incorrectFieldIndex].isOpen = true
-                                        scrollPosition = data.consent.entries[incorrectFieldIndex].id
+                                        state.scrollPosition = data.consent.entries[incorrectFieldIndex].id
                                     }
                                 }
                             },
@@ -206,10 +200,10 @@ struct ConsentPageNew: View {
                                 }
                             }
                 .overlay {
-                    PopupWrapper(isVisible: durationPopupId != nil) {
-                        if let durationPopupId {
+                    PopupWrapper(isVisible: state.durationPopupId != nil) {
+                        if let durationPopupId = state.durationPopupId {
                             ConsentDuration(consentEntries: $data.consent.entries, id: durationPopupId) {
-                                self.durationPopupId = nil
+                                state.durationPopupId = nil
                             }
                         }
                     }

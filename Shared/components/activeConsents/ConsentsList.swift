@@ -10,41 +10,33 @@ import SwiftUI
 struct ConsentsList: View {
     let keychain = KeyChainConsents()
     @EnvironmentObject var data: PartnersState
-    @State var selection: String? = nil
-    @State var existingPartnersWebApp: [PartnersModel]?
-    @State var otherPartnersWebApp: [PartnersModel]?
-    @State var existingPartnersMobileApp: [PartnersModel]?
-    @State var firstLaunch: Bool = true
-    @State var otherPartnersMobileApp: [PartnersModel]?
-    @State var showWelcome: Bool?
-    @State private var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
-    @State var showCompatibleWarning: Bool = false
+    @State private var state = ConsentsListState()
 
     func refreshPartnersList(_ firstLaunch: Bool) {
-        existingPartnersWebApp = data.partners.filter{ partner in
+        state.existingPartnersWebApp = data.partners.filter{ partner in
             !partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
         }
-        existingPartnersMobileApp = data.partners.filter{ partner in
+        state.existingPartnersMobileApp = data.partners.filter{ partner in
             partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
         }
         if firstLaunch {
-            if let existingPartnersWebApp {
-                if let existingPartnersMobileApp {
+            if let existingPartnersWebApp = state.existingPartnersWebApp {
+                if let existingPartnersMobileApp = state.existingPartnersMobileApp {
                     if existingPartnersWebApp.isEmpty && existingPartnersMobileApp.isEmpty {
-                        showWelcome = true
+                        state.showWelcome = true
                     } else {
-                        showWelcome = false
+                        state.showWelcome = false
                     }
                 }
                 
             }
         }
         
-        otherPartnersWebApp = data.partners.filter{ partner in
-            if partner.id == "nytcompatible" || (partner.id == "nyt" && !(existingPartnersWebApp ?? []).isEmpty) {return false}
+        state.otherPartnersWebApp = data.partners.filter{ partner in
+            if partner.id == "nytcompatible" || (partner.id == "nyt" && !(state.existingPartnersWebApp ?? []).isEmpty) {return false}
             return !partner.isMobileApp && keychain.getItemByName(name: partner.id) == nil
         }
-        otherPartnersMobileApp = data.partners.filter{ partner in
+        state.otherPartnersMobileApp = data.partners.filter{ partner in
             return partner.isMobileApp && keychain.getItemByName(name: partner.id) == nil
         }
     }
@@ -52,25 +44,25 @@ struct ConsentsList: View {
     var body: some View {
     
             ZStack {
-                if showCertifiedOrCompatible != nil {
+                if state.showCertifiedOrCompatible != nil {
                     VStack {
                         if let certifiedUrl {
                             if let compatibleUrl {
-                                WebView(request: URLRequest(url: (showCertifiedOrCompatible == .certified) ? certifiedUrl : compatibleUrl))
+                                WebView(request: URLRequest(url: (state.showCertifiedOrCompatible == .certified) ? certifiedUrl : compatibleUrl))
                                     .padding(.horizontal, 10)
                             }
                             
                         }
                         
                         SecondaryButton("Close", action: {
-                            showCertifiedOrCompatible = nil
+                            state.showCertifiedOrCompatible = nil
                         })
                         .padding(.bottom, 10)
                     }
                 } else {
                     
-                    if showWelcome != nil {
-                        if showWelcome == false {
+                    if state.showWelcome != nil {
+                        if state.showWelcome == false {
                             
                             ZStack {
                                 VStack {
@@ -84,10 +76,10 @@ struct ConsentsList: View {
                                     .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                                     ScrollView {
                                         VStack {
-                                            ForEach([PartnerArray(data: existingPartnersWebApp, name: "Sites", editable: true),
-                                                     PartnerArray(data: existingPartnersMobileApp, name: "Mobile Apps", editable: true),
-                                                     PartnerArray(data: otherPartnersWebApp, name: "Other Sites You Might Like", editable: false),
-                                                     PartnerArray(data: otherPartnersMobileApp, name: "Other Mobile Apps You Might Like", editable: false)]) { partnersArray in
+                                            ForEach([PartnerArray(data: state.existingPartnersWebApp, name: "Sites", editable: true),
+                                                     PartnerArray(data: state.existingPartnersMobileApp, name: "Mobile Apps", editable: true),
+                                                     PartnerArray(data: state.otherPartnersWebApp, name: "Other Sites You Might Like", editable: false),
+                                                     PartnerArray(data: state.otherPartnersMobileApp, name: "Other Mobile Apps You Might Like", editable: false)]) { partnersArray in
                                                 if !(partnersArray.data ?? []).isEmpty {HStack {
                                                     BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
                                                     Spacer()
@@ -97,13 +89,13 @@ struct ConsentsList: View {
                                                 .padding(.bottom, 4)
                                                 }
                                                 ForEach(partnersArray.data ?? []) { partner in
-                                                    NavigationLink(destination: PartnerDetails(partner: partner), tag: partner.id, selection: $selection){}
+                                                    NavigationLink(destination: PartnerDetails(partner: partner), tag: partner.id, selection: $state.selection){}
                                                     PartnerEntry(partner: partner, hasEntry: partnersArray.editable)
                                                         .onTapGesture(perform: {
                                                         if partnersArray.editable {
-                                                            selection = partner.id
+                                                            state.selection = partner.id
                                                         } else if !partner.isMeeCertified {
-                                                            showCompatibleWarning = true
+                                                            state.showCompatibleWarning = true
                                                         }
                                                     })
                                                     .padding(.top, 8)
@@ -117,7 +109,7 @@ struct ConsentsList: View {
                                     }
                                     VStack {
                                         Button(action: {
-                                            showCertifiedOrCompatible = .certified
+                                            state.showCertifiedOrCompatible = .certified
                                         }) {
                                             HStack {
                                                 Image("meeCertifiedLogo").resizable().scaledToFit().frame(width: 20)
@@ -125,7 +117,7 @@ struct ConsentsList: View {
                                             }
                                         }
                                         Button(action: {
-                                            showCertifiedOrCompatible = .compatible
+                                            state.showCertifiedOrCompatible = .compatible
                                         }) {
                                             HStack {
                                                 Image("meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
@@ -147,15 +139,15 @@ struct ConsentsList: View {
                             .frame(maxWidth: .infinity)
                             .overlay {
                                 WarningPopup(text: "Your data will not be protected by HIL and will be treated according to the terms of service and privacy policy of the website.") {
-                                    showCompatibleWarning = false
+                                    state.showCompatibleWarning = false
                                 }
                                 .ignoresSafeArea(.all)
-                                .opacity(showCompatibleWarning ? 1 : 0)
+                                .opacity(state.showCompatibleWarning ? 1 : 0)
                             }
                             
                         } else {
                             FirstRunPageWelcome() {
-                                showWelcome = false
+                                state.showWelcome = false
                             }
                         }
                     }
@@ -163,9 +155,9 @@ struct ConsentsList: View {
                 
             }
             .onAppear {
-                if firstLaunch {
+                if state.firstLaunch {
                     refreshPartnersList(true)
-                    firstLaunch = false
+                    state.firstLaunch = false
                 } else {
                     refreshPartnersList(false)
                 }

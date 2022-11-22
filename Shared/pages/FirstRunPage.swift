@@ -166,11 +166,7 @@ struct FirstRunPageFaceIdSet: View {
 
 struct FirstRunPageInitializing: View {
     var onNext: () -> Void
-    @State private var finalAnimation = false
-    @State private var text: String = ""
-    @State private var progress: CGFloat = 0
-    @State private var animationMultiplier: CGFloat = 6
-    
+    @State private var state = FirstRunPageInitializingState()
     
     let timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     var body: some View {
@@ -180,20 +176,20 @@ struct FirstRunPageInitializing: View {
                 ZStack {
                     Image("mLogo").resizable()
                         .scaledToFit()
-                        .frame(width: !self.finalAnimation ? 103.26 : 103.26 * animationMultiplier, height: !self.finalAnimation ? 71.61 : 71.61 * animationMultiplier, alignment: .center)
+                        .frame(width: !state.finalAnimation ? 103.26 : 103.26 * state.animationMultiplier, height: !state.finalAnimation ? 71.61 : 71.61 * state.animationMultiplier, alignment: .center)
                         .transition(.scale)
                         .zIndex(10)
                         .padding(.vertical, 50)
                         .padding(.horizontal, 37)
                     
-                    LoadingCircle(progress: progress, width: !self.finalAnimation ? 171 : 171 * animationMultiplier, height: !self.finalAnimation ? 171 : 171 * animationMultiplier)
+                    LoadingCircle(progress: state.progress, width: !state.finalAnimation ? 171 : 171 * state.animationMultiplier, height: state.finalAnimation ? 171 : 171 * state.animationMultiplier)
                 }
                 .transition(.scale)
-                .animation(Animation.linear(duration: 2), value: finalAnimation)
+                .animation(Animation.linear(duration: 2), value: state.finalAnimation)
                 .background(Colors.meeBrand)
                 .cornerRadius(3)
                 ZStack {
-                    Text(text)
+                    Text(state.text)
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundColor(Colors.text)
                         .font(.custom(FontNameManager.PublicSans.medium , size: 18))
@@ -207,33 +203,33 @@ struct FirstRunPageInitializing: View {
                 Spacer()
             }
             .onReceive(timer) { time in
-                if progress >= 1.5 {
+                if state.progress >= 1.5 {
                     timer.upstream.connect().cancel()
                     onNext()
                 }
-                if progress >= 1 {
+                if state.progress >= 1 {
                     withAnimation{
-                        finalAnimation = true
+                        state.finalAnimation = true
                     }
                     //                             onNext()
-                } else if progress < 0.1 {
-                    text = "Generating unique device keys"
-                } else if progress < 0.4 {
-                    text = "Generating context data encryption key"
-                } else if progress < 0.7 {
-                    text = "Generating context-specific user indentifier"
-                } else if progress < 0.9 {
-                    text = "Creating Self in the Mee data storage"
+                } else if state.progress < 0.1 {
+                    state.text = "Generating unique device keys"
+                } else if state.progress < 0.4 {
+                    state.text = "Generating context data encryption key"
+                } else if state.progress < 0.7 {
+                    state.text = "Generating context-specific user indentifier"
+                } else if state.progress < 0.9 {
+                    state.text = "Creating Self in the Mee data storage"
                 } else {
-                    text = ""
+                    state.text = ""
                 }
                 
-                progress += 0.02
+                state.progress += 0.02
             }
             .frame(maxWidth: .infinity)
-            .opacity(finalAnimation ? 0 : 1)
-            .animation(Animation.linear(duration: 2), value: finalAnimation)
-            .background(finalAnimation ? Colors.meeBrand : nil)
+            .opacity(state.finalAnimation ? 0 : 1)
+            .animation(Animation.linear(duration: 2), value: state.finalAnimation)
+            .background(state.finalAnimation ? Colors.meeBrand : nil)
         }
     }
 }

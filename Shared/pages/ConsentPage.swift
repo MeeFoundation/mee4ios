@@ -11,22 +11,21 @@ struct ConsentPage: View {
     var isLocked: Bool
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
     @EnvironmentObject var data: ConsentState
-    @State private var isPresentingAlert: Bool = false
     let keyChainConsents = KeyChainConsents()
-    @State var isReturningUser: Bool?
+    @State var state = ConsentPageState()
     @Environment(\.openURL) var openURL
     
     private func onNext (_ jwtToken: String,_ url: String) {
         if let url = URL(string: "\(url)/?token=\(jwtToken)") {
             openURL(url)
-            isReturningUser = true
+            state.isReturningUser = true
         }
         
     }
     var body: some View {
         ZStack {
             if !isLocked {
-                if let isReturningUser {
+                if let isReturningUser = state.isReturningUser {
                     if isReturningUser {
                         ConsentPageExisting() {id, url in
                             print(id)
@@ -50,9 +49,9 @@ struct ConsentPage: View {
             
         }
         .onAppear{
-            isReturningUser = keyChainConsents.getItemByName(name: data.consent.id) != nil
+            state.isReturningUser = keyChainConsents.getItemByName(name: data.consent.id) != nil
         }
-        .alert(isPresented: $isPresentingAlert) {
+        .alert(isPresented: $state.isPresentingAlert) {
             Alert(title: Text("Set Up Secret Recovery Phrase"), message: Text("Before you will be logged in, let’s set up your secret recovery phrase"), dismissButton: .default(Text("Set Up Secret Recovery Phrase"), action: {
                 // TODO: need to redirect to recovery phrase generator ans pass action url to it, so it can redirect us there after passphrase generation
                 recoveryPassphrase = "some recovery passphrase"

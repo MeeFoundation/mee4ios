@@ -9,17 +9,13 @@ import SwiftUI
 
 struct PartnerDetails: View {
     let partner: PartnersModel
-
-    @State var durationPopupId: UUID? = nil
+    @State var state = PartnerDetailsState()
     init(partner: PartnersModel) {
         self.partner = partner
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     let keychain = KeyChainConsents()
-    @State var consentEntries: [ConsentEntryModel] = []
-    @State var isRequiredOpen: Bool = true
-    @State var isOptionalOpen: Bool = false
-    @State var selection: String? = nil
+    
     
     func removeConsent() {
         keychain.removeItembyName(name: partner.id)
@@ -61,11 +57,11 @@ struct PartnerDetails: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 48)
                     .padding(.top, 16)
-                    Expander(title: "Required info shared", isOpen: $isRequiredOpen) {
-                        ForEach($consentEntries.filter {$0.wrappedValue.isRequired}) { $entry in
+                    Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
+                        ForEach($state.consentEntries.filter {$0.wrappedValue.isRequired}) { $entry in
                             VStack {
                                 ConsentEntry(entry: $entry) {
-                                    durationPopupId = entry.id
+                                    state.durationPopupId = entry.id
                                 }
                                 .id(entry.id)
                                 Divider()
@@ -80,12 +76,12 @@ struct PartnerDetails: View {
                         
                     }
                     .padding(.horizontal, 16)
-                    if $consentEntries.firstIndex {!$0.wrappedValue.isRequired} != nil {
-                        Expander(title: "Optional info shared", isOpen: $isOptionalOpen) {
-                            ForEach($consentEntries.filter {!$0.wrappedValue.isRequired}) { $entry in
+                    if $state.consentEntries.firstIndex {!$0.wrappedValue.isRequired} != nil {
+                        Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
+                            ForEach($state.consentEntries.filter {!$0.wrappedValue.isRequired}) { $entry in
                                 VStack {
                                     ConsentEntry(entry: $entry) {
-                                        durationPopupId = entry.id
+                                        state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)
                                     Divider()
@@ -148,7 +144,7 @@ struct PartnerDetails: View {
                         do {
                             if let consentDataDecodedString = consentDataString.fromBase64() {
                                 if let consentData = consentDataDecodedString.data(using: .utf8) {
-                                    consentEntries = try JSONDecoder().decode([ConsentEntryModel].self, from: consentData)
+                                    state.consentEntries = try JSONDecoder().decode([ConsentEntryModel].self, from: consentData)
                                 }
                                 
                             }
@@ -162,10 +158,10 @@ struct PartnerDetails: View {
                     
                 }
                 .overlay {
-                    PopupWrapper(isVisible: durationPopupId != nil) {
-                        if let durationPopupId {
-                            ConsentDuration(consentEntries: $consentEntries, id: durationPopupId){
-                                self.durationPopupId = nil
+                    PopupWrapper(isVisible: state.durationPopupId != nil) {
+                        if let durationPopupId = state.durationPopupId {
+                            ConsentDuration(consentEntries: $state.consentEntries, id: durationPopupId){
+                                state.durationPopupId = nil
                             }
                         }
                         
