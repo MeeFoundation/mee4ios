@@ -1,0 +1,36 @@
+[package]
+authors = ["Alex Yuhimenko <alexanderyuhimenko@gmail.com>"]
+edition = "2021"
+name = "mee_agent"
+version = "0.1.0"
+
+[lib]
+# crate-type = ["staticlib", "cdylib"]
+crate-type = ["staticlib"]
+doc = false
+name = "uniffi_mee_agent"
+
+[build]
+# build-stage = 1
+target = ["aarch64-apple-ios-sim", "x86_64-apple-ios", "aarch64-apple-ios"]
+
+[dependencies]
+mee_ds_sqlite = { path = "../mee_ds_sqlite" }
+
+dotenvy = "0.15"
+lazy_static = "1"
+thiserror = "1"
+uniffi = "0.21.0"
+uniffi_macros = "0.21.0"
+# once_cell = "1.15"
+
+[build-dependencies]
+uniffi_build = "0.21.0"
+
+[dev-dependencies]
+actix-rt = "*"
+
+# [profile.release]
+# codegen-units = 1
+# lto = "fat"
+# opt-level = 3

@@ -1,0 +1,13 @@
+[workspace]
+
+members = [
+   "mee_ds_sqlite",
+   "mee_crypto",
+   "mee_oidc",
+   "mee_agent",
+]
+
+# [profile.release]
+# codegen-units = 1
+# lto = "fat"
+# opt-level = 3

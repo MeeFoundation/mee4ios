@@ -18,8 +18,11 @@ struct ContentView: View {
     
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
+    var agent = try! getAgent(databaseUrl: Bundle.main.url(forResource: "mee", withExtension: "sqlite")!.relativeString);
     init() {
-        
+        let ctx = try! agent.getSelfCtx();
+        let nytCtx = try! agent.getCtx(ctxId: "did:nytimes.com")!;
+        print(ctx, nytCtx)
     }
     
     private var authenticationEnabled = true

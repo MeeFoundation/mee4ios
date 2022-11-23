@@ -1,0 +1,29 @@
+namespace mee {
+  MeeAgent get_agent(string database_url);
+};
+
+[Error]
+enum MeeErr {
+    "DSErr", "Unknown"
+};
+
+dictionary DSContainer {
+     string did;
+     string name;
+     i32 version;
+     string version_signature;
+     string enc_keys;
+     string enc_config;
+     string? data;
+};
+ 
+interface MeeAgent {
+    constructor(string data_dir);
+    
+    [Throws=MeeErr]
+    DSContainer get_self_ctx();
+    
+    [Throws=MeeErr]
+    DSContainer? get_ctx(string ctx_id);
+}; 
+

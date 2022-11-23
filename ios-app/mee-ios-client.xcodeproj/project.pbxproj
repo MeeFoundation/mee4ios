@@ -99,6 +99,11 @@
 		A55085C627CE428200C5A2D1 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C427CE428100C5A2D1 /* LoginForm.swift */; };
 		A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
 		A55085CA27CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
+		A5716E8C292E69E600248961 /* mee.udl in Resources */ = {isa = PBXBuildFile; fileRef = A5716E8B292E69E500248961 /* mee.udl */; };
+		A5716E8E292E6A3900248961 /* mee.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = A5716E8D292E6A3900248961 /* mee.sqlite */; };
+		A5716E94292E6D5900248961 /* libuniffi_mee_agent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5716E93292E6D5900248961 /* libuniffi_mee_agent.a */; };
+		A5716E9B292E71CB00248961 /* meeFFI.h in Headers */ = {isa = PBXBuildFile; fileRef = A5716E99292E71CB00248961 /* meeFFI.h */; };
+		A5716E9C292E71CB00248961 /* mee.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5716E9A292E71CB00248961 /* mee.swift */; };
 		A5A4D382291433B700CA3F26 /* ConsentDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D381291433B700CA3F26 /* ConsentDuration.swift */; };
 		A5A4D383291433B700CA3F26 /* ConsentDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D381291433B700CA3F26 /* ConsentDuration.swift */; };
 		A5A4D3852914A2A000CA3F26 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D3842914A2A000CA3F26 /* Triangle.swift */; };
@@ -205,6 +210,23 @@
 		A5E0F50C28C8B4480065058A /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F50A28C8B4480065058A /* TabBar.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		A5716E91292E6AEF00248961 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			filePatterns = "*.udl";
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+				"$(SRCROOT)/Generated/$(INPUT_FILE_BASE).swift",
+				"$(SRCROOT)/Generated/$(INPUT_FILE_BASE)FFI.h",
+			);
+			script = "$HOME/.cargo/bin/uniffi-bindgen generate \"$INPUT_FILE_PATH\" --language swift --out-dir \"$SRCROOT/Generated\" \n\n#cp -f $DERIVED_FILE_DIR/*.swift $SRCROOT/ios_rust_test/\n#cp -f $DERIVED_FILE_DIR/*FFI.h $SRCROOT/ios_rust_test/\n\n#\"$DERIVED_FILE_DIR\"\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXContainerItemProxy section */
 		946D2DF127BB9A960055175C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -291,6 +313,12 @@
 		A55085C127CE33C500C5A2D1 /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
 		A55085C427CE428100C5A2D1 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		A55085C827CF741500C5A2D1 /* CurrentPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPageState.swift; sourceTree = "<group>"; };
+		A5716E8B292E69E500248961 /* mee.udl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mee.udl; path = ../mee_agent/src/mee.udl; sourceTree = "<group>"; };
+		A5716E8D292E6A3900248961 /* mee.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = mee.sqlite; path = ../mee_ds_sqlite/data/mee.sqlite; sourceTree = "<group>"; };
+		A5716E8F292E6A9700248961 /* MeeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeeHeader.h; sourceTree = "<group>"; };
+		A5716E93292E6D5900248961 /* libuniffi_mee_agent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuniffi_mee_agent.a; path = ../../target/universal/debug/libuniffi_mee_agent.a; sourceTree = "<group>"; };
+		A5716E99292E71CB00248961 /* meeFFI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meeFFI.h; path = "../../../mee-core/ios_rust_test/Generated/meeFFI.h"; sourceTree = "<group>"; };
+		A5716E9A292E71CB00248961 /* mee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = mee.swift; path = "../../../mee-core/ios_rust_test/Generated/mee.swift"; sourceTree = "<group>"; };
 		A5A4D381291433B700CA3F26 /* ConsentDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentDuration.swift; sourceTree = "<group>"; };
 		A5A4D3842914A2A000CA3F26 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorList.swift; sourceTree = "<group>"; };
@@ -352,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5DB216227EDDECA0070B444 /* AuthenticationServices.framework in Frameworks */,
+				A5716E94292E6D5900248961 /* libuniffi_mee_agent.a in Frameworks */,
 				A5DB214A27E37C040070B444 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +412,11 @@
 		946D2DD627BB9A950055175C = {
 			isa = PBXGroup;
 			children = (
+				A5716E90292E6AB600248961 /* Generated */,
+				A5716E92292E6D3A00248961 /* Frameworks */,
+				A5716E8F292E6A9700248961 /* MeeHeader.h */,
+				A5716E8D292E6A3900248961 /* mee.sqlite */,
+				A5716E8B292E69E500248961 /* mee.udl */,
 				948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */,
 				A550856C27BD243500C5A2D1 /* mee-ios-client--iOS--Info.plist */,
 				A550856B27BD1C4E00C5A2D1 /* ios */,
@@ -606,6 +640,23 @@
 			path = state;
 			sourceTree = "<group>";
 		};
+		A5716E90292E6AB600248961 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				A5716E9A292E71CB00248961 /* mee.swift */,
+				A5716E99292E71CB00248961 /* meeFFI.h */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
+		A5716E92292E6D3A00248961 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5716E93292E6D5900248961 /* libuniffi_mee_agent.a */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 		A5D9E2FA29265E7000D0E12D /* activeConsents */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,17 +707,31 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		A5716E96292E716700248961 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5716E9B292E71CB00248961 /* meeFFI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		946D2DE227BB9A960055175C /* mee-ios-client (iOS) */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 946D2E0C27BB9A960055175C /* Build configuration list for PBXNativeTarget "mee-ios-client (iOS)" */;
 			buildPhases = (
+				A5716E95292E6D8F00248961 /* ShellScript */,
+				A5716E96292E716700248961 /* Headers */,
 				946D2DDF27BB9A960055175C /* Sources */,
 				946D2DE027BB9A960055175C /* Frameworks */,
 				946D2DE127BB9A960055175C /* Resources */,
 				948AD55E27BF8E0A00A98D88 /* Embed App Extensions */,
 			);
 			buildRules = (
+				A5716E91292E6AEF00248961 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -800,9 +865,11 @@
 				A550856527BD1C4600C5A2D1 /* PublicSans-ExtraLight.ttf in Resources */,
 				A550854927BD1C4600C5A2D1 /* PublicSans-SemiBoldItalic.ttf in Resources */,
 				A550856927BD1C4600C5A2D1 /* PublicSans-MediumItalic.ttf in Resources */,
+				A5716E8E292E6A3900248961 /* mee.sqlite in Resources */,
 				A550854F27BD1C4600C5A2D1 /* PublicSans-ThinItalic.ttf in Resources */,
 				A550855D27BD1C4600C5A2D1 /* PublicSans-BoldItalic.ttf in Resources */,
 				A550856127BD1C4600C5A2D1 /* PublicSans-BlackItalic.ttf in Resources */,
+				A5716E8C292E69E600248961 /* mee.udl in Resources */,
 				A550856327BD1C4600C5A2D1 /* PublicSans-Black.ttf in Resources */,
 				A550855727BD1C4600C5A2D1 /* PublicSans-LightItalic.ttf in Resources */,
 			);
@@ -850,6 +917,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A5716E95292E6D8F00248961 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n$SRCROOT/../xc-universal-binary.sh libuniffi_mee_agent.a mee_agent $SRCROOT/../ $CONFIGURATION\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		946D2DDF27BB9A960055175C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -882,6 +969,7 @@
 				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
 				A5DB214627E37A690070B444 /* keyChain.swift in Sources */,
+				A5716E9C292E71CB00248961 /* mee.swift in Sources */,
 				A5D9E3152926786D00D0E12D /* ConsentPageNew.swift in Sources */,
 				A53F79D327E08B9D00A62589 /* MainViewPage.swift in Sources */,
 				A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */,
@@ -1189,12 +1277,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../target/universal/debug";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = MeeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1227,12 +1317,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../target/universal/release";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = distrib;
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = MeeHeader.h;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
