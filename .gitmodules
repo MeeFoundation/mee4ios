@@ -1,0 +1,3 @@
+[submodule "mee-core"]
+	path = mee-core
+	url = git@github.com:MeeProject/mee-core.git
