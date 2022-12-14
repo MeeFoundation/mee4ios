@@ -53,7 +53,7 @@ struct ContentView: View {
     }
     
     func processUrl(url: URL) {
-        if (url.host == "meeproject.org" || url.host == "www.meeproject.org") {
+        if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation") {
             let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
             if let initializedUrl = URL.init(string: sanitizedUrl) {
                 let components = initializedUrl.pathComponents

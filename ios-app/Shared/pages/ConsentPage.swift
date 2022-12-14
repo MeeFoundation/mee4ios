@@ -40,10 +40,9 @@ struct ConsentPage: View {
                     else {
                         ConsentPageNew(){data, id, url in
                             print(data)
-                            if let result = keyChainConsents.editItem(name: id, item: data.toBase64()) {
-                                print("result: ", result)
-                                onNext(data.toBase64(), url)
-                            }
+                            keyChainConsents.editItem(name: id, item: data.toBase64())
+                            onNext(data.toBase64(), url)
+
                         }
                     }
                 }

@@ -18,7 +18,7 @@ struct FirstRunPage: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
     
-    let installedUrl = URL(string: "https://www-dev.mee.foundation/#/installed")
+    let installedUrl = URL(string: "https://auth-dev.mee.foundation/#/installed")
     
     func tryAuthenticate() {
         currentPage = FirstRunPages.faceId
@@ -182,7 +182,7 @@ struct FirstRunPageInitializing: View {
                         .padding(.vertical, 50)
                         .padding(.horizontal, 37)
                     
-                    LoadingCircle(progress: state.progress, width: !state.finalAnimation ? 171 : 171 * state.animationMultiplier, height: state.finalAnimation ? 171 : 171 * state.animationMultiplier)
+                    LoadingCircle(progress: state.progress, width: !state.finalAnimation ? 171 : 171 * state.animationMultiplier, height: !state.finalAnimation ? 171 : 171 * state.animationMultiplier)
                 }
                 .transition(.scale)
                 .animation(Animation.linear(duration: 2), value: state.finalAnimation)
@@ -208,7 +208,7 @@ struct FirstRunPageInitializing: View {
                     onNext()
                 }
                 if state.progress >= 1 {
-                    withAnimation{
+                    withAnimation {
                         state.finalAnimation = true
                     }
                     //                             onNext()
