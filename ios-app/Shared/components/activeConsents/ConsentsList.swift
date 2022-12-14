@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConsentsList: View {
-    let keychain = KeyChainConsents()
+    let keychain = MeeAgentStore()
     @EnvironmentObject var data: PartnersState
     @State private var state = ConsentsListState()
 

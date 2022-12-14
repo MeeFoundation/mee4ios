@@ -7,5 +7,5 @@
 
 import SwiftUI
 
-let certifiedUrl = URL(string: "https://meeproject.org/#/mee-certified")
-let compatibleUrl = URL(string: "https://meeproject.org/#/mee-compatible")
+let certifiedUrl = URL(string: "https://mee.foundation/#/mee-certified")
+let compatibleUrl = URL(string: "https://mee.foundation/#/mee-compatible")

@@ -8,7 +8,7 @@
 import Foundation
 
 class PartnersState: ObservableObject {
-    private let keychain = KeyChainConsents()
+    private let keychain = MeeAgentStore()
     @Published var partners: [PartnersModel]
     var consents: [PartnersModel] {
         return partners.filter{ partner in
@@ -21,7 +21,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "nyt",
                 name: "The New York Times",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "nytimes.com",
                 imageUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
                 isMeeCertified: true,
@@ -30,7 +30,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "nytcompatible",
                 name: "The New York Times",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "nytimes.com",
                 imageUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
                 isMeeCertified: false,
@@ -39,7 +39,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "nytmobile",
                 name: "The New York Times",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "nytimes.com",
                 imageUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
                 isMeeCertified: true,
@@ -48,7 +48,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "twp",
                 name: "The Washington Post",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "washingtonpost.com",
                 imageUrl: "https://www.washingtonpost.com/favicon.ico",
                 isMeeCertified: true,
@@ -57,7 +57,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "twpmobile",
                 name: "The Washington Post",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "washingtonpost.com",
                 imageUrl: "https://www.washingtonpost.com/favicon.ico",
                 isMeeCertified: true,
@@ -66,7 +66,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "tg",
                 name: "The Guardian",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "theguardian.com",
                 imageUrl: "https://theguardian.com/favicon.ico",
                 isMeeCertified: false,
@@ -75,7 +75,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "tgmobile",
                 name: "The Guardian",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "theguardian.com",
                 imageUrl: "https://theguardian.com/favicon.ico",
                 isMeeCertified: false,
@@ -84,7 +84,7 @@ class PartnersState: ObservableObject {
             PartnersModel(
                 id: "wsj",
                 name: "The Wall Street Journal",
-                url: "https://demo-dev.meeproject.org",
+                url: "https://demo-dev.mee.foundation",
                 displayUrl: "wsj.com",
                 imageUrl: "https://wsj.com/favicon.ico",
                 isMeeCertified: false,

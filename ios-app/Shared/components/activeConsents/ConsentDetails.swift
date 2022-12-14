@@ -14,7 +14,7 @@ struct PartnerDetails: View {
         self.partner = partner
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    let keychain = KeyChainConsents()
+    let keychain = MeeAgentStore()
     
     
     func removeConsent() {

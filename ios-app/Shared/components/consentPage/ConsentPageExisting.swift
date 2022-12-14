@@ -61,9 +61,6 @@ struct ConsentPageExisting: View {
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                     }
                     Spacer()
-                    //                    DelayedActionButton(title: "Don’t Make me Wait", action: {
-                    //                        openURL(URL(string: "https://demo-dev.meeproject.org/?interest=world-news")!)
-                    //                    }, delay: 5)
                         .padding(.bottom, 57.5)
                     
                     

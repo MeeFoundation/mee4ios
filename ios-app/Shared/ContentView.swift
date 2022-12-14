@@ -19,13 +19,6 @@ struct ContentView: View {
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
     
-    init() {
-        let agent = getAgent(databaseUrl: Bundle.main.url(forResource: "mee", withExtension: "sqlite")!.relativeString);
-        let ctx = try! agent.getSelfCtx();
-        let nytCtx = try! agent.getCtx(ctxId: "did:nytimes.com")!;
-        print(ctx, nytCtx)
-    }
-    
     private var authenticationEnabled = true
     @State var isAuthenticated: Bool = false
     @State var appWasMinimized: Bool = false
@@ -167,9 +160,6 @@ struct NavigationPage: View {
                 )
                 
             }
-        }
-        .onTapGesture {
-            keyboardEndEditing()
         }
     }
 }
