@@ -923,7 +923,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash $SRCROOT/../mee-core/xc-universal-binary.sh libuniffi_mee_agent.a mee_agent $SRCROOT/../mee-core/ $CONFIGURATION\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbash $SRCROOT/../xc-universal-binary.sh libuniffi_mee_agent.a mee_agent $SRCROOT/../mee-core/ $CONFIGURATION\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
