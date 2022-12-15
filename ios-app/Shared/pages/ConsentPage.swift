@@ -11,7 +11,7 @@ struct ConsentPage: View {
     var isLocked: Bool
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
     @EnvironmentObject var data: ConsentState
-    let keyChainConsents = KeyChainConsents()
+    let keyChainConsents = MeeAgentStore()
     @State var state = ConsentPageState()
     @Environment(\.openURL) var openURL
     
@@ -42,6 +42,7 @@ struct ConsentPage: View {
                             print(data)
                             keyChainConsents.editItem(name: id, item: data.toBase64())
                             onNext(data.toBase64(), url)
+
                         }
                     }
                 }

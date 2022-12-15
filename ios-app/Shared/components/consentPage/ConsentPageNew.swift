@@ -22,7 +22,7 @@ struct ConsentPageNew: View {
             data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) != nil;
         }
     }
-    let rejectUrl = URL(string: "https://demo-dev.meeproject.org/#/reject")
+    let rejectUrl = URL(string: "https://demo-dev.mee.foundation/#/reject")
     var body: some View {
         ZStack {
             BackgroundWhite()
