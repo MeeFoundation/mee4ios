@@ -17,6 +17,13 @@
 		946D2E0727BB9A960055175C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DDD27BB9A960055175C /* ContentView.swift */; };
 		946D2E0827BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
 		946D2E0927BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
+		A5327A67295335D700F08618 /* MeeClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327A66295335D700F08618 /* MeeClaim.swift */; };
+		A5327A6829535A8B00F08618 /* ConsentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */; };
+		A5327AA0295462F600F08618 /* ConsentStorageDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327A9F295462F600F08618 /* ConsentStorageDuration.swift */; };
+		A5327AA22954635400F08618 /* ConsentEntryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327AA12954635400F08618 /* ConsentEntryType.swift */; };
+		A5327AA4295463A300F08618 /* consentHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327AA3295463A300F08618 /* consentHelpers.swift */; };
+		A5327AA629546EBD00F08618 /* MeeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327AA529546EBD00F08618 /* MeeResponse.swift */; };
+		A5327AA82954798900F08618 /* decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327AA72954798900F08618 /* decoder.swift */; };
 		A53F79C727D647B400A62589 /* validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79C627D647B400A62589 /* validation.swift */; };
 		A53F79C827D647B400A62589 /* validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79C627D647B400A62589 /* validation.swift */; };
 		A53F79CD27DA1BBC00A62589 /* optionalBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53F79CC27DA1BBC00A62589 /* optionalBinding.swift */; };
@@ -120,6 +127,7 @@
 		A5C0EE4D28EB594500790179 /* MeeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */; };
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5C0EE9128F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
+		A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB72DB294B29970063A077 /* MeeEnv.swift */; };
 		A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
 		A5D0F030291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
 		A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */; };
@@ -271,6 +279,14 @@
 		946D2E0027BB9A960055175C /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mee-ios-client (iOS).entitlements"; sourceTree = "<group>"; };
+		A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentConfiguration.swift; sourceTree = "<group>"; };
+		A52EF632294A1AED00D27B42 /* Partner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partner.swift; sourceTree = "<group>"; };
+		A5327A66295335D700F08618 /* MeeClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeClaim.swift; sourceTree = "<group>"; };
+		A5327A9F295462F600F08618 /* ConsentStorageDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentStorageDuration.swift; sourceTree = "<group>"; };
+		A5327AA12954635400F08618 /* ConsentEntryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentEntryType.swift; sourceTree = "<group>"; };
+		A5327AA3295463A300F08618 /* consentHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = consentHelpers.swift; sourceTree = "<group>"; };
+		A5327AA529546EBD00F08618 /* MeeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeResponse.swift; sourceTree = "<group>"; };
+		A5327AA72954798900F08618 /* decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = decoder.swift; sourceTree = "<group>"; };
 		A53F79C627D647B400A62589 /* validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = validation.swift; sourceTree = "<group>"; };
 		A53F79CC27DA1BBC00A62589 /* optionalBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = optionalBinding.swift; sourceTree = "<group>"; };
 		A53F79CF27DA2DFC00A62589 /* ConsentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentState.swift; sourceTree = "<group>"; };
@@ -326,6 +342,7 @@
 		A5AA4CF128ABEBE700677ADD /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStore.swift; sourceTree = "<group>"; };
 		A5C0EE8F28F86F7300790179 /* WarningPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningPopup.swift; sourceTree = "<group>"; };
+		A5CB72DB294B29970063A077 /* MeeEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeEnv.swift; sourceTree = "<group>"; };
 		A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWrapper.swift; sourceTree = "<group>"; };
 		A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardHelpers.swift; sourceTree = "<group>"; };
 		A5D2AAE6291D210E00F9806E /* ColorBlend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlend.swift; sourceTree = "<group>"; };
@@ -524,6 +541,13 @@
 				A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */,
 				A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */,
 				A5D7510928EB3E25003CD142 /* PartnerData.swift */,
+				A5CB72DB294B29970063A077 /* MeeEnv.swift */,
+				A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */,
+				A52EF632294A1AED00D27B42 /* Partner.swift */,
+				A5327A66295335D700F08618 /* MeeClaim.swift */,
+				A5327A9F295462F600F08618 /* ConsentStorageDuration.swift */,
+				A5327AA12954635400F08618 /* ConsentEntryType.swift */,
+				A5327AA529546EBD00F08618 /* MeeResponse.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -606,6 +630,8 @@
 				A5D7510628EB186B003CD142 /* json.swift */,
 				A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */,
 				A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */,
+				A5327AA3295463A300F08618 /* consentHelpers.swift */,
+				A5327AA72954798900F08618 /* decoder.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -932,6 +958,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5327AA82954798900F08618 /* decoder.swift in Sources */,
+				A5327A6829535A8B00F08618 /* ConsentConfiguration.swift in Sources */,
 				A5B8E94E2938EF7F006058E6 /* mee.udl in Sources */,
 				A550857027BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A55085B027C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
@@ -948,6 +976,7 @@
 				A5D9E330292D109800D0E12D /* PartnerDetailsState.swift in Sources */,
 				A55085B627C3B55400C5A2D1 /* InputField.swift in Sources */,
 				A5DB213D27E22B520070B444 /* urlTools.swift in Sources */,
+				A5327AA22954635400F08618 /* ConsentEntryType.swift in Sources */,
 				A5D9E31B2926841D00D0E12D /* ConsentDurationEntry.swift in Sources */,
 				A5D9E2F52922C2CA00D0E12D /* VisualEffectView.swift in Sources */,
 				A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */,
@@ -985,6 +1014,7 @@
 				A5D7510728EB186B003CD142 /* json.swift in Sources */,
 				A5DB215B27EB2D8C0070B444 /* Switch.swift in Sources */,
 				A550858627BE3B1400C5A2D1 /* Line.swift in Sources */,
+				A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */,
 				A5DB215E27EB32D60070B444 /* passwordGenerator.swift in Sources */,
 				A550859227BFD40700C5A2D1 /* Background.swift in Sources */,
 				A55085C227CE33C500C5A2D1 /* SignupForm.swift in Sources */,
@@ -992,10 +1022,13 @@
 				A5AA4CF228ABEBE700677ADD /* Checkbox.swift in Sources */,
 				A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
 				A55085C527CE428200C5A2D1 /* LoginForm.swift in Sources */,
+				A5327AA629546EBD00F08618 /* MeeResponse.swift in Sources */,
+				A5327AA0295462F600F08618 /* ConsentStorageDuration.swift in Sources */,
 				A55085BC27C3DA1A00C5A2D1 /* Text.swift in Sources */,
 				A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */,
 				A550858927BE46CE00C5A2D1 /* ConsentEntry.swift in Sources */,
 				A53F79C727D647B400A62589 /* validation.swift in Sources */,
+				A5327AA4295463A300F08618 /* consentHelpers.swift in Sources */,
 				946D2E0427BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
 				A5D7510428EB0EE0003CD142 /* String.swift in Sources */,
 				A55085A727BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
@@ -1009,6 +1042,7 @@
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085B927C3B61E00C5A2D1 /* MainButton.swift in Sources */,
 				A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */,
+				A5327A67295335D700F08618 /* MeeClaim.swift in Sources */,
 				A53F79D627E0D56800A62589 /* PasswordManagerPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

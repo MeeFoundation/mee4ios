@@ -14,10 +14,10 @@ struct ConsentsList: View {
 
     func refreshPartnersList(_ firstLaunch: Bool) {
         state.existingPartnersWebApp = data.partners.filter{ partner in
-            !partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
+            !partner.isMobileApp && keychain.getItemByName(name: partner.client_id) != nil
         }
         state.existingPartnersMobileApp = data.partners.filter{ partner in
-            partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
+            partner.isMobileApp && keychain.getItemByName(name: partner.client_id) != nil
         }
         if firstLaunch {
             if let existingPartnersWebApp = state.existingPartnersWebApp {
@@ -33,11 +33,11 @@ struct ConsentsList: View {
         }
         
         state.otherPartnersWebApp = data.partners.filter{ partner in
-            if partner.id == "nytcompatible" || (partner.id == "nyt" && !(state.existingPartnersWebApp ?? []).isEmpty) {return false}
-            return !partner.isMobileApp && keychain.getItemByName(name: partner.id) == nil
+            if partner.client_id == "nytcompatible" || (partner.client_id == "nyt" && !(state.existingPartnersWebApp ?? []).isEmpty) {return false}
+            return !partner.isMobileApp && keychain.getItemByName(name: partner.client_id) == nil
         }
         state.otherPartnersMobileApp = data.partners.filter{ partner in
-            return partner.isMobileApp && keychain.getItemByName(name: partner.id) == nil
+            return partner.isMobileApp && keychain.getItemByName(name: partner.client_id) == nil
         }
     }
     
@@ -88,18 +88,17 @@ struct ConsentsList: View {
                                                 .padding(.top, 24)
                                                 .padding(.bottom, 4)
                                                 }
-                                                ForEach(partnersArray.data ?? []) { partner in
-                                                    NavigationLink(destination: PartnerDetails(partner: partner), tag: partner.id, selection: $state.selection){}
-                                                    PartnerEntry(partner: partner, hasEntry: partnersArray.editable)
+                                                ForEach(partnersArray.data ?? []) { partnerData in
+                                                    NavigationLink(destination: PartnerDetails(partner: partnerData), tag: partnerData.id, selection: $state.selection){}
+                                                    PartnerEntry(partner: partnerData, hasEntry: partnersArray.editable)
                                                         .onTapGesture(perform: {
-                                                        if partnersArray.editable {
-                                                            state.selection = partner.id
-                                                        } else if !partner.isMeeCertified {
-                                                            state.showCompatibleWarning = true
-                                                        }
-                                                    })
-                                                    .padding(.top, 8)
-                                                    
+                                                            if partnersArray.editable {
+                                                                state.selection = partnerData.client_id
+                                                            } else if !partnerData.isMeeCertified {
+                                                                state.showCompatibleWarning = true
+                                                            }
+                                                        })
+                                                        .padding(.top, 8)
                                                 }
                                             }
                                             Spacer()

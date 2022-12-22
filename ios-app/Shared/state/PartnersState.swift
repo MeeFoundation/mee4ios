@@ -8,87 +8,96 @@
 import Foundation
 
 class PartnersState: ObservableObject {
+    static let shared = PartnersState()
     private let keychain = MeeAgentStore()
-    @Published var partners: [PartnersModel]
-    var consents: [PartnersModel] {
+    @Published var partners: [PartnerData]
+    var consents: [PartnerData] {
         return partners.filter{ partner in
-            !partner.isMobileApp && keychain.getItemByName(name: partner.id) != nil
+            !partner.isMobileApp && keychain.getItemByName(name: partner.client_id) != nil
         }
     }
     
     init() {
         self.partners = [
-            PartnersModel(
-                id: "nyt",
+            PartnerData(
+                client_id: "nyt",
                 name: "The New York Times",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "nytimes.com",
-                imageUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
-                isMeeCertified: true,
-                isMobileApp: false
+                logoUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
+                isMobileApp: false,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "nytcompatible",
+            PartnerData(
+                client_id: "nytcompatible",
                 name: "The New York Times",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "nytimes.com",
-                imageUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
-                isMeeCertified: false,
-                isMobileApp: false
+                logoUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
+                isMobileApp: false,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "nytmobile",
+            PartnerData(
+                client_id: "nytmobile",
                 name: "The New York Times",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "nytimes.com",
-                imageUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
-                isMeeCertified: true,
-                isMobileApp: true
+                logoUrl: "https://theme.zdassets.com/theme_assets/968999/d8a347b41db1ddee634e2d67d08798c102ef09ac.jpg",
+                isMobileApp: true,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "twp",
+            PartnerData(
+                client_id: "twp",
                 name: "The Washington Post",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "washingtonpost.com",
-                imageUrl: "https://www.washingtonpost.com/favicon.ico",
-                isMeeCertified: true,
-                isMobileApp: false
+                logoUrl: "https://www.washingtonpost.com/favicon.ico",
+                isMobileApp: false,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "twpmobile",
+            PartnerData(
+                client_id: "twpmobile",
                 name: "The Washington Post",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "washingtonpost.com",
-                imageUrl: "https://www.washingtonpost.com/favicon.ico",
-                isMeeCertified: true,
-                isMobileApp: true
+                logoUrl: "https://www.washingtonpost.com/favicon.ico",
+                isMobileApp: true,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "tg",
+            PartnerData(
+                client_id: "tg",
                 name: "The Guardian",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "theguardian.com",
-                imageUrl: "https://theguardian.com/favicon.ico",
-                isMeeCertified: false,
-                isMobileApp: false
+                logoUrl: "https://theguardian.com/favicon.ico",
+                isMobileApp: false,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "tgmobile",
+            PartnerData(
+                client_id: "tgmobile",
                 name: "The Guardian",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "theguardian.com",
-                imageUrl: "https://theguardian.com/favicon.ico",
-                isMeeCertified: false,
-                isMobileApp: true
+                logoUrl: "https://theguardian.com/favicon.ico",
+                isMobileApp: true,
+                isMeeCertified: true
             ),
-            PartnersModel(
-                id: "wsj",
+            PartnerData(
+                client_id: "wsj",
                 name: "The Wall Street Journal",
-                url: "https://demo-dev.mee.foundation",
+                acceptUrl: "https://demo-dev.mee.foundation",
+                rejectUrl: "https://demo-dev.mee.foundation",
                 displayUrl: "wsj.com",
-                imageUrl: "https://wsj.com/favicon.ico",
-                isMeeCertified: false,
-                isMobileApp: false
+                logoUrl: "https://wsj.com/favicon.ico",
+                isMobileApp: false,
+                isMeeCertified: true
             )
         ]
     }

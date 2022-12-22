@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct PartnerEntry: View  {
-    let partner: PartnersModel
+    let partner: PartnerData
     let hasEntry: Bool
-    init(partner: PartnersModel, hasEntry: Bool = false) {
+    let isCertified: Bool
+    init(partner: PartnerData, hasEntry: Bool = false) {
         self.partner = partner
         self.hasEntry = hasEntry
+        self.isCertified = PartnersState.shared.partners.firstIndex{p in partner.client_id == p.client_id} != nil
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
         return HStack {
-                AsyncImage(url: URL(string: partner.imageUrl), content: { phase in
+            AsyncImage(url: URL(string: partner.logoUrl), content: { phase in
                     if let image = phase.image {
                         image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fill)
                             .frame(width: 48, height: 48, alignment: .center)
@@ -35,7 +37,7 @@ struct PartnerEntry: View  {
                         Text(partner.name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.medium , size: 16))
-                        Image(partner.isMeeCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
+                        Image(isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
                         Spacer()
                     }
                     

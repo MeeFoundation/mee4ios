@@ -59,26 +59,37 @@ struct ContentView: View {
                 let components = initializedUrl.pathComponents
                 
                 if (components.count > 1) {
-                    print("components[1]:", components[1])
                     switch (components[1]) {
                     case "consent":
                         do {
-                            guard let jsonString = components[2].fromBase64() else {
+                            guard let partnerDataJson = decodeString(components[2]) else {
                                 return
                             }
-                            guard let partnerDataJson = jsonString.data(using: .utf8) else {
-                                return
-                            }
-                            data.consent = demoConsentModel
-                            let partnerData: PartnerData = try JSONDecoder().decode(PartnerData.self, from: partnerDataJson)
-                            data.consent.id = partnerData.partnerId
-                            data.consent.name = partnerData.partnerName
-                            data.consent.url = partnerData.partnerUrl
-                            data.consent.imageUrl = partnerData.partnerImageUrl
-                            data.consent.displayUrl = partnerData.partnerDisplayedUrl
+                            let partnerData = try JSONDecoder().decode(ConsentConfiguration.self, from: partnerDataJson)
                             print("partnerData", partnerData)
+                            var entries: [ConsentEntryModel] = []
+                            partnerData.claim?.forEach{ entry in
+                                let convertedEntry = ConsentEntryModel(
+                                    name: entry.key,
+                                    type: entry.value.field_type, value: nil,
+                                    providedBy: nil,
+                                    isRequired: entry.value.essential
+                                )
+                                entries.append(convertedEntry)
+                            }
+                            data.consent = ConsentModel(
+                                client_id: partnerData.client_id ?? "",
+                                name: partnerData.client?.name ?? "",
+                                acceptUrl: partnerData.client?.acceptUrl ?? "",
+                                rejectUrl: partnerData.client?.rejectUrl ?? "",
+                                displayUrl: partnerData.client?.displayUrl ?? "",
+                                logoUrl: partnerData.client?.logoUrl ?? "",
+                                isMobileApp: partnerData.client?.isMobileApp ?? false,
+                                isMeeCertified: partnerData.client?.isMeeCertified ?? false,
+                                entries: entries)
                             navigationState.currentPage = NavigationPages.consent
                         } catch {
+                            print("Decoding error: \(error)")
                             return
                         }
                     default: break

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct PartnerDetails: View {
-    let partner: PartnersModel
+    let partner: PartnerData
     @State var state = PartnerDetailsState()
-    init(partner: PartnersModel) {
+    init(partner: PartnerData) {
         self.partner = partner
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -18,9 +18,9 @@ struct PartnerDetails: View {
     
     
     func removeConsent() {
-        keychain.removeItembyName(name: partner.id)
+        keychain.removeItembyName(name: partner.client_id)
         self.presentationMode.wrappedValue.dismiss()
-
+        
     }
     
     var body: some View {
@@ -53,10 +53,10 @@ struct PartnerDetails: View {
                 .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                 ScrollView {
                     PartnerEntry(partner: partner, hasEntry: false)
-                    .border(Colors.meeBrand, width: 2)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 48)
-                    .padding(.top, 16)
+                        .border(Colors.meeBrand, width: 2)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 48)
+                        .padding(.top, 16)
                     Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
                         ForEach($state.consentEntries.filter {$0.wrappedValue.isRequired}) { $entry in
                             VStack {
@@ -139,7 +139,7 @@ struct PartnerDetails: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
-                    let consentDataString = keychain.getItemByName(name: partner.id)
+                    let consentDataString = keychain.getItemByName(name: partner.client_id)
                     if let consentDataString {
                         do {
                             if let consentDataDecodedString = consentDataString.fromBase64() {

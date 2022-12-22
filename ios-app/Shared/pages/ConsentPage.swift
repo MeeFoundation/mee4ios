@@ -11,12 +11,15 @@ struct ConsentPage: View {
     var isLocked: Bool
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
     @EnvironmentObject var data: ConsentState
-    let keyChainConsents = MeeAgentStore()
+    let meeAgent = MeeAgentStore()
     @State var state = ConsentPageState()
     @Environment(\.openURL) var openURL
     
-    private func onNext (_ jwtToken: String,_ url: String) {
-        if let url = URL(string: "\(url)/?token=\(jwtToken)") {
+    private func onNext (_ data: [ConsentEntryModel], _ url: String) {
+        let response = makeMeeResponse(data)
+        let encodedResponse = encodeJson(response).toBase64()
+        print("encodedResponse", encodedResponse)
+        if let url = URL(string: "\(url)/?token=\(encodedResponse)") {
             openURL(url)
             state.isReturningUser = true
         }
@@ -29,19 +32,27 @@ struct ConsentPage: View {
                     if isReturningUser {
                         ConsentPageExisting() {id, url in
                             print(id)
-                            guard let data = keyChainConsents.getItemByName(name: id) else {
-                                return
+                            do {
+                                guard let dataString = meeAgent.getItemByName(name: id) else {
+                                    return
+                                }
+                                print(dataString)
+                                guard let data = decodeString(dataString) else {
+                                    return
+                                }
+                                let partnerData = try JSONDecoder().decode([ConsentEntryModel].self, from: data)
+                                onNext(partnerData, url)
+                            } catch {
+                                print(error)
                             }
-                            print(data)
-                            onNext(data, url)
                             
                         }
                     }
                     else {
                         ConsentPageNew(){data, id, url in
                             print(data)
-                            keyChainConsents.editItem(name: id, item: data.toBase64())
-                            onNext(data.toBase64(), url)
+                            meeAgent.editItem(name: id, item: encodeJson(data).toBase64())
+                            onNext(data, url)
 
                         }
                     }
@@ -50,7 +61,7 @@ struct ConsentPage: View {
             
         }
         .onAppear{
-            state.isReturningUser = keyChainConsents.getItemByName(name: data.consent.id) != nil
+            state.isReturningUser = meeAgent.getItemByName(name: data.consent.id) != nil
         }
         .alert(isPresented: $state.isPresentingAlert) {
             Alert(title: Text("Set Up Secret Recovery Phrase"), message: Text("Before you will be logged in, let’s set up your secret recovery phrase"), dismissButton: .default(Text("Set Up Secret Recovery Phrase"), action: {

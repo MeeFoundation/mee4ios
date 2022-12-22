@@ -7,11 +7,16 @@
 
 import Foundation
 
-struct PartnerData: Decodable {
-    let partnerId: String
-    let partnerName: String
-    let partnerUrl: String
-    let partnerImageUrl: String
-    let partnerDisplayedUrl: String
+struct PartnerData: Codable, Identifiable {
+    var id: String {
+        return client_id
+    }
+    let client_id: String
+    let name: String
+    let acceptUrl: String
+    let rejectUrl: String
+    let displayUrl: String
+    let logoUrl: String
     let isMobileApp: Bool
+    let isMeeCertified: Bool
 }

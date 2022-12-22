@@ -7,11 +7,11 @@
 
 struct ConsentsListState {
     var selection: String? = nil
-    var existingPartnersWebApp: [PartnersModel]?
-    var otherPartnersWebApp: [PartnersModel]?
-    var existingPartnersMobileApp: [PartnersModel]?
+    var existingPartnersWebApp: [PartnerData]?
+    var otherPartnersWebApp: [PartnerData]?
+    var existingPartnersMobileApp: [PartnerData]?
     var firstLaunch: Bool = true
-    var otherPartnersMobileApp: [PartnersModel]?
+    var otherPartnersMobileApp: [PartnerData]?
     var showWelcome: Bool?
     var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
     var showCompatibleWarning: Bool = false
