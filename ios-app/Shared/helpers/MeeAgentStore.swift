@@ -9,46 +9,6 @@ import Foundation
 import KeychainAccess
 import AuthenticationServices
 
-//class MeeAgentStore {
-//    private let store = ASCredentialIdentityStore.shared
-//    init() {
-//        keychain = Keychain(service: "org.getmee.ios-client", accessGroup: "59TG46326T.org.getmee.ios-client.connections").synchronizable(true)
-//    }
-//    private var keychain: Keychain
-//
-//    func removeItembyName (name: String) -> Void {
-//        do {
-//            try keychain.remove(name)
-//            return
-//        } catch {
-//            return
-//        }
-//    }
-//
-//    func getItemByName (name: String) -> String? {
-//        do {
-//            guard let oneItem = try keychain.get(name) else {
-//                return nil
-//            }
-//            return oneItem
-//        } catch {
-//            return nil
-//        }
-//
-//    }
-//
-//    func editItem (name: String, item: String) {
-//        do {
-//            try keychain.set(item, key: name)
-//        } catch {
-//
-//        }
-//
-//    }
-//}
-
-
-
 class MeeAgentStore {
     private let agent: MeeAgent
     init() {
@@ -80,6 +40,7 @@ class MeeAgentStore {
             }
             return oneItem
         } catch {
+            print("error: ", error)
             return nil
         }
     }
@@ -87,11 +48,11 @@ class MeeAgentStore {
     func editItem (name: String, item: String) -> DsContainer? {
         do {
             if (getItemByName(name: name)) != nil {
-                self.removeItembyName(name: name)
+                let _ = self.removeItembyName(name: name)
             }
             return try agent.createCtx(ctxId: name, ctxName: name, ctxData: item)
-        } catch let e {
-            print("error: ", e)
+        } catch {
+            print("error: ", error)
             return nil
         }
     }

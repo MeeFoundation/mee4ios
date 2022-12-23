@@ -77,13 +77,22 @@ struct ContentView: View {
                                 )
                                 entries.append(convertedEntry)
                             }
+                            guard let client_id = partnerData.client_id,
+                                  let name = partnerData.client?.name,
+                                  let acceptUrl = partnerData.client?.acceptUrl,
+                                  let rejectUrl = partnerData.client?.rejectUrl,
+                                  let displayUrl = partnerData.client?.displayUrl,
+                                  let logoUrl = partnerData.client?.logoUrl
+                            else {
+                                return
+                            }
                             data.consent = ConsentModel(
-                                client_id: partnerData.client_id ?? "",
-                                name: partnerData.client?.name ?? "",
-                                acceptUrl: partnerData.client?.acceptUrl ?? "",
-                                rejectUrl: partnerData.client?.rejectUrl ?? "",
-                                displayUrl: partnerData.client?.displayUrl ?? "",
-                                logoUrl: partnerData.client?.logoUrl ?? "",
+                                client_id: client_id,
+                                name: name,
+                                acceptUrl: acceptUrl,
+                                rejectUrl: rejectUrl,
+                                displayUrl: displayUrl,
+                                logoUrl: logoUrl,
                                 isMobileApp: partnerData.client?.isMobileApp ?? false,
                                 isMeeCertified: partnerData.client?.isMeeCertified ?? false,
                                 entries: entries)
