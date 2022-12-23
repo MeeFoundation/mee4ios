@@ -7,8 +7,8 @@
 
 import Foundation
 
-class PartnersState: ObservableObject {
-    static let shared = PartnersState()
+class CertifiedPartnersState: ObservableObject {
+    static let shared = CertifiedPartnersState()
     private let keychain = MeeAgentStore()
     @Published var partners: [PartnerData]
     var consents: [PartnerData] {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConsentPageNew: View {
     @EnvironmentObject var data: ConsentState
-    @EnvironmentObject var partners: PartnersState
+    @EnvironmentObject var partners: CertifiedPartnersState
     @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
     @Environment(\.openURL) var openURL
     @State private var state = ConsentPageNewState()

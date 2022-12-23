@@ -26,7 +26,7 @@ struct ConsentConfiguration: Codable {
             print("Catch!")
             if let client_id = try container.decodeIfPresent(String.self, forKey: .client_id) {
                 self.client_id = client_id
-                guard let certifiedPartner = PartnersState.shared.partners.first(where: {p in
+                guard let certifiedPartner = CertifiedPartnersState.shared.partners.first(where: {p in
                     p.client_id == client_id
                 }) else {
                     throw DecodingError.typeMismatch(ConsentConfiguration.self, .init(codingPath: decoder.codingPath, debugDescription: "Strict \(ConsentConfiguration.self) does not use all keys from decoder"))

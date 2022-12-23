@@ -14,7 +14,7 @@ struct PartnerEntry: View  {
     init(partner: PartnerData, hasEntry: Bool = false) {
         self.partner = partner
         self.hasEntry = hasEntry
-        self.isCertified = PartnersState.shared.partners.firstIndex{p in partner.client_id == p.client_id} != nil
+        self.isCertified = CertifiedPartnersState.shared.partners.firstIndex{p in partner.client_id == p.client_id} != nil
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {

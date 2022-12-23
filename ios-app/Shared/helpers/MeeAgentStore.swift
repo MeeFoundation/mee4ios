@@ -52,10 +52,18 @@ import AuthenticationServices
 class MeeAgentStore {
     private let agent: MeeAgent
     init() {
-        agent = getAgent(databaseUrl: Bundle.main.url(forResource: "mee", withExtension: "sqlite")!.relativeString);
+        let fm = FileManager.default
+        do {
+            let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let dbURL = folderURL.appendingPathComponent("mee.sqlite")
+            agent = getAgent(databaseUrl: dbURL.path)
 
+        } catch {
+            fatalError("Unable to init Mee Agent")
+        }
+        
     }
-
+    
     func removeItembyName (name: String) -> String? {
         do {
             try agent.deleteCtx(ctxId: name)

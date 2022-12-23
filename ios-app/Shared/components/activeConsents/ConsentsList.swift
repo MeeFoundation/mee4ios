@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConsentsList: View {
     let keychain = MeeAgentStore()
-    @EnvironmentObject var data: PartnersState
+    @EnvironmentObject var data: CertifiedPartnersState
     @State private var state = ConsentsListState()
 
     func refreshPartnersList(_ firstLaunch: Bool) {
@@ -33,7 +33,6 @@ struct ConsentsList: View {
         }
         
         state.otherPartnersWebApp = data.partners.filter{ partner in
-            if partner.client_id == "nytcompatible" || (partner.client_id == "nyt" && !(state.existingPartnersWebApp ?? []).isEmpty) {return false}
             return !partner.isMobileApp && keychain.getItemByName(name: partner.client_id) == nil
         }
         state.otherPartnersMobileApp = data.partners.filter{ partner in

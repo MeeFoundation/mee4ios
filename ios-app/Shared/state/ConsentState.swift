@@ -19,7 +19,7 @@ struct ConsentModel {
     let logoUrl: String
     let isMobileApp: Bool
     let isMeeCertified: Bool
-    var entries: [ConsentEntryModel]
+    var entries: [ConsentEntryModel] = []
 }
 
 let emptyConsentModel = ConsentModel(
