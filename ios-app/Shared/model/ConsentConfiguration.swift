@@ -20,10 +20,11 @@ struct ConsentConfiguration: Codable {
         
         
         if let client = try container.decodeIfPresent(PartnerData.self, forKey: .client) {
+            print("Found client")
             self.client = client
             self.client_id = client.client_id
         } else {
-            print("Catch!")
+            print("Client not found")
             if let client_id = try container.decodeIfPresent(String.self, forKey: .client_id) {
                 self.client_id = client_id
                 guard let certifiedPartner = CertifiedPartnersState.shared.partners.first(where: {p in
