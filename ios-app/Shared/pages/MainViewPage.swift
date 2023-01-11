@@ -53,7 +53,7 @@ struct PartnerArray: Identifiable {
     var id: String {
         return name
     }
-    var data: [PartnersModel]?
+    var data: [PartnerData]?
     var name: String
     var editable: Bool
 }

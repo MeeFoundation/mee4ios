@@ -23,7 +23,7 @@ struct ConsentPageExisting: View {
             
             if showAnimation {
                 ConsentPageAnimation {
-                    onAccept(data.consent.id, data.consent.url)
+                    onAccept(data.consent.id, data.consent.acceptUrl)
                 }
             } else {
                 VStack(spacing: 0) {
@@ -56,7 +56,7 @@ struct ConsentPageExisting: View {
                     HStack {
                         Image("lockIcon").resizable().scaledToFit()
                             .frame(height: 24)
-                        Text(data.consent.url)
+                        Text(data.consent.acceptUrl)
                             .foregroundColor(Colors.meeBrand)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                     }

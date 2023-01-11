@@ -7,24 +7,25 @@
 
 import Foundation
 
-let demoConsentModel = ConsentModel(
-    id: "",
-    name: "",
-    url: "",
-    imageUrl: "",
-    displayUrl: "",
-    entries:
-        [ConsentEntryModel(name: "Private Personal Identifier", type: ConsentEntryType.id, value:"did:keri:EXq5YqaL6L48pf0fu7IUhL0JRaU2_RxFP0AL43wYn148", providedBy: nil, isRequired: true, canRead: true),
-         ConsentEntryModel(name: "Email", type: ConsentEntryType.email, value: "paul@meeproject.org", providedBy: "LinkedIn", isRequired: true, canRead: true, canWrite: true),
-         ConsentEntryModel(name: "Is at least 13 years old", type: ConsentEntryType.agreement, value: "true", providedBy: "PRIVO", isRequired: true, canRead: false, canWrite: false, hasValue: false),
-         ConsentEntryModel(name: "First Name", type: ConsentEntryType.name, value: nil, providedBy: nil, isRequired: false, canRead: true, canWrite: true)]
+struct ConsentModel {
+    var id: String {
+        return client_id
+    }
+    let client_id: String
+    let name: String
+    let acceptUrl: String
+    let rejectUrl: String
+    let displayUrl: String
+    let logoUrl: String
+    let isMobileApp: Bool
+    let isMeeCertified: Bool
+    var entries: [ConsentEntryModel] = []
+}
+
+let emptyConsentModel = ConsentModel(
+    client_id: "", name: "", acceptUrl: "", rejectUrl: "", displayUrl: "", logoUrl: "", isMobileApp: false, isMeeCertified: false, entries: []
 )
 
 class ConsentState: ObservableObject {
-    @Published var consent = demoConsentModel
+    @Published var consent = emptyConsentModel
 }
-
-
-
-
-

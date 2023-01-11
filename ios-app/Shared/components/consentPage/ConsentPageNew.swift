@@ -9,12 +9,17 @@ import SwiftUI
 
 struct ConsentPageNew: View {
     @EnvironmentObject var data: ConsentState
-    @EnvironmentObject var partners: PartnersState
+    @EnvironmentObject var partners: CertifiedPartnersState
     @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
     @Environment(\.openURL) var openURL
     @State private var state = ConsentPageNewState()
-    var onAccept: (String, String, String) -> Void
-    init(onAccept: @escaping (String, String, String) -> Void) {
+    var isCertified: Bool {
+        partners.partners.firstIndex(where: { partner in
+            partner.client_id == data.consent.id
+        }) != nil
+    }
+    var onAccept: ([ConsentEntryModel], String, String) -> Void
+    init(onAccept: @escaping ([ConsentEntryModel], String, String) -> Void) {
         self.onAccept = onAccept
     }
     private var hasIncorrectFields: Bool {
@@ -31,7 +36,7 @@ struct ConsentPageNew: View {
                 VStack {
                     if let certifiedUrl {
                         if let compatibleUrl {
-                            WebView(request: URLRequest(url: (state.partner?.isMeeCertified ?? false) ? certifiedUrl : compatibleUrl))
+                            WebView(request: URLRequest(url: isCertified ? certifiedUrl : compatibleUrl))
                                 .padding(.horizontal, 10)
                         }
                         
@@ -58,20 +63,20 @@ struct ConsentPageNew: View {
                                     Button(action: {
                                         state.showCertified.toggle()
                                     }) {
-                                        Image((state.partner?.isMeeCertified ?? false) ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
+                                        Image(isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
                                             .frame(width: 48, height: 48, alignment: .center)
                                     }
                                     .frame(width: 48, height: 48)
                                     .onAppear{
                                         state.partner = partners.partners.first(where: { partner in
-                                            partner.id == data.consent.id
+                                            partner.client_id == data.consent.id
                                         })
                                     }
                                     
                                 }
                                 .overlay {
                                     Hint(show: $isCompatibleWarningShown, text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.")
-                                        .opacity(!(state.partner?.isMeeCertified ?? false) && !isCompatibleWarningShown ? 1 : 0)
+                                        .opacity(!isCertified && !isCompatibleWarningShown ? 1 : 0)
                                     .position(x: 35,y: 122)
                                     
                                     
@@ -81,7 +86,7 @@ struct ConsentPageNew: View {
                                     .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                     .frame(height: 1)
                                     .foregroundColor(Colors.meeBrand)
-                                AsyncImage(url: URL(string: data.consent.imageUrl), content: { phase in
+                                AsyncImage(url: URL(string: data.consent.logoUrl), content: { phase in
                                     if let image = phase.image {
                                         image.resizable().scaledToFit()
                                             .frame(width: 48, height: 48, alignment: .center)
@@ -165,7 +170,7 @@ struct ConsentPageNew: View {
                             SecondaryButton("Approve and Connect", action: {
                                 keyboardEndEditing()
                                 if (!hasIncorrectFields) {
-                                    onAccept(encodeJson(data.consent.entries.filter{ entry in entry.value != nil && (entry.isRequired || entry.isOn) }), data.consent.id, data.consent.url)
+                                    onAccept(data.consent.entries.filter{ entry in entry.value != nil && (entry.isRequired || entry.isOn) }, data.consent.id, data.consent.acceptUrl)
                                 } else {
                                     if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
                                         if (data.consent.entries[incorrectFieldIndex].isRequired) {

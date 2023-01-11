@@ -5,7 +5,7 @@
 //  Created by Anthony Ivanov on 16.02.2022.
 //
 
-import Foundation;
+import Foundation
 import UIKit
 
 func getFontNames() {

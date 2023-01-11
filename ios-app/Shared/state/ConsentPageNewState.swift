@@ -9,7 +9,7 @@ import Foundation
 
 struct ConsentPageNewState {
     var showCertified = false
-    var partner: PartnersModel?
+    var partner: PartnerData?
     var durationPopupId: UUID? = nil
     var isRequiredSectionOpened: Bool = true
     var isOptionalSectionOpened: Bool = false
