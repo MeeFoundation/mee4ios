@@ -96,9 +96,10 @@ struct ConsentsList: View {
                                                 NavigationLink(destination: PartnerDetails(request: ConsentRequest(from: partnerData, nonce: "", redirectUri: "")), tag: partnerData.id, selection: $state.selection){}
                                                 PartnerEntry(request: ConsentRequest(from: partnerData, nonce: "", redirectUri: ""), hasEntry: partnersArray.editable)
                                                     .onTapGesture(perform: {
-//                                                        if partnersArray.editable {
-//                                                            state.selection = partnerData.did
-//                                                        } else if !partnerData.isMeeCertified {
+                                                        if partnersArray.editable {
+                                                            state.selection = partnerData.did
+                                                        }
+//                                                        else if !partnerData.isMeeCertified {
 //                                                            state.showCompatibleWarning = true
 //                                                        }
                                                     })
