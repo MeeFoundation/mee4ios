@@ -17,15 +17,15 @@ struct ConsentDurationOption: Identifiable, Equatable {
 }
 
 struct ConsentDuration: View {
-    @Binding var consentEntries: [ConsentEntryModel]
+    @Binding var consentEntries: [ConsentRequestClaim]
     var id: UUID
     var onComplete: () -> Void
-    @State var storageDuration: ConsentStorageDuration = .appLifetime
-    var entryType: ConsentEntryType = .id
+    @State var storageDuration: ConsentStorageDuration = .whileUsingApp
+    var entryType: ConsentEntryType = .string
     var entryName: String = ""
     var providedBy: String?
     
-    init(consentEntries: Binding<[ConsentEntryModel]>, id: UUID, onComplete: @escaping () -> Void) {
+    init(consentEntries: Binding<[ConsentRequestClaim]>, id: UUID, onComplete: @escaping () -> Void) {
         self.id = id
         self.onComplete = onComplete
         self._consentEntries = consentEntries
@@ -33,7 +33,7 @@ struct ConsentDuration: View {
             entry.id == id
         }
         if let consentEntryId {
-            self._storageDuration = State(initialValue: consentEntries[consentEntryId].storageDuration.wrappedValue)
+            self._storageDuration = State(initialValue: consentEntries[consentEntryId].retentionDuration.wrappedValue)
             self.entryType = consentEntries[consentEntryId].type.wrappedValue
             self.entryName = consentEntries[consentEntryId].name.wrappedValue
             self.providedBy = consentEntries[consentEntryId].providedBy.wrappedValue
@@ -56,7 +56,7 @@ struct ConsentDuration: View {
                             entry.id == id
                         }
                         if let consentEntryId {
-                            consentEntries[consentEntryId].storageDuration = storageDuration
+                            consentEntries[consentEntryId].retentionDuration = storageDuration
                         }
                         onComplete()
                     }

@@ -12,14 +12,12 @@ struct ConsentEntryInput: View {
     @Binding var value: String?
     var isIncorrect: Bool
     var name: String
-    var readOnly: Bool
     var isRequired: Bool
     var type: ConsentEntryType
     
-    init(value: Binding<String?>, name: String, readOnly: Bool, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool) {
+    init(value: Binding<String?>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool) {
         self._value = value
         self.name = name
-        self.readOnly = readOnly
         self.isRequired = isRequired
         self.type = type
         self.isIncorrect = isIncorrect
@@ -32,7 +30,7 @@ struct ConsentEntryInput: View {
             TextField(name, text:  optionalBinding(binding: $value))
                 .preferredColorScheme(.light)
                 .foregroundColor(Colors.text)
-                .fixedSize(horizontal: false, vertical: true).disabled(readOnly)
+                .fixedSize(horizontal: false, vertical: true)
                 .multilineTextAlignment(.leading)
                 .padding(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
                 .cornerRadius(5)
@@ -82,9 +80,9 @@ struct ConsentEntryInput: View {
 }
 
 struct ConsentEntry: View {
-    @Binding var entry: ConsentEntryModel
+    @Binding var entry: ConsentRequestClaim
     var onDurationPopupShow: () -> Void
-    init(entry: Binding<ConsentEntryModel>, onDurationPopupShow: @escaping () -> Void) {
+    init(entry: Binding<ConsentRequestClaim>, onDurationPopupShow: @escaping () -> Void) {
         self._entry = entry
         self.onDurationPopupShow = onDurationPopupShow
     }
@@ -115,14 +113,12 @@ struct ConsentEntry: View {
                         
                 }
                 if ((entry.isRequired && entry.isOpen) || (!entry.isRequired && entry.isOn)) {
-                    ConsentEntryInput(value: $entry.value, name: entry.name, readOnly: !entry.canWrite, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
+                    ConsentEntryInput(value: $entry.value, name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
                 } else {
                     Button(action: {
-                        if (entry.hasValue) {
-                            entry.isOpen = !entry.isOpen
-                        }
+                        entry.isOpen = !entry.isOpen
                     }) {
-                        Text((!(entry.type == ConsentEntryType.agreement) && !(entry.type == ConsentEntryType.id) && entry.value != nil) ? entry.value! : entry.name)
+                        Text((!(entry.type == ConsentEntryType.boolean) && entry.value != nil) ? entry.value! : entry.name)
                             .foregroundColor(entry.isRequired || entry.isOn ? Colors.meeBrand : Colors.gray600)
                             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     }

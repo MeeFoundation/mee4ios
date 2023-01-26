@@ -8,7 +8,7 @@
 import Foundation
 
 enum ConsentStorageDuration: String, Codable {
-    case temporary = "temporary"
-    case appLifetime = "appLifetime"
-    case manualRemove = "manualRemove"
+    case ephemeral = "ephemeral"
+    case whileUsingApp = "whileUsingApp"
+    case untilConnectionDeletion = "untilConnectionDeletion"
 }

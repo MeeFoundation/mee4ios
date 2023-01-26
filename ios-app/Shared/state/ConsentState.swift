@@ -7,25 +7,12 @@
 
 import Foundation
 
-struct ConsentModel {
-    var id: String {
-        return client_id
-    }
-    let client_id: String
-    let name: String
-    let acceptUrl: String
-    let rejectUrl: String
-    let displayUrl: String
-    let logoUrl: String
-    let isMobileApp: Bool
-    let isMeeCertified: Bool
-    var entries: [ConsentEntryModel] = []
-}
-
-let emptyConsentModel = ConsentModel(
-    client_id: "", name: "", acceptUrl: "", rejectUrl: "", displayUrl: "", logoUrl: "", isMobileApp: false, isMeeCertified: false, entries: []
-)
 
 class ConsentState: ObservableObject {
-    @Published var consent = emptyConsentModel
+    @Published var consent: ConsentRequest = emptyConsentRequest
+
 }
+
+let emptyConsentRequest = ConsentRequest(claims: [], clientMetadata: PartnerMetadata(name: "", displayUrl: "", logoUrl: "", contacts: []), nonce: "", clientId: "", redirectUri: "", presentationDefinition: "")
+    
+

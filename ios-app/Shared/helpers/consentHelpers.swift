@@ -9,9 +9,7 @@ import Foundation
 
 func getConsentEntryImageByType (_ entryType: ConsentEntryType, isDisabled: Bool = false) -> String {
     switch entryType {
-    case ConsentEntryType.id:
-        return "keyIcon"
-    case ConsentEntryType.name:
+    case ConsentEntryType.string:
         return "personIcon"
     case ConsentEntryType.email:
         return "letterIcon"
@@ -19,12 +17,12 @@ func getConsentEntryImageByType (_ entryType: ConsentEntryType, isDisabled: Bool
         return "cardIcon"
     case ConsentEntryType.date:
         return "calendarIcon"
-    case ConsentEntryType.agreement:
-        return "calendarIcon"
+    default:
+        return "keyIcon"
     }
 }
 
-func makeMeeResponse(_ data: [ConsentEntryModel]) -> [String: MeeResponseEntry] {
+func makeMeeResponse(_ data: [ConsentRequestClaim]) -> [String: MeeResponseEntry] {
     var response: [String: MeeResponseEntry] = [:]
     data.forEach { entry in
         guard let value = entry.value else {
@@ -33,7 +31,7 @@ func makeMeeResponse(_ data: [ConsentEntryModel]) -> [String: MeeResponseEntry] 
         let one = MeeResponseEntry(
             field_type: entry.type,
             value: value,
-            duration: entry.storageDuration)
+            duration: entry.retentionDuration)
         response[entry.name] = one
     }
     return response

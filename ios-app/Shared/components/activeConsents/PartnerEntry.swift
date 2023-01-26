@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct PartnerEntry: View  {
-    let partner: PartnerData
+    let request: ConsentRequest
     let hasEntry: Bool
     let isCertified: Bool
-    init(partner: PartnerData, hasEntry: Bool = false) {
-        self.partner = partner
+    init(request: ConsentRequest, hasEntry: Bool = false) {
+        self.request = request
         self.hasEntry = hasEntry
-        self.isCertified = CertifiedPartnersState.shared.partners.firstIndex{p in partner.client_id == p.client_id} != nil
+        self.isCertified = PartnersRegistry.shared.partners.firstIndex{p in request.clientId == p.clientId} != nil
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
         return HStack {
-            AsyncImage(url: URL(string: partner.logoUrl), content: { phase in
+            AsyncImage(url: URL(string: request.clientMetadata.logoUrl), content: { phase in
                     if let image = phase.image {
                         image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fill)
                             .frame(width: 48, height: 48, alignment: .center)
@@ -34,14 +34,14 @@ struct PartnerEntry: View  {
                 
                 VStack {
                     HStack {
-                        Text(partner.name)
+                        Text(request.clientMetadata.name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.medium , size: 16))
                         Image(isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
                         Spacer()
                     }
                     
-                    BasicText(text: partner.displayUrl, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
+                    BasicText(text: request.clientMetadata.displayUrl, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
                 }
                 .padding(.leading, 8)
                 Spacer()

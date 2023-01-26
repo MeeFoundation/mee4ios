@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct PartnerDetails: View {
-    let partner: PartnerData
+    let request: ConsentRequest
     @State var state = PartnerDetailsState()
-    init(partner: PartnerData) {
-        self.partner = partner
+    init(request: ConsentRequest) {
+        self.request = request
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    let keychain = MeeAgentStore()
+    let agent = MeeAgentStore()
     
     
     func removeConsent() {
-        keychain.removeItembyName(name: partner.client_id)
+        agent.removeItembyName(id: request.clientId)
         self.presentationMode.wrappedValue.dismiss()
         
     }
@@ -52,7 +52,7 @@ struct PartnerDetails: View {
                 .background(Colors.backgroundAlt1)
                 .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                 ScrollView {
-                    PartnerEntry(partner: partner, hasEntry: false)
+                    PartnerEntry(request: request, hasEntry: false)
                         .border(Colors.meeBrand, width: 2)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 48)
@@ -139,33 +139,20 @@ struct PartnerDetails: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
-                    let consentDataString = keychain.getItemByName(name: partner.client_id)
-                    if let consentDataString {
-                        do {
-                            if let consentDataDecodedString = consentDataString.fromBase64() {
-                                if let consentData = consentDataDecodedString.data(using: .utf8) {
-                                    state.consentEntries = try JSONDecoder().decode([ConsentEntryModel].self, from: consentData)
-                                }
-                                
-                            }
-                            
-                        } catch {
-                            
-                        }
-                        
-                        
+                    if let consentData = agent.getItemById(id: request.clientId) {
+                        state.consentEntries = consentData.claims
                     }
                     
                 }
                 .overlay {
-                    PopupWrapper(isVisible: state.durationPopupId != nil) {
-                        if let durationPopupId = state.durationPopupId {
-                            ConsentDuration(consentEntries: $state.consentEntries, id: durationPopupId){
-                                state.durationPopupId = nil
-                            }
-                        }
-                        
-                    }
+//                    PopupWrapper(isVisible: state.durationPopupId != nil) {
+//                        if let durationPopupId = state.durationPopupId {
+//                            ConsentDuration(consentEntries: $state.consentEntries, id: durationPopupId){
+//                                state.durationPopupId = nil
+//                            }
+//                        }
+//
+//                    }
                 }
         )
     }

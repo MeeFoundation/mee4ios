@@ -23,7 +23,8 @@ struct ConsentPageExisting: View {
             
             if showAnimation {
                 ConsentPageAnimation {
-                    onAccept(data.consent.id, data.consent.acceptUrl)
+                    print("existing consent: ", data.consent.clientId, data.consent.redirectUri)
+                    onAccept(data.consent.clientId, data.consent.redirectUri)
                 }
             } else {
                 VStack(spacing: 0) {
@@ -50,13 +51,13 @@ struct ConsentPageExisting: View {
                     .padding(.bottom, 236.0)
                     .padding(.top, 71.4)
                     BasicText(text: "You are about to be logged in and redirected to", color: Colors.textGrey, size: 18)
-                    Text(data.consent.name)
+                    Text(data.consent.clientMetadata.name)
                         .foregroundColor(Colors.text)
                         .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                     HStack {
                         Image("lockIcon").resizable().scaledToFit()
                             .frame(height: 24)
-                        Text(data.consent.acceptUrl)
+                        Text(data.consent.redirectUri)
                             .foregroundColor(Colors.meeBrand)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                     }

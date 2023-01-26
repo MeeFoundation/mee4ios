@@ -9,7 +9,7 @@ import Foundation
 
 struct PartnerDetailsState {
     var durationPopupId: UUID? = nil
-    var consentEntries: [ConsentEntryModel] = []
+    var consentEntries: [ConsentRequestClaim] = []
     var isRequiredOpen: Bool = true
     var isOptionalOpen: Bool = false
     var selection: String? = nil

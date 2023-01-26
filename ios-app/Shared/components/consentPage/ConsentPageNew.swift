@@ -9,25 +9,24 @@ import SwiftUI
 
 struct ConsentPageNew: View {
     @EnvironmentObject var data: ConsentState
-    @EnvironmentObject var partners: CertifiedPartnersState
     @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
+    
     @Environment(\.openURL) var openURL
     @State private var state = ConsentPageNewState()
     var isCertified: Bool {
-        partners.partners.firstIndex(where: { partner in
-            partner.client_id == data.consent.id
+        PartnersRegistry.shared.partners.firstIndex(where: { partner in
+            partner.clientId == data.consent.clientId
         }) != nil
     }
-    var onAccept: ([ConsentEntryModel], String, String) -> Void
-    init(onAccept: @escaping ([ConsentEntryModel], String, String) -> Void) {
+    var onAccept: (ConsentRequest) -> Void
+    init(onAccept: @escaping (ConsentRequest) -> Void) {
         self.onAccept = onAccept
     }
     private var hasIncorrectFields: Bool {
         get {
-            data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) != nil;
+            data.consent.claims.firstIndex(where: {$0.isIncorrect == true}) != nil;
         }
     }
-    let rejectUrl = URL(string: "https://demo-dev.mee.foundation/#/reject")
     var body: some View {
         ZStack {
             BackgroundWhite()
@@ -36,8 +35,9 @@ struct ConsentPageNew: View {
                 VStack {
                     if let certifiedUrl {
                         if let compatibleUrl {
-                            WebView(request: URLRequest(url: isCertified ? certifiedUrl : compatibleUrl))
-                                .padding(.horizontal, 10)
+                      
+                            WebView(url: isCertified ? certifiedUrl : compatibleUrl)
+                            .padding(.horizontal, 10)
                         }
                         
                     }
@@ -68,9 +68,10 @@ struct ConsentPageNew: View {
                                     }
                                     .frame(width: 48, height: 48)
                                     .onAppear{
-                                        state.partner = partners.partners.first(where: { partner in
-                                            partner.client_id == data.consent.id
-                                        })
+                                        print("data: ", data.consent)
+//                                        state.partner = partners.partners.first(where: { partner in
+//                                            partner.clientId == data.consent?.clientId
+//                                        })
                                     }
                                     
                                 }
@@ -86,7 +87,7 @@ struct ConsentPageNew: View {
                                     .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                     .frame(height: 1)
                                     .foregroundColor(Colors.meeBrand)
-                                AsyncImage(url: URL(string: data.consent.logoUrl), content: { phase in
+                                AsyncImage(url: URL(string: data.consent.clientMetadata.logoUrl), content: { phase in
                                     if let image = phase.image {
                                         image.resizable().scaledToFit()
                                             .frame(width: 48, height: 48, alignment: .center)
@@ -101,11 +102,11 @@ struct ConsentPageNew: View {
                         .zIndex(1)
                         .padding(.bottom, 24.0)
                         .padding(.top, 30)
-                        Text(data.consent.name)
+                        Text(data.consent.clientMetadata.name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                         
-                        Text(data.consent.displayUrl)
+                        Text(data.consent.clientMetadata.displayUrl)
                             .foregroundColor(Colors.meeBrand)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 18))
                         
@@ -119,7 +120,8 @@ struct ConsentPageNew: View {
 
                         ScrollViewReader {value in
                             Expander(title: "Required", isOpen: $state.isRequiredSectionOpened) {
-                                ForEach($data.consent.entries.filter {$0.wrappedValue.isRequired}) { $entry in
+                                
+                                ForEach($data.consent.claims.filter {$0.wrappedValue.isRequired}) { $entry in
                                     ConsentEntry(entry: $entry) {
                                         state.durationPopupId = entry.id
                                     }
@@ -134,7 +136,7 @@ struct ConsentPageNew: View {
                                 .foregroundColor(Colors.gray)
                                 .padding(.bottom, 16)
                             Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
-                                ForEach($data.consent.entries.filter {!$0.wrappedValue.isRequired}) { $entry in
+                                ForEach($data.consent.claims.filter {!$0.wrappedValue.isRequired}) { $entry in
                                     ConsentEntry(entry: $entry) {
                                         state.durationPopupId = entry.id
                                     }
@@ -163,23 +165,22 @@ struct ConsentPageNew: View {
                         VStack {
                             RejectButton("Decline", action: {
                                 keyboardEndEditing()
-                                if let rejectUrl {
-                                    openURL(rejectUrl)
-                                }
+                                onAccept(data.consent)
                             }, fullWidth: true, isTransparent: true)
                             SecondaryButton("Approve and Connect", action: {
                                 keyboardEndEditing()
                                 if (!hasIncorrectFields) {
-                                    onAccept(data.consent.entries.filter{ entry in entry.value != nil && (entry.isRequired || entry.isOn) }, data.consent.id, data.consent.acceptUrl)
+                                    
+                                    onAccept(data.consent)
                                 } else {
-                                    if let incorrectFieldIndex = data.consent.entries.firstIndex(where: {$0.isIncorrect == true}) {
-                                        if (data.consent.entries[incorrectFieldIndex].isRequired) {
+                                    if let incorrectFieldIndex = data.consent.claims.firstIndex(where: {$0.isIncorrect == true}) {
+                                        if (data.consent.claims[incorrectFieldIndex].isRequired) {
                                             state.isRequiredSectionOpened = true
                                         } else {
                                             state.isOptionalSectionOpened = true
                                         }
-                                        data.consent.entries[incorrectFieldIndex].isOpen = true
-                                        state.scrollPosition = data.consent.entries[incorrectFieldIndex].id
+                                        data.consent.claims[incorrectFieldIndex].isOpen = true
+                                        state.scrollPosition = data.consent.claims[incorrectFieldIndex].id
                                     }
                                 }
                             },
@@ -207,7 +208,7 @@ struct ConsentPageNew: View {
                 .overlay {
                     PopupWrapper(isVisible: state.durationPopupId != nil) {
                         if let durationPopupId = state.durationPopupId {
-                            ConsentDuration(consentEntries: $data.consent.entries, id: durationPopupId) {
+                            ConsentDuration(consentEntries: $data.consent.claims, id: durationPopupId) {
                                 state.durationPopupId = nil
                             }
                         }

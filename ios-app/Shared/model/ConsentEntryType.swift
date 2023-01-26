@@ -8,10 +8,10 @@
 import Foundation
 
 enum ConsentEntryType: String, Codable {
-    case id = "id"
-    case name = "name"
-    case email = "email"
-    case card = "card"
+    case string = "string"
     case date = "date"
-    case agreement = "agreement"
+    case boolean = "boolean"
+    case email = "email"
+    case address = "address"
+    case card = "card"
 }

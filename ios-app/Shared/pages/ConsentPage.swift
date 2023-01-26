@@ -15,11 +15,9 @@ struct ConsentPage: View {
     @State var state = ConsentPageState()
     @Environment(\.openURL) var openURL
     
-    private func onNext (_ data: [ConsentEntryModel], _ url: String) {
-        let response = makeMeeResponse(data)
-        let encodedResponse = encodeJson(response).toBase64()
-        print("encodedResponse", encodedResponse)
-        if let url = URL(string: "\(url)/?token=\(encodedResponse)") {
+    private func onNext (_ data: RpAuthResponseWrapper, _ url: String) {
+        print("onNext: ", data, url)
+        if let url = URL(string: "\(url)?token=\(data.openidResponse.idToken)") {
             openURL(url)
             state.isReturningUser = true
         }
@@ -32,28 +30,24 @@ struct ConsentPage: View {
                     if isReturningUser {
                         ConsentPageExisting() {id, url in
                             print(id)
-                            do {
-                                guard let dataString = meeAgent.getItemByName(name: id) else {
-                                    return
-                                }
-                                print(dataString)
-                                guard let data = decodeString(dataString) else {
-                                    return
-                                }
-                                let partnerData = try JSONDecoder().decode([ConsentEntryModel].self, from: data)
-                                onNext(partnerData, url)
-                            } catch {
-                                print(error)
+                            guard let contextData = meeAgent.getItemById(id: id)
+                            else {
+                                return
                             }
-                            
+                            let request = ConsentRequest(from: contextData, nonce: data.consent.nonce, redirectUri: data.consent.redirectUri)
+                            let response = meeAgent.authorize(id: id, item: request)
+                            if let response {
+                                onNext(response, url)
+                            }
                         }
                     }
                     else {
-                        ConsentPageNew(){data, id, url in
+                        ConsentPageNew(){data in
                             print(data)
-                            meeAgent.editItem(name: id, item: encodeJson(data).toBase64())
-                            onNext(data, url)
-
+                            let response = meeAgent.authorize(id: data.clientId, item: data)
+                            if let response {
+                                onNext(response, data.redirectUri)
+                            }
                         }
                     }
                 }
@@ -61,7 +55,9 @@ struct ConsentPage: View {
             
         }
         .onAppear{
-            state.isReturningUser = meeAgent.getItemByName(name: data.consent.id) != nil
+            let isReturningUser = meeAgent.getItemById(id: data.consent.clientId) != nil
+            print("isReturningUser: ", isReturningUser)
+            state.isReturningUser = isReturningUser
         }
         .alert(isPresented: $state.isPresentingAlert) {
             Alert(title: Text("Set Up Secret Recovery Phrase"), message: Text("Before you will be logged in, let’s set up your secret recovery phrase"), dismissButton: .default(Text("Set Up Secret Recovery Phrase"), action: {

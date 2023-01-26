@@ -62,40 +62,14 @@ struct ContentView: View {
                     switch (components[1]) {
                     case "consent":
                         do {
-                            guard let partnerDataJson = decodeString(components[2]) else {
-                                return
-                            }
-                            let partnerData = try JSONDecoder().decode(ConsentConfiguration.self, from: partnerDataJson)
+                            let partnerDataString = components[2]
+                            let partnerData = try rpAuthRequestFromJwt(jwtString: partnerDataString)
                             print("partnerData", partnerData)
-                            var entries: [ConsentEntryModel] = []
-                            partnerData.claim?.forEach{ entry in
-                                let convertedEntry = ConsentEntryModel(
-                                    name: entry.key,
-                                    type: entry.value.field_type, value: nil,
-                                    providedBy: nil,
-                                    isRequired: entry.value.essential
-                                )
-                                entries.append(convertedEntry)
-                            }
-                            guard let client_id = partnerData.client_id,
-                                  let name = partnerData.client?.name,
-                                  let acceptUrl = partnerData.client?.acceptUrl,
-                                  let rejectUrl = partnerData.client?.rejectUrl,
-                                  let displayUrl = partnerData.client?.displayUrl,
-                                  let logoUrl = partnerData.client?.logoUrl
-                            else {
+                            guard let consent = ConsentRequest(from: partnerData) else {
+                                print("error: ", partnerData)
                                 return
                             }
-                            data.consent = ConsentModel(
-                                client_id: client_id,
-                                name: name,
-                                acceptUrl: acceptUrl,
-                                rejectUrl: rejectUrl,
-                                displayUrl: displayUrl,
-                                logoUrl: logoUrl,
-                                isMobileApp: partnerData.client?.isMobileApp ?? false,
-                                isMeeCertified: partnerData.client?.isMeeCertified ?? false,
-                                entries: entries)
+                            data.consent = consent
                             navigationState.currentPage = NavigationPages.consent
                         } catch {
                             print("Decoding error: \(error)")
