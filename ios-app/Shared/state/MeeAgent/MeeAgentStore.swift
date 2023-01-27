@@ -44,8 +44,10 @@ class MeeAgentStore {
                 }
                 return copy
             }
+            print("contexts: ", contexts)
             return contexts
         } catch {
+            print("error getting all contexts: \(error)")
             return nil
         }
        

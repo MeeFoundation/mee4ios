@@ -145,14 +145,14 @@ struct PartnerDetails: View {
                     
                 }
                 .overlay {
-//                    PopupWrapper(isVisible: state.durationPopupId != nil) {
-//                        if let durationPopupId = state.durationPopupId {
-//                            ConsentDuration(consentEntries: $state.consentEntries, id: durationPopupId){
-//                                state.durationPopupId = nil
-//                            }
-//                        }
-//
-//                    }
+                    PopupWrapper(isVisible: state.durationPopupId != nil) {
+                        if let durationPopupId = state.durationPopupId {
+                            ConsentDuration(consentEntries: $state.consentEntries, id: durationPopupId){
+                                state.durationPopupId = nil
+                            }
+                        }
+
+                    }
                 }
         )
     }

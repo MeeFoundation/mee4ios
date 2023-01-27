@@ -65,6 +65,7 @@ struct ConsentRequestClaim: Identifiable, Codable {
         self.providedBy = nil
         self.isRequired = from.essential
         self.isOn = from.essential
+        self.retentionDuration = from.retentionDuration == .ephemeral ? .ephemeral : from.retentionDuration == .whileUsingApp ? .whileUsingApp : .untilConnectionDeletion
         self.attributeType = from.attributeType
         self.businessPurpose = from.businessPurpose
         self.isSensitive = from.isSensitive

@@ -165,7 +165,10 @@ struct ConsentPageNew: View {
                         VStack {
                             RejectButton("Decline", action: {
                                 keyboardEndEditing()
-                                onAccept(data.consent)
+                                
+                                if let url = URL(string: "\(data.consent.redirectUri)?token=error:user_cancelled,error_description:user%20declined%20the%20request") {
+                                    openURL(url)
+                                }
                             }, fullWidth: true, isTransparent: true)
                             SecondaryButton("Approve and Connect", action: {
                                 keyboardEndEditing()
