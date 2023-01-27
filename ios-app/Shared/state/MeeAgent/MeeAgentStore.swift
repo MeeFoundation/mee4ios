@@ -30,7 +30,7 @@ class MeeAgentStore {
             let contextsCore = try agent.listMaterializedContexts();
             let contexts = contextsCore.reduce([]) { (acc: [Context], context) in
                 var copy = acc
-                if case let MaterializedContext.relayingParty(did, _, data) = context {
+                if case let MaterializedContext.relyingParty(did, _, data) = context {
                     let claimedDataConverted = data.claimedData.reduce([]) { (acc: [ConsentRequestClaim], rec) in
                         var copy = acc
                         if let value = rec.value,
@@ -76,7 +76,7 @@ class MeeAgentStore {
     func authorize (id: String, item: ConsentRequest) -> RpAuthResponseWrapper? {
         print("item: ", item, RpAuthRequest(from: item))
         do {
-            let response = try agent.authRelayingParty(authRequest: RpAuthRequest(from: item))
+            let response = try agent.authRelyingParty(authRequest: RpAuthRequest(from: item))
             return response
         } catch {
             print("error: ", error)

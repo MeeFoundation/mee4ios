@@ -9,6 +9,6 @@ import Foundation
 
 enum ConsentStorageDuration: String, Codable {
     case ephemeral = "ephemeral"
-    case whileUsingApp = "whileUsingApp"
-    case untilConnectionDeletion = "untilConnectionDeletion"
+    case whileUsingApp = "while_using_app"
+    case untilConnectionDeletion = "until_connection_deletion"
 }
