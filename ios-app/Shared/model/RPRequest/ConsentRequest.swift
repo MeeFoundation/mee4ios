@@ -17,7 +17,7 @@ struct ConsentRequest {
     let presentationDefinition: String?
     
     init(from: Context, nonce: String, redirectUri: String) {
-        self.scope = OidcScopeWrapper.set(scope: [OidcScope.openId])
+        self.scope = OidcScopeWrapper.set(scope: [OidcScope.openid])
         self.claims = from.claims
         self.clientMetadata = from.clientMetadata
         self.nonce = nonce
@@ -34,7 +34,7 @@ struct ConsentRequest {
         redirectUri: Url,
         presentationDefinition: String?
     ) {
-        self.scope = OidcScopeWrapper.set(scope: [OidcScope.openId])
+        self.scope = OidcScopeWrapper.set(scope: [OidcScope.openid])
         self.claims = claims
         self.clientMetadata = clientMetadata
         self.nonce = nonce
