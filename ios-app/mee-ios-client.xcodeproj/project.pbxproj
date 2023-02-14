@@ -125,6 +125,7 @@
 		A5D9E32A292D067C00D0E12D /* ConsentPageNewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */; };
 		A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */; };
 		A5D9E330292D109800D0E12D /* PartnerDetailsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */; };
+		A5DAEB9E2993CB5E0083E346 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DAEB9D2993CB5E0083E346 /* Webservice.swift */; };
 		A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB212E27E1DF850070B444 /* StorageListItem.swift */; };
 		A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */; };
 		A5DB213D27E22B520070B444 /* urlTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB213C27E22B520070B444 /* urlTools.swift */; };
@@ -310,6 +311,7 @@
 		A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageNewState.swift; sourceTree = "<group>"; };
 		A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentsListState.swift; sourceTree = "<group>"; };
 		A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerDetailsState.swift; sourceTree = "<group>"; };
+		A5DAEB9D2993CB5E0083E346 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A5DB212E27E1DF850070B444 /* StorageListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageListItem.swift; sourceTree = "<group>"; };
 		A5DB213127E1F3F60070B444 /* PasswordEntryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEntryModel.swift; sourceTree = "<group>"; };
 		A5DB213C27E22B520070B444 /* urlTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urlTools.swift; sourceTree = "<group>"; };
@@ -395,6 +397,8 @@
 		946D2DDB27BB9A960055175C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				A5DAEBA12993D12C0083E346 /* viewModel */,
+				A5DAEB9F2993D0770083E346 /* webservice */,
 				A550856E27BD2E1400C5A2D1 /* helpers */,
 				A5DB213527E21D080070B444 /* extention */,
 				A55085C727CF73E700C5A2D1 /* state */,
@@ -649,6 +653,29 @@
 				A5D9E31A2926841D00D0E12D /* ConsentDurationEntry.swift */,
 			);
 			path = consentPage;
+			sourceTree = "<group>";
+		};
+		A5DAEB9F2993D0770083E346 /* webservice */ = {
+			isa = PBXGroup;
+			children = (
+				A5DAEBA02993D0990083E346 /* TO */,
+				A5DAEB9D2993CB5E0083E346 /* Webservice.swift */,
+			);
+			path = webservice;
+			sourceTree = "<group>";
+		};
+		A5DAEBA02993D0990083E346 /* TO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TO;
+			sourceTree = "<group>";
+		};
+		A5DAEBA12993D12C0083E346 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewModel;
 			sourceTree = "<group>";
 		};
 		A5DB213527E21D080070B444 /* extention */ = {
@@ -1055,6 +1082,7 @@
 				A550857327BD473B00C5A2D1 /* ConsentPage.swift in Sources */,
 				A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */,
 				A5D9E30529266AB100D0E12D /* PartnersRegistry.swift in Sources */,
+				A5DAEB9E2993CB5E0083E346 /* Webservice.swift in Sources */,
 				A5D9E3122926784800D0E12D /* ConsentPageAnimation.swift in Sources */,
 				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,

@@ -15,15 +15,17 @@ struct ConsentRequest {
     let clientId: String
     let redirectUri: Url
     let presentationDefinition: String?
+    let isCrossDeviceFlow: Bool
     
-    init(from: Context, nonce: String, redirectUri: String) {
+    init(from: Context, clientId: String = "", nonce: String = "", redirectUri: String = "", isCrossDevice: Bool = false, clientMetadata: PartnerMetadata? = nil) {
         self.scope = OidcScopeWrapper.set(scope: [OidcScope.openid])
         self.claims = from.claims
-        self.clientMetadata = from.clientMetadata
+        self.clientMetadata = clientMetadata ?? from.clientMetadata
         self.nonce = nonce
-        self.clientId = from.did
+        self.clientId = clientId
         self.redirectUri = redirectUri
         self.presentationDefinition = ""
+        self.isCrossDeviceFlow = isCrossDevice
     }
     
     init(
@@ -32,7 +34,8 @@ struct ConsentRequest {
         nonce: String,
         clientId: String,
         redirectUri: Url,
-        presentationDefinition: String?
+        presentationDefinition: String?,
+        isCrossDevice: Bool
     ) {
         self.scope = OidcScopeWrapper.set(scope: [OidcScope.openid])
         self.claims = claims
@@ -41,9 +44,10 @@ struct ConsentRequest {
         self.clientId = clientId
         self.redirectUri = redirectUri
         self.presentationDefinition = presentationDefinition
+        self.isCrossDeviceFlow = isCrossDevice
     }
     
-    init?(from: RpAuthRequest) {
+    init?(from: RpAuthRequest, isCrossDevice: Bool) {
         guard
             let clientMetaData = from.clientMetadata,
             let parnterMetaData = PartnerMetadata(from: clientMetaData),
@@ -54,6 +58,7 @@ struct ConsentRequest {
             return nil
         }
         self.scope = from.scope
+        self.isCrossDeviceFlow = isCrossDevice
         self.clientMetadata = parnterMetaData
         self.nonce = from.nonce
         self.clientId = clientId

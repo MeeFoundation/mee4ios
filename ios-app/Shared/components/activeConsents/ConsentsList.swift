@@ -15,15 +15,16 @@ struct ConsentsList: View {
     
     init() {
        data = meeAgent.getAllItems() ?? []
+        print("data: ", data)
     }
     
     
     func refreshPartnersList(_ firstLaunch: Bool) {
         state.existingPartnersWebApp = data.filter{ consent in
-            consent.clientMetadata.type == .web && meeAgent.getItemById(id: consent.did) != nil
+            consent.clientMetadata.type == .web && meeAgent.getItemById(id: consent.id) != nil
         }
         state.existingPartnersMobileApp = data.filter{ consent in
-            consent.clientMetadata.type == .mobile && meeAgent.getItemById(id: consent.did) != nil
+            consent.clientMetadata.type == .mobile && meeAgent.getItemById(id: consent.id) != nil
         }
         if firstLaunch {
             if let existingPartnersWebApp = state.existingPartnersWebApp {
@@ -93,8 +94,8 @@ struct ConsentsList: View {
                                             .padding(.bottom, 4)
                                             }
                                             ForEach(partnersArray.data ?? []) { partnerData in
-                                                NavigationLink(destination: PartnerDetails(request: ConsentRequest(from: partnerData, nonce: "", redirectUri: "")), tag: partnerData.id, selection: $state.selection){}
-                                                PartnerEntry(request: ConsentRequest(from: partnerData, nonce: "", redirectUri: ""), hasEntry: partnersArray.editable)
+                                                NavigationLink(destination: PartnerDetails(request: ConsentRequest(from: partnerData)), tag: partnerData.id, selection: $state.selection){}
+                                                PartnerEntry(request: ConsentRequest(from: partnerData), hasEntry: partnersArray.editable)
                                                     .onTapGesture(perform: {
                                                         if partnersArray.editable {
                                                             state.selection = partnerData.did
@@ -120,14 +121,14 @@ struct ConsentsList: View {
                                             BasicText(text:"Mee-certified?", color: Colors.meeBrand, size: 14, underline: true)
                                         }
                                     }
-                                    Button(action: {
-                                        state.showCertifiedOrCompatible = .compatible
-                                    }) {
-                                        HStack {
-                                            Image("meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
-                                            BasicText(text:"Mee-compatible?", color: Colors.meeBrand, size: 14, underline: true)
-                                        }
-                                    }
+//                                    Button(action: {
+//                                        state.showCertifiedOrCompatible = .compatible
+//                                    }) {
+//                                        HStack {
+//                                            Image("meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
+//                                            BasicText(text:"Mee-compatible?", color: Colors.meeBrand, size: 14, underline: true)
+//                                        }
+//                                    }
                                 }
                                 .padding(.bottom, 20)
                                 .padding(.top, 10)

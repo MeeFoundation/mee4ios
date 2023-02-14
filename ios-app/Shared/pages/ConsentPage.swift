@@ -16,9 +16,12 @@ struct ConsentPage: View {
     @Environment(\.openURL) var openURL
     
     private func onNext (_ data: RpAuthResponseWrapper, _ url: String) {
-        print("onNext: ", data, url)
-        if let url = URL(string: "\(url)?token=\(data.openidResponse.idToken)") {
-            openURL(url)
+        
+        if let url = URL(string: "\(url)?meeAuthToken=\(data.openidResponse.idToken)") {
+            openURL(url) { accepted in
+                print("accepted: ", accepted)
+                
+            }
             state.isReturningUser = true
         }
         
@@ -29,12 +32,11 @@ struct ConsentPage: View {
                 if let isReturningUser = state.isReturningUser {
                     if isReturningUser {
                         ConsentPageExisting() {id, url in
-                            print(id)
                             guard let contextData = meeAgent.getItemById(id: id)
                             else {
                                 return
                             }
-                            let request = ConsentRequest(from: contextData, nonce: data.consent.nonce, redirectUri: data.consent.redirectUri)
+                            let request = ConsentRequest(from: contextData, clientId: data.consent.clientId, nonce: data.consent.nonce, redirectUri: data.consent.redirectUri, isCrossDevice: data.consent.isCrossDeviceFlow, clientMetadata: data.consent.clientMetadata)
                             let response = meeAgent.authorize(id: id, item: request)
                             if let response {
                                 onNext(response, url)
@@ -43,7 +45,6 @@ struct ConsentPage: View {
                     }
                     else {
                         ConsentPageNew(){data in
-                            print(data)
                             let response = meeAgent.authorize(id: data.clientId, item: data)
                             if let response {
                                 onNext(response, data.redirectUri)
@@ -56,7 +57,6 @@ struct ConsentPage: View {
         }
         .onAppear{
             let isReturningUser = meeAgent.getItemById(id: data.consent.clientId) != nil
-            print("isReturningUser: ", isReturningUser)
             state.isReturningUser = isReturningUser
         }
         .alert(isPresented: $state.isPresentingAlert) {

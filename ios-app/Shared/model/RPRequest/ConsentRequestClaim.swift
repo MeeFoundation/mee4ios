@@ -56,7 +56,6 @@ struct ConsentRequestClaim: Identifiable, Codable {
                 let name = from.name,
                 let type = ConsentEntryType(rawValue: from.typ ?? "")
         else {
-            print("ConsentRequestClaim: ", from.typ, from.name)
             return nil
         }
         self.name = name

@@ -13,6 +13,6 @@ class ConsentState: ObservableObject {
 
 }
 
-let emptyConsentRequest = ConsentRequest(claims: [], clientMetadata: PartnerMetadata(name: "", displayUrl: "", logoUrl: "", contacts: []), nonce: "", clientId: "", redirectUri: "", presentationDefinition: "")
+let emptyConsentRequest = ConsentRequest(claims: [], clientMetadata: PartnerMetadata(name: "", displayUrl: "", logoUrl: "", contacts: []), nonce: "", clientId: "", redirectUri: "", presentationDefinition: "", isCrossDevice: false)
     
 

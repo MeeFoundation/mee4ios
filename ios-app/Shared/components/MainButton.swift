@@ -229,7 +229,6 @@ struct DelayedActionButton: View {
             .background(Colors.secondaryButtonBgColor)
             .cornerRadius(10)
             .onReceive(timer) { time in
-                print("\(Int(delay - progress))")
                 if progress >= delay {
                     timer.upstream.connect().cancel()
                     if progress == delay {

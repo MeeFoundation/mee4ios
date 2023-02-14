@@ -14,7 +14,7 @@ struct PartnerEntry: View  {
     init(request: ConsentRequest, hasEntry: Bool = false) {
         self.request = request
         self.hasEntry = hasEntry
-        self.isCertified = PartnersRegistry.shared.partners.firstIndex{p in request.clientId == p.clientId} != nil
+        self.isCertified = true
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {

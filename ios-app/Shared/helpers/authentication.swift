@@ -22,27 +22,16 @@ func requestLocalAuthentication (_ completion: @escaping ((Bool) -> ())) {
         let reason = "We need to unlock your data"
         context.localizedCancelTitle = "Cancel"
         context.localizedFallbackTitle = "Use device password"
-//        print(validationDate, nowDate, nowDate < validationDate!)
-//        if validationDate != nil && nowDate < validationDate! {
-//            completion(true)
-//            return
-//        }
 
         context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
             if success {
                 completion(true)
-//                let nowString = df.string(from: Date() + 1 * 60 * 60)
-//                print(nowString)
-//                keychain["validationDate"] = nowString
-                print("authentication successfull")
             } else {
                 completion(false)
-                print("authentication failed")
             }
         }
     } else {
         completion(false)
-        print("biometrics unavailable")
     }
 }
 

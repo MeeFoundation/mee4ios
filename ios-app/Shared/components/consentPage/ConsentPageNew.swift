@@ -13,11 +13,7 @@ struct ConsentPageNew: View {
     
     @Environment(\.openURL) var openURL
     @State private var state = ConsentPageNewState()
-    var isCertified: Bool {
-        PartnersRegistry.shared.partners.firstIndex(where: { partner in
-            partner.clientId == data.consent.clientId
-        }) != nil
-    }
+    var isCertified: Bool = true
     var onAccept: (ConsentRequest) -> Void
     init(onAccept: @escaping (ConsentRequest) -> Void) {
         self.onAccept = onAccept
@@ -68,10 +64,7 @@ struct ConsentPageNew: View {
                                     }
                                     .frame(width: 48, height: 48)
                                     .onAppear{
-                                        print("data: ", data.consent)
-//                                        state.partner = partners.partners.first(where: { partner in
-//                                            partner.clientId == data.consent?.clientId
-//                                        })
+
                                     }
                                     
                                 }

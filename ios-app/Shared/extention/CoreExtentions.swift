@@ -30,6 +30,7 @@ extension OidcClientMetadata {
         self.clientName = from.name
         self.logoUri = from.logoUrl
         self.contacts = from.contacts
+        self.jwks = from.jwks
     }
 }
 

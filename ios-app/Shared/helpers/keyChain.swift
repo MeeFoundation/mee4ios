@@ -47,7 +47,6 @@ class KeyChain {
     }
     
     func updateCredentialStore() {
-        print("updating store")
         self.store.getState { state in
             if state.isEnabled {
                 var creds: [ASPasswordCredentialIdentity] = []

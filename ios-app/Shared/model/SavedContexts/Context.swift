@@ -8,9 +8,7 @@
 import Foundation
 
 struct Context: Codable, Identifiable {
-    var id: String {
-        return did
-    }
+    var id: String
     let did: String
     var claims: [ConsentRequestClaim]
     let clientMetadata: PartnerMetadata

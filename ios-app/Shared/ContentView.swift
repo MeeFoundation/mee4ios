@@ -28,6 +28,7 @@ struct ContentView: View {
     }
     
     func tryAuthenticate() {
+        
         if launchedBefore  {
             if authenticationEnabled {
                 requestLocalAuthentication(setAuthenticated)
@@ -60,19 +61,16 @@ struct ContentView: View {
                 
                 if (components.count > 1) {
                     switch (components[1]) {
-                    case "consent":
+                    case "consent", "cdconcent":
                         do {
                             let partnerDataString = components[2]
                             let partnerData = try rpAuthRequestFromJwt(jwtString: partnerDataString)
-                            print("partnerData", partnerData)
-                            guard let consent = ConsentRequest(from: partnerData) else {
-                                print("error: ", partnerData)
+                            guard let consent = ConsentRequest(from: partnerData, isCrossDevice: components[1] == "cdconsent") else {
                                 return
                             }
                             data.consent = consent
                             navigationState.currentPage = NavigationPages.consent
                         } catch {
-                            print("Decoding error: \(error)")
                             return
                         }
                     default: break

@@ -15,6 +15,7 @@ struct PartnerMetadata: Codable, Identifiable {
     let displayUrl: String
     let logoUrl: String
     let type: ClientType
+    let jwks: [String]?
     var isMobileApp: Bool {
         return type == .mobile
     }
@@ -30,6 +31,7 @@ struct PartnerMetadata: Codable, Identifiable {
         self.logoUrl = logoUrl
         self.type = .web
         self.contacts = contacts
+        self.jwks = nil
     }
     
     
@@ -46,6 +48,7 @@ struct PartnerMetadata: Codable, Identifiable {
         self.logoUrl = logoUro
         self.type = clientType
         self.contacts = from.contacts
+        self.jwks = from.jwks
     }
     
     init(from decoder: Decoder) throws {
@@ -64,6 +67,7 @@ struct PartnerMetadata: Codable, Identifiable {
         self.displayUrl = displayUrl
         self.logoUrl = logoUrl
         self.contacts = contacts
+        self.jwks = nil
         if let type = try container.decodeIfPresent(ClientType.self, forKey: .type) {
             self.type = type
         } else {

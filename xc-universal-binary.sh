@@ -35,7 +35,7 @@ if [[ "${BUILDVARIANT}" != "debug" ]]; then
 fi
 
 cd ../mee-core
-
+OPENSSL_DIR=/usr/local/opt/openssl/
 TARGETDIR=${SRC_ROOT}/target
 # We can't use cargo lipo because we can't link to universal libraries :(
 # https://github.com/rust-lang/rust/issues/55235

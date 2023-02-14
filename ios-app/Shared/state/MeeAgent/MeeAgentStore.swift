@@ -31,20 +31,30 @@ class MeeAgentStore {
             let contexts = contextsCore.reduce([]) { (acc: [Context], context) in
                 var copy = acc
                 if case let MaterializedContext.relyingParty(did, _, data) = context {
-                    let claimedDataConverted = data.claimedData.reduce([]) { (acc: [ConsentRequestClaim], rec) in
-                        var copy = acc
-                        if let value = rec.value,
-                           let request = ConsentRequestClaim(from: value, code: rec.key)
-                        {
-                            copy.append(request)
+                    
+                    if case let ContextProtocol.siop(siop) = data.protocol {
+                        let claimsArrayLast = siop.claims.count - 1
+                        let claims = siop.claims[claimsArrayLast]
+                        if claimsArrayLast >= 0 {
+                            let claimedDataConverted = claims.reduce([]) { (acc: [ConsentRequestClaim], rec) in
+                                var copy = acc
+                                if let value = rec.value,
+                                   let request = ConsentRequestClaim(from: value, code: rec.key)
+                                {
+                                    copy.append(request)
+                                }
+                                return copy
+                            }
+                       
+                            
+                            copy.append(Context(id: siop.redirectUri, did: did, claims: claimedDataConverted, clientMetadata: PartnerMetadata(from: siop.clientMetadata)!))
                         }
-                        return copy
                     }
-                    copy.append(Context(did: did, claims: claimedDataConverted, clientMetadata: PartnerMetadata(from: data.meta)!))
+                    
+                    
                 }
                 return copy
             }
-            print("contexts: ", contexts)
             return contexts
         } catch {
             print("error getting all contexts: \(error)")
@@ -67,7 +77,7 @@ class MeeAgentStore {
         guard let items else {
             return nil
         }
-        let item = items.first { $0.did == id }
+        let item = items.first { $0.id == id }
         guard let item else {
             return nil
         }
@@ -76,12 +86,12 @@ class MeeAgentStore {
     }
 
     func authorize (id: String, item: ConsentRequest) -> RpAuthResponseWrapper? {
-        print("item: ", item, RpAuthRequest(from: item))
+        
         do {
+            print("ar: ", RpAuthRequest(from: item))
             let response = try agent.authRelyingParty(authRequest: RpAuthRequest(from: item))
             return response
         } catch {
-            print("error: ", error)
             return nil
         }
     }

@@ -23,7 +23,6 @@ struct ConsentPageExisting: View {
             
             if showAnimation {
                 ConsentPageAnimation {
-                    print("existing consent: ", data.consent.clientId, data.consent.redirectUri)
                     onAccept(data.consent.clientId, data.consent.redirectUri)
                 }
             } else {
