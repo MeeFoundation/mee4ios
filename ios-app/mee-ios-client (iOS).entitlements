@@ -12,11 +12,6 @@
 	<key>com.apple.security.application-groups</key>
 	<array/>
 	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)org.getmee.ios-client.share</string>
-		<string>$(AppIdentifierPrefix)org.getmee.ios-client.config</string>
-		<string>$(AppIdentifierPrefix)org.getmee.ios-client.consent</string>
-		<string>$(AppIdentifierPrefix)org.getmee.ios-client.connections</string>
-	</array>
+	<array/>
 </dict>
 </plist>

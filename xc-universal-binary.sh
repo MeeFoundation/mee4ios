@@ -69,11 +69,18 @@ elif [[ "$(stat -f "%m" "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_N
     NEED_LIPO=1
 fi
 
-if [[ "${NEED_LIPO}" = "1" ]]; then
+if [[ ("${NEED_LIPO}" = "1") && ("${RELDIR}" = "debug") ]]; then
     mkdir -p "${TARGETDIR}/universal/${RELDIR}"
 
     lipo -create -output "${UNIVERSAL_BINARY}" \
     "${TARGETDIR}/x86_64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}" \
+    "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}"
+
+fi
+if [[ ("${NEED_LIPO}" = "1") && ("${RELDIR}" = "release") ]]; then
+    mkdir -p "${TARGETDIR}/universal/${RELDIR}"
+    
+    lipo -create -output "${UNIVERSAL_BINARY}" \
     "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}"
 
 fi
