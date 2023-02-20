@@ -55,61 +55,61 @@
       "size" : "60x60"
     },
     {
-      "filename" : "meeAppLogo20,20.png",
+      "filename" : "Icon-20@1x.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "meeAppLogo40,20 1.png",
+      "filename" : "Icon-20@2x 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "meeAppLogo29,29.png",
+      "filename" : "Icon-29 1.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "meeAppLogo58,29 1.png",
+      "filename" : "Icon-29@2x 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "meeAppLogo40,40.png",
+      "filename" : "Icon-40.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "meeAppLogo80,40 1.png",
+      "filename" : "Icon-40@2x 1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "meeAppLogo76,76.png",
+      "filename" : "Icon-76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "meeAppLogo152,76.png",
+      "filename" : "Icon-76@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "meeLogo167.png",
+      "filename" : "Icon-83.5@2x.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "meeAppLogo1024.png",
+      "filename" : "Icon-1024@1x.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
