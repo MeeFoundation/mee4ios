@@ -23,7 +23,7 @@ struct ConsentPageExisting: View {
             
             if showAnimation {
                 ConsentPageAnimation {
-                    onAccept(data.consent.clientId, data.consent.redirectUri)
+                    onAccept(data.consent.id, data.consent.id)
                 }
             } else {
                 VStack(spacing: 0) {

@@ -8,6 +8,7 @@
 import Foundation
 
 struct ConsentRequest {
+    let id: String
     let scope: OidcScopeWrapper
     var claims: [ConsentRequestClaim]
     let clientMetadata: PartnerMetadata
@@ -26,6 +27,7 @@ struct ConsentRequest {
         self.redirectUri = redirectUri
         self.presentationDefinition = ""
         self.isCrossDeviceFlow = isCrossDevice
+        self.id = from.id
     }
     
     init(
@@ -45,6 +47,7 @@ struct ConsentRequest {
         self.redirectUri = redirectUri
         self.presentationDefinition = presentationDefinition
         self.isCrossDeviceFlow = isCrossDevice
+        self.id = redirectUri
     }
     
     init?(from: RpAuthRequest, isCrossDevice: Bool) {
@@ -62,6 +65,7 @@ struct ConsentRequest {
         self.clientMetadata = parnterMetaData
         self.nonce = from.nonce
         self.clientId = clientId
+        self.id = from.redirectUri
         self.redirectUri = from.redirectUri
         self.presentationDefinition = from.presentationDefinition
         self.claims = idToken.reduce([]) { (acc: [ConsentRequestClaim], claim) in

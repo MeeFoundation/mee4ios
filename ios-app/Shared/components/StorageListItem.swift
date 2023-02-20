@@ -24,7 +24,7 @@ struct StorageListItem: View {
                     HStack {
                         AsyncImage(url: URL(string: getFaviconLinkFromUrl(urlString: storageState.passwords[index].url)))
                         { image in
-                            image.resizable()
+                            image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fill)
                         } placeholder: {
                             Image(systemName: "key.fill")
                                 .foregroundColor(Colors.text)

@@ -11,6 +11,7 @@ struct PartnerDetails: View {
     let request: ConsentRequest
     @State var state = PartnerDetailsState()
     init(request: ConsentRequest) {
+        print("request: ", request)
         self.request = request
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -139,7 +140,7 @@ struct PartnerDetails: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
-                    if let consentData = agent.getItemById(id: request.clientId) {
+                    if let consentData = agent.getItemById(id: request.id) {
                         state.consentEntries = consentData.claims
                     }
                     

@@ -87,6 +87,7 @@ struct ConsentsList: View {
                                                 ]) { partnersArray in
                                             if !(partnersArray.data ?? []).isEmpty {HStack {
                                                 BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
+                                                BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
                                                 Spacer()
                                             }
                                             .padding(.leading, 4)
@@ -98,7 +99,7 @@ struct ConsentsList: View {
                                                 PartnerEntry(request: ConsentRequest(from: partnerData), hasEntry: partnersArray.editable)
                                                     .onTapGesture(perform: {
                                                         if partnersArray.editable {
-                                                            state.selection = partnerData.did
+                                                            state.selection = partnerData.id
                                                         }
 //                                                        else if !partnerData.isMeeCertified {
 //                                                            state.showCompatibleWarning = true

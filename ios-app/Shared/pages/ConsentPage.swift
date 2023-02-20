@@ -17,7 +17,7 @@ struct ConsentPage: View {
     
     private func onNext (_ data: RpAuthResponseWrapper, _ url: String) {
         
-        if let url = URL(string: "\(url)?meeAuthToken=\(data.openidResponse.idToken)") {
+        if let url = URL(string: "\(url)?mee_auth_token=\(data.openidResponse.idToken)") {
             openURL(url) { accepted in
                 print("accepted: ", accepted)
                 
@@ -56,7 +56,7 @@ struct ConsentPage: View {
             
         }
         .onAppear{
-            let isReturningUser = meeAgent.getItemById(id: data.consent.clientId) != nil
+            let isReturningUser = meeAgent.getItemById(id: data.consent.id) != nil
             state.isReturningUser = isReturningUser
         }
         .alert(isPresented: $state.isPresentingAlert) {

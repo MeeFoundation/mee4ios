@@ -16,13 +16,14 @@ struct PartnerEntry: View  {
         self.hasEntry = hasEntry
         self.isCertified = true
     }
+    
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
         return HStack {
             AsyncImage(url: URL(string: request.clientMetadata.logoUrl), content: { phase in
                     if let image = phase.image {
-                        image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fill)
+                        image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fit)
                             .frame(width: 48, height: 48, alignment: .center)
                             .clipShape(Circle())
                     } else {

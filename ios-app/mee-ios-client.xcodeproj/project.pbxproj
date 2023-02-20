@@ -988,6 +988,7 @@
 			);
 			outputPaths = (
 				"$(SRCROOT)/../mee-core/target/universal/debug/libuniffi_mee_agent.a",
+				"$(SRCROOT)/../mee-core/target/universal/release/libuniffi_mee_agent.a",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1330,7 +1331,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../mee-core/target/universal/release";
+				LIBRARY_SEARCH_PATHS = "";
+				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
