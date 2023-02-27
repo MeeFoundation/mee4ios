@@ -14,13 +14,15 @@ struct ConsentEntryInput: View {
     var name: String
     var isRequired: Bool
     var type: ConsentEntryType
+    var isReadOnly: Bool
     
-    init(value: Binding<String?>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool) {
+    init(value: Binding<String?>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool, isReadOnly: Bool) {
         self._value = value
         self.name = name
         self.isRequired = isRequired
         self.type = type
         self.isIncorrect = isIncorrect
+        self.isReadOnly = isReadOnly
     }
     @State private var calendarVisible = false
     @State private var date: Date = Date()
@@ -28,6 +30,7 @@ struct ConsentEntryInput: View {
     var body: some View {
         Group {
             TextField(name, text:  optionalBinding(binding: $value))
+                .disabled(isReadOnly)
                 .preferredColorScheme(.light)
                 .foregroundColor(Colors.text)
                 .fixedSize(horizontal: false, vertical: true)
@@ -82,9 +85,11 @@ struct ConsentEntryInput: View {
 struct ConsentEntry: View {
     @Binding var entry: ConsentRequestClaim
     var onDurationPopupShow: () -> Void
-    init(entry: Binding<ConsentRequestClaim>, onDurationPopupShow: @escaping () -> Void) {
+    var isReadOnly: Bool = false
+    init(entry: Binding<ConsentRequestClaim>, isReadOnly: Bool?, onDurationPopupShow: @escaping () -> Void) {
         self._entry = entry
         self.onDurationPopupShow = onDurationPopupShow
+        self.isReadOnly = isReadOnly ?? false
     }
     
     
@@ -107,27 +112,28 @@ struct ConsentEntry: View {
                     Image(getConsentEntryImageByType(entry.type))
                         .resizable()
                         .scaledToFit()
-                        .blending(entry.isRequired || entry.isOn ? Colors.meeBrand : Colors.gray600)
+                        .blending(entry.isRequired || entry.isOn || (isReadOnly && entry.value != nil) ? Colors.meeBrand : Colors.gray600)
                         .frame(width: 18, height: 18, alignment: .center)
                         .padding(.trailing, 13)
                         
                 }
                 if ((entry.isRequired && entry.isOpen) || (!entry.isRequired && entry.isOn)) {
-                    ConsentEntryInput(value: $entry.value, name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect)
+                    ConsentEntryInput(value: $entry.value, name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
                 } else {
                     Button(action: {
                         entry.isOpen = !entry.isOpen
                     }) {
                         Text((!(entry.type == ConsentEntryType.boolean) && entry.value != nil) ? entry.value! : entry.name)
-                            .foregroundColor(entry.isRequired || entry.isOn ? Colors.meeBrand : Colors.gray600)
+                            .foregroundColor(entry.isRequired || entry.isOn || (isReadOnly && entry.value != nil)  ? Colors.meeBrand : Colors.gray600)
                             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     }
                 }
                 
                 Spacer()
                 if !entry.isRequired {
-                    Checkbox(isToggled: $entry.isOn)
-                } else {
+                    Checkbox(isToggled: isReadOnly ? Binding(get: {$entry.wrappedValue.value != nil}, set: {_ in }) : $entry.isOn)
+                        .disabled(isReadOnly)
+                } else if !isReadOnly {
                     Button(action: {
                         onDurationPopupShow()
                     }) {

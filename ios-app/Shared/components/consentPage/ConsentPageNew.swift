@@ -23,6 +23,8 @@ struct ConsentPageNew: View {
             data.consent.claims.firstIndex(where: {$0.isIncorrect == true}) != nil;
         }
     }
+
+    
     var body: some View {
         ZStack {
             BackgroundWhite()
@@ -84,6 +86,10 @@ struct ConsentPageNew: View {
                                     if let image = phase.image {
                                         image.resizable().scaledToFit()
                                             .frame(width: 48, height: 48, alignment: .center)
+                                    } else if phase.error != nil {
+                                        ZStack{
+                                            
+                                        }.frame(width: 48, height: 48)
                                     } else {
                                         ProgressView()
                                     }
@@ -99,7 +105,7 @@ struct ConsentPageNew: View {
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
                         
-                        Text(data.consent.clientMetadata.displayUrl)
+                        Text(URL(string: data.consent.id)?.host ?? data.consent.id)
                             .foregroundColor(Colors.meeBrand)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 18))
                         
@@ -115,7 +121,7 @@ struct ConsentPageNew: View {
                             Expander(title: "Required", isOpen: $state.isRequiredSectionOpened) {
                                 
                                 ForEach($data.consent.claims.filter {$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry) {
+                                    ConsentEntry(entry: $entry, isReadOnly: false) {
                                         state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)
@@ -130,7 +136,7 @@ struct ConsentPageNew: View {
                                 .padding(.bottom, 16)
                             Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
                                 ForEach($data.consent.claims.filter {!$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry) {
+                                    ConsentEntry(entry: $entry, isReadOnly: false) {
                                         state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)
@@ -159,7 +165,7 @@ struct ConsentPageNew: View {
                             RejectButton("Decline", action: {
                                 keyboardEndEditing()
                                 
-                                if let url = URL(string: "\(data.consent.redirectUri)?token=error:user_cancelled,error_description:user%20declined%20the%20request") {
+                                if let url = URL(string: "\(data.consent.redirectUri)?mee_auth_token=error:user_cancelled,error_description:user%20declined%20the%20request") {
                                     openURL(url)
                                 }
                             }, fullWidth: true, isTransparent: true)

@@ -8,13 +8,13 @@
 import SwiftUI
 
 enum FirstRunPages: Hashable {
-    case welcome, prepare, faceId, faceIdSet, initializing
+    case prepare, faceId, faceIdSet, initializing
 }
 
 
 struct FirstRunPage: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
-    @State private var currentPage = FirstRunPages.welcome
+    @State private var currentPage = FirstRunPages.prepare
     @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
     
@@ -49,8 +49,6 @@ struct FirstRunPage: View {
                 ZStack {
                     FirstRunPageInitializing(onNext: finishInitializing)
                 }.background(Colors.background)
-            } else if currentPage == FirstRunPages.welcome {
-                FirstRunPageWelcome(onNext: {currentPage = FirstRunPages.prepare})
             } else {
                 ZStack {
                     BackgroundFaded()

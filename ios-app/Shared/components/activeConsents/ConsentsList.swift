@@ -11,6 +11,7 @@ struct ConsentsList: View {
     let meeAgent = MeeAgentStore()
     var registry = PartnersRegistry.shared
     @State private var state = ConsentsListState()
+    @Environment(\.openURL) var openURL
     let data: [Context]
     
     init() {
@@ -25,6 +26,9 @@ struct ConsentsList: View {
         }
         state.existingPartnersMobileApp = data.filter{ consent in
             consent.clientMetadata.type == .mobile && meeAgent.getItemById(id: consent.id) != nil
+        }
+        state.otherPartnersWebApp = registry.partners.filter { consent in
+            state.existingPartnersWebApp?.firstIndex{$0.id == consent.id} == nil
         }
         if firstLaunch {
             if let existingPartnersWebApp = state.existingPartnersWebApp {
@@ -83,10 +87,10 @@ struct ConsentsList: View {
                                 ScrollView {
                                     VStack {
                                         ForEach([PartnerArray(data: state.existingPartnersWebApp, name: "Sites", editable: true),
-                                                 PartnerArray(data: state.existingPartnersMobileApp, name: "Mobile Apps", editable: true)
+                                                 PartnerArray(data: state.existingPartnersMobileApp, name: "Mobile Apps", editable: true),
+                                                 PartnerArray(data: state.otherPartnersWebApp, name: "Other Sites You Might Like", editable: false)
                                                 ]) { partnersArray in
                                             if !(partnersArray.data ?? []).isEmpty {HStack {
-                                                BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
                                                 BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
                                                 Spacer()
                                             }
@@ -101,9 +105,11 @@ struct ConsentsList: View {
                                                         if partnersArray.editable {
                                                             state.selection = partnerData.id
                                                         }
-//                                                        else if !partnerData.isMeeCertified {
-//                                                            state.showCompatibleWarning = true
-//                                                        }
+                                                        else {
+                                                            if let url = URL(string: partnerData.id) {
+                                                                openURL(url)
+                                                            }
+                                                        }
                                                     })
                                                     .padding(.top, 8)
                                             }

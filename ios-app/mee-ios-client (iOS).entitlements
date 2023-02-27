@@ -4,7 +4,6 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:mee.foundation</string>
 		<string>applinks:auth-dev.mee.foundation</string>
 		<string>applinks:auth.mee.foundation</string>
 	</array>

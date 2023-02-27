@@ -26,6 +26,10 @@ struct PartnerEntry: View  {
                         image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fit)
                             .frame(width: 48, height: 48, alignment: .center)
                             .clipShape(Circle())
+                    } else if phase.error != nil {
+                        ZStack{
+                            
+                        }.frame(width: 48, height: 48)
                     } else {
                         ProgressView()
                     }
@@ -42,7 +46,7 @@ struct PartnerEntry: View  {
                         Spacer()
                     }
                     
-                    BasicText(text: request.clientMetadata.displayUrl, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
+                    BasicText(text: URL(string: request.id)?.host ?? request.id, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
                 }
                 .padding(.leading, 8)
                 Spacer()

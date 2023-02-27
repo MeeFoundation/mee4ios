@@ -65,8 +65,12 @@ class MeeAgentStore {
     
     func removeItembyName (id: String) -> String? {
         do {
-            try agent.deleteCtx(ctxId: id)
-            return id
+            let item = self.getItemById(id: id)
+            guard let did = item?.did else {
+                return nil
+            }
+            try agent.deleteCtx(ctxId: did)
+            return did
         } catch {
             return nil
         }

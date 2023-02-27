@@ -19,7 +19,7 @@ struct PartnerDetails: View {
     
     
     func removeConsent() {
-        agent.removeItembyName(id: request.clientId)
+        agent.removeItembyName(id: request.id)
         self.presentationMode.wrappedValue.dismiss()
         
     }
@@ -61,7 +61,7 @@ struct PartnerDetails: View {
                     Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
                         ForEach($state.consentEntries.filter {$0.wrappedValue.isRequired}) { $entry in
                             VStack {
-                                ConsentEntry(entry: $entry) {
+                                ConsentEntry(entry: $entry, isReadOnly: true) {
                                     state.durationPopupId = entry.id
                                 }
                                 .id(entry.id)
@@ -81,7 +81,7 @@ struct PartnerDetails: View {
                         Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
                             ForEach($state.consentEntries.filter {!$0.wrappedValue.isRequired}) { $entry in
                                 VStack {
-                                    ConsentEntry(entry: $entry) {
+                                    ConsentEntry(entry: $entry, isReadOnly: true) {
                                         state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)
@@ -96,24 +96,24 @@ struct PartnerDetails: View {
                     }
                     Spacer()
                     
-                    Button(action: {
-                        
-                    }){
-                        HStack(spacing: 0) {
-                            BasicText(text: "Block Connection", color: Color.black, size: 17)
-                            Spacer()
-                            Image("blockIcon").resizable().scaledToFit().frame(height: 17)
-                        }
-                        .padding(.vertical, 12)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 19)
-                        .background(.white)
-                    }
-                    .cornerRadius(12)
-                    .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
-                    .padding(.bottom, 16)
-                    .padding(.top, 80)
-                    .padding(.horizontal, 16)
+//                    Button(action: {
+//
+//                    }){
+//                        HStack(spacing: 0) {
+//                            BasicText(text: "Block Connection", color: Color.black, size: 17)
+//                            Spacer()
+//                            Image("blockIcon").resizable().scaledToFit().frame(height: 17)
+//                        }
+//                        .padding(.vertical, 12)
+//                        .padding(.leading, 16)
+//                        .padding(.trailing, 19)
+//                        .background(.white)
+//                    }
+//                    .cornerRadius(12)
+//                    .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
+//                    .padding(.bottom, 16)
+//                    .padding(.top, 80)
+//                    .padding(.horizontal, 16)
                     
                     
                     Button(action: removeConsent){
@@ -129,6 +129,7 @@ struct PartnerDetails: View {
                     }
                     .cornerRadius(12)
                     .shadow(color: Color.black.opacity(0.1), radius: 64, x: 0, y: 8)
+                    .padding(.top, 80)
                     .padding(.bottom, 16)
                     .padding(.horizontal, 16)
                 }
