@@ -97,6 +97,7 @@
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB72DB294B29970063A077 /* MeeEnv.swift */; };
 		A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
+		A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */; };
 		A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */; };
 		A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE6291D210E00F9806E /* ColorBlend.swift */; };
 		A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE9291D2FB500F9806E /* URLs.swift */; };
@@ -158,8 +159,8 @@
 			);
 			isEditable = 1;
 			outputFiles = (
-				"$(DERIVED_FILE_DIR)/mee.swift",
-				"$(DERIVED_FILE_DIR)/meeFFI.h",
+				"$(DERIVED_FILE_DIR)/mee_agent.swift",
+				"$(DERIVED_FILE_DIR)/mee_agentFFI.h",
 			);
 			script = "$HOME/.cargo/bin/uniffi-bindgen generate \"$INPUT_FILE_PATH\" --language swift --out-dir \"$DERIVED_FILE_DIR\"\n";
 		};
@@ -283,6 +284,7 @@
 		A5C0EE8F28F86F7300790179 /* WarningPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningPopup.swift; sourceTree = "<group>"; };
 		A5CB72DB294B29970063A077 /* MeeEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeEnv.swift; sourceTree = "<group>"; };
 		A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWrapper.swift; sourceTree = "<group>"; };
+		A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionPopup.swift; sourceTree = "<group>"; };
 		A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardHelpers.swift; sourceTree = "<group>"; };
 		A5D2AAE6291D210E00F9806E /* ColorBlend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBlend.swift; sourceTree = "<group>"; };
 		A5D2AAE9291D2FB500F9806E /* URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs.swift; sourceTree = "<group>"; };
@@ -482,6 +484,7 @@
 				A5A4D3842914A2A000CA3F26 /* Triangle.swift */,
 				A5D9E2F42922C2CA00D0E12D /* VisualEffectView.swift */,
 				A5D9E317292678CE00D0E12D /* Hint.swift */,
+				A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -1041,6 +1044,7 @@
 				A5D9E321292CF63700D0E12D /* ConsentPageState.swift in Sources */,
 				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
 				A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */,
+				A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */,
 				A5D9E30F2926780400D0E12D /* ConsentPageExisting.swift in Sources */,
 				A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,

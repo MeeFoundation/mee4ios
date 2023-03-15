@@ -10,6 +10,6 @@
 
 #import "sqlite3.h"
 
-#import "meeFFI.h"
+#import "mee_agentFFI.h"
 
 #endif /* MeeHeader_h */

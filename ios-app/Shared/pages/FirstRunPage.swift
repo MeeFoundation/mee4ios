@@ -37,9 +37,9 @@ struct FirstRunPage: View {
     
     func finishInitializing() {
         launchedBefore = true
-        if let installedUrl {
-            openURL(installedUrl)
-        }
+//        if let installedUrl {
+//            openURL(installedUrl)
+//        } uncomment this to enable recovery flow
         
     }
     
@@ -80,13 +80,13 @@ struct FirstRunPageWelcome: View {
         ZStack {
             BackgroundYellow()
             VStack(spacing: 0) {
-                Image("meeEntry").resizable().scaledToFit()
+                Image("meeWelcome").resizable().scaledToFit()
                     .overlay(VStack(spacing: 0) {
                     }.padding(.top, sizeClass == .compact ? 50 :  100)
                              , alignment: .top)
-                RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, sizeClass == .compact ? 0 : 20)
+//                RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
+//                    .padding(.horizontal, 16)
+//                    .padding(.bottom, sizeClass == .compact ? 0 : 20)
                 Spacer()
             }
             .padding(.top, 52)

@@ -161,6 +161,7 @@ struct ConsentsList: View {
                         FirstRunPageWelcome() {
                             state.showWelcome = false
                         }
+//                        IntroductionPopup()
                     }
                 }
             }
