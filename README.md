@@ -15,3 +15,8 @@ rustup target add aarch64-apple-ios
 ```
 cargo install uniffi_bindgen@0.21.0
 ```
+5) initialize submodules
+```
+git submodule init
+git submodule update
+```
