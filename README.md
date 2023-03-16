@@ -13,5 +13,5 @@ rustup target add aarch64-apple-ios
 ```
 4) Install uniffi-bindgen
 ```
-cargo install uniffi_bindgen
+cargo install uniffi_bindgen@0.21.0
 ```
