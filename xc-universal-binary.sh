@@ -37,26 +37,21 @@ fi
 cd ../mee-core
 
 TARGETDIR=${SRC_ROOT}/target
-echo "ssl: $(OPENSSL_DIR)"
+
 # We can't use cargo lipo because we can't link to universal libraries :(
 # https://github.com/rust-lang/rust/issues/55235
 # LIBS_ARCHS=("arm64" "x86_64")
-LIBS_ARCHS=("arm64")
-# IOS_TRIPLES=( "x86_64-apple-ios" "aarch64-apple-ios" "aarch64-apple-ios-sim" )
-IOS_TRIPLES=("aarch64-apple-ios" "x86_64-apple-ios")
-for i in "${!LIBS_ARCHS[@]}"; do
-    env -i PATH="${PATH}" \
-    # "${HOME}"/.cargo/bin/cargo build --locked -p "${FFI_TARGET}" --lib ${RELFLAG} --target "${IOS_TRIPLES[${i}]}"
 
-    "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "${IOS_TRIPLES[${i}]}"
-done
-# Build lib for simulator:
-# cargo build -p "mee-ds-sqlite" --lib --target "aarch64-apple-ios-sim"
+# IOS_TRIPLES=( "x86_64-apple-ios" "aarch64-apple-ios" "aarch64-apple-ios-sim" )
+
 if [[ "${RELDIR}" = "debug" ]]; then
     env -i PATH="${PATH}" \
     "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "x86_64-apple-ios"
-    # "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "aarch64-apple-ios-sim"
 fi
+
+    env -i PATH="${PATH}" \
+    "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "aarch64-apple-ios"
+    
 
 UNIVERSAL_BINARY=${TARGETDIR}/universal/${RELDIR}/${STATIC_LIB_NAME}
 NEED_LIPO=
@@ -71,22 +66,18 @@ elif [[ "$(stat -f "%m" "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_N
     NEED_LIPO=1
 fi
 
+
 if [[ ("${NEED_LIPO}" = "1") && ("${RELDIR}" = "debug") ]]; then
     mkdir -p "${TARGETDIR}/universal/${RELDIR}"
-
     lipo -create -output "${UNIVERSAL_BINARY}" \
     "${TARGETDIR}/x86_64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}" \
     "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}"
-    
-
 fi
+
 if [[ ("${NEED_LIPO}" = "1") && ("${RELDIR}" = "release") ]]; then
     mkdir -p "${TARGETDIR}/universal/${RELDIR}"
-    
     lipo -create -output "${UNIVERSAL_BINARY}" \
     "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}"
-
 fi
-
 
 

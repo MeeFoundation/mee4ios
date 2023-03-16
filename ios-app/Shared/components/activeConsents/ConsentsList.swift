@@ -30,7 +30,7 @@ struct ConsentsList: View {
         state.otherPartnersWebApp = registry.partners.filter { consent in
             state.existingPartnersWebApp?.firstIndex{$0.id == consent.id} == nil
         }
-        if firstLaunch {
+//        if firstLaunch {
             if let existingPartnersWebApp = state.existingPartnersWebApp {
                 if let existingPartnersMobileApp = state.existingPartnersMobileApp {
                     if existingPartnersWebApp.isEmpty && existingPartnersMobileApp.isEmpty {
@@ -41,7 +41,7 @@ struct ConsentsList: View {
                 }
                 
             }
-        }
+//        }
         
 //        state.otherPartnersWebApp = data.filter{ consent in
 //            return consent.clientMetadata.type == .web && meeAgent.getItemById(id: partner.did) == nil
