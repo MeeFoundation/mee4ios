@@ -21,4 +21,5 @@ struct ConsentsListState {
     var showWelcome: WelcomeType?
     var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
     var showCompatibleWarning: Bool = false
+    var showIntroScreensSwitch: Bool = false
 }

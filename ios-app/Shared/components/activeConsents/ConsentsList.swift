@@ -90,7 +90,7 @@ struct ConsentsList: View {
                                     VStack {
                                         ForEach([PartnerArray(data: state.existingPartnersWebApp, name: "Sites", editable: true),
                                                  PartnerArray(data: state.existingPartnersMobileApp, name: "Mobile Apps", editable: true),
-                                                 PartnerArray(data: state.otherPartnersWebApp, name: "Other Sites You Might Like", editable: false)
+                                                 PartnerArray(data: state.otherPartnersWebApp, name: "Sites to connect to", editable: false)
                                                 ]) { partnersArray in
                                             if !(partnersArray.data ?? []).isEmpty {HStack {
                                                 BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
@@ -146,7 +146,7 @@ struct ConsentsList: View {
 
                             }
                             .background(Color.white)
-
+                            
                         }
                         .ignoresSafeArea(.all)
                         .background(Color.white)
@@ -158,19 +158,26 @@ struct ConsentsList: View {
                             .ignoresSafeArea(.all)
                             .opacity(state.showCompatibleWarning ? 1 : 0)
                         }
-
+                        
                     } else if state.showWelcome == .FIRST {
                         FirstRunPageWelcome(imageName: "meeWelcome1") {
-                            state.showWelcome = .SECOND
+                            withAnimation {
+                                state.showWelcome = .SECOND
+                            }
+                            
                         }
+                        .transition(.move(edge: .leading))
                     } else {
+                        
                         FirstRunPageWelcome(imageName: "meeWelcome2") {
                             state.showWelcome = .NONE
                         }
+                        .transition(.move(edge: .trailing))
+                        
                     }
                 }
             }
-
+            
         }
         .onAppear {
             if state.firstLaunch {
