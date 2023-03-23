@@ -23,7 +23,12 @@ struct ConsentPageNew: View {
             data.consent.claims.firstIndex(where: {$0.isIncorrect == true}) != nil;
         }
     }
-
+    
+    private var hasOptionalFields: Bool {
+        get {
+            return data.consent.claims.firstIndex(where: {!$0.isRequired}) != nil;
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -134,23 +139,27 @@ struct ConsentPageNew: View {
                                 .frame(height: 1)
                                 .foregroundColor(Colors.gray)
                                 .padding(.bottom, 16)
-                            Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
-                                ForEach($data.consent.claims.filter {!$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry, isReadOnly: false) {
-                                        state.durationPopupId = entry.id
+                            if hasOptionalFields
+                            {
+                                Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
+                                    ForEach($data.consent.claims.filter {!$0.wrappedValue.isRequired}) { $entry in
+                                        ConsentEntry(entry: $entry, isReadOnly: false) {
+                                            state.durationPopupId = entry.id
+                                        }
+                                        .id(entry.id)
                                     }
-                                    .id(entry.id)
-                                }
-                                .padding(.top, 16)
-                            }.onChange(of: state.scrollPosition, perform: {newValue in
-                                withAnimation {
-                                    value.scrollTo(newValue)
-                                }
-                            })
-                            
-                            .padding(.bottom, 40)
-                        }
-                        .padding(.bottom, 180)
+                                    .padding(.top, 16)
+                                }.onChange(of: state.scrollPosition, perform: {newValue in
+                                    withAnimation {
+                                        value.scrollTo(newValue)
+                                    }
+                                })
+                                
+                                .padding(.bottom, 40)
+                            }
+                            }
+                            .padding(.bottom, 180)
+                        
                     }
                     
                     
@@ -165,8 +174,12 @@ struct ConsentPageNew: View {
                             RejectButton("Decline", action: {
                                 keyboardEndEditing()
                                 
-                                if let url = URL(string: "\(data.consent.redirectUri)?mee_auth_token=error:user_cancelled,error_description:user%20declined%20the%20request") {
-                                    openURL(url)
+                                if var urlComponents = URLComponents(string: data.consent.redirectUri) {
+                                    urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: "error:user_cancelled,error_description:user%20declined%20the%20request")]
+                                    if let url = urlComponents.url {
+                                        openURL(url)
+                                    }
+                                    
                                 }
                             }, fullWidth: true, isTransparent: true)
                             SecondaryButton("Approve and Connect", action: {

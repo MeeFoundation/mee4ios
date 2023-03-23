@@ -10,6 +10,8 @@ import SwiftUI
 struct ConsentsList: View {
     let meeAgent = MeeAgentStore()
     var registry = PartnersRegistry.shared
+    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
+    
     @State private var state = ConsentsListState()
     @Environment(\.openURL) var openURL
     let data: [Context]
@@ -30,18 +32,18 @@ struct ConsentsList: View {
         state.otherPartnersWebApp = registry.partners.filter { consent in
             state.existingPartnersWebApp?.firstIndex{$0.id == consent.id} == nil
         }
-//        if firstLaunch {
+        if firstLaunch {
             if let existingPartnersWebApp = state.existingPartnersWebApp {
                 if let existingPartnersMobileApp = state.existingPartnersMobileApp {
-                    if existingPartnersWebApp.isEmpty && existingPartnersMobileApp.isEmpty {
-                        state.showWelcome = true
+                    if existingPartnersWebApp.isEmpty && existingPartnersMobileApp.isEmpty && !hadConnectionsBefore {
+                        state.showWelcome = .FIRST
                     } else {
-                        state.showWelcome = false
+                        state.showWelcome = .NONE
                     }
                 }
                 
             }
-//        }
+        }
         
 //        state.otherPartnersWebApp = data.filter{ consent in
 //            return consent.clientMetadata.type == .web && meeAgent.getItemById(id: partner.did) == nil
@@ -72,7 +74,7 @@ struct ConsentsList: View {
             } else {
 
                 if state.showWelcome != nil {
-                    if state.showWelcome == false {
+                    if state.showWelcome == .NONE {
 
                         ZStack {
                             VStack {
@@ -157,11 +159,14 @@ struct ConsentsList: View {
                             .opacity(state.showCompatibleWarning ? 1 : 0)
                         }
 
-                    } else {
-                        FirstRunPageWelcome() {
-                            state.showWelcome = false
+                    } else if state.showWelcome == .FIRST {
+                        FirstRunPageWelcome(imageName: "meeWelcome1") {
+                            state.showWelcome = .SECOND
                         }
-//                        IntroductionPopup()
+                    } else {
+                        FirstRunPageWelcome(imageName: "meeWelcome2") {
+                            state.showWelcome = .NONE
+                        }
                     }
                 }
             }

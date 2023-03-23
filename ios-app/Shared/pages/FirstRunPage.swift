@@ -74,19 +74,22 @@ struct FirstRunPage: View {
 
 struct FirstRunPageWelcome: View {
     @Environment(\.horizontalSizeClass) var sizeClass
+    var imageName: String
     var onNext: () -> Void
     var isInitialization: Bool? = false
+    
+    
     var body: some View {
         ZStack {
             BackgroundYellow()
             VStack(spacing: 0) {
-                Image("meeWelcome").resizable().scaledToFit()
+                Image(imageName).resizable().scaledToFit()
                     .overlay(VStack(spacing: 0) {
                     }.padding(.top, sizeClass == .compact ? 50 :  100)
                              , alignment: .top)
-//                RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
-//                    .padding(.horizontal, 16)
-//                    .padding(.bottom, sizeClass == .compact ? 0 : 20)
+                RejectButton("Continue", action: onNext, fullWidth: true, withBorder: true)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, sizeClass == .compact ? 0 : 20)
                 Spacer()
             }
             .padding(.top, 52)
@@ -95,6 +98,7 @@ struct FirstRunPageWelcome: View {
         }.ignoresSafeArea(.all)
     }
 }
+
 
 struct FirstRunPagePrepare: View {
     var onNext: () -> Void

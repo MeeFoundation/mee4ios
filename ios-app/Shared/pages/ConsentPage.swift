@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct ConsentPage: View {
     var isLocked: Bool
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
+    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
+    
     @EnvironmentObject var data: ConsentState
     let meeAgent = MeeAgentStore()
     @State var state = ConsentPageState()
@@ -17,12 +20,15 @@ struct ConsentPage: View {
     
     private func onNext (_ data: RpAuthResponseWrapper, _ url: String) {
         
-        if let url = URL(string: "\(url)?mee_auth_token=\(data.openidResponse.idToken)") {
-            openURL(url) { accepted in
-                print("accepted: ", accepted)
-                
+        if var urlComponents = URLComponents(string: url) {
+            urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: data.openidResponse.idToken)]
+            if let url = urlComponents.url {
+                print("url:", url)
+                hadConnectionsBefore = true
+                state.isReturningUser = true
+                openURL(url)
             }
-            state.isReturningUser = true
+            
         }
         
     }

@@ -13,7 +13,8 @@ class PartnersRegistry: ObservableObject {
     
     init() {
         self.partners = [
-            Context(id: "https://mee.foundation/", did: "", claims: [], clientMetadata: PartnerMetadata(name: "Mee Foundation", displayUrl: "mee.foundation", logoUrl: "https://mee.foundation/favicon.png", contacts: []))
+            Context(id: "https://mee.foundation/", did: "", claims: [], clientMetadata: PartnerMetadata(name: "Mee Foundation", displayUrl: "mee.foundation", logoUrl: "https://mee.foundation/favicon.png", contacts: [])),
+            Context(id: "https://oldeyorktimes.com/", did: "", claims: [], clientMetadata: PartnerMetadata(name: "The Olde York Times", displayUrl: "oldeyorktimes.com", logoUrl: "https://oldeyorktimes.com/favicon.png", contacts: []))
         ]
     }
 }

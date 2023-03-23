@@ -91,6 +91,9 @@
 		A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEB28A417BB00677ADD /* Expander.swift */; };
 		A5AA4CEF28AAAAA500677ADD /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEE28AAAAA400677ADD /* View.swift */; };
 		A5AA4CF228ABEBE700677ADD /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CF128ABEBE700677ADD /* Checkbox.swift */; };
+		A5B48BD429CC92CC00FE9A48 /* ConsentCardEntryInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BD329CC92CC00FE9A48 /* ConsentCardEntryInput.swift */; };
+		A5B48BD729CC937A00FE9A48 /* CreditCardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BD629CC937A00FE9A48 /* CreditCardEntry.swift */; };
+		A5B48BDA29CCA36200FE9A48 /* ConsentSimpleEntryInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BD929CCA36200FE9A48 /* ConsentSimpleEntryInput.swift */; };
 		A5B88B59296D73E0003D075A /* mee_ios_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */; };
 		A5B8E94E2938EF7F006058E6 /* mee.udl in Sources */ = {isa = PBXBuildFile; fileRef = A5716EA829311D2800248961 /* mee.udl */; };
 		A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */; };
@@ -278,6 +281,9 @@
 		A5AA4CEB28A417BB00677ADD /* Expander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expander.swift; sourceTree = "<group>"; };
 		A5AA4CEE28AAAAA400677ADD /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		A5AA4CF128ABEBE700677ADD /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
+		A5B48BD329CC92CC00FE9A48 /* ConsentCardEntryInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentCardEntryInput.swift; sourceTree = "<group>"; };
+		A5B48BD629CC937A00FE9A48 /* CreditCardEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardEntry.swift; sourceTree = "<group>"; };
+		A5B48BD929CCA36200FE9A48 /* ConsentSimpleEntryInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentSimpleEntryInput.swift; sourceTree = "<group>"; };
 		A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mee-ios-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mee_ios_clientTests.swift; sourceTree = "<group>"; };
 		A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStore.swift; sourceTree = "<group>"; };
@@ -457,6 +463,7 @@
 		A550852F27BD18C200C5A2D1 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A5B48BD829CCA33400FE9A48 /* ConsentEntryInputs */,
 				A5D9E30D292677E000D0E12D /* consentPage */,
 				A5D9E2FA29265E7000D0E12D /* activeConsents */,
 				A550857F27BD550000C5A2D1 /* Themes.swift */,
@@ -492,6 +499,7 @@
 		A550853027BD18CD00C5A2D1 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				A5B48BD529CC936000FE9A48 /* InputTypes */,
 				A5E00C13297EF96800F9A59B /* SavedContexts */,
 				A5E00C10297EF75600F9A59B /* RPRequest */,
 				A55085C127CE33C500C5A2D1 /* SignupForm.swift */,
@@ -626,6 +634,23 @@
 				A5716EAF2931235B00248961 /* libuniffi_mee_agent.a */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		A5B48BD529CC936000FE9A48 /* InputTypes */ = {
+			isa = PBXGroup;
+			children = (
+				A5B48BD629CC937A00FE9A48 /* CreditCardEntry.swift */,
+			);
+			path = InputTypes;
+			sourceTree = "<group>";
+		};
+		A5B48BD829CCA33400FE9A48 /* ConsentEntryInputs */ = {
+			isa = PBXGroup;
+			children = (
+				A5B48BD929CCA36200FE9A48 /* ConsentSimpleEntryInput.swift */,
+				A5B48BD329CC92CC00FE9A48 /* ConsentCardEntryInput.swift */,
+			);
+			path = ConsentEntryInputs;
 			sourceTree = "<group>";
 		};
 		A5B88B57296D73E0003D075A /* mee-ios-clientTests */ = {
@@ -1015,6 +1040,7 @@
 				A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */,
 				A5D9E318292678CE00D0E12D /* Hint.swift in Sources */,
 				A5D9E324292D046E00D0E12D /* FirstRunPageInitializingState.swift in Sources */,
+				A5B48BD729CC937A00FE9A48 /* CreditCardEntry.swift in Sources */,
 				A55085B327C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085BF27C3E07200C5A2D1 /* SelectImage.swift in Sources */,
 				A5D9E2FF2926603B00D0E12D /* ConsentDetails.swift in Sources */,
@@ -1036,6 +1062,7 @@
 				A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */,
 				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
+				A5B48BD429CC92CC00FE9A48 /* ConsentCardEntryInput.swift in Sources */,
 				A5DB214627E37A690070B444 /* keyChain.swift in Sources */,
 				A5D9E3152926786D00D0E12D /* ConsentPageNew.swift in Sources */,
 				A53F79D327E08B9D00A62589 /* MainViewPage.swift in Sources */,
@@ -1045,6 +1072,7 @@
 				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
 				A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */,
 				A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */,
+				A5B48BDA29CCA36200FE9A48 /* ConsentSimpleEntryInput.swift in Sources */,
 				A5D9E30F2926780400D0E12D /* ConsentPageExisting.swift in Sources */,
 				A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
@@ -1293,7 +1321,7 @@
 					"@executable_path/Frameworks",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/debug";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1337,7 +1365,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";

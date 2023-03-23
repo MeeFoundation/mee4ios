@@ -22,17 +22,11 @@ func getConsentEntryImageByType (_ entryType: ConsentEntryType, isDisabled: Bool
     }
 }
 
-func makeMeeResponse(_ data: [ConsentRequestClaim]) -> [String: MeeResponseEntry] {
-    var response: [String: MeeResponseEntry] = [:]
-    data.forEach { entry in
-        guard let value = entry.value else {
-            return
-        }
-        let one = MeeResponseEntry(
-            field_type: entry.type,
-            value: value,
-            duration: entry.retentionDuration)
-        response[entry.name] = one
+func isCardEntryValid(_ entry: CreditCardEntry) -> Bool {
+    if let number = entry.number,
+       let exp = entry.expirationDate,
+       let cvc = entry.cvc {
+        return !number.isEmpty || !exp.isEmpty || !cvc.isEmpty
     }
-    return response
+    return false
 }

@@ -8,80 +8,6 @@ func getDateFormatter () -> DateFormatter {
 }
 
 
-struct ConsentEntryInput: View {
-    @Binding var value: String?
-    var isIncorrect: Bool
-    var name: String
-    var isRequired: Bool
-    var type: ConsentEntryType
-    var isReadOnly: Bool
-    
-    init(value: Binding<String?>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool, isReadOnly: Bool) {
-        self._value = value
-        self.name = name
-        self.isRequired = isRequired
-        self.type = type
-        self.isIncorrect = isIncorrect
-        self.isReadOnly = isReadOnly
-    }
-    @State private var calendarVisible = false
-    @State private var date: Date = Date()
-    
-    var body: some View {
-        Group {
-            TextField(name, text:  optionalBinding(binding: $value))
-                .disabled(isReadOnly)
-                .preferredColorScheme(.light)
-                .foregroundColor(Colors.text)
-                .fixedSize(horizontal: false, vertical: true)
-                .multilineTextAlignment(.leading)
-                .padding(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
-                .cornerRadius(5)
-                .autocapitalization(type == .email ? .none : .sentences)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(lineWidth: 1.0)
-                        .fill(isIncorrect ? Colors.error : Colors.gray)
-                )
-                .if(type == .date) { $0.overlay( Button(action: {
-                    calendarVisible = true
-                }) {
-                    Image("calendarIcon")
-                        .resizable()
-                        .frame(width: 18, height: 18, alignment: .center)
-                        .padding(.vertical, 13)
-                        .padding(.trailing, 19)
-                }
-                                                 ,
-                                                 alignment: Alignment.topTrailing)}
-                .popover(isPresented: $calendarVisible) {
-                    NavigationView {
-                        VStack {
-                            DatePicker("Date", selection: $date, displayedComponents: .date)
-                                .labelsHidden()
-                                .datePickerStyle(GraphicalDatePickerStyle())
-                                .padding()
-                            
-                            Spacer()
-                        }
-                        .navigationBarTitle(Text("Select Date"), displayMode: .inline)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button("Done") {
-                                    value = getDateFormatter().string(from: date)
-                                    calendarVisible = false
-                                }
-                            }
-                        }
-                    }
-                    .accentColor(.red)
-                }
-        }
-        .padding(.horizontal, 1)
-        .padding(.top, 4.0)
-    }
-}
-
 struct ConsentEntry: View {
     @Binding var entry: ConsentRequestClaim
     var onDurationPopupShow: () -> Void
@@ -115,15 +41,17 @@ struct ConsentEntry: View {
                         .blending(entry.isRequired || entry.isOn || (isReadOnly && entry.value != nil) ? Colors.meeBrand : Colors.gray600)
                         .frame(width: 18, height: 18, alignment: .center)
                         .padding(.trailing, 13)
-                        
+                    
                 }
                 if ((entry.isRequired && entry.isOpen) || (!entry.isRequired && entry.isOn)) {
-                    ConsentEntryInput(value: $entry.value, name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
+                    
+                    ConsentSimpleEntryInput(value: $entry.value, name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
+                    
                 } else {
                     Button(action: {
                         entry.isOpen = !entry.isOpen
                     }) {
-                        Text((!(entry.type == ConsentEntryType.boolean) && entry.value != nil) ? entry.value! : entry.name)
+                        Text((!(entry.type == .boolean) && entry.value != nil) ? entry.value! : entry.name)
                             .foregroundColor(entry.isRequired || entry.isOn || (isReadOnly && entry.value != nil)  ? Colors.meeBrand : Colors.gray600)
                             .font(.custom(FontNameManager.PublicSans.regular, size: 18))
                     }
