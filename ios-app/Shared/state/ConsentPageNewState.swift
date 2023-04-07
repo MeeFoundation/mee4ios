@@ -14,4 +14,5 @@ struct ConsentPageNewState {
     var isRequiredSectionOpened: Bool = true
     var isOptionalSectionOpened: Bool = false
     var scrollPosition: UUID? = nil
+    var previousButtomSafeArea: Double? = nil
 }

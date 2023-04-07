@@ -22,11 +22,4 @@ func getConsentEntryImageByType (_ entryType: ConsentEntryType, isDisabled: Bool
     }
 }
 
-func isCardEntryValid(_ entry: CreditCardEntry) -> Bool {
-    if let number = entry.number,
-       let exp = entry.expirationDate,
-       let cvc = entry.cvc {
-        return !number.isEmpty || !exp.isEmpty || !cvc.isEmpty
-    }
-    return false
-}
+

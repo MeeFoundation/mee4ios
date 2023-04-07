@@ -6,7 +6,6 @@
 //
 
 let consentDurationOptions: [ConsentDurationOption] = [
-    ConsentDurationOption(name: "Ephemeral", description: "Shared with provider’s app for an instant;\r\nnever stored by provider afterwards", value: .ephemeral),
     ConsentDurationOption(name: "While using app", description: "Shared with provider’s app during usage;\ndeleted by provider afterwards", value: .whileUsingApp),
     ConsentDurationOption(name: "Until connection deletion", description: "Shared with provider’s app until connection\nis deleted; removed by provider afterwards", value: .untilConnectionDeletion)
 ]

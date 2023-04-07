@@ -9,7 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-    case consent, mainViewPage, login
+    case consent, mainViewPage, login, tutorial
 }
 
 struct ContentView: View {
@@ -126,8 +126,11 @@ struct ContentView: View {
 
 struct NavigationPage: View {
     var isLocked: Bool
+    @State var tutorialViewed: Bool = false
+    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     @EnvironmentObject private var navigationState: NavigationState
-    
+
+
     var body: some View {
         ZStack {
             Background()
@@ -151,6 +154,22 @@ struct NavigationPage: View {
                     ,selection: $navigationState.currentPage
                 )
                 
+                NavigationLink(
+                    "Tutorial",
+                    destination: TutorialPage()
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                    ,tag: NavigationPages.tutorial
+                    ,selection: $navigationState.currentPage
+                )
+            }
+        }
+        .onAppear {
+            if (!tutorialViewed && navigationState.currentPage == .mainViewPage) {
+                if !hadConnectionsBefore {
+                    navigationState.currentPage = .tutorial
+                }
+                tutorialViewed = true
             }
         }
     }

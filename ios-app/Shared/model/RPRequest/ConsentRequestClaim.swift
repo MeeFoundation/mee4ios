@@ -6,6 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
+
+enum ConsentEntryValue: Codable {
+    case string(String?)
+    case card(CreditCardEntry)
+}
 
 struct ConsentRequestClaim: Identifiable, Codable {
     let id = UUID()
@@ -15,7 +21,7 @@ struct ConsentRequestClaim: Identifiable, Codable {
     var businessPurpose: String?
     var isSensitive: Bool?
     var type: ConsentEntryType
-    var value: String?
+    var value: ConsentEntryValue?
     var providedBy: String?
     var retentionDuration: ConsentStorageDuration = .untilConnectionDeletion
     var isRequired: Bool = false
@@ -26,18 +32,23 @@ struct ConsentRequestClaim: Identifiable, Codable {
             if let forceOpen {
                 return forceOpen
             } else {
-                if let value {
-                    return isRequired && (value.isEmpty)
-                }
+
+                return false
             }
-            return false
+            
         }
         set(newValue) {
-            forceOpen = newValue
+            forceOpen = self.isIncorrect ? true : newValue
         }
     }
     var isIncorrect: Bool {
-        return (isRequired || isOn) && (value == nil || value!.isEmpty)
+        if case .string(let stringValue) = value {
+            return (isRequired || isOn) && (stringValue == nil || stringValue!.isEmpty)
+        }
+        if case .card(let cardValue) = value {
+            return (isRequired || isOn) && (!cardValue.isValid())
+        }
+        return true
     }
     private enum CodingKeys: String, CodingKey {
         case code, name, value, isRequired, providedBy, type, retentionDuration
@@ -46,7 +57,7 @@ struct ConsentRequestClaim: Identifiable, Codable {
         self.code = code
         self.name = name
         self.type = type
-        self.value = value
+        self.value = type == .card ? .card(CreditCardEntry.fromString(value)) : .string(value)
         self.providedBy = providedBy
         self.isRequired = isRequired ?? false
         self.isOn = isOn ?? false
@@ -60,57 +71,14 @@ struct ConsentRequestClaim: Identifiable, Codable {
         }
         self.name = name
         self.type = type
-        self.value = from.value
+        self.value = type == .card ? .card(CreditCardEntry.fromString(from.value)) : .string(from.value)
         self.providedBy = nil
         self.isRequired = from.essential
         self.isOn = from.essential
-        self.retentionDuration = from.retentionDuration == .ephemeral ? .ephemeral : from.retentionDuration == .whileUsingApp ? .whileUsingApp : .untilConnectionDeletion
+        self.retentionDuration = from.retentionDuration == .whileUsingApp ? .whileUsingApp : .untilConnectionDeletion
         self.attributeType = from.attributeType
         self.businessPurpose = from.businessPurpose
         self.isSensitive = from.isSensitive
         self.code = code
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        if let name = try container.decodeIfPresent(String.self, forKey: .name) {
-            self.name = name
-        } else {
-            self.name = ""
-        }
-        if let value = try container.decodeIfPresent(String.self, forKey: .value) {
-            self.value = value
-        }
-        
-        if let type = try container.decodeIfPresent(ConsentEntryType.self, forKey: .type) {
-            self.type = type
-        } else {
-            self.type = ConsentEntryType.string
-        }
-        
-        if let providedBy = try container.decodeIfPresent(String.self, forKey: .providedBy) {
-            self.providedBy = providedBy
-        } else {
-            self.providedBy = nil
-        }
-        
-        if let code = try container.decodeIfPresent(String.self, forKey: .code) {
-            self.code = code
-        } else {
-            self.code = ""
-        }
-        
-        if let retentionDuration = try container.decodeIfPresent(ConsentStorageDuration.self, forKey: .retentionDuration) {
-            self.retentionDuration = retentionDuration
-        } else {
-            self.retentionDuration = ConsentStorageDuration.untilConnectionDeletion
-        }
-        
-        if let isRequired = try container.decodeIfPresent(Bool.self, forKey: .isRequired) {
-            self.isRequired = isRequired
-            if !isRequired {
-                self.isOn = true
-            }
-        }
     }
 }

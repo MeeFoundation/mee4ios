@@ -51,7 +51,15 @@ struct ConsentPage: View {
                     }
                     else {
                         ConsentPageNew(){data in
-                            let response = meeAgent.authorize(id: data.clientId, item: data)
+                            let dataClearedFromDisabledOptionals = data.claims.map { claim in
+                                var claimCopy = claim
+                                if !claim.isRequired && !claim.isOn {
+                                    claimCopy.value = nil
+                                }
+                                return claimCopy
+                            }
+                            let request = ConsentRequest(claims: dataClearedFromDisabledOptionals, clientMetadata: data.clientMetadata, nonce: data.nonce, clientId: data.clientId, redirectUri: data.redirectUri, presentationDefinition: data.presentationDefinition, isCrossDevice: data.isCrossDeviceFlow)
+                            let response = meeAgent.authorize(id: data.clientId, item: request)
                             if let response {
                                 onNext(response, data.redirectUri)
                             }

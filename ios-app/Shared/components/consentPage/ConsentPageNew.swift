@@ -20,7 +20,7 @@ struct ConsentPageNew: View {
     }
     private var hasIncorrectFields: Bool {
         get {
-            data.consent.claims.firstIndex(where: {$0.isIncorrect == true}) != nil;
+            data.consent.claims.firstIndex(where: {$0.isIncorrect}) != nil;
         }
     }
     
@@ -31,7 +31,7 @@ struct ConsentPageNew: View {
     }
     
     var body: some View {
-        ZStack {
+        GeometryReader { gr in
             BackgroundWhite()
             
             if state.showCertified {
@@ -51,7 +51,7 @@ struct ConsentPageNew: View {
                 }
             } else {
                 VStack(spacing: 0) {
-                    
+                    ScrollViewReader {proxy in
                     ScrollView {
                         
                         VStack {
@@ -102,10 +102,10 @@ struct ConsentPageNew: View {
                                 })
                                 .frame(width: 48, height: 48, alignment: .center)
                             }
-                        }
-                        .zIndex(1)
-                        .padding(.bottom, 24.0)
+                            .padding(.bottom, 24.0)
                         .padding(.top, 30)
+                        
+                        
                         Text(data.consent.clientMetadata.name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.bold, size: 30))
@@ -122,17 +122,17 @@ struct ConsentPageNew: View {
                             .multilineTextAlignment(.center)
                             .zIndex(0)
 
-                        ScrollViewReader {value in
+                        
                             Expander(title: "Required", isOpen: $state.isRequiredSectionOpened) {
                                 
                                 ForEach($data.consent.claims.filter {$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry, isReadOnly: false) {
+                                    ConsentEntry(entry: $entry, isReadOnly: false, scrollPosition: $state.scrollPosition) {
                                         state.durationPopupId = entry.id
                                     }
-                                    .id(entry.id)
                                 }
                                 .padding(.top, 16)
                             }
+                            
                             .padding(.bottom, 16)
                             Line()
                                 .stroke(style: StrokeStyle(lineWidth: 1, dash: [1000]))
@@ -143,75 +143,84 @@ struct ConsentPageNew: View {
                             {
                                 Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
                                     ForEach($data.consent.claims.filter {!$0.wrappedValue.isRequired}) { $entry in
-                                        ConsentEntry(entry: $entry, isReadOnly: false) {
+                                        ConsentEntry(entry: $entry, isReadOnly: false, scrollPosition: $state.scrollPosition) {
                                             state.durationPopupId = entry.id
                                         }
-                                        .id(entry.id)
                                     }
                                     .padding(.top, 16)
-                                }.onChange(of: state.scrollPosition, perform: {newValue in
-                                    withAnimation {
-                                        value.scrollTo(newValue)
-                                    }
-                                })
-                                
+
+                                }
                                 .padding(.bottom, 40)
+                                
+                                
                             }
-                            }
-                            .padding(.bottom, 180)
-                        
+                            
+                        }
+                        .padding(.bottom, 180)
+                        .onChange(of: state.scrollPosition, perform: {newValue in
+//                            print("scrollPosition changed: ", newValue)
+//                            if let newValue {
+//                                withAnimation {
+//                                    proxy.scrollTo(newValue)
+//                                }
+//                            }
+//                            
+                        })
+
                     }
-                    
-                    
+                    .keyboardAvoiding()
+                    }
                     Spacer()
                     
                 }
                 .padding(.horizontal, 16.0)
                 .overlay(alignment: .bottom) {
                     ZStack {
-                        
-                        VStack {
-                            RejectButton("Decline", action: {
-                                keyboardEndEditing()
-                                
-                                if var urlComponents = URLComponents(string: data.consent.redirectUri) {
-                                    urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: "error:user_cancelled,error_description:user%20declined%20the%20request")]
-                                    if let url = urlComponents.url {
-                                        openURL(url)
-                                    }
-                                    
-                                }
-                            }, fullWidth: true, isTransparent: true)
-                            SecondaryButton("Approve and Connect", action: {
-                                keyboardEndEditing()
-                                if (!hasIncorrectFields) {
-                                    
-                                    onAccept(data.consent)
-                                } else {
-                                    if let incorrectFieldIndex = data.consent.claims.firstIndex(where: {$0.isIncorrect == true}) {
-                                        if (data.consent.claims[incorrectFieldIndex].isRequired) {
-                                            state.isRequiredSectionOpened = true
-                                        } else {
-                                            state.isOptionalSectionOpened = true
-                                        }
-                                        data.consent.claims[incorrectFieldIndex].isOpen = true
-                                        state.scrollPosition = data.consent.claims[incorrectFieldIndex].id
-                                    }
-                                }
-                            },
-                                            fullWidth: true
-                            )
-                        }
-                        .padding(.bottom, 30)
-                        
-                        .padding(.top, 0)
-                        .padding(.horizontal, 16)
-                    }
-                    .background {
-                        VisualEffectView(effect: UIBlurEffect(style: .light)).opacity(0.99).ignoresSafeArea(.all)
-                    }
-                    .frame(maxHeight: 159)
+                           VStack {
+                               RejectButton("Decline", action: {
+                                   keyboardEndEditing()
+                                   
+                                   if var urlComponents = URLComponents(string: data.consent.redirectUri) {
+                                       urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: "error:user_cancelled,error_description:user%20declined%20the%20request")]
+                                       if let url = urlComponents.url {
+                                           openURL(url)
+                                       }
+                                       
+                                   }
+                               }, fullWidth: true, isTransparent: true)
+                               SecondaryButton("Approve and Connect", action: {
+                                   keyboardEndEditing()
+                                   if (!hasIncorrectFields) {
+                                       
+                                       onAccept(data.consent)
+                                   } else {
+                                       if let incorrectFieldIndex = data.consent.claims.firstIndex(where: {$0.isIncorrect}) {
+                                           if (data.consent.claims[incorrectFieldIndex].isRequired) {
+                                               state.isRequiredSectionOpened = true
+                                           } else {
+                                               state.isOptionalSectionOpened = true
+                                           }
+                                           data.consent.claims[incorrectFieldIndex].isOpen = true
+                                           state.scrollPosition = data.consent.claims[incorrectFieldIndex].id
+                                       }
+                                   }
+                               },
+                                               fullWidth: true
+                               )
+                           }
+                           .padding(.bottom, 30)
+                           
+                           .padding(.top, 0)
+                           .padding(.horizontal, 16)
+                       }
+                       .ignoresSafeArea(.all)
+                       .background {
+                           VisualEffectView(effect: UIBlurEffect(style: .light)).opacity(0.99).ignoresSafeArea(.all)
+                       }
+                       .frame(maxHeight: 150)
+                       .ignoresSafeArea(.all)
                 }
+                
                 .toolbar {
                                 ToolbarItemGroup(placement: .keyboard) {
                                     Spacer()
@@ -230,9 +239,10 @@ struct ConsentPageNew: View {
                     }
                 }
             }
-            
+                
             
         }
+        .ignoresSafeArea(SafeAreaRegions.container, edges: [.bottom])
     }
     func buttonAction(){
         

@@ -35,14 +35,21 @@ extension OidcClientMetadata {
 }
 
 extension OidcClaimParams {
+    
     init(from: ConsentRequestClaim) {
         self.essential = from.isRequired
         self.attributeType = from.attributeType
         self.name = from.name
         self.typ = from.type.rawValue
-        self.retentionDuration = from.retentionDuration == .ephemeral ? RetentionDuration.ephemeral : from.retentionDuration == .whileUsingApp ? RetentionDuration.whileUsingApp : RetentionDuration.untilConnectionDeletion
+        self.retentionDuration = from.retentionDuration == .whileUsingApp ? RetentionDuration.whileUsingApp : RetentionDuration.untilConnectionDeletion
         self.businessPurpose = from.businessPurpose
         self.isSensitive = from.isSensitive
-        self.value = from.value
+        var val: String?
+        switch from.value {
+        case .card(let card): val = card.toString()
+        case .string(let string): val = string
+        default: return 
+        }
+        self.value = val
     }
 }

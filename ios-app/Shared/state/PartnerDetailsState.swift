@@ -13,4 +13,5 @@ struct PartnerDetailsState {
     var isRequiredOpen: Bool = true
     var isOptionalOpen: Bool = false
     var selection: String? = nil
+    var scrollPosition: UUID?
 }

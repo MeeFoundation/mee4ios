@@ -14,21 +14,33 @@ struct ConsentSimpleEntryInput: View {
     var isRequired: Bool
     var type: ConsentEntryType
     var isReadOnly: Bool
+    let id: UUID
+    @Binding var scrollPosition: UUID?
+    @FocusState var inFocus: UUID?
     
-    init(value: Binding<String?>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool, isReadOnly: Bool) {
+    init(value: Binding<String?>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool, isReadOnly: Bool, id: UUID, scrollPosition: Binding<UUID?>) {
         self._value = value
         self.name = name
         self.isRequired = isRequired
         self.type = type
         self.isIncorrect = isIncorrect
         self.isReadOnly = isReadOnly
+        self._scrollPosition = scrollPosition
+        self.id = id
     }
     @State private var calendarVisible = false
     @State private var date: Date = Date()
     
     var body: some View {
         Group {
-            TextField(name, text:  optionalBinding(binding: $value))
+            TextField(name, text:  optionalBinding(binding: $value),onEditingChanged: { (started) in
+                if started {
+                    scrollPosition = id
+                    scrollPosition = id
+                    
+                }
+            })
+            .focused($inFocus, equals: id)
                 .disabled(isReadOnly)
                 .preferredColorScheme(.light)
                 .foregroundColor(Colors.text)
@@ -78,5 +90,7 @@ struct ConsentSimpleEntryInput: View {
         }
         .padding(.horizontal, 1)
         .padding(.top, 4.0)
+        .focused($inFocus, equals: id)
+        .id(id)
     }
 }

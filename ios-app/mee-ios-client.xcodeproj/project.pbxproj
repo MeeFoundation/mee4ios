@@ -94,6 +94,11 @@
 		A5B48BD429CC92CC00FE9A48 /* ConsentCardEntryInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BD329CC92CC00FE9A48 /* ConsentCardEntryInput.swift */; };
 		A5B48BD729CC937A00FE9A48 /* CreditCardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BD629CC937A00FE9A48 /* CreditCardEntry.swift */; };
 		A5B48BDA29CCA36200FE9A48 /* ConsentSimpleEntryInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BD929CCA36200FE9A48 /* ConsentSimpleEntryInput.swift */; };
+		A5B48BDC29D317FF00FE9A48 /* TutorialPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BDB29D317FE00FE9A48 /* TutorialPage.swift */; };
+		A5B48BDE29D5AC7300FE9A48 /* TourPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BDD29D5AC7300FE9A48 /* TourPage.swift */; };
+		A5B48BE029D5B8CD00FE9A48 /* CreditCardEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */; };
+		A5B48BE229D5B98700FE9A48 /* ConsentRequestClaimExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */; };
+		A5B48BE429D5D95500FE9A48 /* formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BE329D5D95500FE9A48 /* formatters.swift */; };
 		A5B88B59296D73E0003D075A /* mee_ios_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */; };
 		A5B8E94E2938EF7F006058E6 /* mee.udl in Sources */ = {isa = PBXBuildFile; fileRef = A5716EA829311D2800248961 /* mee.udl */; };
 		A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */; };
@@ -150,6 +155,9 @@
 		A5E00C17297EF9BB00F9A59B /* ConsentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E00C16297EF9BB00F9A59B /* ConsentRequest.swift */; };
 		A5E00C192980161C00F9A59B /* CoreExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E00C182980161C00F9A59B /* CoreExtentions.swift */; };
 		A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F50A28C8B4480065058A /* TabBar.swift */; };
+		A5EA445229DC5A88000BEB61 /* matchesRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445129DC5A88000BEB61 /* matchesRegex.swift */; };
+		A5EA445629DE1685000BEB61 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445529DE1685000BEB61 /* UIScreen.swift */; };
+		A5EA445E29E06C94000BEB61 /* KeyboardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -284,6 +292,11 @@
 		A5B48BD329CC92CC00FE9A48 /* ConsentCardEntryInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentCardEntryInput.swift; sourceTree = "<group>"; };
 		A5B48BD629CC937A00FE9A48 /* CreditCardEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardEntry.swift; sourceTree = "<group>"; };
 		A5B48BD929CCA36200FE9A48 /* ConsentSimpleEntryInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentSimpleEntryInput.swift; sourceTree = "<group>"; };
+		A5B48BDB29D317FE00FE9A48 /* TutorialPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPage.swift; sourceTree = "<group>"; };
+		A5B48BDD29D5AC7300FE9A48 /* TourPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPage.swift; sourceTree = "<group>"; };
+		A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardEntryExtension.swift; sourceTree = "<group>"; };
+		A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentRequestClaimExtension.swift; sourceTree = "<group>"; };
+		A5B48BE329D5D95500FE9A48 /* formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatters.swift; sourceTree = "<group>"; };
 		A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mee-ios-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mee_ios_clientTests.swift; sourceTree = "<group>"; };
 		A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStore.swift; sourceTree = "<group>"; };
@@ -339,6 +352,9 @@
 		A5E00C16297EF9BB00F9A59B /* ConsentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentRequest.swift; sourceTree = "<group>"; };
 		A5E00C182980161C00F9A59B /* CoreExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreExtentions.swift; sourceTree = "<group>"; };
 		A5E0F50A28C8B4480065058A /* TabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		A5EA445129DC5A88000BEB61 /* matchesRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchesRegex.swift; sourceTree = "<group>"; };
+		A5EA445529DE1685000BEB61 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
+		A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -529,6 +545,8 @@
 				A5D30C822878624D00481E85 /* FirstRunPage.swift */,
 				A5D30C88287DBD7300481E85 /* EmptyAppPage.swift */,
 				A5D7510028E7368B003CD142 /* RecoveryPhraseSetupPage.swift */,
+				A5B48BDB29D317FE00FE9A48 /* TutorialPage.swift */,
+				A5B48BDD29D5AC7300FE9A48 /* TourPage.swift */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -596,6 +614,8 @@
 				A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */,
 				A5327AA3295463A300F08618 /* consentHelpers.swift */,
 				A5327AA72954798900F08618 /* decoder.swift */,
+				A5B48BE329D5D95500FE9A48 /* formatters.swift */,
+				A5EA445129DC5A88000BEB61 /* matchesRegex.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -714,6 +734,10 @@
 				A5D7510328EB0EE0003CD142 /* String.swift */,
 				A5D2AAE6291D210E00F9806E /* ColorBlend.swift */,
 				A5E00C182980161C00F9A59B /* CoreExtentions.swift */,
+				A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */,
+				A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */,
+				A5EA445529DE1685000BEB61 /* UIScreen.swift */,
+				A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -1041,12 +1065,17 @@
 				A5D9E318292678CE00D0E12D /* Hint.swift in Sources */,
 				A5D9E324292D046E00D0E12D /* FirstRunPageInitializingState.swift in Sources */,
 				A5B48BD729CC937A00FE9A48 /* CreditCardEntry.swift in Sources */,
+				A5B48BE029D5B8CD00FE9A48 /* CreditCardEntryExtension.swift in Sources */,
 				A55085B327C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
 				A55085BF27C3E07200C5A2D1 /* SelectImage.swift in Sources */,
+				A5EA445229DC5A88000BEB61 /* matchesRegex.swift in Sources */,
+				A5EA445629DE1685000BEB61 /* UIScreen.swift in Sources */,
 				A5D9E2FF2926603B00D0E12D /* ConsentDetails.swift in Sources */,
 				A5A6F06527FB59F800BEDBDC /* PasswordGeneratorList.swift in Sources */,
+				A5EA445E29E06C94000BEB61 /* KeyboardAvoiding.swift in Sources */,
 				A5D9E330292D109800D0E12D /* PartnerDetailsState.swift in Sources */,
 				A55085B627C3B55400C5A2D1 /* InputField.swift in Sources */,
+				A5B48BDE29D5AC7300FE9A48 /* TourPage.swift in Sources */,
 				A5E00C17297EF9BB00F9A59B /* ConsentRequest.swift in Sources */,
 				A5DB213D27E22B520070B444 /* urlTools.swift in Sources */,
 				A5327AA22954635400F08618 /* ConsentEntryType.swift in Sources */,
@@ -1067,6 +1096,8 @@
 				A5D9E3152926786D00D0E12D /* ConsentPageNew.swift in Sources */,
 				A53F79D327E08B9D00A62589 /* MainViewPage.swift in Sources */,
 				A5E00C15297EF98800F9A59B /* Context.swift in Sources */,
+				A5B48BDC29D317FF00FE9A48 /* TutorialPage.swift in Sources */,
+				A5B48BE229D5B98700FE9A48 /* ConsentRequestClaimExtension.swift in Sources */,
 				A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */,
 				A5D9E321292CF63700D0E12D /* ConsentPageState.swift in Sources */,
 				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
@@ -1086,6 +1117,7 @@
 				A550858C27BE4A7200C5A2D1 /* ConsentRequestClaim.swift in Sources */,
 				A5DB214C27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CD27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
+				A5B48BE429D5D95500FE9A48 /* formatters.swift in Sources */,
 				A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */,
 				A5D9E31E2926845B00D0E12D /* ConsentDurationOptions.swift in Sources */,
 				A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */,
