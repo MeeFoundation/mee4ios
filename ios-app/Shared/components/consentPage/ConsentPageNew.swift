@@ -126,9 +126,10 @@ struct ConsentPageNew: View {
                             Expander(title: "Required", isOpen: $state.isRequiredSectionOpened) {
                                 
                                 ForEach($data.consent.claims.filter {$0.wrappedValue.isRequired}) { $entry in
-                                    ConsentEntry(entry: $entry, isReadOnly: false, scrollPosition: $state.scrollPosition) {
+                                    ConsentEntry(entry: $entry, isReadOnly: false) {
                                         state.durationPopupId = entry.id
                                     }
+                                    .id(entry.id)
                                 }
                                 .padding(.top, 16)
                             }
@@ -143,9 +144,10 @@ struct ConsentPageNew: View {
                             {
                                 Expander(title: "Optional", isOpen: $state.isOptionalSectionOpened) {
                                     ForEach($data.consent.claims.filter {!$0.wrappedValue.isRequired}) { $entry in
-                                        ConsentEntry(entry: $entry, isReadOnly: false, scrollPosition: $state.scrollPosition) {
+                                        ConsentEntry(entry: $entry, isReadOnly: false) {
                                             state.durationPopupId = entry.id
                                         }
+                                        .id(entry.id)
                                     }
                                     .padding(.top, 16)
 
@@ -158,13 +160,11 @@ struct ConsentPageNew: View {
                         }
                         .padding(.bottom, 180)
                         .onChange(of: state.scrollPosition, perform: {newValue in
-//                            print("scrollPosition changed: ", newValue)
-//                            if let newValue {
-//                                withAnimation {
-//                                    proxy.scrollTo(newValue)
-//                                }
-//                            }
-//                            
+                            if let newValue {
+                                withAnimation {
+                                    proxy.scrollTo(newValue)
+                                }
+                            }
                         })
 
                     }

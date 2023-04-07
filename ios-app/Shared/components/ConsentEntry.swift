@@ -12,12 +12,10 @@ struct ConsentEntry: View {
     @Binding var entry: ConsentRequestClaim
     var onDurationPopupShow: () -> Void
     var isReadOnly: Bool = false
-    @Binding var scrollPosition: UUID?
-    init(entry: Binding<ConsentRequestClaim>, isReadOnly: Bool?, scrollPosition: Binding<UUID?>, onDurationPopupShow: @escaping () -> Void) {
+    init(entry: Binding<ConsentRequestClaim>, isReadOnly: Bool?, onDurationPopupShow: @escaping () -> Void) {
         self._entry = entry
         self.onDurationPopupShow = onDurationPopupShow
         self.isReadOnly = isReadOnly ?? false
-        self._scrollPosition = scrollPosition
     }
     
     var body: some View {
@@ -36,9 +34,9 @@ struct ConsentEntry: View {
                 }
                 if ((entry.isRequired && entry.isOpen) || (!entry.isRequired && entry.isOn)) {
                     if case .string(let string) = entry.value {
-                        ConsentSimpleEntryInput(value: Binding(get: {string}, set: { entry.value = .string($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly, id: entry.id, scrollPosition: $scrollPosition)
+                        ConsentSimpleEntryInput(value: Binding(get: {string}, set: { entry.value = .string($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
                     } else if case .card(let card) = entry.value {
-                        ConsentCardEntryInput(value: Binding(get: {card}, set: { entry.value = .card($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly, id: entry.id, scrollPosition: $scrollPosition)
+                        ConsentCardEntryInput(value: Binding(get: {card}, set: { entry.value = .card($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
                     }
                     
                     

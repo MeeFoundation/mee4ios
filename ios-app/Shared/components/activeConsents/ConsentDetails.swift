@@ -62,7 +62,7 @@ struct PartnerDetails: View {
                     Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
                         ForEach($state.consentEntries.filter {$0.wrappedValue.isRequired}) { $entry in
                             VStack {
-                                ConsentEntry(entry: $entry, isReadOnly: true, scrollPosition: $state.scrollPosition) {
+                                ConsentEntry(entry: $entry, isReadOnly: true) {
                                     state.durationPopupId = entry.id
                                 }
                                 .id(entry.id)
@@ -82,7 +82,7 @@ struct PartnerDetails: View {
                         Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
                             ForEach($state.consentEntries.filter {!$0.wrappedValue.isRequired}) { $entry in
                                 VStack {
-                                    ConsentEntry(entry: $entry, isReadOnly: true, scrollPosition: $state.scrollPosition) {
+                                    ConsentEntry(entry: $entry, isReadOnly: true) {
                                         state.durationPopupId = entry.id
                                     }
                                     .id(entry.id)

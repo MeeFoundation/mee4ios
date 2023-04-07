@@ -15,18 +15,14 @@ struct ConsentCardEntryInput: View {
     var isRequired: Bool
     var type: ConsentEntryType
     var isReadOnly: Bool
-    let id: UUID
-    @Binding var scrollPosition: UUID?
     
-    init(value: Binding<CreditCardEntry>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool, isReadOnly: Bool, id: UUID, scrollPosition: Binding<UUID?>) {
+    init(value: Binding<CreditCardEntry>, name: String, isRequired: Bool, type: ConsentEntryType, isIncorrect: Bool, isReadOnly: Bool) {
         self._value = value
         self.name = name
         self.isRequired = isRequired
         self.type = type
         self.isIncorrect = isIncorrect
         self.isReadOnly = isReadOnly
-        self._scrollPosition = scrollPosition
-        self.id = id
     }
     @State private var calendarVisible = false
     @State private var date: Date = Date()
@@ -34,31 +30,13 @@ struct ConsentCardEntryInput: View {
     var body: some View {
         Group {
             VStack {
-                TextField("Card number", text:  optionalBinding(binding: $value.number), onEditingChanged: { (started) in
-                    if started {
-                        scrollPosition = nil
-                        scrollPosition = id
-                        
-                    }
-                })
+                TextField("Card number", text:  optionalBinding(binding: $value.number))
                 .autocorrectionDisabled(true)
                 HStack(spacing: 20) {
-                    TextField("MM/YY", text:  optionalBinding(binding: $value.expirationDate), onEditingChanged: { (started) in
-                        if started {
-                            scrollPosition = nil
-                            scrollPosition = id
-                            
-                        }
-                    })
+                    TextField("MM/YY", text:  optionalBinding(binding: $value.expirationDate))
                     .autocorrectionDisabled(true)
                     .frame(width: 60)
-                    TextField("CVC", text:  optionalBinding(binding: $value.cvc), onEditingChanged: { (started) in
-                        if started {
-                            scrollPosition = nil
-                            scrollPosition = id
-                            
-                        }
-                    })
+                    TextField("CVC", text:  optionalBinding(binding: $value.cvc))
                     .autocorrectionDisabled(true)
                     .frame(width: 60)
                         

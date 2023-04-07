@@ -37,9 +37,9 @@ struct FirstRunPage: View {
     
     func finishInitializing() {
         launchedBefore = true
-//        if let installedUrl {
-//            openURL(installedUrl)
-//        } uncomment this to enable recovery flow
+        if let installedUrl {
+            openURL(installedUrl)
+        } //recovery flow
         
     }
     
