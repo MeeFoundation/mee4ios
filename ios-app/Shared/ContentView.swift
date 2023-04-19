@@ -9,7 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-    case consent, mainViewPage, login, tutorial
+    case consent, mainViewPage, login, tutorial, firstRun
 }
 
 struct ContentView: View {
@@ -90,11 +90,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             Group {
-                if !launchedBefore  {
-                    FirstRunPage()
-                }  else {
-                    NavigationPage(isLocked: appWasMinimized || !isAuthenticated)
-                }
+                NavigationPage(isLocked: appWasMinimized || !isAuthenticated)
             }
         }
         .overlay{
@@ -135,53 +131,4 @@ struct ContentView: View {
     }
 }
 
-struct NavigationPage: View {
-    var isLocked: Bool
-    @State var tutorialViewed: Bool = false
-    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
-    @EnvironmentObject private var navigationState: NavigationState
 
-
-    var body: some View {
-        ZStack {
-            Background()
-            VStack {
-                NavigationLink(
-                    "Consent",
-                    destination: ConsentPage(isLocked: isLocked)
-                        .navigationBarTitle("", displayMode: .inline)
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                    ,tag: NavigationPages.consent
-                    ,selection: $navigationState.currentPage
-                )
-                
-                NavigationLink(
-                    "Main",
-                    destination: MainViewPage()
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                    ,tag: NavigationPages.mainViewPage
-                    ,selection: $navigationState.currentPage
-                )
-                
-                NavigationLink(
-                    "Tutorial",
-                    destination: TutorialPage()
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                    ,tag: NavigationPages.tutorial
-                    ,selection: $navigationState.currentPage
-                )
-            }
-        }
-        .onAppear {
-            if (!tutorialViewed && navigationState.currentPage == .mainViewPage) {
-                if !hadConnectionsBefore {
-                    navigationState.currentPage = .tutorial
-                }
-                tutorialViewed = true
-            }
-        }
-    }
-}
