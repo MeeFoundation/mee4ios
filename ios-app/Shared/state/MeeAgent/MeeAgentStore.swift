@@ -14,7 +14,6 @@ class MeeAgentStore {
         do {
             let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let dbURL = folderURL.appendingPathComponent("mee.sqlite")
-            print(dbURL)
             agent = try getAgent(config: MeeAgentConfig(dsUrl: dbURL.path, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
             try agent.initSelfCtx()
 

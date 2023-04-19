@@ -17,6 +17,7 @@ struct ContentView: View {
     @EnvironmentObject var data: ConsentState
     
     @EnvironmentObject private var navigationState: NavigationState
+    @EnvironmentObject private var toastState: ToastState
     @Environment(\.scenePhase) var scenePhase
     
     private var authenticationEnabled = true
@@ -54,20 +55,24 @@ struct ContentView: View {
     }
     
     func processUrl(url: URL) {
+        print(url)
         if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
+            
             let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
             if let initializedUrl = URL.init(string: sanitizedUrl) {
                 let components = initializedUrl.pathComponents
-                
+                print("components: ", components)
                 if (components.count > 1) {
                     switch (components[1]) {
-                    case "consent", "cdconcent":
+                    case "consent", "cdconsent":
                         do {
+                            print("try: ", components[1])
                             let partnerDataString = components[2]
                             let partnerData = try rpAuthRequestFromJwt(jwtString: partnerDataString)
                             guard let consent = ConsentRequest(from: partnerData, isCrossDevice: components[1] == "cdconsent") else {
                                 return
                             }
+                            print("success: ", consent)
                             data.consent = consent
                             navigationState.currentPage = NavigationPages.consent
                         } catch {
@@ -118,9 +123,15 @@ struct ContentView: View {
             }
         }
         .onOpenURL { url in
-            print(url)
             processUrl(url: url)
         }
+        .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
+                guard let url = userActivity.webpageURL else {
+                        return
+                }
+                processUrl(url: url)
+        }
+        .toastView(toast: $toastState.toast)
     }
 }
 

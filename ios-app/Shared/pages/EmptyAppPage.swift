@@ -15,7 +15,7 @@ struct EmptyAppPage: View {
     
     }
     var body: some View {
-        NavigationView {
+
             ZStack {
                 VStack {
                     ZStack {
@@ -42,7 +42,6 @@ struct EmptyAppPage: View {
                 }
                 .ignoresSafeArea(edges: .bottom)
             }
-        }
         
     }
 }

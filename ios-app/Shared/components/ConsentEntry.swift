@@ -65,6 +65,7 @@ struct ConsentEntry: View {
                         
                     }, set: {_ in }) : $entry.isOn)
                         .disabled(isReadOnly)
+                        .opacity(isReadOnly ? 0 : 1)
                 } else if !isReadOnly {
                     Button(action: {
                         onDurationPopupShow()

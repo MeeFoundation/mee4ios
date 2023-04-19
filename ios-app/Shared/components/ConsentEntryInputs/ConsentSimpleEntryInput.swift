@@ -54,7 +54,6 @@ struct ConsentSimpleEntryInput: View {
                                                  ,
                                                  alignment: Alignment.topTrailing)}
                 .popover(isPresented: $calendarVisible) {
-                    NavigationView {
                         VStack {
                             DatePicker("Date", selection: $date, displayedComponents: .date)
                                 .labelsHidden()
@@ -72,8 +71,6 @@ struct ConsentSimpleEntryInput: View {
                                 }
                             }
                         }
-                    }
-                    .accentColor(.red)
                 }
         }
         .padding(.horizontal, 1)

@@ -8,17 +8,15 @@
 import SwiftUI
 
 enum FirstRunPages: Hashable {
-    case prepare, faceId, faceIdSet, initializing
+    case prepare, faceId, faceIdSet, initializing, intro
 }
 
 
 struct FirstRunPage: View {
-    @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @State private var currentPage = FirstRunPages.prepare
     @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
-    
-    let installedUrl = URL(string: "https://auth.mee.foundation/#/installed")
+    @EnvironmentObject private var navigationState: NavigationState
     
     func tryAuthenticate() {
         currentPage = FirstRunPages.faceId
@@ -36,10 +34,7 @@ struct FirstRunPage: View {
     }
     
     func finishInitializing() {
-        launchedBefore = true
-        if let installedUrl {
-            openURL(installedUrl)
-        } //recovery flow
+        currentPage = .intro
         
     }
     
@@ -49,6 +44,8 @@ struct FirstRunPage: View {
                 ZStack {
                     FirstRunPageInitializing(onNext: finishInitializing)
                 }.background(Colors.background)
+            } else if currentPage == .intro {
+                FirsRunPageIntro()
             } else {
                 ZStack {
                     BackgroundFaded()

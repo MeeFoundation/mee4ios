@@ -20,3 +20,9 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
+
+extension View {
+    func toastView(toast: Binding<ToastMessage?>) -> some View {
+        self.modifier(ToastMessageModifier(toast: toast))
+    }
+}

@@ -9,5 +9,20 @@ import SwiftUI
 
 struct ConsentPageState {
     var isPresentingAlert: Bool = false
-    var isReturningUser: Bool?
+    var isReturningUser: Bool?    
+
+    
+    func clearConsentsListFromDisabledOptionals (_ data: ConsentRequest) -> ConsentRequest {
+        let dataClearedFromDisabledOptionals = data.claims.map { claim in
+            var claimCopy = claim
+            if !claim.isRequired && !claim.isOn {
+                claimCopy.value = nil
+            }
+            return claimCopy
+        }
+        let request = ConsentRequest(claims: dataClearedFromDisabledOptionals, clientMetadata: data.clientMetadata, nonce: data.nonce, clientId: data.clientId, redirectUri: data.redirectUri, presentationDefinition: data.presentationDefinition, isCrossDevice: data.isCrossDeviceFlow)
+        return request
+    }
+    
+    
 }

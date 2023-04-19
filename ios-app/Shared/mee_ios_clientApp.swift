@@ -15,6 +15,7 @@ struct mee_ios_clientApp: App {
                 .environmentObject(StorageState())
                 .environmentObject(NavigationState())
                 .environmentObject(ConsentState())
+                .environmentObject(ToastState())
         }
     }
 }

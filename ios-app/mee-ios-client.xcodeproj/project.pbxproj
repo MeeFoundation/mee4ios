@@ -15,6 +15,13 @@
 		946D2E0627BB9A960055175C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DDD27BB9A960055175C /* ContentView.swift */; };
 		946D2E0827BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
 		946D2E0927BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
+		A518EA9129E9B58100B581BC /* RelayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EA9029E9B58100B581BC /* RelayResponse.swift */; };
+		A518EAB529ED80CD00B581BC /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAB429ED80CD00B581BC /* ToastMessageView.swift */; };
+		A518EAB729ED812400B581BC /* ToastStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAB629ED812400B581BC /* ToastStyleExtension.swift */; };
+		A518EAB929ED81A200B581BC /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAB829ED81A200B581BC /* ToastMessage.swift */; };
+		A518EABC29ED836800B581BC /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABB29ED836800B581BC /* ToastMessageModifier.swift */; };
+		A518EABE29ED84D000B581BC /* ToastState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABD29ED84D000B581BC /* ToastState.swift */; };
+		A518EAC029ED8A4200B581BC /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABF29ED8A4200B581BC /* NetworkErrors.swift */; };
 		A5327A67295335D700F08618 /* MeeClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327A66295335D700F08618 /* MeeClaim.swift */; };
 		A5327A6829535A8B00F08618 /* ConsentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */; };
 		A5327AA0295462F600F08618 /* ConsentStorageDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327A9F295462F600F08618 /* ConsentStorageDuration.swift */; };
@@ -158,6 +165,7 @@
 		A5EA445229DC5A88000BEB61 /* matchesRegex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445129DC5A88000BEB61 /* matchesRegex.swift */; };
 		A5EA445629DE1685000BEB61 /* UIScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445529DE1685000BEB61 /* UIScreen.swift */; };
 		A5EA445E29E06C94000BEB61 /* KeyboardAvoiding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */; };
+		A5EA446029E6D396000BEB61 /* FirstRunIntroPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EA445F29E6D396000BEB61 /* FirstRunIntroPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -228,6 +236,13 @@
 		946D2E0027BB9A960055175C /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mee-ios-client (iOS).entitlements"; sourceTree = "<group>"; };
+		A518EA9029E9B58100B581BC /* RelayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayResponse.swift; sourceTree = "<group>"; };
+		A518EAB429ED80CD00B581BC /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
+		A518EAB629ED812400B581BC /* ToastStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyleExtension.swift; sourceTree = "<group>"; };
+		A518EAB829ED81A200B581BC /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
+		A518EABB29ED836800B581BC /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
+		A518EABD29ED84D000B581BC /* ToastState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastState.swift; sourceTree = "<group>"; };
+		A518EABF29ED8A4200B581BC /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentConfiguration.swift; sourceTree = "<group>"; };
 		A52EF632294A1AED00D27B42 /* Partner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partner.swift; sourceTree = "<group>"; };
 		A5327A66295335D700F08618 /* MeeClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeClaim.swift; sourceTree = "<group>"; };
@@ -355,6 +370,7 @@
 		A5EA445129DC5A88000BEB61 /* matchesRegex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = matchesRegex.swift; sourceTree = "<group>"; };
 		A5EA445529DE1685000BEB61 /* UIScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScreen.swift; sourceTree = "<group>"; };
 		A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoiding.swift; sourceTree = "<group>"; };
+		A5EA445F29E6D396000BEB61 /* FirstRunIntroPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunIntroPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -421,8 +437,8 @@
 		946D2DDB27BB9A960055175C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A5DAEBA12993D12C0083E346 /* viewModel */,
-				A5DAEB9F2993D0770083E346 /* webservice */,
+				A518EABA29ED834D00B581BC /* ViewModifiers */,
+				A5DAEB9F2993D0770083E346 /* services */,
 				A550856E27BD2E1400C5A2D1 /* helpers */,
 				A5DB213527E21D080070B444 /* extention */,
 				A55085C727CF73E700C5A2D1 /* state */,
@@ -476,9 +492,25 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		A518EABA29ED834D00B581BC /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				A518EABB29ED836800B581BC /* ToastMessageModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		A518EAC129F01F9A00B581BC /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = navigation;
+			sourceTree = "<group>";
+		};
 		A550852F27BD18C200C5A2D1 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A518EAC129F01F9A00B581BC /* navigation */,
 				A5B48BD829CCA33400FE9A48 /* ConsentEntryInputs */,
 				A5D9E30D292677E000D0E12D /* consentPage */,
 				A5D9E2FA29265E7000D0E12D /* activeConsents */,
@@ -508,6 +540,7 @@
 				A5D9E2F42922C2CA00D0E12D /* VisualEffectView.swift */,
 				A5D9E317292678CE00D0E12D /* Hint.swift */,
 				A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */,
+				A518EAB429ED80CD00B581BC /* ToastMessageView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -530,6 +563,7 @@
 				A5327AA12954635400F08618 /* ConsentEntryType.swift */,
 				A5327AA529546EBD00F08618 /* MeeResponse.swift */,
 				A5327AA9295600D400F08618 /* ClientType.swift */,
+				A518EAB829ED81A200B581BC /* ToastMessage.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -547,6 +581,7 @@
 				A5D7510028E7368B003CD142 /* RecoveryPhraseSetupPage.swift */,
 				A5B48BDB29D317FE00FE9A48 /* TutorialPage.swift */,
 				A5B48BDD29D5AC7300FE9A48 /* TourPage.swift */,
+				A5EA445F29E6D396000BEB61 /* FirstRunIntroPage.swift */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -644,6 +679,7 @@
 				A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */,
 				A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */,
 				A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */,
+				A518EABD29ED84D000B581BC /* ToastState.swift */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -703,27 +739,22 @@
 			path = consentPage;
 			sourceTree = "<group>";
 		};
-		A5DAEB9F2993D0770083E346 /* webservice */ = {
+		A5DAEB9F2993D0770083E346 /* services */ = {
 			isa = PBXGroup;
 			children = (
 				A5DAEBA02993D0990083E346 /* TO */,
 				A5DAEB9D2993CB5E0083E346 /* Webservice.swift */,
+				A518EABF29ED8A4200B581BC /* NetworkErrors.swift */,
 			);
-			path = webservice;
+			path = services;
 			sourceTree = "<group>";
 		};
 		A5DAEBA02993D0990083E346 /* TO */ = {
 			isa = PBXGroup;
 			children = (
+				A518EA9029E9B58100B581BC /* RelayResponse.swift */,
 			);
 			path = TO;
-			sourceTree = "<group>";
-		};
-		A5DAEBA12993D12C0083E346 /* viewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = viewModel;
 			sourceTree = "<group>";
 		};
 		A5DB213527E21D080070B444 /* extention */ = {
@@ -738,6 +769,7 @@
 				A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */,
 				A5EA445529DE1685000BEB61 /* UIScreen.swift */,
 				A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */,
+				A518EAB629ED812400B581BC /* ToastStyleExtension.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -1064,9 +1096,11 @@
 				A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */,
 				A5D9E318292678CE00D0E12D /* Hint.swift in Sources */,
 				A5D9E324292D046E00D0E12D /* FirstRunPageInitializingState.swift in Sources */,
+				A518EAB929ED81A200B581BC /* ToastMessage.swift in Sources */,
 				A5B48BD729CC937A00FE9A48 /* CreditCardEntry.swift in Sources */,
 				A5B48BE029D5B8CD00FE9A48 /* CreditCardEntryExtension.swift in Sources */,
 				A55085B327C3B4D100C5A2D1 /* SecureInputField.swift in Sources */,
+				A5EA446029E6D396000BEB61 /* FirstRunIntroPage.swift in Sources */,
 				A55085BF27C3E07200C5A2D1 /* SelectImage.swift in Sources */,
 				A5EA445229DC5A88000BEB61 /* matchesRegex.swift in Sources */,
 				A5EA445629DE1685000BEB61 /* UIScreen.swift in Sources */,
@@ -1087,7 +1121,9 @@
 				A5D9E32A292D067C00D0E12D /* ConsentPageNewState.swift in Sources */,
 				A5D7510128E7368B003CD142 /* RecoveryPhraseSetupPage.swift in Sources */,
 				A5D30C86287C5AF100481E85 /* LoadingCircle.swift in Sources */,
+				A518EABE29ED84D000B581BC /* ToastState.swift in Sources */,
 				A5D9E327292D05B500D0E12D /* ConsentPageAnimationState.swift in Sources */,
+				A518EAB529ED80CD00B581BC /* ToastMessageView.swift in Sources */,
 				A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */,
 				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
@@ -1104,6 +1140,7 @@
 				A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */,
 				A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */,
 				A5B48BDA29CCA36200FE9A48 /* ConsentSimpleEntryInput.swift in Sources */,
+				A518EAB729ED812400B581BC /* ToastStyleExtension.swift in Sources */,
 				A5D9E30F2926780400D0E12D /* ConsentPageExisting.swift in Sources */,
 				A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
@@ -1114,6 +1151,7 @@
 				A5D9E2FC29265FC400D0E12D /* ConsentsList.swift in Sources */,
 				A55085AD27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
 				A5D30C8C287F0F2C00481E85 /* WebView.swift in Sources */,
+				A518EA9129E9B58100B581BC /* RelayResponse.swift in Sources */,
 				A550858C27BE4A7200C5A2D1 /* ConsentRequestClaim.swift in Sources */,
 				A5DB214C27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CD27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
@@ -1148,10 +1186,12 @@
 				A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */,
 				A5D9E30529266AB100D0E12D /* PartnersRegistry.swift in Sources */,
 				A5DAEB9E2993CB5E0083E346 /* Webservice.swift in Sources */,
+				A518EAC029ED8A4200B581BC /* NetworkErrors.swift in Sources */,
 				A5D9E3122926784800D0E12D /* ConsentPageAnimation.swift in Sources */,
 				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085B927C3B61E00C5A2D1 /* MainButton.swift in Sources */,
+				A518EABC29ED836800B581BC /* ToastMessageModifier.swift in Sources */,
 				A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */,
 				A5E00C12297EF7A800F9A59B /* PartnerRegistry.swift in Sources */,
 				A5327AAA295600D400F08618 /* ClientType.swift in Sources */,
@@ -1353,7 +1393,7 @@
 					"@executable_path/Frameworks",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/debug";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1397,7 +1437,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
