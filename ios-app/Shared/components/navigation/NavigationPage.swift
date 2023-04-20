@@ -14,59 +14,53 @@ struct NavigationPage: View {
     @EnvironmentObject private var navigationState: NavigationState
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
 
-
     var body: some View {
         ZStack {
-            Background()
+            
             VStack {
+                MainViewPage()
                 NavigationLink(
-                    "Consent",
                     destination: ConsentPage(isLocked: isLocked)
                         .navigationBarTitle("", displayMode: .inline)
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                     ,tag: NavigationPages.consent
                     ,selection: $navigationState.currentPage
-                )
+                ) {EmptyView()}
                 
                 NavigationLink(
-                    "Main",
-                    destination: MainViewPage()
-                        .navigationBarBackButtonHidden(true)
-                        .navigationBarHidden(true)
-                    ,tag: NavigationPages.mainViewPage
-                    ,selection: $navigationState.currentPage
-                )
-                
-                NavigationLink(
-                    "Tutorial",
                     destination: TutorialPage()
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                     ,tag: NavigationPages.tutorial
                     ,selection: $navigationState.currentPage
-                )
+                ){EmptyView()}
                 
                 NavigationLink(
-                    "FirstRun",
                     destination: FirstRunPage()
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                     ,tag: NavigationPages.firstRun
                     ,selection: $navigationState.currentPage
-                )
+                ){EmptyView()}
+                
+                NavigationLink(
+                    destination: PartnerDetails(requestId: navigationState.payload),
+                    tag: NavigationPages.connection,
+                    selection: $navigationState.currentPage
+                ){EmptyView()}
             }
         }
         .onChange(of: launchedBefore) { newValue in
             if newValue {
-                navigationState.currentPage = .mainViewPage
+                navigationState.currentPage = nil
             }
         }
         .onAppear {
             if (!launchedBefore) {
                 navigationState.currentPage = .firstRun
             }
-            else if (!tutorialViewed && navigationState.currentPage == .mainViewPage) {
+            else if (!tutorialViewed && navigationState.currentPage == nil) {
                 if !hadConnectionsBefore {
                     navigationState.currentPage = .tutorial
                 }

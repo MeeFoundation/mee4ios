@@ -10,6 +10,7 @@ import SwiftUI
 struct ConsentsList: View {
     let meeAgent = MeeAgentStore()
     var registry = PartnersRegistry.shared
+    @EnvironmentObject var navigationState: NavigationState
     
     @State private var state = ConsentsListState()
     @Environment(\.openURL) var openURL
@@ -78,11 +79,13 @@ struct ConsentsList: View {
                                     .padding(.bottom, 4)
                                     }
                                     ForEach(partnersArray.data ?? []) { partnerData in
-                                        NavigationLink(destination: PartnerDetails(request: ConsentRequest(from: partnerData)), tag: partnerData.id, selection: $state.selection){}
                                         PartnerEntry(request: ConsentRequest(from: partnerData), hasEntry: partnersArray.editable)
                                             .onTapGesture(perform: {
                                                 if partnersArray.editable {
-                                                    state.selection = partnerData.id
+//                                                    state.selection = partnerData.id
+                                                    navigationState.currentPage = .connection
+                                                    navigationState.payload = partnerData.id
+                                                    
                                                 }
                                                 else {
                                                     if let url = URL(string: partnerData.id) {

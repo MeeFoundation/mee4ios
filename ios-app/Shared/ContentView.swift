@@ -9,12 +9,13 @@ import SwiftUI
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-    case consent, mainViewPage, login, tutorial, firstRun
+    case consent, login, tutorial, firstRun, connection
 }
 
 struct ContentView: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @EnvironmentObject var data: ConsentState
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     @EnvironmentObject private var navigationState: NavigationState
     @EnvironmentObject private var toastState: ToastState
@@ -112,7 +113,7 @@ struct ContentView: View {
             } else if newPhase == .background {
                 print("background")
                 if (navigationState.currentPage == NavigationPages.consent) {
-                    navigationState.currentPage = NavigationPages.mainViewPage
+                    navigationState.currentPage = nil
                 }
                 
                 appWasMinimized = true

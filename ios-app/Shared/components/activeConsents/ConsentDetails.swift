@@ -8,14 +8,18 @@
 import SwiftUI
 
 struct PartnerDetails: View {
-    let request: ConsentRequest
+    var request: ConsentRequest = emptyConsentRequest
     @State var state = PartnerDetailsState()
-    init(request: ConsentRequest) {
-        print("request: ", request)
-        self.request = request
+    let agent = MeeAgentStore()
+    init(requestId: String?) {
+        if let requestId,
+           let request = agent.getItemById(id: requestId)
+        {
+            self.request = ConsentRequest(from: request)
+        }
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    let agent = MeeAgentStore()
+    @EnvironmentObject var navigationState: NavigationState
     
     
     func removeConsent() {
@@ -31,7 +35,6 @@ struct PartnerDetails: View {
                 HStack {
                     Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
-                        
                     }) {
                         HStack {
                             Image(systemName: "chevron.backward")

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 class NavigationState: ObservableObject {
-    @Published var currentPage:NavigationPages? = NavigationPages.mainViewPage
+    @Published var currentPage:NavigationPages? = nil
+    @Published var payload: String? = nil
 }
 

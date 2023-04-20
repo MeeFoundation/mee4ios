@@ -34,14 +34,15 @@ struct ConsentPage: View {
                         do {
                             try await webService.passConsentOverRelay(data: url.absoluteString)
                             toastState.toast = ToastMessage(type: .success, title: "Success", message: "Connection has been set up! Check the device you started with.")
-                            navigationState.currentPage = .mainViewPage
+                            navigationState.currentPage = nil
                         } catch {
                             toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
-                            navigationState.currentPage = .mainViewPage
+                            navigationState.currentPage = nil
                         }
                     }
                 } else {
                    openURL(url)
+                    navigationState.currentPage = nil
                 }
             }
         }
