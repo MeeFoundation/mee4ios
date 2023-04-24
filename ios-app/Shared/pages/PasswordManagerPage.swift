@@ -94,9 +94,7 @@ struct PasswordManagerPage: View {
             ZStack {
                 VStack {
                     List {
-                        ForEach(storageState.passwords.indices, id: \.self) { (index) in
-                            StorageListItem(index: index)
-                        }
+            
                     }
                     .onAppear(perform: {
                             UITableView.appearance().contentInset.top = -35

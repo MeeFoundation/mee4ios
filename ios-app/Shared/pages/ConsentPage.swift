@@ -25,7 +25,7 @@ struct ConsentPage: View {
         if var urlComponents = URLComponents(string: url) {
             urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: coreData.openidResponse.idToken)]
             if let url = urlComponents.url {
-                print("url:", url)
+//                print("url:", url)
                 hadConnectionsBefore = true
                 state.isReturningUser = true
                 if data.consent.isCrossDeviceFlow {
@@ -34,15 +34,15 @@ struct ConsentPage: View {
                         do {
                             try await webService.passConsentOverRelay(data: url.absoluteString)
                             toastState.toast = ToastMessage(type: .success, title: "Success", message: "Connection has been set up! Check the device you started with.")
-                            navigationState.currentPage = nil
+                            navigationState.currentPage = .mainPage
                         } catch {
                             toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
-                            navigationState.currentPage = nil
+                            navigationState.currentPage = .mainPage
                         }
                     }
                 } else {
-                   openURL(url)
-                    navigationState.currentPage = nil
+                    openURL(url)
+                    navigationState.currentPage = .mainPage
                 }
             }
         }

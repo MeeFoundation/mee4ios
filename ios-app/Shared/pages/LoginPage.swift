@@ -13,23 +13,21 @@ struct LoginPage: View {
     @Environment(\.horizontalSizeClass) var sizeClass
     
     var body: some View {
-        NavigationView {
-            ZStack {
-                BackgroundFaded()
-                VStack {
-                    ZStack {
-                        Image("meeLogoInactive")
-                            .resizable()
-                            .scaledToFit()
-                    }
-                    .padding(.horizontal, sizeClass == .compact ? 115.0 : 330).padding(.top,  sizeClass == .compact ? 35.0 : 150)
-
-                    Spacer()
-
+        ZStack {
+            Background()
+            BackgroundFaded()
+            VStack {
+                ZStack {
+                    Image("meeLogoInactive")
+                        .resizable()
+                        .scaledToFit()
                 }
+                .padding(.horizontal, sizeClass == .compact ? 115.0 : 330).padding(.top,  sizeClass == .compact ? 35.0 : 150)
+                
+                Spacer()
+                
             }
         }
-        .navigationViewStyle(.stack)
     }
     
 }

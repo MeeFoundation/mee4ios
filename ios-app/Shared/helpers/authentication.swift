@@ -10,11 +10,6 @@ import LocalAuthentication
 import KeychainAccess
 
 func requestLocalAuthentication (_ completion: @escaping ((Bool) -> ())) {
-//    let nowDate = Date()
-//    let df = DateFormatter()
-//    df.dateFormat = "yyyy-MM-dd hh:mm:ss"
-//    let keychain = Keychain(service: "mee-ios-client", accessGroup: "4UGU9PNWK8.com.swift.mee-ios-client.config").synchronizable(true)
-//    let validationDate = df.date(from: keychain["validationDate"] ?? "")
     let context = LAContext()
     var error: NSError?
 

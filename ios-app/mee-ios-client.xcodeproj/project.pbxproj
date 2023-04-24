@@ -23,6 +23,8 @@
 		A518EABE29ED84D000B581BC /* ToastState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABD29ED84D000B581BC /* ToastState.swift */; };
 		A518EAC029ED8A4200B581BC /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABF29ED8A4200B581BC /* NetworkErrors.swift */; };
 		A518EAC529F0436700B581BC /* NavigationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAC429F0436700B581BC /* NavigationPage.swift */; };
+		A518EAC729F15FB600B581BC /* AsyncImageRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */; };
+		A518EACA29F16BDE00B581BC /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = A518EAC929F16BDE00B581BC /* Kingfisher */; };
 		A5327A67295335D700F08618 /* MeeClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327A66295335D700F08618 /* MeeClaim.swift */; };
 		A5327A6829535A8B00F08618 /* ConsentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */; };
 		A5327AA0295462F600F08618 /* ConsentStorageDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5327A9F295462F600F08618 /* ConsentStorageDuration.swift */; };
@@ -245,6 +247,7 @@
 		A518EABD29ED84D000B581BC /* ToastState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastState.swift; sourceTree = "<group>"; };
 		A518EABF29ED8A4200B581BC /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		A518EAC429F0436700B581BC /* NavigationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPage.swift; sourceTree = "<group>"; };
+		A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageRounded.swift; sourceTree = "<group>"; };
 		A52EF630294A198F00D27B42 /* ConsentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentConfiguration.swift; sourceTree = "<group>"; };
 		A52EF632294A1AED00D27B42 /* Partner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partner.swift; sourceTree = "<group>"; };
 		A5327A66295335D700F08618 /* MeeClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeClaim.swift; sourceTree = "<group>"; };
@@ -380,6 +383,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A518EACA29F16BDE00B581BC /* Kingfisher in Frameworks */,
 				A5716EB02931235B00248961 /* libuniffi_mee_agent.a in Frameworks */,
 				A5DB216227EDDECA0070B444 /* AuthenticationServices.framework in Frameworks */,
 				A5DB214A27E37C040070B444 /* KeychainAccess in Frameworks */,
@@ -544,6 +548,7 @@
 				A5D9E317292678CE00D0E12D /* Hint.swift */,
 				A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */,
 				A518EAB429ED80CD00B581BC /* ToastMessageView.swift */,
+				A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -852,6 +857,7 @@
 			name = "mee-ios-client (iOS)";
 			packageProductDependencies = (
 				A5DB214927E37C040070B444 /* KeychainAccess */,
+				A518EAC929F16BDE00B581BC /* Kingfisher */,
 			);
 			productName = "mee-ios-client (iOS)";
 			productReference = 946D2DE327BB9A960055175C /* mee-ios-client.app */;
@@ -969,6 +975,7 @@
 			mainGroup = 946D2DD627BB9A950055175C;
 			packageReferences = (
 				A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				A518EAC829F16BDE00B581BC /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 946D2DE427BB9A960055175C /* Products */;
 			projectDirPath = "";
@@ -1128,6 +1135,7 @@
 				A5D9E327292D05B500D0E12D /* ConsentPageAnimationState.swift in Sources */,
 				A518EAB529ED80CD00B581BC /* ToastMessageView.swift in Sources */,
 				A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */,
+				A518EAC729F15FB600B581BC /* AsyncImageRounded.swift in Sources */,
 				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
 				A5B48BD429CC92CC00FE9A48 /* ConsentCardEntryInput.swift in Sources */,
@@ -1726,6 +1734,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		A518EAC829F16BDE00B581BC /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess.git";
@@ -1737,6 +1753,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A518EAC929F16BDE00B581BC /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A518EAC829F16BDE00B581BC /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		A5DB214927E37C040070B444 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A5DB214827E37C040070B444 /* XCRemoteSwiftPackageReference "KeychainAccess" */;

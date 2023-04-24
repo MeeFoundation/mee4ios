@@ -14,6 +14,8 @@ enum FirstRunPages: Hashable {
 
 struct FirstRunPage: View {
     @State private var currentPage = FirstRunPages.prepare
+    @AppStorage("launchedBefore") var launchedBefore: Bool = false
+    @EnvironmentObject var data: ConsentState
     @Environment(\.horizontalSizeClass) var sizeClass
     @Environment(\.openURL) var openURL
     @EnvironmentObject private var navigationState: NavigationState
@@ -34,7 +36,14 @@ struct FirstRunPage: View {
     }
     
     func finishInitializing() {
-        currentPage = .intro
+        print("data.consent.id: ", data.consent.id)
+        if data.consent.id.isEmpty {
+            currentPage = .intro
+        } else {
+            launchedBefore = true
+            navigationState.currentPage = .consent
+        }
+        
         
     }
     

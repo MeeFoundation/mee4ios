@@ -11,7 +11,7 @@ struct TutorialPage: View {
     @EnvironmentObject private var navigationState: NavigationState
     var body: some View {
         TourPage(images: ["meeWelcome1", "meeWelcome2"]) {
-            navigationState.currentPage = nil
+            navigationState.currentPage = .mainPage
         }
     }
 }

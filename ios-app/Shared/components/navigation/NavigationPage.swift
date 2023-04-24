@@ -13,12 +13,21 @@ struct NavigationPage: View {
     @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     @EnvironmentObject private var navigationState: NavigationState
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
-
+    @Environment(\.scenePhase) var scenePhase
+    
     var body: some View {
-        ZStack {
+        NavigationView {
             
             VStack {
-                MainViewPage()
+                NavigationLink(
+                    destination: MainViewPage()
+                        .navigationBarTitle("", displayMode: .inline)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                    ,tag: NavigationPages.mainPage
+                    ,selection: $navigationState.currentPage
+                ) {EmptyView()}
+                
                 NavigationLink(
                     destination: ConsentPage(isLocked: isLocked)
                         .navigationBarTitle("", displayMode: .inline)
@@ -44,16 +53,16 @@ struct NavigationPage: View {
                     ,selection: $navigationState.currentPage
                 ){EmptyView()}
                 
-                NavigationLink(
-                    destination: PartnerDetails(requestId: navigationState.payload),
-                    tag: NavigationPages.connection,
-                    selection: $navigationState.currentPage
-                ){EmptyView()}
             }
         }
+        .navigationViewStyle(.stack)
+        .onChange(of: navigationState.currentPage) { newPage in
+            print("navigate: ", newPage)
+        }
         .onChange(of: launchedBefore) { newValue in
-            if newValue {
-                navigationState.currentPage = nil
+            if newValue && navigationState.currentPage == .firstRun {
+                tutorialViewed = true
+                navigationState.currentPage = .tutorial
             }
         }
         .onAppear {
@@ -62,9 +71,10 @@ struct NavigationPage: View {
             }
             else if (!tutorialViewed && navigationState.currentPage == nil) {
                 if !hadConnectionsBefore {
+                    tutorialViewed = true
                     navigationState.currentPage = .tutorial
                 }
-                tutorialViewed = true
+                
             }
         }
     }

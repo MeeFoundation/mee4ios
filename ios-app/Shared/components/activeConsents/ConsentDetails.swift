@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct PartnerDetails: View {
-    var request: ConsentRequest = emptyConsentRequest
+    var request: ConsentRequest
     @State var state = PartnerDetailsState()
     let agent = MeeAgentStore()
-    init(requestId: String?) {
-        if let requestId,
-           let request = agent.getItemById(id: requestId)
-        {
-            self.request = ConsentRequest(from: request)
-        }
+    init(request: ConsentRequest) {
+            self.request = request
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var navigationState: NavigationState

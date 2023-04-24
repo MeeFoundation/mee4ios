@@ -14,7 +14,8 @@ struct ConsentPageNew: View {
     @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
     @EnvironmentObject var toastState: ToastState
     @Environment(\.openURL) var openURL
-    
+    @EnvironmentObject private var navigationState: NavigationState
+    @Environment(\.scenePhase) var scenePhase
     
     var onAccept: (ConsentRequest) -> Void
     init(onAccept: @escaping (ConsentRequest) -> Void) {
@@ -73,20 +74,8 @@ struct ConsentPageNew: View {
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                         .frame(height: 1)
                                         .foregroundColor(Colors.meeBrand)
-                                    AsyncImage(url: URL(string: data.consent.clientMetadata.logoUrl), content: { phase in
-                                        if let image = phase.image {
-                                            image.resizable().scaledToFit()
-                                                .frame(width: 48, height: 48, alignment: .center)
-                                        } else if phase.error != nil {
-                                            ZStack{
-                                                
-                                            }.frame(width: 48, height: 48)
-                                        } else {
-                                            ProgressView()
-                                        }
-                                        
-                                    })
-                                    .frame(width: 48, height: 48, alignment: .center)
+                                    AsyncImageRounded(url: URL(string: data.consent.clientMetadata.logoUrl))
+                                    
                                 }
                                 .padding(.bottom, 24.0)
                                 .padding(.top, 30)
@@ -167,6 +156,7 @@ struct ConsentPageNew: View {
                                 } else {
                                     toastState.toast = ToastMessage(type: .error, title: "Error", message: "Unknown Error")
                                 }
+                                navigationState.currentPage = .mainPage
                             }, fullWidth: true, isTransparent: true)
                             SecondaryButton("Approve and Connect", action: {
                                 if let incorrectIndex = state.incorrectClaimIndex(data.consent.claims) {
@@ -211,6 +201,7 @@ struct ConsentPageNew: View {
             }
         }
         .ignoresSafeArea(SafeAreaRegions.container, edges: [.bottom])
+
     }
 }
 

@@ -18,7 +18,6 @@ struct ConsentsList: View {
     
     init() {
         data = meeAgent.getAllItems() ?? []
-        print("data: ", data)
     }
     
     
@@ -30,7 +29,7 @@ struct ConsentsList: View {
             consent.clientMetadata.type == .mobile && meeAgent.getItemById(id: consent.id) != nil
         }
         state.otherPartnersWebApp = registry.partners.filter { consent in
-            state.existingPartnersWebApp?.firstIndex{$0.id == consent.id} == nil
+            return state.existingPartnersWebApp?.firstIndex{$0.id.getHostname() == consent.id.getHostname()} == nil
         }
 
     }
@@ -79,12 +78,15 @@ struct ConsentsList: View {
                                     .padding(.bottom, 4)
                                     }
                                     ForEach(partnersArray.data ?? []) { partnerData in
+                                        NavigationLink(
+                                            destination: PartnerDetails(request: ConsentRequest(from: partnerData)),
+                                            tag: partnerData.id,
+                                            selection: $state.selection
+                                        ){}
                                         PartnerEntry(request: ConsentRequest(from: partnerData), hasEntry: partnersArray.editable)
                                             .onTapGesture(perform: {
                                                 if partnersArray.editable {
-//                                                    state.selection = partnerData.id
-                                                    navigationState.currentPage = .connection
-                                                    navigationState.payload = partnerData.id
+                                                    state.selection = partnerData.id
                                                     
                                                 }
                                                 else {

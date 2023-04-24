@@ -21,22 +21,9 @@ struct PartnerEntry: View  {
     var body: some View {
         
         return HStack {
-            AsyncImage(url: URL(string: request.clientMetadata.logoUrl), content: { phase in
-                    if let image = phase.image {
-                        image.resizable().scaledToFit().aspectRatio(contentMode: ContentMode.fit)
-                            .frame(width: 48, height: 48, alignment: .center)
-                            .clipShape(Circle())
-                    } else if phase.error != nil {
-                        ZStack{
-                            
-                        }.frame(width: 48, height: 48)
-                    } else {
-                        ProgressView()
-                    }
-                    
-                })
-                .frame(width: 48, height: 48)
-                
+            AsyncImageRounded(url: URL(string: request.clientMetadata.logoUrl))
+            
+            
                 VStack {
                     HStack {
                         Text(request.clientMetadata.name)
@@ -46,7 +33,7 @@ struct PartnerEntry: View  {
                         Spacer()
                     }
                     
-                    BasicText(text: URL(string: request.id)?.host ?? request.id, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
+                    BasicText(text: request.id.getHostname(), color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
                 }
                 .padding(.leading, 8)
                 Spacer()

@@ -10,6 +10,7 @@ import SwiftUI
 struct FirsRunPageIntro: View {
     @Environment(\.openURL) var openURL
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
+    @EnvironmentObject private var navigationState: NavigationState
     let installedUrl = URL(string: "https://auth.mee.foundation/#/installed")
     
     var body: some View {
