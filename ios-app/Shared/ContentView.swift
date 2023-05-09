@@ -16,6 +16,7 @@ struct ContentView: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @EnvironmentObject var data: ConsentState
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    let meeAgent = MeeAgentStore.shared
     
     @EnvironmentObject private var navigationState: NavigationState
     @EnvironmentObject private var toastState: ToastState
@@ -27,45 +28,75 @@ struct ContentView: View {
         print("unlocked: ", result)
         appWasMinimized = !result
     }
-        
+    
     func tryAuthenticate() {
-        
-        if launchedBefore  {
-            requestLocalAuthentication(setUnlocked)
-        }
+        requestLocalAuthentication(setUnlocked)
     }
     
     func processUrl(url: URL) {
-//        print(url)
-        if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
-            
-            let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
-            if let initializedUrl = URL.init(string: sanitizedUrl) {
-                let components = initializedUrl.pathComponents
-                if (components.count > 1) {
-                    switch (components[1]) {
-                    case "consent", "cdconsent":
-                        do {
-                            let partnerDataString = components[2]
-                            let partnerData = try rpAuthRequestFromJwt(jwtString: partnerDataString)
-                            guard let consent = ConsentRequest(from: partnerData, isCrossDevice: components[1] == "cdconsent") else {
-                                return
-                            }
-                            print("new consent request: ", consent)
-                            data.consent = consent
-                            if launchedBefore {
-                                navigationState.currentPage = .consent
-                            }
-                            
-                        } catch {
-                            return
-                        }
-                    default: break
-                        
+        print(url)
+        if (url.scheme == "com.googleusercontent.apps.211039582599-hmmovsfo59081bt9k19kd3k7927nettq") {
+            Task {
+                do {
+                    try await meeAgent.createGoogleConnection(url: url)
+                    await MainActor.run {
+                        toastState.toast = ToastMessage(type: .info, title: "Google Account", message: "Work done")
+                    }
+                    
+                } catch {
+                    await MainActor.run {
+                        toastState.toast = ToastMessage(type: .error, title: "Google Account", message: "Something went wrong")
                     }
                 }
             }
+        }
+        if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
             
+            var isCrossDevice = false
+            var oldResponseFormat = false
+            var sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
+            
+            //legacy
+            if let parsedUrl = URL(string: sanitizedUrl) {
+                let components = parsedUrl.pathComponents
+                if (components.count > 2) {
+                    if components[1] == "consent" {
+                        if let newUrlHost = parsedUrl.host,
+                           let scheme = parsedUrl.scheme
+                        {
+                            let request = components[2]
+                            let newUrlFormat = "\(scheme)://\(newUrlHost)/authorize?scope=openid&request=\(request)"
+                            sanitizedUrl = newUrlFormat
+                            oldResponseFormat = true
+                        }
+                    }
+                    
+                }
+            }
+            //legacy end
+            
+            if let urlComponents = URLComponents(string: sanitizedUrl)
+            {
+                if let crossDeviceQuery = urlComponents.queryItems?.first(where: { $0.name == "respondTo" })?.value {
+                    if crossDeviceQuery == "proxy" {
+                        isCrossDevice = true
+                    }
+                }
+            }
+           
+            do {
+                let partnerData = try rpAuthRequestFromUrl(siopUrl: sanitizedUrl)
+                guard let consent = ConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, oldResponseFormat: oldResponseFormat) else {
+                    return
+                }
+                data.consent = consent
+                if launchedBefore {
+                    navigationState.currentPage = .consent
+                }
+            } catch {
+                print(error)
+                return
+            }            
         }
     }
     
@@ -81,7 +112,9 @@ struct ContentView: View {
         }
         .font(Font.custom("PublicSans-Regular", size: 16))
         .onAppear{
-            tryAuthenticate()
+            if launchedBefore  {
+                tryAuthenticate()
+            }
         }
         .onChange(of: launchedBefore) {_ in
                 tryAuthenticate()
@@ -97,7 +130,7 @@ struct ContentView: View {
             
             case .active:
                 print("active")
-                if appWasMinimized {
+                if appWasMinimized && launchedBefore {
                     tryAuthenticate()
                 }
             case .inactive:

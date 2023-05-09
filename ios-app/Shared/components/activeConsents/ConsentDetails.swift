@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct PartnerDetails: View {
-    var request: ConsentRequest
+    var connection: Connection
     @State var state = PartnerDetailsState()
-    let agent = MeeAgentStore()
-    init(request: ConsentRequest) {
-            self.request = request
+    let agent = MeeAgentStore.shared
+    init(connection: Connection) {
+            self.connection = connection
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var navigationState: NavigationState
     
     
     func removeConsent() {
-        agent.removeItembyName(id: request.id)
+        agent.removeItembyName(id: connection.id)
         self.presentationMode.wrappedValue.dismiss()
         
     }
@@ -53,7 +53,7 @@ struct PartnerDetails: View {
                 .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                 ScrollViewReader { proxy in
                 ScrollView {
-                    PartnerEntry(request: request, hasEntry: false)
+                    PartnerEntry(connection: connection, hasEntry: false)
                         .border(Colors.meeBrand, width: 2)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 48)
@@ -77,9 +77,9 @@ struct PartnerDetails: View {
                         
                     }
                     .padding(.horizontal, 16)
-                    if $state.consentEntries.firstIndex {!$0.wrappedValue.isRequired} != nil {
+                    if $state.consentEntries.firstIndex {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty} != nil {
                         Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
-                            ForEach($state.consentEntries.filter {!$0.wrappedValue.isRequired}) { $entry in
+                            ForEach($state.consentEntries.filter {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty}) { $entry in
                                 VStack {
                                     ConsentEntry(entry: $entry, isReadOnly: true) {
                                         state.durationPopupId = entry.id
@@ -121,8 +121,8 @@ struct PartnerDetails: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
-                    if let consentData = agent.getItemById(id: request.id) {
-                        state.consentEntries = consentData.claims
+                    if let consentData = agent.getLastConnectionConsentById(id: connection.id) {
+                        state.consentEntries = consentData.attributes
                     }
                     
                 }

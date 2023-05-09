@@ -9,13 +9,13 @@ import Foundation
 
 class PartnersRegistry: ObservableObject {
     static let shared = PartnersRegistry()
-    var partners: [Context]
+    var partners: [Connection]
     
     init() {
         self.partners = [
-            Context(id: "https://mee.foundation/", did: "", claims: [], clientMetadata: PartnerMetadata(name: "Mee Foundation", displayUrl: "mee.foundation", logoUrl: "https://mee.foundation/favicon.png", contacts: [])),
-            Context(id: "https://oldeyorktimes.com/", did: "", claims: [], clientMetadata: PartnerMetadata(name: "The Olde York Times", displayUrl: "oldeyorktimes.com", logoUrl: "https://oldeyorktimes.com/favicon.png", contacts: []))
+            Connection(id: "https://mee.foundation/", name: "Mee Foundation", value: .Siop(value: SiopConnectionType(redirectUri: "https://mee.foundation/", clientMetadata: PartnerMetadata(name: "Mee Foundation", displayUrl: "mee.foundation", logoUrl: "https://mee.foundation/favicon.png", contacts: []), subject: .DidKey(value: "")))),
+            Connection(id: "https://oldeyorktimes.com/", name: "The Olde York Times", value: .Siop(value: SiopConnectionType(redirectUri: "https://oldeyorktimes.com/", clientMetadata: PartnerMetadata(name: "The Olde York Times", displayUrl: "oldeyorktimes.com", logoUrl: "https://oldeyorktimes.com/favicon.png", contacts: []), subject: .DidKey(value: "")))),
+            Connection(id: "https://google.com", name: "Google Account", value: .Gapi(value: GapiConnectionType(scopes: [])))
         ]
     }
 }
-

@@ -59,24 +59,29 @@ struct TourPage: View {
                     HStack {
                         if selection != images[0] {
                             Button(action: {
+                                print("fired <")
                                 changeTab(currentTab: selection, jump: -1)
                             }) {
                                 Image("swipeLeft")
+                                    .padding(.horizontal, 33)
+                                    .padding(.vertical, 10)
                             }
                             
                         }
                         Spacer()
                         if selection != images[images.count - 1] {
                             Button(action: {
+                                print("fired >")
                                 changeTab(currentTab: selection, jump: 1)
                             }) {
                                 Image("swipeRight")
+                                    .padding(.horizontal, 33)
+                                    .padding(.vertical, 10)
                             }
                         }
                         
                     }
-                    .padding(.horizontal, 33)
-                    .padding(.bottom, 10)
+                    
                 }
                 .accentColor(Colors.meeBrand)
                 
@@ -128,11 +133,11 @@ struct TourFragment: View {
     }
 }
 
-struct TutorialPagePreviews: PreviewProvider {
-
-  static var previews: some View {
-      TourPage(images: ["meeWelcome1", "meeWelcome2"]) {
-         
-      }
-  }
-}
+//struct TutorialPagePreviews: PreviewProvider {
+//
+//  static var previews: some View {
+//      TourPage(images: ["meeWelcome1", "meeWelcome2"]) {
+//
+//      }
+//  }
+//}

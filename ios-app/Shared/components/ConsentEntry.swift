@@ -22,7 +22,9 @@ struct ConsentEntry: View {
         VStack{
             HStack {
                 Button(action: {
-                    entry.isOpen = !entry.isOpen
+                    if !isReadOnly {
+                        entry.isOpen = !entry.isOpen
+                    }
                 }) {
                     Image(getConsentEntryImageByType(entry.type))
                         .resizable()
@@ -42,7 +44,9 @@ struct ConsentEntry: View {
                     
                 } else {
                     Button(action: {
-                        entry.isOpen = !entry.isOpen
+                        if !isReadOnly {
+                            entry.isOpen = !entry.isOpen
+                        }
                     }) {
                         Text(entry.getFieldName())
                             .foregroundColor(entry.isRequired || entry.isOn || (isReadOnly && entry.value != nil)  ? Colors.meeBrand : Colors.gray600)

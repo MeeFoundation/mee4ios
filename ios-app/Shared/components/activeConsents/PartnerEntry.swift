@@ -8,32 +8,38 @@
 import SwiftUI
 
 struct PartnerEntry: View  {
-    let request: ConsentRequest
+    let connection: Connection
     let hasEntry: Bool
     let isCertified: Bool
-    init(request: ConsentRequest, hasEntry: Bool = false) {
-        self.request = request
+    let clientMetadata: PartnerMetadata?
+    init(connection: Connection, hasEntry: Bool = false) {
+        self.connection = connection
         self.hasEntry = hasEntry
         self.isCertified = true
+        if case let .Siop(value) = connection.value {
+            self.clientMetadata = value.clientMetadata
+        } else {
+            clientMetadata = nil
+        }
     }
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         
         return HStack {
-            AsyncImageRounded(url: URL(string: request.clientMetadata.logoUrl))
+            AsyncImageRounded(url: URL(string: clientMetadata?.logoUrl ?? "\(connection.id)/favicon.ico"))
             
             
                 VStack {
                     HStack {
-                        Text(request.clientMetadata.name)
+                        Text(clientMetadata?.name ?? connection.name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.medium , size: 16))
                         Image(isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
                         Spacer()
                     }
                     
-                    BasicText(text: request.id.getHostname(), color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
+                    BasicText(text: connection.id.getHostname(), color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
                 }
                 .padding(.leading, 8)
                 Spacer()

@@ -21,6 +21,7 @@ extension RpAuthRequest {
             copy[claim.code] = OidcClaimParams(from: claim)
             return copy
         }
+        self.responseType = from.responseType
     }
 }
 
@@ -31,6 +32,7 @@ extension OidcClientMetadata {
         self.logoUri = from.logoUrl
         self.contacts = from.contacts
         self.jwks = from.jwks
+        self.subjectSyntaxTypesSupported = from.subjectSyntaxTypesSupported
     }
 }
 

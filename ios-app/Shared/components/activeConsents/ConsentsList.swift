@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct ConsentsList: View {
-    let meeAgent = MeeAgentStore()
+    let meeAgent = MeeAgentStore.shared
     var registry = PartnersRegistry.shared
     @EnvironmentObject var navigationState: NavigationState
     
     @State private var state = ConsentsListState()
     @Environment(\.openURL) var openURL
-    let data: [Context]
+    let data: [Connection]
     
     init() {
         data = meeAgent.getAllItems() ?? []
@@ -22,14 +22,20 @@ struct ConsentsList: View {
     
     
     func refreshPartnersList() {
-        state.existingPartnersWebApp = data.filter{ consent in
-            consent.clientMetadata.type == .web && meeAgent.getItemById(id: consent.id) != nil
+        state.existingPartnersWebApp = data.filter{ context in
+            if case let .Siop(value) = context.value {
+                return value.clientMetadata.type == .web && meeAgent.getLastConnectionConsentById(id: context.id) != nil
+            }
+            return false
         }
-        state.existingPartnersMobileApp = data.filter{ consent in
-            consent.clientMetadata.type == .mobile && meeAgent.getItemById(id: consent.id) != nil
+        state.existingPartnersMobileApp = data.filter{ context in
+            if case let .Siop(value) = context.value {
+                return value.clientMetadata.type == .mobile && meeAgent.getLastConnectionConsentById(id: context.id) != nil
+            }
+            return false
         }
-        state.otherPartnersWebApp = registry.partners.filter { consent in
-            return state.existingPartnersWebApp?.firstIndex{$0.id.getHostname() == consent.id.getHostname()} == nil
+        state.otherPartnersWebApp = registry.partners.filter { context in
+            return state.existingPartnersWebApp?.firstIndex{$0.id.getHostname() == context.id.getHostname()} == nil
         }
 
     }
@@ -79,20 +85,26 @@ struct ConsentsList: View {
                                     }
                                     ForEach(partnersArray.data ?? []) { partnerData in
                                         NavigationLink(
-                                            destination: PartnerDetails(request: ConsentRequest(from: partnerData)),
+                                            destination: PartnerDetails(connection: partnerData),
                                             tag: partnerData.id,
                                             selection: $state.selection
                                         ){}
-                                        PartnerEntry(request: ConsentRequest(from: partnerData), hasEntry: partnersArray.editable)
+                                        PartnerEntry(connection: partnerData, hasEntry: partnersArray.editable)
                                             .onTapGesture(perform: {
                                                 if partnersArray.editable {
                                                     state.selection = partnerData.id
                                                     
                                                 }
                                                 else {
-                                                    if let url = URL(string: partnerData.id) {
-                                                        openURL(url)
+                                                    switch (partnerData.value) {
+                                                    case .Gapi(_):
+                                                        state.showCompatibleWarning = true
+                                                    default:
+                                                        if let url = URL(string: partnerData.id) {
+                                                            openURL(url)
+                                                        }
                                                     }
+                                                    
                                                 }
                                             })
                                             .padding(.top, 8)
@@ -127,8 +139,11 @@ struct ConsentsList: View {
                 .background(Color.white)
                 .frame(maxWidth: .infinity)
                 .overlay {
-                    WarningPopup(text: "Your data will not be protected by HIL and will be treated according to the terms of service and privacy policy of the website.") {
+                    WarningPopup(text: "You will be redirected to your default browser to login to your Google Account and pull your data from it to Mee local storage", iconName: "google") {
                         state.showCompatibleWarning = false
+                        if let url = meeAgent.getGoogleIntegrationUrl() {
+                            openURL(url)
+                        }
                     }
                     .ignoresSafeArea(.all)
                     .opacity(state.showCompatibleWarning ? 1 : 0)
@@ -147,3 +162,4 @@ struct ConsentsList: View {
         
     }
 }
+

@@ -8,53 +8,57 @@
 import Foundation
 
 class MeeAgentStore {
+    static let shared = MeeAgentStore()
     private let agent: MeeAgent
     init() {
         let fm = FileManager.default
         do {
             let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let dbURL = folderURL.appendingPathComponent("mee.sqlite")
-            agent = try getAgent(config: MeeAgentConfig(dsUrl: dbURL.path, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
-            try agent.initSelfCtx()
+            print(dbURL)
+            fm.createFile(atPath: dbURL.path, contents: nil)
+            agent = try getAgent(config: MeeAgentConfig(dsUrl: dbURL.path, grandPassword: "ShouldBeReplacedWithGeneratedPassword", dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
+            
+            try agent.initUserAccount()
 
         } catch {
             fatalError("Unable to init Mee Agent: \(error)")
         }
   
-        
     }
     
-    func getAllItems () -> [Context]? {
+    func getAllItems () -> [Connection]? {
         do {
-            let contextsCore = try agent.listMaterializedContexts();
-            let contexts = contextsCore.reduce([]) { (acc: [Context], context) in
+            let contextsCore = try agent.otherPartyConnections();
+            print("contextsCore: ", contextsCore)
+            let connections = contextsCore.reduce([]) { (acc: [Connection], connection) in
                 var copy = acc
-                if case let MaterializedContext.relyingParty(did, _, data) = context {
-                    
-                    if case let ContextProtocol.siop(siop) = data.protocol {
-                        let claimsArrayLast = siop.claims.count - 1
-                        let claims = siop.claims[claimsArrayLast]
-                        if claimsArrayLast >= 0 {
-                            let claimedDataConverted = claims.reduce([]) { (acc: [ConsentRequestClaim], rec) in
-                                var copy = acc
-                                if let value = rec.value,
-                                   let request = ConsentRequestClaim(from: value, code: rec.key)
-                                {
-                                    copy.append(request)
-                                }
-                                return copy
-                            }
-                       
-                            
-                            copy.append(Context(id: siop.redirectUri, did: did, claims: claimedDataConverted, clientMetadata: PartnerMetadata(from: siop.clientMetadata)!))
-                        }
-                    }
-                    
-                    
+                
+                if let connection = Connection(from: connection) {
+                    copy.append(connection)
                 }
                 return copy
             }
-            return contexts
+            
+            return connections
+        } catch {
+            print("error getting all contexts: \(error)")
+            return nil
+        }
+       
+    }
+    
+    func getAllContexts () -> [Context]? {
+        do {
+            let contextsCore = try agent.otherPartyConnections();
+            let connections = contextsCore.reduce([]) { (acc: [Context], connection) in
+                var copy = acc
+                if let context = getLastConnectionConsentById(id: connection.id) {
+                    copy.append(context)
+                }
+                return copy
+            }
+            return connections
         } catch {
             print("error getting all contexts: \(error)")
             return nil
@@ -64,18 +68,18 @@ class MeeAgentStore {
     
     func removeItembyName (id: String) -> String? {
         do {
-            let item = self.getItemById(id: id)
-            guard let did = item?.did else {
+            let item = self.getConnectionById(id: id)
+            guard let id = item?.id else {
                 return nil
             }
-            try agent.deleteCtx(ctxId: did)
-            return did
+            try agent.deleteOtherPartyConnection(connId: id)
+            return id
         } catch {
             return nil
         }
     }
 
-    func getItemById (id: String) -> Context? {
+    func getConnectionById (id: String) -> Connection? {
         let items = self.getAllItems()
         guard let items else {
             return nil
@@ -87,15 +91,44 @@ class MeeAgentStore {
         return item
 
     }
+    
+    func getLastConnectionConsentById(id: String) -> Context? {
+        do {
+            if let coreConsent = try agent.siopLastConsentByConnectionId(connId: id) {
+                return Context(from: coreConsent)
+            } else {
+                return nil
+            }
+        } catch {
+            return nil
+        }
+        
+    }
 
     func authorize (id: String, item: ConsentRequest) -> RpAuthResponseWrapper? {
         
         do {
             print("ar: ", RpAuthRequest(from: item))
-            let response = try agent.authRelyingParty(authRequest: RpAuthRequest(from: item))
+            let response = try agent.siopAuthRelyingParty(authRequest: RpAuthRequest(from: item))
             return response
         } catch {
+            print(error)
             return nil
+        }
+    }
+    
+    func getGoogleIntegrationUrl() -> URL? {
+        do {
+            let url = try agent.googleApiProviderCreateOauthBrowsableUrl()
+            return URL(string: url)
+        } catch {
+            return nil
+        }
+    }
+    
+    func createGoogleConnection (url: URL) async throws {
+        Task.detached {
+            try self.agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
         }
     }
 }

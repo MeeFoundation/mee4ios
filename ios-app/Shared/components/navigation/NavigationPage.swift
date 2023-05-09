@@ -69,7 +69,7 @@ struct NavigationPage: View {
             if (!launchedBefore) {
                 navigationState.currentPage = .firstRun
             }
-            else if (!tutorialViewed && navigationState.currentPage == nil) {
+            else if (!tutorialViewed && navigationState.currentPage == .mainPage) {
                 if !hadConnectionsBefore {
                     tutorialViewed = true
                     navigationState.currentPage = .tutorial

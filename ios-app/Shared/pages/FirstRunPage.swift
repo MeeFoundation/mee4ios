@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum FirstRunPages: Hashable {
-    case prepare, faceId, faceIdSet, initializing, intro
+    case prepare, faceId, faceIdSet, initializing, intro, introAlt
 }
 
 
@@ -40,8 +40,7 @@ struct FirstRunPage: View {
         if data.consent.id.isEmpty {
             currentPage = .intro
         } else {
-            launchedBefore = true
-            navigationState.currentPage = .consent
+            currentPage = .introAlt
         }
         
         
@@ -54,7 +53,9 @@ struct FirstRunPage: View {
                     FirstRunPageInitializing(onNext: finishInitializing)
                 }.background(Colors.background)
             } else if currentPage == .intro {
-                FirsRunPageIntro()
+                FirstRunPageIntro()
+            } else if currentPage == .introAlt {
+                FirstRunPageIntroAlt()
             } else {
                 ZStack {
                     BackgroundFaded()

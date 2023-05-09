@@ -46,7 +46,7 @@ TARGETDIR=${SRC_ROOT}/target
 
 if [[ "${RELDIR}" = "debug" ]]; then
     env -i PATH="${PATH}" \
-    "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "x86_64-apple-ios"
+    "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "aarch64-apple-ios-sim"
 fi
 
     env -i PATH="${PATH}" \
@@ -60,7 +60,7 @@ NEED_LIPO=
 # we need to run `lipo` again.
 if [[ ! -f "${UNIVERSAL_BINARY}" ]]; then
     NEED_LIPO=1
-elif [[ "$(stat -f "%m" "${TARGETDIR}/x86_64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}")" -gt "$(stat -f "%m" "${UNIVERSAL_BINARY}")" ]]; then
+elif [[ "$(stat -f "%m" "${TARGETDIR}/aarch64-apple-ios-sim/${RELDIR}/${STATIC_LIB_NAME}")" -gt "$(stat -f "%m" "${UNIVERSAL_BINARY}")" ]]; then
     NEED_LIPO=1
 elif [[ "$(stat -f "%m" "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}")" -gt "$(stat -f "%m" "${UNIVERSAL_BINARY}")" ]]; then
     NEED_LIPO=1
@@ -70,8 +70,7 @@ fi
 if [[ ("${NEED_LIPO}" = "1") && ("${RELDIR}" = "debug") ]]; then
     mkdir -p "${TARGETDIR}/universal/${RELDIR}"
     lipo -create -output "${UNIVERSAL_BINARY}" \
-    "${TARGETDIR}/x86_64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}" \
-    "${TARGETDIR}/aarch64-apple-ios/${RELDIR}/${STATIC_LIB_NAME}"
+    "${TARGETDIR}/aarch64-apple-ios-sim/${RELDIR}/${STATIC_LIB_NAME}" 
 fi
 
 if [[ ("${NEED_LIPO}" = "1") && ("${RELDIR}" = "release") ]]; then

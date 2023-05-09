@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WarningPopup: View {
     var text: String
+    let iconName: String?
     var onNext: () -> Void
     
     var body: some View {
@@ -18,14 +19,14 @@ struct WarningPopup: View {
                 Spacer()
                 ZStack {
                     VStack {
-                        Image("warningSign").resizable()
-                            .frame(width: 45.03, height: 44.33, alignment: .center)
-                            .padding(.top, 20)
+                        Image(iconName ?? "warningSign").resizable()
+                            .frame(width: 60, height: 60, alignment: .center)
+                            .padding(.top, 24)
                             .zIndex(10)
                         Text(text)
                             .fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Colors.text)
-                            .font(.custom(FontNameManager.PublicSans.regular , size: 18))
+                            .font(.custom(FontNameManager.PublicSans.regular , size: 16))
                             .multilineTextAlignment(.center)
                             .padding(.horizontal, 16)
                             .padding(.bottom, 16)

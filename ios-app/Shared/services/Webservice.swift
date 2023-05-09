@@ -9,16 +9,26 @@ import Foundation
 
 @MainActor
 class WebService {
-    func passConsentOverRelay(data: String) async throws {
+    func passConsentOverRelay(id: String, data: String) async throws {
         
-        guard let url = URL(string: "https://mee.foundation/proxy") else {
+        guard let url = URL(string: "http://127.0.0.1:80/put") else {
             throw NetworkError.badUrl
         }
-        let (_, response) = try await URLSession.shared.data(from: url)
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let json: [String: String] = ["session_id": id,
+                                   "oidc_response": data]
+        let jsonData = try JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        print("jsonData: ", String(decoding: jsonData, as: UTF8.self))
+        let (data, response) = try await URLSession.shared.data(for: request)
         guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+              httpResponse.statusCode == 200 || httpResponse.statusCode == 201 else {
+            print("bad response: ", response, String(decoding: data, as: UTF8.self))
             throw NetworkError.badResponse
         }
+        print("good response: ", httpResponse)
         return
         
     }

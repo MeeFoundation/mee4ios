@@ -9,10 +9,8 @@ import Foundation
 
 
 class ConsentState: ObservableObject {
-    @Published var consent: ConsentRequest = emptyConsentRequest
+    @Published var consent: ConsentRequest = ConsentRequest()
 
 }
 
-let emptyConsentRequest = ConsentRequest(claims: [], clientMetadata: PartnerMetadata(name: "", displayUrl: "", logoUrl: "", contacts: []), nonce: "", clientId: "", redirectUri: "", presentationDefinition: "", isCrossDevice: false)
-    
 

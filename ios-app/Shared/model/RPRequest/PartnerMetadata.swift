@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PartnerMetadata: Codable, Identifiable {
+struct PartnerMetadata: Identifiable {
     var id: String {
         return name
     }
@@ -16,10 +16,14 @@ struct PartnerMetadata: Codable, Identifiable {
     let logoUrl: String
     let type: ClientType
     let jwks: [String]?
+    let idTokenSignedResponseAlg: String?
+    let idTokenEncryptedResponseAlg: String?
+    let idTokenEncryptedResponseEnc: String?
+    let subjectSyntaxTypesSupported: [SubjectSyntaxTypesSupported]
     var isMobileApp: Bool {
         return type == .mobile
     }
-    var contacts: [String]
+    var contacts: [String]?
     
     init(name: String,
          displayUrl: String,
@@ -32,6 +36,10 @@ struct PartnerMetadata: Codable, Identifiable {
         self.type = .web
         self.contacts = contacts
         self.jwks = nil
+        self.subjectSyntaxTypesSupported = []
+        self.idTokenSignedResponseAlg = nil
+        self.idTokenEncryptedResponseAlg = nil
+        self.idTokenEncryptedResponseEnc = nil
     }
     
     
@@ -49,33 +57,9 @@ struct PartnerMetadata: Codable, Identifiable {
         self.type = clientType
         self.contacts = from.contacts
         self.jwks = from.jwks
+        self.subjectSyntaxTypesSupported = from.subjectSyntaxTypesSupported
+        self.idTokenSignedResponseAlg = from.idTokenSignedResponseAlg
+        self.idTokenEncryptedResponseAlg = from.idTokenEncryptedResponseAlg
+        self.idTokenEncryptedResponseEnc = from.idTokenEncryptedResponseEnc
     }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        
-        guard
-              let name = try container.decodeIfPresent(String.self, forKey: .name),
-              let displayUrl = try container.decodeIfPresent(String.self, forKey: .displayUrl),
-              let logoUrl = try container.decodeIfPresent(String.self, forKey: .logoUrl),
-              let contacts = try container.decodeIfPresent([String].self, forKey: .contacts)
-        else {
-            throw DecodingError.typeMismatch(PartnerMetadata.self, .init(codingPath: decoder.codingPath, debugDescription: "Strict \(PartnerMetadata.self) does not use all keys from decoder"))
-        }
-        
-        self.name = name
-        self.displayUrl = displayUrl
-        self.logoUrl = logoUrl
-        self.contacts = contacts
-        self.jwks = nil
-        if let type = try container.decodeIfPresent(ClientType.self, forKey: .type) {
-            self.type = type
-        } else {
-            self.type = .web
-        }
-        
-        
-    }
-    
-    
 }

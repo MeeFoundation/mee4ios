@@ -7,12 +7,10 @@
 
 import Foundation
 
-struct ConsentConfiguration: Codable {
+struct ConsentConfiguration {
     var client_id: String?
     var client: PartnerMetadata?
     var env: MeeEnv?
     var scope: String?
     var claim: [String: MeeClaimItem]?
-    
-    
 }

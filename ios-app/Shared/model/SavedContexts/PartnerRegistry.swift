@@ -16,7 +16,7 @@ import Foundation
 
 import Foundation
 
-struct PartnerRegistryEntry: Codable, Identifiable {
+struct PartnerRegistryEntry: Identifiable {
     var id: String
     let clientMetadata: PartnerMetadata
 }

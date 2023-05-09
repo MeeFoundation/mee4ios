@@ -18,21 +18,22 @@ struct ConsentPage: View {
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
     @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     var webService = WebService()
-    var meeAgent = MeeAgentStore()
+    var meeAgent = MeeAgentStore.shared
     
     func onNext (_ coreData: RpAuthResponseWrapper, _ url: String) {
         
         if var urlComponents = URLComponents(string: url) {
-            urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: coreData.openidResponse.idToken)]
-            if let url = urlComponents.url {
-//                print("url:", url)
+            urlComponents.queryItems = [URLQueryItem(name: data.consent.oldResponseFormat ? "mee_auth_token" : "id_token", value: coreData.openidResponse.idToken)]
+            if let url = urlComponents.url
+            {
+                print(url)
                 hadConnectionsBefore = true
                 state.isReturningUser = true
                 if data.consent.isCrossDeviceFlow {
                     print("cross device flow")
                     Task.init {
                         do {
-                            try await webService.passConsentOverRelay(data: url.absoluteString)
+                            try await webService.passConsentOverRelay(id: data.consent.nonce ,data: coreData.openidResponse.idToken)
                             toastState.toast = ToastMessage(type: .success, title: "Success", message: "Connection has been set up! Check the device you started with.")
                             navigationState.currentPage = .mainPage
                         } catch {
@@ -51,6 +52,7 @@ struct ConsentPage: View {
     func authorizeRequest (_ data: ConsentRequest) {
         let request = state.clearConsentsListFromDisabledOptionals(data)
         let response = meeAgent.authorize(id: data.clientId, item: request)
+        print("response: ", response)
         if let response {
             onNext(response, data.redirectUri)
         } else {
@@ -59,11 +61,11 @@ struct ConsentPage: View {
     }
     
     func recoverRequest (id: String, url: String, data: ConsentRequest) {
-        guard let contextData = meeAgent.getItemById(id: id)
+        guard let contextData = meeAgent.getLastConnectionConsentById(id: id)
         else {
             return
         }
-        let request = ConsentRequest(from: contextData, clientId: data.clientId, nonce: data.nonce, redirectUri: data.redirectUri, isCrossDevice: data.isCrossDeviceFlow, clientMetadata: data.clientMetadata)
+        let request = ConsentRequest(from: contextData, consentRequest: data)
         let response = meeAgent.authorize(id: id, item: request)
         if let response {
             onNext(response, url)
@@ -91,7 +93,7 @@ struct ConsentPage: View {
             
         }
         .onAppear{
-            let isReturningUser = meeAgent.getItemById(id: data.consent.id) != nil
+            let isReturningUser = meeAgent.getConnectionById(id: data.consent.id) != nil
             state.isReturningUser = isReturningUser
         }
         .onTapGesture {
