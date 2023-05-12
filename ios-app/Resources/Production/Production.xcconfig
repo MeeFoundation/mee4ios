@@ -1,0 +1,11 @@
+//
+//  Production.xcconfig
+//  mee-ios-client
+//
+//  Created by Anthony Ivanov on 11.5.23..
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+XCC_CONFIG_PATH = Production/ProdConfig.plist

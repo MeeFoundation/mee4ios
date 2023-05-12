@@ -53,7 +53,7 @@ struct ContentView: View {
         if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
             
             var isCrossDevice = false
-            var oldResponseFormat = false
+            var sdkVersion = defaultSdkVersion
             var sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
             
             //legacy
@@ -67,7 +67,7 @@ struct ContentView: View {
                             let request = components[2]
                             let newUrlFormat = "\(scheme)://\(newUrlHost)/authorize?scope=openid&request=\(request)"
                             sanitizedUrl = newUrlFormat
-                            oldResponseFormat = true
+                            sdkVersion = .v1
                         }
                     }
                     
@@ -85,8 +85,8 @@ struct ContentView: View {
             }
            
             do {
-                let partnerData = try rpAuthRequestFromUrl(siopUrl: sanitizedUrl)
-                guard let consent = ConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, oldResponseFormat: oldResponseFormat) else {
+                let partnerData = try siopRpAuthRequestFromUrl(siopUrl: sanitizedUrl)
+                guard let consent = ConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion) else {
                     return
                 }
                 data.consent = consent

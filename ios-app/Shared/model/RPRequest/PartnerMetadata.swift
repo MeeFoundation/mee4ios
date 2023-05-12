@@ -19,7 +19,7 @@ struct PartnerMetadata: Identifiable {
     let idTokenSignedResponseAlg: String?
     let idTokenEncryptedResponseAlg: String?
     let idTokenEncryptedResponseEnc: String?
-    let subjectSyntaxTypesSupported: [SubjectSyntaxTypesSupported]
+    let subjectSyntaxTypesSupported: [SubjectSyntaxTypesSupported]?
     var isMobileApp: Bool {
         return type == .mobile
     }

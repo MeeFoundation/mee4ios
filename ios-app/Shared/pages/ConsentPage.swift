@@ -23,7 +23,7 @@ struct ConsentPage: View {
     func onNext (_ coreData: RpAuthResponseWrapper, _ url: String) {
         
         if var urlComponents = URLComponents(string: url) {
-            urlComponents.queryItems = [URLQueryItem(name: data.consent.oldResponseFormat ? "mee_auth_token" : "id_token", value: coreData.openidResponse.idToken)]
+            urlComponents.queryItems = [URLQueryItem(name: data.consent.sdkVersion == .v1 ? "mee_auth_token" : "id_token", value: coreData.openidResponse.idToken)]
             if let url = urlComponents.url
             {
                 print(url)

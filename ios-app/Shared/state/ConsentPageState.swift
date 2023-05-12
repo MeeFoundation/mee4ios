@@ -20,7 +20,7 @@ struct ConsentPageState {
             }
             return claimCopy
         }
-        let request = ConsentRequest(claims: dataClearedFromDisabledOptionals, clientMetadata: data.clientMetadata, nonce: data.nonce, clientId: data.clientId, redirectUri: data.redirectUri, presentationDefinition: data.presentationDefinition, isCrossDevice: data.isCrossDeviceFlow, oldResponseFormat: data.oldResponseFormat)
+        let request = ConsentRequest(claims: dataClearedFromDisabledOptionals, clientMetadata: data.clientMetadata, nonce: data.nonce, clientId: data.clientId, redirectUri: data.redirectUri, presentationDefinition: data.presentationDefinition, isCrossDevice: data.isCrossDeviceFlow, sdkVersion: data.sdkVersion)
         return request
     }
     

@@ -17,11 +17,11 @@ struct ConsentPageNewState {
     var previousButtomSafeArea: Double? = nil
     var isCertified: Bool = true
         
-    func onDecline(_ redirectUri: String) -> URL? {
+    func onDecline(_ request: ConsentRequest) -> URL? {
         keyboardEndEditing()
         
-        if var urlComponents = URLComponents(string: redirectUri) {
-            urlComponents.queryItems = [URLQueryItem(name: "mee_auth_token", value: "error:user_cancelled,error_description:user%20declined%20the%20request")]
+        if var urlComponents = URLComponents(string: request.redirectUri) {
+            urlComponents.queryItems = [URLQueryItem(name: request.sdkVersion == .v1 ? "mee_auth_token" : "id_token", value: "error:user_cancelled,error_description:user%20declined%20the%20request")]
             if let url = urlComponents.url {
                 return url
             }

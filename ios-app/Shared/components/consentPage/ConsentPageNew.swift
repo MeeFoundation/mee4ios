@@ -151,7 +151,7 @@ struct ConsentPageNew: View {
                     ZStack {
                         VStack {
                             RejectButton("Decline", action: {
-                                if let url = state.onDecline(data.consent.redirectUri) {
+                                if let url = state.onDecline(data.consent) {
                                     openURL(url)
                                 } else {
                                     toastState.toast = ToastMessage(type: .error, title: "Error", message: "Unknown Error")

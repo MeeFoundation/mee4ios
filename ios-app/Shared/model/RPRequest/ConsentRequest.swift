@@ -17,7 +17,7 @@ struct ConsentRequest {
     let redirectUri: Url
     let presentationDefinition: String?
     let isCrossDeviceFlow: Bool
-    let oldResponseFormat: Bool
+    let sdkVersion: SdkVersion
     let responseType: OidcResponseType
     
     init() {
@@ -33,7 +33,7 @@ struct ConsentRequest {
         self.redirectUri = ""
         self.presentationDefinition = ""
         self.isCrossDeviceFlow = false
-        self.oldResponseFormat = false
+        self.sdkVersion = defaultSdkVersion
         self.responseType = .idToken
     }
     
@@ -48,7 +48,7 @@ struct ConsentRequest {
         self.presentationDefinition = consentRequest.presentationDefinition
         self.isCrossDeviceFlow = consentRequest.isCrossDeviceFlow
         self.responseType = consentRequest.responseType
-        self.oldResponseFormat = consentRequest.oldResponseFormat
+        self.sdkVersion = consentRequest.sdkVersion
     }
     
     init(
@@ -59,7 +59,7 @@ struct ConsentRequest {
           redirectUri: Url,
           presentationDefinition: String?,
           isCrossDevice: Bool,
-          oldResponseFormat: Bool
+          sdkVersion: SdkVersion
       ) {
           self.scope = OidcScopeList(scopes: [OidcScope.openid])
           self.claims = claims
@@ -71,10 +71,10 @@ struct ConsentRequest {
           self.isCrossDeviceFlow = isCrossDevice
           self.id = redirectUri
           self.responseType = .idToken
-          self.oldResponseFormat = oldResponseFormat
+          self.sdkVersion = sdkVersion
       }
     
-    init?(from: RpAuthRequest, isCrossDevice: Bool, oldResponseFormat: Bool) {
+    init?(from: RpAuthRequest, isCrossDevice: Bool, sdkVersion: SdkVersion) {
         guard
             let parnterMetaData = PartnerMetadata(from: from.clientMetadata),
             let claims = from.claims,
@@ -85,7 +85,7 @@ struct ConsentRequest {
         self.responseType = from.responseType
         self.scope = from.scope
         self.isCrossDeviceFlow = isCrossDevice
-        self.oldResponseFormat = oldResponseFormat
+        self.sdkVersion = sdkVersion
         self.clientMetadata = parnterMetaData
         self.nonce = from.nonce
         self.clientId = from.clientId
