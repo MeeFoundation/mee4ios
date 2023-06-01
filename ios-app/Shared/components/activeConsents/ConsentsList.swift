@@ -7,26 +7,45 @@
 
 import SwiftUI
 
-struct ConsentsList: View {
+struct ConsentsList: View, MeeAgentStoreListener {
     let meeAgent = MeeAgentStore.shared
     var registry = PartnersRegistry.shared
     @EnvironmentObject var navigationState: NavigationState
     
     @State private var state = ConsentsListState()
     @Environment(\.openURL) var openURL
-    let data: [Connection]
+    
+    var id = UUID()
+    func onUpdate() {
+        onUpdate(isFirstRender: false)
+    }
+    func onUpdate(isFirstRender: Bool) {
+        let currentConnections = meeAgent.getAllItems() ?? []
+        print("currentConnections: ", currentConnections)
+        if !isFirstRender {
+            withAnimation {
+                refreshPartnersList(data: currentConnections)
+            }
+        } else {
+            refreshPartnersList(data: currentConnections)
+        }
+        
+    }
     
     init() {
-        data = meeAgent.getAllItems() ?? []
+        
     }
     
     
-    func refreshPartnersList() {
+    func refreshPartnersList(data: [Connection]) {
         state.existingPartnersWebApp = data.filter{ context in
-            if case let .Siop(value) = context.value {
+            switch (context.value) {
+            case .Siop(let value):
                 return value.clientMetadata.type == .web && meeAgent.getLastConnectionConsentById(id: context.id) != nil
+            case .Gapi(_):
+                return true
+            default: return false
             }
-            return false
         }
         state.existingPartnersMobileApp = data.filter{ context in
             if case let .Siop(value) = context.value {
@@ -35,7 +54,11 @@ struct ConsentsList: View {
             return false
         }
         state.otherPartnersWebApp = registry.partners.filter { context in
-            return state.existingPartnersWebApp?.firstIndex{$0.id.getHostname() == context.id.getHostname()} == nil
+            let isNotPresentedInExistingList = state.existingPartnersWebApp?.firstIndex{$0.id.getHostname() == context.id.getHostname()} == nil
+            let isGapiInList = state.existingPartnersWebApp?.firstIndex{$0.isGapi} != nil
+            let isGapiInListAndEntryIsGapi = isGapiInList && context.isGapi
+            return isNotPresentedInExistingList && !isGapiInListAndEntryIsGapi
+            
         }
 
     }
@@ -62,12 +85,18 @@ struct ConsentsList: View {
                 ZStack {
                     VStack {
                         ZStack {
-                            BasicText(text: "Connections", color: .black ,size: 17, fontName: FontNameManager.PublicSans.semibold)
+                            BasicText(
+                                text: "Connections",
+                                color: .white ,
+                                size: 17,
+                                fontName: FontNameManager.PublicSans.semibold,
+                                weight: .semibold
+                            )
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, 59)
                         .padding(.bottom, 10)
-                        .background(Colors.backgroundAlt1)
+                        .background(Colors.meeBrand)
                         .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                         ScrollView {
                             VStack {
@@ -154,7 +183,11 @@ struct ConsentsList: View {
             
         }
         .onAppear {
-            refreshPartnersList()
+            meeAgent.addListener(self)
+            onUpdate(isFirstRender: true)
+        }
+        .onDisappear {
+            meeAgent.removeListener(self)
         }
         .ignoresSafeArea(.all)
         

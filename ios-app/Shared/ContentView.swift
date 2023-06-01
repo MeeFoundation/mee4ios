@@ -15,6 +15,7 @@ enum NavigationPages: Hashable {
 struct ContentView: View {
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @EnvironmentObject var data: ConsentState
+    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     let meeAgent = MeeAgentStore.shared
     
@@ -38,12 +39,14 @@ struct ContentView: View {
         if (url.scheme == "com.googleusercontent.apps.211039582599-hmmovsfo59081bt9k19kd3k7927nettq") {
             Task {
                 do {
-                    try await meeAgent.createGoogleConnection(url: url)
+                    try await meeAgent.createGoogleConnectionAsync(url: url)
                     await MainActor.run {
-                        toastState.toast = ToastMessage(type: .info, title: "Google Account", message: "Work done")
+                        toastState.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
+                        hadConnectionsBefore = true
                     }
                     
                 } catch {
+                    print("google error: ", error)
                     await MainActor.run {
                         toastState.toast = ToastMessage(type: .error, title: "Google Account", message: "Something went wrong")
                     }
@@ -111,14 +114,10 @@ struct ContentView: View {
                 .opacity((launchedBefore && appWasMinimized) ? 1 : 0)
         }
         .font(Font.custom("PublicSans-Regular", size: 16))
-        .onAppear{
-            if launchedBefore  {
-                tryAuthenticate()
-            }
-        }
         .onChange(of: launchedBefore) {_ in
                 tryAuthenticate()
         }
+
         .onChange(of: scenePhase) { newPhase in
             switch (newPhase) {
             case .background:

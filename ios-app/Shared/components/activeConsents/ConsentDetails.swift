@@ -58,28 +58,10 @@ struct PartnerDetails: View {
                         .padding(.horizontal, 16)
                         .padding(.bottom, 48)
                         .padding(.top, 16)
-                    Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
-                        ForEach($state.consentEntries.filter {$0.wrappedValue.isRequired}) { $entry in
-                            VStack {
-                                ConsentEntry(entry: $entry, isReadOnly: true) {
-                                    state.durationPopupId = entry.id
-                                }
-                                .id(entry.id)
-                                Divider()
-                                    .frame(height: 1)
-                                    .background(Colors.gray)
-                            }
-                            
-                            
-                        }
-                        .padding(.top, 19)
-                        .padding(.leading, 3)
-                        
-                    }
-                    .padding(.horizontal, 16)
-                    if $state.consentEntries.firstIndex {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty} != nil {
-                        Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
-                            ForEach($state.consentEntries.filter {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty}) { $entry in
+                    switch (state.consentEntries) {
+                    case .SiopClaims(let claims):
+                        Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
+                            ForEach(Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).filter {$0.wrappedValue.isRequired}) { $entry in
                                 VStack {
                                     ConsentEntry(entry: $entry, isReadOnly: true) {
                                         state.durationPopupId = entry.id
@@ -89,11 +71,60 @@ struct PartnerDetails: View {
                                         .frame(height: 1)
                                         .background(Colors.gray)
                                 }
+                                
+                                
                             }
+                            .padding(.top, 19)
+                            .padding(.leading, 3)
+                            
                         }
                         .padding(.horizontal, 16)
-                        .padding(.top, 16)
+                        if Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).firstIndex(where: {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty}) != nil {
+                            Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
+                                ForEach(Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).filter {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty}) { $entry in
+                                    VStack {
+                                        ConsentEntry(entry: $entry, isReadOnly: true) {
+                                            state.durationPopupId = entry.id
+                                        }
+                                        .id(entry.id)
+                                        Divider()
+                                            .frame(height: 1)
+                                            .background(Colors.gray)
+                                    }
+                                }
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
+                        }
+                    case .GapiEntries(let gapiUserInfo):
+                        if case let .gapi(gapiEntries) = gapiUserInfo.data {
+                            let entries: [(String, String)] = Mirror(reflecting: gapiEntries.userInfo).children
+                                .reduce([]){ (acc: [(String, String)] , item) in
+                                    print("item: ", item, gapiUserInfo)
+                                    var copy = acc
+                                    if let value = item.value as? String,
+                                       let label = item.label
+                                    {
+                                        if item.label == "familyName" ||
+                                           item.label == "givenName" ||
+                                           item.label == "email" {
+                                            copy.append((label, value))
+                                        }
+                                        
+                                    }
+                                    return copy
+                                    
+                                }
+                            ForEach(entries, id: \.self.0) { entry in
+                                ExternalConsentEntry(entry: entry)
+                            }
+                        }
+                        
+                        
+ 
+                    default: ZStack{}
                     }
+                    
                     Spacer()
                     
                     Button(action: removeConsent){
@@ -121,16 +152,21 @@ struct PartnerDetails: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
+                    print("consentData: ", connection.id, agent.getLastConnectionConsentById(id: connection.id) )
                     if let consentData = agent.getLastConnectionConsentById(id: connection.id) {
-                        state.consentEntries = consentData.attributes
+                        state.consentEntries = .SiopClaims(value: consentData.attributes)
+                    } else if let consentData = agent.getLastExternalConsentById(id: connection.id) {
+                        state.consentEntries = .GapiEntries(value: consentData)
                     }
                     
                 }
                 .overlay {
                     PopupWrapper(isVisible: state.durationPopupId != nil) {
                         if let durationPopupId = state.durationPopupId {
-                            ConsentDuration(consentEntries: $state.consentEntries, id: durationPopupId){
-                                state.durationPopupId = nil
+                            if case let .SiopClaims(value) = state.consentEntries {
+                                ConsentDuration(consentEntries: Binding(get: {value}, set: { state.consentEntries = .SiopClaims(value: $0)}), id: durationPopupId){
+                                    state.durationPopupId = nil
+                                }
                             }
                         }
 

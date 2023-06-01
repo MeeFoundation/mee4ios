@@ -9,9 +9,32 @@ import Foundation
 
 let MEE_KEYCHAIN_SECRET_NAME = "MEE_KEYCHAIN_SECRET_NAME"
 
+protocol MeeAgentStoreListener {
+    var id: UUID {get}
+    func onUpdate()
+}
+
 class MeeAgentStore {
     static let shared = MeeAgentStore()
     private let agent: MeeAgent
+
+    var listeners: [MeeAgentStoreListener] = []
+    
+    private func onConnectionsListUpdated() {
+        for listener in listeners {
+            listener.onUpdate()
+        }
+    }
+    
+    func addListener(_ listener: MeeAgentStoreListener) {
+        listeners.append(listener)
+    }
+    
+    func removeListener(_ listener: MeeAgentStoreListener) {
+        listeners = listeners.filter { l in
+            listener.id == l.id
+        }
+    }
     
     init() {
         let storage = KeyChainStorage()
@@ -29,7 +52,10 @@ class MeeAgentStore {
             let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let dbURL = folderURL.appendingPathComponent("mee.sqlite")
             print(dbURL)
-            fm.createFile(atPath: dbURL.path, contents: nil)
+            if !fm.fileExists(atPath: dbURL.path) {
+                fm.createFile(atPath: dbURL.path, contents: nil)
+            }
+            
             agent = try getAgent(config: MeeAgentConfig(dsUrl: dbURL.path, grandPassword: passcode, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
             
             try agent.initUserAccount()
@@ -117,6 +143,19 @@ class MeeAgentStore {
         }
         
     }
+    
+    func getLastExternalConsentById(id: String) -> ExternalContext? {
+        do {
+            let coreConsent = try agent.otherPartyContextsByConnectionId(connId: id)
+            guard coreConsent.count > 0 else {
+                return nil
+            }
+            return ExternalContext(from: coreConsent[0])
+        } catch {
+            return nil
+        }
+        
+    }
 
     func authorize (id: String, item: ConsentRequest) -> RpAuthResponseWrapper? {
         
@@ -139,9 +178,13 @@ class MeeAgentStore {
         }
     }
     
-    func createGoogleConnection (url: URL) async throws {
-        Task.detached {
-            try self.agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
-        }
+    @MainActor func createGoogleConnectionAsync (url: URL) async throws {
+        try await self.createGoogleConnection(url: url)
+    }
+    
+    private func createGoogleConnection (url: URL) async throws {
+        try self.agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
+        onConnectionsListUpdated()
     }
 }
+

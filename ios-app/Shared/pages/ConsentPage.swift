@@ -34,10 +34,10 @@ struct ConsentPage: View {
                     Task.init {
                         do {
                             try await webService.passConsentOverRelay(id: data.consent.nonce ,data: coreData.openidResponse.idToken)
-                            toastState.toast = ToastMessage(type: .success, title: "Success", message: "Connection has been set up! Check the device you started with.")
+                            toastState.toast = ToastMessage(type: .success, title: "Success", message: "The connection has been set up! Check the device you started with.")
                             navigationState.currentPage = .mainPage
                         } catch {
-                            toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
+                            toastState.toast = ToastMessage(type: .error, title: "Fail", message: "The connection failed. Please try again.")
                             navigationState.currentPage = .mainPage
                         }
                     }

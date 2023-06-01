@@ -27,3 +27,15 @@ struct Context {
         self.attributes = claimDataConverted
     }
 }
+
+struct ExternalContext {
+    let id: String
+    let name: String
+    let data: OtherPartyContextData
+    
+    init(from: OtherPartyContext) {
+        self.id = from.id
+        self.name = from.name
+        self.data = from.data
+    }
+}

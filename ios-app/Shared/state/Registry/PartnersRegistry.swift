@@ -19,3 +19,4 @@ class PartnersRegistry: ObservableObject {
         ]
     }
 }
+

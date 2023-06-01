@@ -7,9 +7,14 @@
 
 import Foundation
 
+enum ConsentEntriesType {
+    case SiopClaims(value: [ConsentRequestClaim])
+    case GapiEntries(value: ExternalContext)
+}
+
 struct PartnerDetailsState {
     var durationPopupId: UUID? = nil
-    var consentEntries: [ConsentRequestClaim] = []
+    var consentEntries: ConsentEntriesType? = nil
     var isRequiredOpen: Bool = true
     var isOptionalOpen: Bool = false
     var selection: String? = nil

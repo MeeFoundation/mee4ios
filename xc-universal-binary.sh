@@ -11,6 +11,9 @@ trap error_help ERR
 # XCode tries to be helpful and overwrites the PATH. Reset that.
 PATH="$(bash -l -c 'echo $PATH')"
 
+export GOOGLE_API_CLIENT_ID="211039582599-3qteipadec59pj9vp0ih629jk07dgo10.apps.googleusercontent.com"
+export GOOGLE_API_REDIRECT_URI="com.googleusercontent.apps.211039582599-3qteipadec59pj9vp0ih629jk07dgo10:/oauth2redirect"
+
 # This should be invoked from inside xcode, not manually
 if [[ "${#}" -ne 4 ]]
 then

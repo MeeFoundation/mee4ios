@@ -94,6 +94,8 @@
 		A55085C227CE33C500C5A2D1 /* SignupForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C127CE33C500C5A2D1 /* SignupForm.swift */; };
 		A55085C527CE428200C5A2D1 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C427CE428100C5A2D1 /* LoginForm.swift */; };
 		A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55085C827CF741500C5A2D1 /* CurrentPageState.swift */; };
+		A5715E6E2A1586BA0031E25F /* ExternalConsentEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5715E6D2A1586BA0031E25F /* ExternalConsentEntry.swift */; };
+		A5715E702A16E3770031E25F /* Binding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5715E6F2A16E3770031E25F /* Binding.swift */; };
 		A5716EAA29311D2800248961 /* mee.udl in Resources */ = {isa = PBXBuildFile; fileRef = A5716EA829311D2800248961 /* mee.udl */; };
 		A5716EB02931235B00248961 /* libuniffi_mee_agent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5716EAF2931235B00248961 /* libuniffi_mee_agent.a */; };
 		A57D8E9D2A0BE58600443ED3 /* SdkVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D8E9C2A0BE58600443ED3 /* SdkVersion.swift */; };
@@ -121,6 +123,20 @@
 		A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */; };
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB72DB294B29970063A077 /* MeeEnv.swift */; };
+		A5CBEBF52A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBEBF42A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift */; };
+		A5CBEC082A1F7F0600FD32A9 /* mee-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A5CBED7D2A1F9F4600FD32A9 /* SafariWebExtensionHandler.swift in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEBF42A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift */; };
+		A5CBEDD62A28F09200FD32A9 /* images in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCB2A28F09100FD32A9 /* images */; };
+		A5CBEDD72A28F09200FD32A9 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCC2A28F09100FD32A9 /* popup.js */; };
+		A5CBEDD82A28F09200FD32A9 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCD2A28F09100FD32A9 /* content.js */; };
+		A5CBEDD92A28F09200FD32A9 /* gpc-scripts in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCE2A28F09100FD32A9 /* gpc-scripts */; };
+		A5CBEDDA2A28F09200FD32A9 /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCF2A28F09100FD32A9 /* popup.css */; };
+		A5CBEDDB2A28F09200FD32A9 /* _metadata in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD02A28F09200FD32A9 /* _metadata */; };
+		A5CBEDDC2A28F09200FD32A9 /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD12A28F09200FD32A9 /* popup.html */; };
+		A5CBEDDD2A28F09200FD32A9 /* rules.json in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD22A28F09200FD32A9 /* rules.json */; };
+		A5CBEDDE2A28F09200FD32A9 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD32A28F09200FD32A9 /* _locales */; };
+		A5CBEDDF2A28F09200FD32A9 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD42A28F09200FD32A9 /* background.js */; };
+		A5CBEDE02A28F09200FD32A9 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD52A28F09200FD32A9 /* manifest.json */; };
 		A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
 		A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */; };
 		A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */; };
@@ -217,6 +233,13 @@
 			remoteGlobalIDString = 946D2DE227BB9A960055175C;
 			remoteInfo = "mee-ios-client (iOS)";
 		};
+		A5CBEC062A1F7F0600FD32A9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946D2DD727BB9A950055175C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A5CBEBF12A1F7F0600FD32A9;
+			remoteInfo = "mee-extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -226,6 +249,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				A5CBEC082A1F7F0600FD32A9 /* mee-extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,6 +332,8 @@
 		A55085C127CE33C500C5A2D1 /* SignupForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupForm.swift; sourceTree = "<group>"; };
 		A55085C427CE428100C5A2D1 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		A55085C827CF741500C5A2D1 /* CurrentPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPageState.swift; sourceTree = "<group>"; };
+		A5715E6D2A1586BA0031E25F /* ExternalConsentEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalConsentEntry.swift; sourceTree = "<group>"; };
+		A5715E6F2A16E3770031E25F /* Binding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Binding.swift; sourceTree = "<group>"; };
 		A5716E8F292E6A9700248961 /* MeeHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeeHeader.h; sourceTree = "<group>"; };
 		A5716EA829311D2800248961 /* mee.udl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = mee.udl; path = "../mee-core/mee_agent/src/mee.udl"; sourceTree = "<group>"; };
 		A5716EAF2931235B00248961 /* libuniffi_mee_agent.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libuniffi_mee_agent.a; path = "../../mee-core/target/universal/debug/libuniffi_mee_agent.a"; sourceTree = "<group>"; };
@@ -340,6 +366,19 @@
 		A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStore.swift; sourceTree = "<group>"; };
 		A5C0EE8F28F86F7300790179 /* WarningPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningPopup.swift; sourceTree = "<group>"; };
 		A5CB72DB294B29970063A077 /* MeeEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeEnv.swift; sourceTree = "<group>"; };
+		A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "mee-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5CBEBF42A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		A5CBEDCB2A28F09100FD32A9 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		A5CBEDCC2A28F09100FD32A9 /* popup.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
+		A5CBEDCD2A28F09100FD32A9 /* content.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		A5CBEDCE2A28F09100FD32A9 /* gpc-scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "gpc-scripts"; sourceTree = "<group>"; };
+		A5CBEDCF2A28F09100FD32A9 /* popup.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
+		A5CBEDD02A28F09200FD32A9 /* _metadata */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _metadata; sourceTree = "<group>"; };
+		A5CBEDD12A28F09200FD32A9 /* popup.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
+		A5CBEDD22A28F09200FD32A9 /* rules.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = rules.json; sourceTree = "<group>"; };
+		A5CBEDD32A28F09200FD32A9 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
+		A5CBEDD42A28F09200FD32A9 /* background.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		A5CBEDD52A28F09200FD32A9 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWrapper.swift; sourceTree = "<group>"; };
 		A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionPopup.swift; sourceTree = "<group>"; };
 		A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardHelpers.swift; sourceTree = "<group>"; };
@@ -436,6 +475,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5CBEBEF2A1F7F0600FD32A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -446,6 +492,7 @@
 				A57D8EA72A0D022500443ED3 /* Resources */,
 				A5716EA829311D2800248961 /* mee.udl */,
 				A5B88B57296D73E0003D075A /* mee-ios-clientTests */,
+				A5CBEBF32A1F7F0600FD32A9 /* mee-extension */,
 				A5716E92292E6D3A00248961 /* Frameworks */,
 				A5716E8F292E6A9700248961 /* MeeHeader.h */,
 				948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */,
@@ -488,6 +535,7 @@
 				946D2DF027BB9A960055175C /* Tests iOS.xctest */,
 				946D2DFC27BB9A960055175C /* Tests macOS.xctest */,
 				A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */,
+				A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -569,6 +617,7 @@
 				A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */,
 				A518EAB429ED80CD00B581BC /* ToastMessageView.swift */,
 				A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */,
+				A5715E6D2A1586BA0031E25F /* ExternalConsentEntry.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -791,6 +840,33 @@
 			path = "mee-ios-clientTests";
 			sourceTree = "<group>";
 		};
+		A5CBEBF32A1F7F0600FD32A9 /* mee-extension */ = {
+			isa = PBXGroup;
+			children = (
+				A5CBEBF42A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift */,
+				A5CBEBF62A1F7F0600FD32A9 /* Resources */,
+			);
+			path = "mee-extension";
+			sourceTree = "<group>";
+		};
+		A5CBEBF62A1F7F0600FD32A9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A5CBEDD32A28F09200FD32A9 /* _locales */,
+				A5CBEDD02A28F09200FD32A9 /* _metadata */,
+				A5CBEDD42A28F09200FD32A9 /* background.js */,
+				A5CBEDCD2A28F09100FD32A9 /* content.js */,
+				A5CBEDCE2A28F09100FD32A9 /* gpc-scripts */,
+				A5CBEDCB2A28F09100FD32A9 /* images */,
+				A5CBEDD52A28F09200FD32A9 /* manifest.json */,
+				A5CBEDCF2A28F09100FD32A9 /* popup.css */,
+				A5CBEDD12A28F09200FD32A9 /* popup.html */,
+				A5CBEDCC2A28F09100FD32A9 /* popup.js */,
+				A5CBEDD22A28F09200FD32A9 /* rules.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		A5D9E2FA29265E7000D0E12D /* activeConsents */ = {
 			isa = PBXGroup;
 			children = (
@@ -846,6 +922,7 @@
 				A5EA445D29E06C93000BEB61 /* KeyboardAvoiding.swift */,
 				A518EAB629ED812400B581BC /* ToastStyleExtension.swift */,
 				A521B19729FBE2F400354A98 /* ConsentRequestClaim+isEmpty.swift */,
+				A5715E6F2A16E3770031E25F /* Binding.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -923,6 +1000,7 @@
 				A5B8E94D2938EEE7006058E6 /* PBXBuildRule */,
 			);
 			dependencies = (
+				A5CBEC072A1F7F0600FD32A9 /* PBXTargetDependency */,
 			);
 			name = "mee-ios-client (iOS)";
 			packageProductDependencies = (
@@ -1004,6 +1082,23 @@
 			productReference = A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		A5CBEBF12A1F7F0600FD32A9 /* mee-extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A5CBEC092A1F7F0600FD32A9 /* Build configuration list for PBXNativeTarget "mee-extension" */;
+			buildPhases = (
+				A5CBEBEE2A1F7F0600FD32A9 /* Sources */,
+				A5CBEBEF2A1F7F0600FD32A9 /* Frameworks */,
+				A5CBEBF02A1F7F0600FD32A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "mee-extension";
+			productName = "mee-extension";
+			productReference = A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1011,7 +1106,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					946D2DE227BB9A960055175C = {
@@ -1031,6 +1126,9 @@
 					A5B88B55296D73E0003D075A = {
 						CreatedOnToolsVersion = 14.0.1;
 						TestTargetID = 946D2DE227BB9A960055175C;
+					};
+					A5CBEBF12A1F7F0600FD32A9 = {
+						CreatedOnToolsVersion = 14.3;
 					};
 				};
 			};
@@ -1052,10 +1150,11 @@
 			projectRoot = "";
 			targets = (
 				946D2DE227BB9A960055175C /* mee-ios-client (iOS) */,
+				A5B88B55296D73E0003D075A /* mee-ios-clientTests */,
 				946D2DE827BB9A960055175C /* mee-ios-client (macOS) */,
 				946D2DEF27BB9A960055175C /* Tests iOS */,
 				946D2DFB27BB9A960055175C /* Tests macOS */,
-				A5B88B55296D73E0003D075A /* mee-ios-clientTests */,
+				A5CBEBF12A1F7F0600FD32A9 /* mee-extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1133,6 +1232,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A5CBEBF02A1F7F0600FD32A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5CBEDD82A28F09200FD32A9 /* content.js in Resources */,
+				A5CBEDDC2A28F09200FD32A9 /* popup.html in Resources */,
+				A5CBEDDB2A28F09200FD32A9 /* _metadata in Resources */,
+				A5CBEDDD2A28F09200FD32A9 /* rules.json in Resources */,
+				A5CBEDE02A28F09200FD32A9 /* manifest.json in Resources */,
+				A5CBEDD62A28F09200FD32A9 /* images in Resources */,
+				A5CBEDDA2A28F09200FD32A9 /* popup.css in Resources */,
+				A5CBEDDF2A28F09200FD32A9 /* background.js in Resources */,
+				A5CBEDD92A28F09200FD32A9 /* gpc-scripts in Resources */,
+				A5CBEDD72A28F09200FD32A9 /* popup.js in Resources */,
+				A5CBEDDE2A28F09200FD32A9 /* _locales in Resources */,
+				A5CBED7D2A1F9F4600FD32A9 /* SafariWebExtensionHandler.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1277,6 +1395,7 @@
 				A5AA4CEF28AAAAA500677ADD /* View.swift in Sources */,
 				A5AA4CF228ABEBE700677ADD /* Checkbox.swift in Sources */,
 				A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
+				A5715E702A16E3770031E25F /* Binding.swift in Sources */,
 				A55085C527CE428200C5A2D1 /* LoginForm.swift in Sources */,
 				A5327AA629546EBD00F08618 /* MeeResponse.swift in Sources */,
 				A5327AA0295462F600F08618 /* ConsentStorageDuration.swift in Sources */,
@@ -1295,6 +1414,7 @@
 				A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */,
 				A5D9E30529266AB100D0E12D /* PartnersRegistry.swift in Sources */,
 				A5DAEB9E2993CB5E0083E346 /* Webservice.swift in Sources */,
+				A5715E6E2A1586BA0031E25F /* ExternalConsentEntry.swift in Sources */,
 				A518EAC029ED8A4200B581BC /* NetworkErrors.swift in Sources */,
 				A5D9E3122926784800D0E12D /* ConsentPageAnimation.swift in Sources */,
 				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
@@ -1342,6 +1462,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A5CBEBEE2A1F7F0600FD32A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A5CBEBF52A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1359,6 +1487,11 @@
 			isa = PBXTargetDependency;
 			target = 946D2DE227BB9A960055175C /* mee-ios-client (iOS) */;
 			targetProxy = A5B88B5A296D73E0003D075A /* PBXContainerItemProxy */;
+		};
+		A5CBEC072A1F7F0600FD32A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A5CBEBF12A1F7F0600FD32A9 /* mee-extension */;
+			targetProxy = A5CBEC062A1F7F0600FD32A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1504,7 +1637,7 @@
 					"@executable_path/Frameworks",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/debug";
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1548,7 +1681,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1687,6 +1820,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1697,6 +1831,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.privo.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = "mee-ios-client (macOS)";
@@ -1711,6 +1848,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1721,6 +1859,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.privo.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = "mee-ios-client (macOS)";
@@ -1770,6 +1911,73 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mee-ios-client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mee-ios-client";
+			};
+			name = Release;
+		};
+		A5CBEC0A2A1F7F0600FD32A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 59TG46326T;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "mee-extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MeeExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.1.2;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client.mee-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A5CBEC0B2A1F7F0600FD32A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 59TG46326T;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "mee-extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = MeeExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.1.2;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client.mee-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1826,6 +2034,15 @@
 			buildConfigurations = (
 				A5B88B5C296D73E0003D075A /* Debug */,
 				A5B88B5D296D73E0003D075A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A5CBEC092A1F7F0600FD32A9 /* Build configuration list for PBXNativeTarget "mee-extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5CBEC0A2A1F7F0600FD32A9 /* Debug */,
+				A5CBEC0B2A1F7F0600FD32A9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

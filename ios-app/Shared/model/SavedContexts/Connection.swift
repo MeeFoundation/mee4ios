@@ -28,7 +28,11 @@ enum ConnectionType {
     case MeeTalk
 }
 
-struct Connection: Identifiable {
+struct Connection: Identifiable, Equatable {
+    static func == (lhs: Connection, rhs: Connection) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     var id: String
     let name: String
     let value: ConnectionType
@@ -37,6 +41,14 @@ struct Connection: Identifiable {
         self.id = id
         self.name = name
         self.value = value
+    }
+    
+    var isGapi: Bool {
+        switch(self.value) {
+        case .Gapi(_):
+            return true
+        default: return false
+        }
     }
     
     init?(from: OtherPartyConnectionUniffi) {
