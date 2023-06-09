@@ -13,4 +13,8 @@ class ConsentState: ObservableObject {
 
 }
 
+class AgentState: ObservableObject {
+    @Published var agent: MeeAgentStore?
+
+}
 

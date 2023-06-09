@@ -10,7 +10,7 @@ import SwiftUI
 struct PartnerDetails: View {
     var connection: Connection
     @State var state = PartnerDetailsState()
-    let agent = MeeAgentStore.shared
+    var core = MeeAgentStore.shared
     init(connection: Connection) {
             self.connection = connection
     }
@@ -19,9 +19,13 @@ struct PartnerDetails: View {
     
     
     func removeConsent() {
-        agent.removeItembyName(id: connection.id)
-        self.presentationMode.wrappedValue.dismiss()
-        
+        Task.init {
+            await core.removeItembyName(id: connection.id)
+            await MainActor.run {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+            
+        }
     }
     
     var body: some View {
@@ -152,13 +156,17 @@ struct PartnerDetails: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
-                    print("consentData: ", connection.id, agent.getLastConnectionConsentById(id: connection.id) )
-                    if let consentData = agent.getLastConnectionConsentById(id: connection.id) {
-                        state.consentEntries = .SiopClaims(value: consentData.attributes)
-                    } else if let consentData = agent.getLastExternalConsentById(id: connection.id) {
-                        state.consentEntries = .GapiEntries(value: consentData)
+                    Task.init {
+                        if let consentData = await core.getLastConnectionConsentById(id: connection.id) {
+                            await MainActor.run {
+                                state.consentEntries = .SiopClaims(value: consentData.attributes)
+                            }
+                        } else if let consentData = await core.getLastExternalConsentById(id: connection.id) {
+                            await MainActor.run {
+                                state.consentEntries = .GapiEntries(value: consentData)
+                            }
+                        }
                     }
-                    
                 }
                 .overlay {
                     PopupWrapper(isVisible: state.durationPopupId != nil) {

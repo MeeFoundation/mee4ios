@@ -14,10 +14,10 @@ protocol MeeAgentStoreListener {
     func onUpdate()
 }
 
-class MeeAgentStore {
-    static let shared = MeeAgentStore()
-    private let agent: MeeAgent
 
+class MeeAgentStore {
+    private let agent: MeeAgent
+    static let shared = MeeAgentStore()
     var listeners: [MeeAgentStoreListener] = []
     
     private func onConnectionsListUpdated() {
@@ -66,7 +66,7 @@ class MeeAgentStore {
   
     }
     
-    func getAllItems () -> [Connection]? {
+    private func getAllItems (callback: ([Connection]) -> Void) {
         do {
             let contextsCore = try agent.otherPartyConnections();
             print("contextsCore: ", contextsCore)
@@ -79,15 +79,22 @@ class MeeAgentStore {
                 return copy
             }
             
-            return connections
+            callback(connections)
         } catch {
             print("error getting all contexts: \(error)")
-            return nil
+            callback([])
         }
-       
     }
     
-    func getAllContexts () -> [Context]? {
+    func getAllItems () async -> [Connection] {
+        return await withCheckedContinuation { continuation in
+            getAllItems { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+    
+    private func getAllContexts(callback: ([Context]?) -> Void) {
         do {
             let contextsCore = try agent.otherPartyConnections();
             let connections = contextsCore.reduce([]) { (acc: [Context], connection) in
@@ -97,32 +104,41 @@ class MeeAgentStore {
                 }
                 return copy
             }
-            return connections
+            callback(connections)
         } catch {
             print("error getting all contexts: \(error)")
-            return nil
+            callback(nil)
         }
        
     }
     
-    func removeItembyName (id: String) -> String? {
-        do {
-            let item = self.getConnectionById(id: id)
+    func getAllContexts() async -> [Context]? {
+        return await withCheckedContinuation { continuation in
+            getAllContexts { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+    
+    func removeItembyName (id: String) async -> String? {
+            let item = await self.getConnectionById(id: id)
             guard let id = item?.id else {
                 return nil
             }
-            try agent.deleteOtherPartyConnection(connId: id)
-            return id
-        } catch {
-            return nil
-        }
+            return await withCheckedContinuation { continuation in
+                do {
+                    try agent.deleteOtherPartyConnection(connId: id)
+                    continuation.resume(returning: id)
+                } catch {
+                    continuation.resume(returning: nil)
+                }
+                
+            }
+
     }
 
-    func getConnectionById (id: String) -> Connection? {
-        let items = self.getAllItems()
-        guard let items else {
-            return nil
-        }
+    func getConnectionById (id: String) async -> Connection? {
+        let items = await self.getAllItems()
         let item = items.first { $0.id == id }
         guard let item else {
             return nil
@@ -131,7 +147,7 @@ class MeeAgentStore {
 
     }
     
-    func getLastConnectionConsentById(id: String) -> Context? {
+    private func getLastConnectionConsentById(id: String) -> Context? {
         do {
             if let coreConsent = try agent.siopLastConsentByConnectionId(connId: id) {
                 return Context(from: coreConsent)
@@ -141,41 +157,57 @@ class MeeAgentStore {
         } catch {
             return nil
         }
-        
     }
     
-    func getLastExternalConsentById(id: String) -> ExternalContext? {
-        do {
-            let coreConsent = try agent.otherPartyContextsByConnectionId(connId: id)
-            guard coreConsent.count > 0 else {
-                return nil
-            }
-            return ExternalContext(from: coreConsent[0])
-        } catch {
-            return nil
+    func getLastConnectionConsentById(id: String) async -> Context? {
+        return await withCheckedContinuation { continuation in
+            let result = getLastConnectionConsentById(id: id)
+            continuation.resume(returning: result)
         }
+    }
+    
+    func getLastExternalConsentById(id: String) async -> ExternalContext? {
+        return await withCheckedContinuation {continuation in
+            do {
+                let coreConsent = try agent.otherPartyContextsByConnectionId(connId: id)
+                guard coreConsent.count > 0 else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                let result = ExternalContext(from: coreConsent[0])
+                continuation.resume(returning: result)
+            } catch {
+                continuation.resume(returning: nil)
+            }
+        }
+        
         
     }
 
-    func authorize (id: String, item: ConsentRequest) -> RpAuthResponseWrapper? {
-        
-        do {
-            print("ar: ", RpAuthRequest(from: item))
-            let response = try agent.siopAuthRelyingParty(authRequest: RpAuthRequest(from: item))
-            return response
-        } catch {
-            print(error)
-            return nil
+    func authorize (id: String, item: ConsentRequest) async -> RpAuthResponseWrapper? {
+        return await withCheckedContinuation { continuation in
+            do {
+                print("ar: ", RpAuthRequest(from: item))
+                let response = try agent.siopAuthRelyingParty(authRequest: RpAuthRequest(from: item))
+                continuation.resume(returning: response)
+            } catch {
+                print(error)
+                continuation.resume(returning: nil)
+            }
         }
+       
     }
     
-    func getGoogleIntegrationUrl() -> URL? {
-        do {
-            let url = try agent.googleApiProviderCreateOauthBrowsableUrl()
-            return URL(string: url)
-        } catch {
-            return nil
+    func getGoogleIntegrationUrl() async -> URL? {
+        return await withCheckedContinuation { continuation in
+            do {
+                let url = try agent.googleApiProviderCreateOauthBrowsableUrl()
+                continuation.resume(returning: URL(string: url))
+            } catch {
+                continuation.resume(returning: nil)
+            }
         }
+        
     }
     
     @MainActor func createGoogleConnectionAsync (url: URL) async throws {
@@ -186,5 +218,20 @@ class MeeAgentStore {
         try self.agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
         onConnectionsListUpdated()
     }
+    
+    func authAuthRequestFromUrl (url: String, isCrossDevice: Bool, sdkVersion: SdkVersion) async -> ConsentRequest? {
+        return await withCheckedContinuation { continuation in
+            do {
+                let partnerData = try siopRpAuthRequestFromUrl(siopUrl: url)
+                let consent = ConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
+
+                continuation.resume(returning: consent)
+            } catch {
+                print(error)
+                continuation.resume(returning: nil)
+            }
+        }
+    }
+    
 }
 

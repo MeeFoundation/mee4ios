@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ConsentsList: View, MeeAgentStoreListener {
-    let meeAgent = MeeAgentStore.shared
+    var core = MeeAgentStore.shared
     var registry = PartnersRegistry.shared
     @EnvironmentObject var navigationState: NavigationState
     
@@ -19,17 +19,17 @@ struct ConsentsList: View, MeeAgentStoreListener {
     func onUpdate() {
         onUpdate(isFirstRender: false)
     }
+    
+    
     func onUpdate(isFirstRender: Bool) {
-        let currentConnections = meeAgent.getAllItems() ?? []
-        print("currentConnections: ", currentConnections)
-        if !isFirstRender {
-            withAnimation {
+        
+        Task.init {
+            let currentConnections = await core.getAllItems()
+            print("currentConnections: ", currentConnections)
+            await MainActor.run {
                 refreshPartnersList(data: currentConnections)
             }
-        } else {
-            refreshPartnersList(data: currentConnections)
         }
-        
     }
     
     init() {
@@ -41,7 +41,7 @@ struct ConsentsList: View, MeeAgentStoreListener {
         state.existingPartnersWebApp = data.filter{ context in
             switch (context.value) {
             case .Siop(let value):
-                return value.clientMetadata.type == .web && meeAgent.getLastConnectionConsentById(id: context.id) != nil
+                return value.clientMetadata.type == .web
             case .Gapi(_):
                 return true
             default: return false
@@ -49,7 +49,7 @@ struct ConsentsList: View, MeeAgentStoreListener {
         }
         state.existingPartnersMobileApp = data.filter{ context in
             if case let .Siop(value) = context.value {
-                return value.clientMetadata.type == .mobile && meeAgent.getLastConnectionConsentById(id: context.id) != nil
+                return value.clientMetadata.type == .mobile
             }
             return false
         }
@@ -170,9 +170,15 @@ struct ConsentsList: View, MeeAgentStoreListener {
                 .overlay {
                     WarningPopup(text: "You will be redirected to your default browser to login to your Google Account and pull your data from it to Mee local storage", iconName: "google") {
                         state.showCompatibleWarning = false
-                        if let url = meeAgent.getGoogleIntegrationUrl() {
-                            openURL(url)
+                        Task.init {
+                            if let url = await core.getGoogleIntegrationUrl() {
+                                await MainActor.run {
+                                    openURL(url)
+                                }
+                                
+                            }
                         }
+                        
                     }
                     .ignoresSafeArea(.all)
                     .opacity(state.showCompatibleWarning ? 1 : 0)
@@ -183,11 +189,11 @@ struct ConsentsList: View, MeeAgentStoreListener {
             
         }
         .onAppear {
-            meeAgent.addListener(self)
+            core.addListener(self)
             onUpdate(isFirstRender: true)
         }
         .onDisappear {
-            meeAgent.removeListener(self)
+            core.removeListener(self)
         }
         .ignoresSafeArea(.all)
         

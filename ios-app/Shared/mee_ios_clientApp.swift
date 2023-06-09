@@ -15,10 +15,13 @@ struct mee_ios_clientApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(navigation)
-                .environmentObject(consent)
-                .environmentObject(toast)
+            ZStack {
+                ContentView()
+                    .environmentObject(navigation)
+                    .environmentObject(consent)
+                    .environmentObject(toast)
+            }
+            
         }
     }
 }

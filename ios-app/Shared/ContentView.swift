@@ -17,11 +17,13 @@ struct ContentView: View {
     @EnvironmentObject var data: ConsentState
     @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    let meeAgent = MeeAgentStore.shared
+    var core = MeeAgentStore.shared
     
     @EnvironmentObject private var navigationState: NavigationState
     @EnvironmentObject private var toastState: ToastState
     @Environment(\.scenePhase) var scenePhase
+    @State var isLoading: Bool = false
+    
     
     @State var appWasMinimized: Bool = true
     
@@ -39,7 +41,7 @@ struct ContentView: View {
         if (url.scheme == "com.googleusercontent.apps.211039582599-hmmovsfo59081bt9k19kd3k7927nettq") {
             Task {
                 do {
-                    try await meeAgent.createGoogleConnectionAsync(url: url)
+                    try await core.createGoogleConnectionAsync(url: url)
                     await MainActor.run {
                         toastState.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
                         hadConnectionsBefore = true
@@ -54,7 +56,7 @@ struct ContentView: View {
             }
         }
         if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
-            
+            isLoading = true
             var isCrossDevice = false
             var sdkVersion = defaultSdkVersion
             var sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
@@ -86,20 +88,21 @@ struct ContentView: View {
                     }
                 }
             }
-           
-            do {
-                let partnerData = try siopRpAuthRequestFromUrl(siopUrl: sanitizedUrl)
-                guard let consent = ConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion) else {
-                    return
+            Task {
+                let consent = await core.authAuthRequestFromUrl(url: sanitizedUrl, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
+                await MainActor.run {
+                    guard let consent else {
+                        isLoading = false
+                        return
+                    }
+                    data.consent = consent
+                    if launchedBefore {
+                        navigationState.currentPage = .consent
+                    }
+                    isLoading = false
                 }
-                data.consent = consent
-                if launchedBefore {
-                    navigationState.currentPage = .consent
-                }
-            } catch {
-                print(error)
-                return
-            }            
+            }
+            
         }
     }
     
@@ -108,6 +111,11 @@ struct ContentView: View {
             Group {
                 NavigationPage(isLocked: appWasMinimized)
             }
+            
+        }
+        .overlay {
+            FadedLoading()
+                .opacity((isLoading) ? 1 : 0)
         }
         .overlay{
             LoginPage()
@@ -117,7 +125,6 @@ struct ContentView: View {
         .onChange(of: launchedBefore) {_ in
                 tryAuthenticate()
         }
-
         .onChange(of: scenePhase) { newPhase in
             switch (newPhase) {
             case .background:

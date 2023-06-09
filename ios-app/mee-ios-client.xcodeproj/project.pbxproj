@@ -105,6 +105,8 @@
 		A57D8EB52A0D211500443ED3 /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D8EB42A0D211500443ED3 /* KeychainStorage.swift */; };
 		A5A4D382291433B700CA3F26 /* ConsentDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D381291433B700CA3F26 /* ConsentDuration.swift */; };
 		A5A4D3852914A2A000CA3F26 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D3842914A2A000CA3F26 /* Triangle.swift */; };
+		A5A537232A320BA600E2865D /* Sequence+acyncReduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A537222A320BA600E2865D /* Sequence+acyncReduce.swift */; };
+		A5A537252A331FA500E2865D /* FadedLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A537242A331FA500E2865D /* FadedLoading.swift */; };
 		A5A6F06527FB59F800BEDBDC /* PasswordGeneratorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */; };
 		A5A6F06727FC517600BEDBDC /* KeywordEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */; };
 		A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5AA4CEB28A417BB00677ADD /* Expander.swift */; };
@@ -348,6 +350,8 @@
 		A57D8EB42A0D211500443ED3 /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
 		A5A4D381291433B700CA3F26 /* ConsentDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentDuration.swift; sourceTree = "<group>"; };
 		A5A4D3842914A2A000CA3F26 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
+		A5A537222A320BA600E2865D /* Sequence+acyncReduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+acyncReduce.swift"; sourceTree = "<group>"; };
+		A5A537242A331FA500E2865D /* FadedLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadedLoading.swift; sourceTree = "<group>"; };
 		A5A6F06427FB59F800BEDBDC /* PasswordGeneratorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordGeneratorList.swift; sourceTree = "<group>"; };
 		A5A6F06627FC517600BEDBDC /* KeywordEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordEntry.swift; sourceTree = "<group>"; };
 		A5AA4CEB28A417BB00677ADD /* Expander.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expander.swift; sourceTree = "<group>"; };
@@ -618,6 +622,7 @@
 				A518EAB429ED80CD00B581BC /* ToastMessageView.swift */,
 				A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */,
 				A5715E6D2A1586BA0031E25F /* ExternalConsentEntry.swift */,
+				A5A537242A331FA500E2865D /* FadedLoading.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -923,6 +928,7 @@
 				A518EAB629ED812400B581BC /* ToastStyleExtension.swift */,
 				A521B19729FBE2F400354A98 /* ConsentRequestClaim+isEmpty.swift */,
 				A5715E6F2A16E3770031E25F /* Binding.swift */,
+				A5A537222A320BA600E2865D /* Sequence+acyncReduce.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -1335,6 +1341,7 @@
 				A5DB213D27E22B520070B444 /* urlTools.swift in Sources */,
 				A5327AA22954635400F08618 /* ConsentEntryType.swift in Sources */,
 				A5D9E31B2926841D00D0E12D /* ConsentDurationEntry.swift in Sources */,
+				A5A537252A331FA500E2865D /* FadedLoading.swift in Sources */,
 				A5D9E2F52922C2CA00D0E12D /* VisualEffectView.swift in Sources */,
 				A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */,
 				A5DB215227EA2B690070B444 /* PopupWindow.swift in Sources */,
@@ -1387,6 +1394,7 @@
 				A5D7510728EB186B003CD142 /* json.swift in Sources */,
 				A5DB215B27EB2D8C0070B444 /* Switch.swift in Sources */,
 				A57D8EB32A0D1B0400443ED3 /* generateSecret.swift in Sources */,
+				A5A537232A320BA600E2865D /* Sequence+acyncReduce.swift in Sources */,
 				A550858627BE3B1400C5A2D1 /* Line.swift in Sources */,
 				A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */,
 				A5DB215E27EB32D60070B444 /* passwordGenerator.swift in Sources */,
@@ -1637,7 +1645,7 @@
 					"@executable_path/Frameworks",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/debug";
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1681,7 +1689,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1926,13 +1934,13 @@
 				INFOPLIST_FILE = "mee-extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MeeExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -1959,13 +1967,13 @@
 				INFOPLIST_FILE = "mee-extension/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = MeeExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
