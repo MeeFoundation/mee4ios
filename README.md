@@ -20,3 +20,8 @@ cargo install uniffi_bindgen@0.21.0
 git submodule init
 git submodule update
 ```
+6) build uniffi-bindgen
+```
+cd mee-core
+$HOME/.cargo/bin/cargo run --bin mee_uniffi_bindgen
+```
