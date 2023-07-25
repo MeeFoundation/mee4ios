@@ -11,17 +11,13 @@ Steps for Mac OS
 rustup target add x86_64-apple-ios
 rustup target add aarch64-apple-ios
 ```
-4) Install uniffi-bindgen
-```
-cargo install uniffi_bindgen@0.21.0
-```
-5) initialize submodules
+4) initialize submodules
 ```
 git submodule init
 git submodule update
 ```
-6) build uniffi-bindgen
+5) build uniffi-bindgen
 ```
 cd mee-core
-$HOME/.cargo/bin/cargo run --bin mee_uniffi_bindgen
+$HOME/.cargo/bin/cargo build --bin mee_uniffi_bindgen
 ```
