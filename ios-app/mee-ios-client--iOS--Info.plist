@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDisplayName</key>
+	<string>Mee Smartwallet</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -18,10 +20,11 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.googleusercontent.apps.211039582599-hmmovsfo59081bt9k19kd3k7927nettq</string>
+			<string>com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.211039582599-hmmovsfo59081bt9k19kd3k7927nettq</string>
+				<string>com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp</string>
+				<string>meeappdemo://return</string>
 			</array>
 		</dict>
 	</array>

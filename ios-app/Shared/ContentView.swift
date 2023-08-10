@@ -38,7 +38,7 @@ struct ContentView: View {
     
     func processUrl(url: URL) {
         print(url)
-        if (url.scheme == "com.googleusercontent.apps.211039582599-hmmovsfo59081bt9k19kd3k7927nettq") {
+        if (url.scheme == "com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp") {
             Task {
                 do {
                     try await core.createGoogleConnectionAsync(url: url)

@@ -14,7 +14,7 @@ struct IntroductionPopup: View {
                 Spacer()
                 Image("meeLogo").resizable().scaledToFit().padding(.horizontal, 70)
                     .padding(.bottom, 70)
-                BasicText(text: "Welcome to Mee Identity Agent", color: Colors.meeBrand, size: 23, fontName: FontNameManager.PublicSans.bold, weight: .bold)
+                BasicText(text: "Welcome to Mee Smartwallet", color: Colors.meeBrand, size: 23, fontName: FontNameManager.PublicSans.bold, weight: .bold)
                     .padding(.bottom, 20)
                 BasicText(text: "Let’s set up your first connection to put you in control of your online identity.", color: Colors.meeBrand, size: 23, fontName: FontNameManager.PublicSans.regular, weight: .regular)
                     .padding(.bottom, 50)

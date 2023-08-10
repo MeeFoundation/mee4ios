@@ -151,10 +151,21 @@ struct ConsentPageNew: View {
                     ZStack {
                         VStack {
                             RejectButton("Decline", action: {
-                                if let url = state.onDecline(data.consent) {
-                                    openURL(url)
+                                if data.consent.isCrossDeviceFlow {
+                                    Task {
+                                        do {
+                                           try await WebService().passConsentOverRelay(id: data.consent.nonce, data: "error:user_cancelled,error_description:user%20declined%20the%20request")
+                                        } catch {
+                                            
+                                        }
+                                        
+                                    }
                                 } else {
-                                    toastState.toast = ToastMessage(type: .error, title: "Error", message: "Unknown Error")
+                                    if let url = state.onDecline(data.consent) {
+                                        openURL(url)
+                                    } else {
+                                        toastState.toast = ToastMessage(type: .error, title: "Error", message: "Unknown Error")
+                                    }
                                 }
                                 navigationState.currentPage = .mainPage
                             }, fullWidth: true, isTransparent: true)

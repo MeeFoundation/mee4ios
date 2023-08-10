@@ -96,7 +96,7 @@ struct FirstRunPagePrepare: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 16)
                 
-                Text("Mee uses \(biometricsTypeText) to make sure that you are the only person who can open the app.")
+                Text("Mee Smartwallet uses \(biometricsTypeText) to make sure that you are the only person who can open the app.")
                     .foregroundColor(Colors.text)
                     .font(.custom(FontNameManager.PublicSans.regular , size: 18))
                     .fixedSize(horizontal: false, vertical: true)

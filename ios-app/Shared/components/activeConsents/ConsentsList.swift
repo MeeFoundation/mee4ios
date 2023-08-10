@@ -168,7 +168,7 @@ struct ConsentsList: View, MeeAgentStoreListener {
                 .background(Color.white)
                 .frame(maxWidth: .infinity)
                 .overlay {
-                    WarningPopup(text: "You will be redirected to your default browser to login to your Google Account and pull your data from it to Mee local storage", iconName: "google") {
+                    WarningPopup(text: "You will be redirected to your default browser to login to your Google Account and retrieve your data from it to the Mee Smartwallet local storage", iconName: "google") {
                         state.showCompatibleWarning = false
                         Task.init {
                             if let url = await core.getGoogleIntegrationUrl() {

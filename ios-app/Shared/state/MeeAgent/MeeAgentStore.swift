@@ -44,7 +44,7 @@ class MeeAgentStore {
             storage.editItem(name: MEE_KEYCHAIN_SECRET_NAME, value: passcode!)
         }
         guard let passcode else {
-            fatalError("Unable to init Mee Agent")
+            fatalError("Unable to init Mee Smartwallet")
         }
 
         let fm = FileManager.default
@@ -61,7 +61,7 @@ class MeeAgentStore {
             try agent.initUserAccount()
 
         } catch {
-            fatalError("Unable to init Mee Agent: \(error)")
+            fatalError("Unable to init Mee Smartwallet: \(error)")
         }
   
     }
