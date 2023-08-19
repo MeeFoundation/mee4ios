@@ -50,8 +50,8 @@
 * Wizard is updated to ensure better UI/UX.
 * UI bugs are are fixed (including Consent Screen Required section overlap)
 * http->https redirect for the demo partner website works properly (in case the user starts the flow not from the Mee app).
-* Goggle Account intergation is avaliable.
 * Mee app is renamed to the Mee Smartwallet app.
+* Google Account integration is available.
 ## Issues and bugs
 * No built-in backup capability. We rely on the user backing up their iOS device.
 * If the user deletes the Mee app and reinstalls it then the user will end up logging back into a site/app with a new/different OpenID identifier.
