@@ -25,3 +25,33 @@
 * Redirect to restore the context of OIDC request is disabled.
 * Wizard is in place but it will be updated to ensure better UI/UX.
 * Some low-priority UI bugs are not fixed (including Consent Screen Required section overlap).
+# iOS app version 1.0.2 published to the App Store 6/9/23
+## Functionality
+* Login to a website on iOS device (i.e. Mobile Safari) using Connect-with-Mee.
+* No password is required and your login event is not tracked by a third-party (e.g. Apple, Google, Facebook, etc).
+* Uses iOS FaceID (or TouchID) for user authentication.
+* Safari extension added with option to send a “Do Not Sell My Personal Information” signal to websites.
+* Cross-device user flow is available.
+* Redirect to restore the context of OIDC request is available.
+* Wizard is updated to ensure better UI/UX.
+*  UI bugs are are fixed (including Consent Screen Required section overlap)
+*  http->https redirect for the demo partner website works properly (in case the user starts the flow not from the Mee app).
+## Issues and bugs
+* No built-in backup capability. We rely on the user backing up their iOS device.
+* If the user deletes the Mee app and reinstalls it then the user will end up logging back into a site/app with a new/different OpenID identifier.
+# iOS app version 1.0.3 published to the App Store 8/17/23
+## Functionality
+* Login to a website on iOS device (i.e. Mobile Safari) using Connect-with-Mee.
+* No password is required and your login event is not tracked by a third-party (e.g. Apple, Google, Facebook, etc).
+* Uses iOS FaceID (or TouchID) for user authentication.
+* Safari extension added with option to send a “Do Not Sell My Personal Information” signal to websites.
+* Cross-device user flow is available.
+* Redirect to restore the context of OIDC request is available.
+* Wizard is updated to ensure better UI/UX.
+* UI bugs are are fixed (including Consent Screen Required section overlap)
+* http->https redirect for the demo partner website works properly (in case the user starts the flow not from the Mee app).
+* Goggle Account intergation is avaliable.
+* Mee app is renamed to the Mee Smartwallet app.
+## Issues and bugs
+* No built-in backup capability. We rely on the user backing up their iOS device.
+* If the user deletes the Mee app and reinstalls it then the user will end up logging back into a site/app with a new/different OpenID identifier.
