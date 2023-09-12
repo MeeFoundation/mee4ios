@@ -144,21 +144,21 @@ struct ConsentsList: View, MeeAgentStoreListener {
                             .padding(.horizontal, 16)
                             
                         }
-                        VStack {
-                            Button(action: {
-                                state.showCertifiedOrCompatible = .certified
-                            }) {
-                                HStack {
-                                    Image("meeCertifiedLogo").resizable().scaledToFit().frame(width: 20)
-                                    BasicText(text:"Mee-certified?", color: Colors.meeBrand, size: 14, underline: true)
-                                }
-                            }
-
-                        }
-                        .padding(.bottom, 20)
-                        .padding(.top, 10)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.white)
+//                        VStack {
+//                            Button(action: {
+//                                state.showCertifiedOrCompatible = .certified
+//                            }) {
+//                                HStack {
+//                                    Image("meeCertifiedLogo").resizable().scaledToFit().frame(width: 20)
+//                                    BasicText(text:"Mee-certified?", color: Colors.meeBrand, size: 14, underline: true)
+//                                }
+//                            }
+//
+//                        }
+//                        .padding(.bottom, 20)
+//                        .padding(.top, 10)
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.white)
                         
                     }
                     .background(Color.white)

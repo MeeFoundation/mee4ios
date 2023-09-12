@@ -58,18 +58,18 @@ struct ConsentPageNew: View {
                                         .foregroundColor(Colors.meeBrand)
                                     VStack {
                                         Button(action: {
-                                            state.showCertified.toggle()
+//                                            state.showCertified.toggle()
                                         }) {
                                             Image(state.isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
                                                 .frame(width: 48, height: 48, alignment: .center)
                                         }
                                         .frame(width: 48, height: 48)
                                     }
-                                    .overlay {
-                                        Hint(show: $isCompatibleWarningShown, text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.")
-                                            .opacity(!state.isCertified && !isCompatibleWarningShown ? 1 : 0)
-                                            .position(x: 35,y: 122)
-                                    }
+//                                    .overlay {
+//                                        Hint(show: $isCompatibleWarningShown, text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.")
+//                                            .opacity(!state.isCertified && !isCompatibleWarningShown ? 1 : 0)
+//                                            .position(x: 35,y: 122)
+//                                    }
                                     Line()
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                         .frame(height: 1)

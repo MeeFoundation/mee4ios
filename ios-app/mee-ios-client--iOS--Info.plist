@@ -24,7 +24,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp</string>
-				<string>meeappdemo://return</string>
 			</array>
 		</dict>
 	</array>
