@@ -56,15 +56,15 @@ struct ConsentPageNew: View {
                                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                         .frame(height: 1)
                                         .foregroundColor(Colors.meeBrand)
-//                                    VStack {
-//                                        Button(action: {
+                                    VStack {
+                                        Button(action: {
 //                                            state.showCertified.toggle()
-//                                        }) {
-//                                            Image(state.isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
-//                                                .frame(width: 48, height: 48, alignment: .center)
-//                                        }
-//                                        .frame(width: 48, height: 48)
-//                                    }
+                                        }) {
+                                            Image(state.isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit()
+                                                .frame(width: 48, height: 48, alignment: .center)
+                                        }
+                                        .frame(width: 48, height: 48)
+                                    }
 //                                    .overlay {
 //                                        Hint(show: $isCompatibleWarningShown, text: "This site is not Mee-certified. Your data does not have the extra protections provided by the Mee Human Information License.")
 //                                            .opacity(!state.isCertified && !isCompatibleWarningShown ? 1 : 0)
