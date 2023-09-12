@@ -11,6 +11,7 @@ import SwiftUI
 enum ConsentEntryValue: Codable {
     case string(String?)
     case card(CreditCardEntry)
+    case ageProtect(AgeProtectCardEntry)
 }
 
 struct ConsentRequestClaim: Identifiable, Codable {
@@ -29,6 +30,9 @@ struct ConsentRequestClaim: Identifiable, Codable {
     var forceOpen: Bool?
     var isOpen: Bool {
         get {
+            if type == .ageProtect {
+                return true
+            }
             if let forceOpen {
                 return forceOpen
             } else {
@@ -48,6 +52,9 @@ struct ConsentRequestClaim: Identifiable, Codable {
         if case .card(let cardValue) = value {
             return (isRequired || isOn) && (!cardValue.isValid())
         }
+        if case .ageProtect(let ageProtectValue) = value {
+            return (isRequired || isOn) && (!ageProtectValue.isValid())
+        }
         return true
     }
     private enum CodingKeys: String, CodingKey {
@@ -57,7 +64,7 @@ struct ConsentRequestClaim: Identifiable, Codable {
         self.code = code
         self.name = name
         self.type = type
-        self.value = type == .card ? .card(CreditCardEntry.fromString(value)) : .string(value)
+        self.value = type == .card ? .card(CreditCardEntry.fromString(value)) : type == .ageProtect ? .ageProtect(AgeProtectCardEntry.fromString(value)) : .string(value)
         self.providedBy = providedBy
         self.isRequired = isRequired ?? false
         self.isOn = isOn ?? false
@@ -71,7 +78,7 @@ struct ConsentRequestClaim: Identifiable, Codable {
         }
         self.name = name
         self.type = type
-        self.value = type == .card ? .card(CreditCardEntry.fromString(from.value)) : .string(from.value)
+        self.value = type == .card ? .card(CreditCardEntry.fromString(from.value)) : type == .ageProtect ? .ageProtect(.fromString(from.value)) : .string(from.value)
         self.providedBy = nil
         self.isRequired = from.essential
         self.isOn = from.essential

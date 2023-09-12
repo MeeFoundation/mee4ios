@@ -20,8 +20,38 @@ struct ConsentPage: View {
     var webService = WebService()
     var core = MeeAgentStore.shared
     
-    func onNext (_ coreData: RpAuthResponseWrapper, _ url: String) {
+    func onNext (_ coreData: RpAuthResponseWrapper, _ url: String, _ overrideUrl: String?) {
         
+        if let overrideUrl {
+            if let overrideUrlInitialized = URL(string: overrideUrl) {
+                print("String(url.dropFirst()): ", String(url.dropFirst()))
+                if data.consent.isCrossDeviceFlow {
+                    hadConnectionsBefore = true
+                    Task.init {
+                        do {
+                            try await webService.passConsentOverRelay(id: data.consent.nonce ,data: coreData.openidResponse.idToken)
+                            await MainActor.run {
+                                toastState.toast = ToastMessage(type: .success, title: "Success", message: "The connection has been set up! Check the device you started with.")
+                                navigationState.currentPage = .mainPage
+                            }
+                            
+                        } catch {
+                            await MainActor.run {
+                                toastState.toast = ToastMessage(type: .error, title: "Fail", message: "The connection failed. Please try again.")
+                                navigationState.currentPage = .mainPage
+                            }
+                            
+                        }
+                    }
+                } else {
+                    openURL(overrideUrlInitialized)
+                }
+                
+                
+                return
+            }
+            
+        }
         if var urlComponents = URLComponents(string: url) {
             urlComponents.queryItems = [URLQueryItem(name: data.consent.sdkVersion == .v1 ? "mee_auth_token" : "id_token", value: coreData.openidResponse.idToken)]
             if let url = urlComponents.url
@@ -61,7 +91,7 @@ struct ConsentPage: View {
         print("response: ", response)
         await MainActor.run {
             if let response {
-                onNext(response, data.redirectUri)
+                onNext(response, data.redirectUri, nil)
             } else {
                 toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
             }
@@ -74,11 +104,16 @@ struct ConsentPage: View {
         else {
             return
         }
+        var updatedUrl: String? = nil
         let request = ConsentRequest(from: contextData, consentRequest: data)
+        print("request.clientMetadata.name: ", request.clientMetadata.name)
+        if (request.clientMetadata.name == "Privo") {
+            updatedUrl = "https://oldeyorktimes.com/#/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
+        }
         let response = await core.authorize(id: id, item: request)
         await MainActor.run {
             if let response {
-                onNext(response, url)
+                onNext(response, url, updatedUrl)
             } else {
                 toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
             }

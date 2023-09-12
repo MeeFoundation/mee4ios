@@ -12,6 +12,8 @@ extension ConsentRequestClaim {
         switch self.value {
         case .card(let card):
             return card.number ?? self.name
+        case .ageProtect(let ageProtect):
+            return ageProtect.dateOfBirth ?? self.name
         case .string(let string): return string ?? self.name
         default: return self.name
         }

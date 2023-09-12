@@ -12,6 +12,8 @@ extension ConsentRequestClaim {
         switch self.value {
         case .card(let entry):
             return entry.cvc == nil || entry.expirationDate == nil || entry.number == nil
+        case .ageProtect(let entry):
+            return entry.age == nil || entry.dateOfBirth == nil || entry.jurisdiction == nil
         case.string(let entry):
             return entry == nil
         case nil:

@@ -64,25 +64,44 @@ struct PartnerDetails: View {
                         .padding(.top, 16)
                     switch (state.consentEntries) {
                     case .SiopClaims(let claims):
-                        Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
-                            ForEach(Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).filter {$0.wrappedValue.isRequired}) { $entry in
-                                VStack {
-                                    ConsentEntry(entry: $entry, isReadOnly: true) {
-                                        state.durationPopupId = entry.id
+                        if Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).firstIndex(where: { $0.wrappedValue.type == .ageProtect }) != nil {
+                            Expander(title: "Your Age Verification Record", isOpen: $state.isAvrOpen) {
+                                ForEach(Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).filter {$0.wrappedValue.type == .ageProtect }) { $entry in
+                                    VStack {
+                                        ConsentEntry(entry: $entry, isReadOnly: true) {
+                                            state.durationPopupId = entry.id
+                                        }
+                                        .id(entry.id)
+                                        Divider()
+                                            .frame(height: 1)
+                                            .background(Colors.gray)
                                     }
-                                    .id(entry.id)
-                                    Divider()
-                                        .frame(height: 1)
-                                        .background(Colors.gray)
                                 }
-                                
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
+                        }
+                        if Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).firstIndex(where: { $0.wrappedValue.isRequired && !($0.wrappedValue.type == .ageProtect) }) != nil {
+                            Expander(title: "Required info shared", isOpen: $state.isRequiredOpen) {
+                                ForEach(Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).filter {$0.wrappedValue.isRequired && !($0.wrappedValue.type == .ageProtect)}) { $entry in
+                                    VStack {
+                                        ConsentEntry(entry: $entry, isReadOnly: true) {
+                                            state.durationPopupId = entry.id
+                                        }
+                                        .id(entry.id)
+                                        Divider()
+                                            .frame(height: 1)
+                                            .background(Colors.gray)
+                                    }
+                                    
+                                    
+                                }
+                                .padding(.top, 19)
+                                .padding(.leading, 3)
                                 
                             }
-                            .padding(.top, 19)
-                            .padding(.leading, 3)
-                            
+                            .padding(.horizontal, 16)
                         }
-                        .padding(.horizontal, 16)
                         if Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).firstIndex(where: {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty}) != nil {
                             Expander(title: "Optional info shared", isOpen: $state.isOptionalOpen) {
                                 ForEach(Binding(get: {claims}, set: { state.consentEntries = .SiopClaims(value: $0)}).filter {!$0.wrappedValue.isRequired && !$0.wrappedValue.isEmpty}) { $entry in

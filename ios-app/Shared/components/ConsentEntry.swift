@@ -13,6 +13,7 @@ struct ConsentEntry: View {
     var onDurationPopupShow: () -> Void
     var isReadOnly: Bool = false
     init(entry: Binding<ConsentRequestClaim>, isReadOnly: Bool?, onDurationPopupShow: @escaping () -> Void) {
+        print("YYYYYYYYY: ", entry)
         self._entry = entry
         self.onDurationPopupShow = onDurationPopupShow
         self.isReadOnly = isReadOnly ?? false
@@ -39,6 +40,8 @@ struct ConsentEntry: View {
                         ConsentSimpleEntryInput(value: Binding(get: {string}, set: { entry.value = .string($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
                     } else if case .card(let card) = entry.value {
                         ConsentCardEntryInput(value: Binding(get: {card}, set: { entry.value = .card($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
+                    } else if case .ageProtect(let ageProtect) = entry.value {
+                        ConsentAgeProtectEntryInput(value: Binding(get: {ageProtect}, set: { entry.value = .ageProtect($0)}), name: entry.name, isRequired: entry.isRequired, type: entry.type, isIncorrect: entry.isIncorrect, isReadOnly: isReadOnly)
                     }
                     
                     

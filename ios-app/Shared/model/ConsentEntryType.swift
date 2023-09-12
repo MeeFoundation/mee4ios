@@ -14,4 +14,5 @@ enum ConsentEntryType: String, Codable {
     case email = "email"
     case address = "address"
     case card = "card"
+    case ageProtect = "ageProtect"
 }

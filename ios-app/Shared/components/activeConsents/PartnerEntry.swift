@@ -52,7 +52,7 @@ struct PartnerEntry: View  {
                         Text(name)
                             .foregroundColor(Colors.text)
                             .font(.custom(FontNameManager.PublicSans.medium , size: 16))
-                        Image(isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
+//                        Image(isCertified ? "meeCertifiedLogo" : "meeCompatibleLogo").resizable().scaledToFit().frame(width: 20)
                         Spacer()
                     }
                     

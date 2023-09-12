@@ -35,10 +35,10 @@ struct ConsentPageExisting: View {
                                 .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                 .frame(height: 1)
                                 .foregroundColor(Colors.meeBrand)
-                            VStack {
-                                Image("meeCertifiedLogo").resizable().scaledToFit()
-                                    .frame(width: 48, height: 48, alignment: .center)
-                            }
+//                            VStack {
+//                                Image("meeCertifiedLogo").resizable().scaledToFit()
+//                                    .frame(width: 48, height: 48, alignment: .center)
+//                            }
                             Line()
                                 .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
                                 .frame(height: 1)

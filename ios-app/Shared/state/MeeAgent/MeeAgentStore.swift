@@ -189,6 +189,7 @@ class MeeAgentStore {
             do {
                 print("ar: ", RpAuthRequest(from: item))
                 let response = try agent.siopAuthRelyingParty(authRequest: RpAuthRequest(from: item))
+                onConnectionsListUpdated()
                 continuation.resume(returning: response)
             } catch {
                 print(error)

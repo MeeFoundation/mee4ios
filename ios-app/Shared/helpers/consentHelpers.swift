@@ -15,6 +15,8 @@ func getConsentEntryImageByType (_ entryType: ConsentEntryType, isDisabled: Bool
         return "letterIcon"
     case ConsentEntryType.card:
         return "cardIcon"
+    case ConsentEntryType.ageProtect:
+        return "personIcon"
     case ConsentEntryType.date:
         return "calendarIcon"
     default:

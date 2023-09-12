@@ -20,4 +20,6 @@ struct ConsentsListState {
     var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
     var showCompatibleWarning: Bool = false
     var showIntroScreensSwitch: Bool = false
+    var showQrCodeScanner: Bool = false
+    var cameraLightOn: Bool = false
 }

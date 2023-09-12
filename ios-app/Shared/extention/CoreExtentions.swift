@@ -49,6 +49,7 @@ extension OidcClaimParams {
         var val: String?
         switch from.value {
         case .card(let card): val = card.toString()
+        case .ageProtect(let ageProtect): val = ageProtect.toString()
         case .string(let string): val = string
         default: return 
         }

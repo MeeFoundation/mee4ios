@@ -17,6 +17,7 @@ struct PartnerDetailsState {
     var consentEntries: ConsentEntriesType? = nil
     var isRequiredOpen: Bool = true
     var isOptionalOpen: Bool = false
+    var isAvrOpen: Bool = true
     var selection: String? = nil
     var scrollPosition: UUID?
 }
