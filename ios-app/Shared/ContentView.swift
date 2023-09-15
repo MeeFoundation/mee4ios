@@ -86,7 +86,7 @@ struct ContentView: View {
                     if (host == "confirm") {
                         consent.clientMetadata.displayUrl = "https://oldeyorktimes.com/#/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
                     } else if (host == "confirmReddit") {
-                        consent.clientMetadata.displayUrl = "https://mee.foundation/meeddit/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
+                        consent.clientMetadata.displayUrl = "https://reddit-demo.mee.foundation/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
                     }
                     print("consent: ", consent)
                     await MainActor.run {
