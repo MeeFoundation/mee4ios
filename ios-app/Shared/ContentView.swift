@@ -65,7 +65,7 @@ struct ContentView: View {
                     }
                     
                 }
-            } else if (host == "confirm") {
+            } else if (host == "confirm" || host == "confirmReddit") {
                 let isCrossDevice = url.path.count > 0
                 Task {
                     let allConnections = await core.getAllItems()
@@ -76,12 +76,21 @@ struct ContentView: View {
                         return
                     }
                     
+                    print("url.path: ", url.path)
+                    
                     let consent = await core.authAuthRequestFromUrl(url: isCrossDevice ? url.path : privoMockUrl, isCrossDevice: isCrossDevice ,sdkVersion: defaultSdkVersion)
-                    guard let consent else {
+                    
+                    guard var consent else {
                         return
                     }
-                    
+                    if (host == "confirm") {
+                        consent.clientMetadata.displayUrl = "https://oldeyorktimes.com/#/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
+                    } else if (host == "confirmReddit") {
+                        consent.clientMetadata.displayUrl = "https://mee.foundation/meeddit/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
+                    }
+                    print("consent: ", consent)
                     await MainActor.run {
+                        
                         data.consent = consent
                         if launchedBefore {
                             navigationState.currentPage = .consent

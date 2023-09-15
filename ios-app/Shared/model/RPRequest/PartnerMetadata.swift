@@ -12,7 +12,7 @@ struct PartnerMetadata: Identifiable {
         return name
     }
     let name: String
-    let displayUrl: String
+    var displayUrl: String
     let logoUrl: String
     let type: ClientType
     let jwks: [String]?

@@ -11,10 +11,10 @@ struct ConsentRequest {
     let id: String
     let scope: OidcScopeList
     var claims: [ConsentRequestClaim]
-    let clientMetadata: PartnerMetadata
+    var clientMetadata: PartnerMetadata
     let nonce: String
     let clientId: String
-    let redirectUri: Url
+    var redirectUri: Url
     let presentationDefinition: String?
     let isCrossDeviceFlow: Bool
     let sdkVersion: SdkVersion

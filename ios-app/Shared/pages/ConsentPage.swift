@@ -108,7 +108,7 @@ struct ConsentPage: View {
         let request = ConsentRequest(from: contextData, consentRequest: data)
         print("request.clientMetadata.name: ", request.clientMetadata.name)
         if (request.clientMetadata.name == "Privo") {
-            updatedUrl = "https://oldeyorktimes.com/#/?ageProtect=hjkiuasgdjhagsdjhmagsdjhvasduoyagsduyjagwwd86ag687dsazdc"
+            updatedUrl = request.clientMetadata.displayUrl
         }
         let response = await core.authorize(id: id, item: request)
         await MainActor.run {
