@@ -11,9 +11,6 @@ trap error_help ERR
 # XCode tries to be helpful and overwrites the PATH. Reset that.
 PATH="$(bash -l -c 'echo $PATH')"
 
-export GOOGLE_API_CLIENT_ID="1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp.apps.googleusercontent.com"
-export GOOGLE_API_REDIRECT_URI="com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp:/oauth2redirect"
-
 # This should be invoked from inside xcode, not manually
 if [[ "${#}" -ne 4 ]]
 then
@@ -49,10 +46,14 @@ TARGETDIR=${SRC_ROOT}/target
 
 if [[ "${RELDIR}" = "debug" ]]; then
     env -i PATH="${PATH}" \
+     GOOGLE_API_CLIENT_ID="1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp.apps.googleusercontent.com" \
+     GOOGLE_API_REDIRECT_URI="com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp:/oauth2redirect" \
     "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "aarch64-apple-ios-sim"
 fi
 
     env -i PATH="${PATH}" \
+     GOOGLE_API_CLIENT_ID="1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp.apps.googleusercontent.com" \
+     GOOGLE_API_REDIRECT_URI="com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp:/oauth2redirect" \
     "${HOME}"/.cargo/bin/cargo build -p "${FFI_TARGET}" --lib ${RELFLAG} --target "aarch64-apple-ios"
     
 
