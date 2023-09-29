@@ -9,7 +9,7 @@ import Foundation
 
 
 class ConsentState: ObservableObject {
-    @Published var consent: ConsentRequest = ConsentRequest()
+    @Published var consent: MeeConsentRequest = MeeConsentRequest()
 
 }
 

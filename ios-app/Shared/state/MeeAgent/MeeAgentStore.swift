@@ -66,14 +66,13 @@ class MeeAgentStore {
   
     }
     
-    private func getAllItems (callback: ([Connection]) -> Void) {
+    private func getAllConnections (callback: ([MeeConnectionWrapper]) -> Void) {
         do {
-            let contextsCore = try agent.otherPartyConnections();
-            print("contextsCore: ", contextsCore)
-            let connections = contextsCore.reduce([]) { (acc: [Connection], connection) in
+            let connectionsCore = try agent.otherPartyConnections();
+            let connections = connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
                 var copy = acc
                 
-                if let connection = Connection(from: connection) {
+                if let connection = MeeConnectionWrapper(from: connection) {
                     copy.append(connection)
                 }
                 return copy
@@ -86,18 +85,69 @@ class MeeAgentStore {
         }
     }
     
-    func getAllItems () async -> [Connection] {
+    func getAllConnections () async -> [MeeConnectionWrapper] {
         return await withCheckedContinuation { continuation in
-            getAllItems { result in
+            getAllConnections { result in
                 continuation.resume(returning: result)
             }
         }
     }
     
-    private func getAllContexts(callback: ([Context]?) -> Void) {
+    private func getAllConnectionConnectors (connectionId: String) -> [MeeConnectorWrapper] {
+        do {
+            let connectorsCore = try agent.getOtherPartyConnectionConnectors(connId: connectionId);
+            let connectors = connectorsCore.reduce([]) { (acc: [MeeConnectorWrapper], connector) in
+                var copy = acc
+                
+                if let connector = MeeConnectorWrapper(from: connector) {
+                    copy.append(connector)
+                }
+                return copy
+            }
+            
+            return connectors
+        } catch {
+            print("error getting all contexts: \(error)")
+            return []
+        }
+    }
+    
+    func getAllConnectionConnectors (connectionId: String) async -> [MeeConnectorWrapper] {
+        return await withCheckedContinuation { continuation in
+            let result = getAllConnectionConnectors(connectionId: connectionId)
+            continuation.resume(returning: result)
+        }
+    }
+    
+    private func getAllConnectors (callback: ([MeeConnectorWrapper]) -> Void) {
+        do {
+            let connectionsCore = try agent.otherPartyConnections();
+            let allConnectorsCore = connectionsCore.reduce([]) { (acc: [MeeConnectorWrapper], connectionCore) in
+                var copy = acc
+                let connectorsCore = getAllConnectionConnectors(connectionId: connectionCore.id)
+                copy.append(contentsOf: connectorsCore)
+                return copy
+            }
+            
+            callback(allConnectorsCore)
+        } catch {
+            print("error getting all contexts: \(error)")
+            callback([])
+        }
+    }
+    
+    func getAllConnectors () async -> [MeeConnectorWrapper] {
+        return await withCheckedContinuation { continuation in
+            getAllConnectors() { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+    
+    private func getAllContexts(callback: ([MeeContextWrapper]?) -> Void) {
         do {
             let contextsCore = try agent.otherPartyConnections();
-            let connections = contextsCore.reduce([]) { (acc: [Context], connection) in
+            let connections = contextsCore.reduce([]) { (acc: [MeeContextWrapper], connection) in
                 var copy = acc
                 if let context = getLastConnectionConsentById(id: connection.id) {
                     copy.append(context)
@@ -112,7 +162,7 @@ class MeeAgentStore {
        
     }
     
-    func getAllContexts() async -> [Context]? {
+    func getAllContexts() async -> [MeeContextWrapper]? {
         return await withCheckedContinuation { continuation in
             getAllContexts { result in
                 continuation.resume(returning: result)
@@ -137,8 +187,8 @@ class MeeAgentStore {
 
     }
 
-    func getConnectionById (id: String) async -> Connection? {
-        let items = await self.getAllItems()
+    func getConnectionById (id: String) async -> MeeConnectionWrapper? {
+        let items = await self.getAllConnections()
         let item = items.first { $0.id == id }
         guard let item else {
             return nil
@@ -147,10 +197,10 @@ class MeeAgentStore {
 
     }
     
-    private func getLastConnectionConsentById(id: String) -> Context? {
+    private func getLastConnectionConsentById(id: String) -> MeeContextWrapper? {
         do {
             if let coreConsent = try agent.siopLastConsentByConnectionId(connId: id) {
-                return Context(from: coreConsent)
+                return MeeContextWrapper(from: coreConsent)
             } else {
                 return nil
             }
@@ -159,14 +209,14 @@ class MeeAgentStore {
         }
     }
     
-    func getLastConnectionConsentById(id: String) async -> Context? {
+    func getLastConnectionConsentById(id: String) async -> MeeContextWrapper? {
         return await withCheckedContinuation { continuation in
             let result = getLastConnectionConsentById(id: id)
             continuation.resume(returning: result)
         }
     }
     
-    func getLastExternalConsentById(id: String) async -> ExternalContext? {
+    func getLastExternalConsentById(id: String) async -> MeeExternalContextWrapper? {
         return await withCheckedContinuation {continuation in
             do {
                 let coreConsent = try agent.otherPartyContextsByConnectionId(connId: id)
@@ -174,7 +224,7 @@ class MeeAgentStore {
                     continuation.resume(returning: nil)
                     return
                 }
-                let result = ExternalContext(from: coreConsent[0])
+                let result = MeeExternalContextWrapper(from: coreConsent[0])
                 continuation.resume(returning: result)
             } catch {
                 continuation.resume(returning: nil)
@@ -184,11 +234,10 @@ class MeeAgentStore {
         
     }
 
-    func authorize (id: String, item: ConsentRequest) async -> RpAuthResponseWrapper? {
+    func authorize (id: String, item: MeeConsentRequest) async -> OidcAuthResponseWrapper? {
         return await withCheckedContinuation { continuation in
             do {
-                print("ar: ", RpAuthRequest(from: item))
-                let response = try agent.siopAuthRelyingParty(authRequest: RpAuthRequest(from: item))
+                let response = try agent.siopAuthRelyingParty(authRequest: OidcAuthRequest(from: item))
                 continuation.resume(returning: response)
             } catch {
                 print(error)
@@ -219,11 +268,11 @@ class MeeAgentStore {
         onConnectionsListUpdated()
     }
     
-    func authAuthRequestFromUrl (url: String, isCrossDevice: Bool, sdkVersion: SdkVersion) async -> ConsentRequest? {
+    func authAuthRequestFromUrl (url: String, isCrossDevice: Bool, sdkVersion: SdkVersion) async -> MeeConsentRequest? {
         return await withCheckedContinuation { continuation in
             do {
                 let partnerData = try siopRpAuthRequestFromUrl(siopUrl: url)
-                let consent = ConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
+                let consent = MeeConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
 
                 continuation.resume(returning: consent)
             } catch {

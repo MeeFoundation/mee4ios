@@ -53,7 +53,7 @@ struct PartnerArray: Identifiable {
     var id: String {
         return name
     }
-    var data: [Connection]?
+    var data: [MeeConnectorWrapper]?
     var name: String
     var editable: Bool
 }
@@ -67,7 +67,7 @@ struct MainViewPage: View {
     
     var body: some View {
         //        TabBar(items: tabItems)
-        ConsentsList()
+        ConnectionsListPage()
         
         
     }

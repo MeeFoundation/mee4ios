@@ -12,7 +12,7 @@ struct ConsentPageState {
     var isReturningUser: Bool?    
 
     
-    func clearConsentsListFromDisabledOptionals (_ data: ConsentRequest) -> ConsentRequest {
+    func clearConsentsListFromDisabledOptionals (_ data: MeeConsentRequest) -> MeeConsentRequest {
         let dataClearedFromDisabledOptionals = data.claims.map { claim in
             var claimCopy = claim
             if !claim.isRequired && !claim.isOn {
@@ -20,7 +20,7 @@ struct ConsentPageState {
             }
             return claimCopy
         }
-        let request = ConsentRequest(claims: dataClearedFromDisabledOptionals, clientMetadata: data.clientMetadata, nonce: data.nonce, clientId: data.clientId, redirectUri: data.redirectUri, presentationDefinition: data.presentationDefinition, isCrossDevice: data.isCrossDeviceFlow, sdkVersion: data.sdkVersion)
+        let request = MeeConsentRequest(claims: dataClearedFromDisabledOptionals, clientMetadata: data.clientMetadata, nonce: data.nonce, clientId: data.clientId, redirectUri: data.redirectUri, presentationDefinition: data.presentationDefinition, isCrossDevice: data.isCrossDeviceFlow, sdkVersion: data.sdkVersion)
         return request
     }
     

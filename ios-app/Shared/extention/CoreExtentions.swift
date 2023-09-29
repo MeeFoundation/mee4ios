@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension RpAuthRequest {
-    init(from: ConsentRequest) {
+extension OidcAuthRequest {
+    init(from: MeeConsentRequest) {
         self.scope = from.scope
         self.clientMetadata = OidcClientMetadata(from: from.clientMetadata)
         self.nonce = from.nonce

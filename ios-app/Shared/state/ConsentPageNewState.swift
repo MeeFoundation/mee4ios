@@ -17,7 +17,7 @@ struct ConsentPageNewState {
     var previousButtomSafeArea: Double? = nil
     var isCertified: Bool = true
         
-    func onDecline(_ request: ConsentRequest) -> URL? {
+    func onDecline(_ request: MeeConsentRequest) -> URL? {
         keyboardEndEditing()
         
         if var urlComponents = URLComponents(string: request.redirectUri) {

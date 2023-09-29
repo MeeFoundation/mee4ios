@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConsentsList: View, MeeAgentStoreListener {
+struct ConnectionsListPage: View, MeeAgentStoreListener {
     var core = MeeAgentStore.shared
     var registry = PartnersRegistry.shared
     @EnvironmentObject var navigationState: NavigationState
@@ -24,7 +24,7 @@ struct ConsentsList: View, MeeAgentStoreListener {
     func onUpdate(isFirstRender: Bool) {
         
         Task.init {
-            let currentConnections = await core.getAllItems()
+            let currentConnections = await core.getAllConnectors()
             print("currentConnections: ", currentConnections)
             await MainActor.run {
                 refreshPartnersList(data: currentConnections)
@@ -37,9 +37,9 @@ struct ConsentsList: View, MeeAgentStoreListener {
     }
     
     
-    func refreshPartnersList(data: [Connection]) {
+    func refreshPartnersList(data: [MeeConnectorWrapper]) {
         state.existingPartnersWebApp = data.filter{ context in
-            switch (context.value) {
+            switch (context.connectorProtocol) {
             case .Siop(let value):
                 return value.clientMetadata.type == .web
             case .Gapi(_):
@@ -48,13 +48,13 @@ struct ConsentsList: View, MeeAgentStoreListener {
             }
         }
         state.existingPartnersMobileApp = data.filter{ context in
-            if case let .Siop(value) = context.value {
+            if case let .Siop(value) = context.connectorProtocol {
                 return value.clientMetadata.type == .mobile
             }
             return false
         }
         state.otherPartnersWebApp = registry.partners.filter { context in
-            let isNotPresentedInExistingList = state.existingPartnersWebApp?.firstIndex{$0.id.getHostname() == context.id.getHostname()} == nil
+            let isNotPresentedInExistingList = state.existingPartnersWebApp?.firstIndex{$0.name == context.name} == nil
             let isGapiInList = state.existingPartnersWebApp?.firstIndex{$0.isGapi} != nil
             let isGapiInListAndEntryIsGapi = isGapiInList && context.isGapi
             return isNotPresentedInExistingList && !isGapiInListAndEntryIsGapi
@@ -104,28 +104,29 @@ struct ConsentsList: View, MeeAgentStoreListener {
                                          PartnerArray(data: state.existingPartnersMobileApp, name: "Mobile Apps", editable: true),
                                          PartnerArray(data: state.otherPartnersWebApp, name: "Sites to connect to", editable: false)
                                         ]) { partnersArray in
-                                    if !(partnersArray.data ?? []).isEmpty {HStack {
-                                        BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
-                                        Spacer()
-                                    }
-                                    .padding(.leading, 4)
-                                    .padding(.top, 24)
-                                    .padding(.bottom, 4)
+                                    if !(partnersArray.data ?? []).isEmpty {
+                                        HStack {
+                                            BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
+                                            Spacer()
+                                        }
+                                        .padding(.leading, 4)
+                                        .padding(.top, 24)
+                                        .padding(.bottom, 4)
                                     }
                                     ForEach(partnersArray.data ?? []) { partnerData in
                                         NavigationLink(
-                                            destination: PartnerDetails(connection: partnerData),
+                                            destination: ContextDetailsPage(connector: partnerData),
                                             tag: partnerData.id,
                                             selection: $state.selection
                                         ){}
-                                        PartnerEntry(connection: partnerData, hasEntry: partnersArray.editable)
+                                        PartnerEntry(connector: partnerData, hasEntry: partnersArray.editable)
                                             .onTapGesture(perform: {
                                                 if partnersArray.editable {
                                                     state.selection = partnerData.id
                                                     
                                                 }
                                                 else {
-                                                    switch (partnerData.value) {
+                                                    switch (partnerData.connectorProtocol) {
                                                     case .Gapi(_):
                                                         state.showCompatibleWarning = true
                                                     default:

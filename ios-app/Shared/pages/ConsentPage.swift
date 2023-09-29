@@ -20,7 +20,14 @@ struct ConsentPage: View {
     var webService = WebService()
     var core = MeeAgentStore.shared
     
-    func onNext (_ coreData: RpAuthResponseWrapper, _ url: String) {
+    func onFail() async {
+        await MainActor.run {
+            toastState.toast = ToastMessage(type: .error, title: "Fail", message: "The connection failed. Please try again.")
+            navigationState.currentPage = .mainPage
+        }
+    }
+    
+    func onNext (_ coreData: OidcAuthResponseWrapper, _ url: String) {
         
         if var urlComponents = URLComponents(string: url) {
             urlComponents.queryItems = [URLQueryItem(name: data.consent.sdkVersion == .v1 ? "mee_auth_token" : "id_token", value: coreData.openidResponse.idToken)]
@@ -33,18 +40,18 @@ struct ConsentPage: View {
                     print("cross device flow")
                     Task.init {
                         do {
-                            try await webService.passConsentOverRelay(id: data.consent.nonce ,data: coreData.openidResponse.idToken)
+                            guard let idToken = coreData.openidResponse.idToken else {
+                                await onFail()
+                                return
+                            }
+                            try await webService.passConsentOverRelay(id: data.consent.nonce ,data: idToken)
                             await MainActor.run {
                                 toastState.toast = ToastMessage(type: .success, title: "Success", message: "The connection has been set up! Check the device you started with.")
                                 navigationState.currentPage = .mainPage
                             }
                             
                         } catch {
-                            await MainActor.run {
-                                toastState.toast = ToastMessage(type: .error, title: "Fail", message: "The connection failed. Please try again.")
-                                navigationState.currentPage = .mainPage
-                            }
-                            
+                            await onFail()
                         }
                     }
                 } else {
@@ -55,7 +62,7 @@ struct ConsentPage: View {
         }
     }
     
-    func authorizeRequest (_ data: ConsentRequest) async {
+    func authorizeRequest (_ data: MeeConsentRequest) async {
         let request = state.clearConsentsListFromDisabledOptionals(data)
         let response = await core.authorize(id: data.clientId, item: request)
         print("response: ", response)
@@ -69,12 +76,12 @@ struct ConsentPage: View {
         
     }
     
-    func recoverRequest (id: String, url: String, data: ConsentRequest) async {
+    func recoverRequest (id: String, url: String, data: MeeConsentRequest) async {
         guard let contextData = await core.getLastConnectionConsentById(id: id)
         else {
             return
         }
-        let request = ConsentRequest(from: contextData, consentRequest: data)
+        let request = MeeConsentRequest(from: contextData, consentRequest: data)
         let response = await core.authorize(id: id, item: request)
         await MainActor.run {
             if let response {

@@ -5,7 +5,7 @@
 //  Created by Anthony Ivanov on 3.5.23..
 //
 
-struct Context {
+struct MeeContextWrapper {
     let id: String
     let otherPartyConnectionId: String
     let createdAt: String
@@ -28,7 +28,7 @@ struct Context {
     }
 }
 
-struct ExternalContext {
+struct MeeExternalContextWrapper {
     let id: String
     let name: String
     let data: OtherPartyContextData

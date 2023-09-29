@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PartnerEntry: View  {
-    let connection: Connection
+    let connector: MeeConnectorWrapper
     let hasEntry: Bool
     let isCertified: Bool
     let clientMetadata: PartnerMetadata?
@@ -16,16 +16,16 @@ struct PartnerEntry: View  {
     let name: String
     let hostname: String
     
-    init(connection: Connection, hasEntry: Bool = false) {
-        self.connection = connection
+    init(connector: MeeConnectorWrapper, hasEntry: Bool = false) {
+        self.connector = connector
         self.hasEntry = hasEntry
         self.isCertified = true
-        switch (connection.value) {
+        switch (connector.connectorProtocol) {
         case .Siop(let value):
             self.clientMetadata = value.clientMetadata
-            self.name = clientMetadata?.name ?? connection.name
-            self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(connection.id)/favicon.ico")
-            self.hostname = connection.id.getHostname()
+            self.name = clientMetadata?.name ?? connector.name
+            self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(connector.id)/favicon.ico")
+            self.hostname = value.redirectUri.getHostname()
         case .Gapi(_):
             self.clientMetadata = nil
             self.name = "Google Account"
@@ -36,6 +36,16 @@ struct PartnerEntry: View  {
             self.name = "Mee Talk"
             self.logoUri = URL(string: "https://mee.foundation/favicon.png")
             self.hostname = "mee.foundation"
+        case .openId4Vc(value: let value):
+            self.clientMetadata = nil
+            self.name = "VC"
+            self.logoUri = nil
+            self.hostname = value.issuerUrl
+        case .MeeBrowserExtension:
+            self.clientMetadata = nil
+            self.name = "Extension"
+            self.logoUri = nil
+            self.hostname = ""
         }
 
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConsentRequest {
+struct MeeConsentRequest {
     let id: String
     let scope: OidcScopeList
     var claims: [ConsentRequestClaim]
@@ -15,7 +15,7 @@ struct ConsentRequest {
     let nonce: String
     let clientId: String
     let redirectUri: Url
-    let presentationDefinition: String?
+    let presentationDefinition: PresentationDefinition?
     let isCrossDeviceFlow: Bool
     let sdkVersion: SdkVersion
     let responseType: OidcResponseType
@@ -31,13 +31,13 @@ struct ConsentRequest {
         self.nonce = ""
         self.clientId = ""
         self.redirectUri = ""
-        self.presentationDefinition = ""
+        self.presentationDefinition = nil
         self.isCrossDeviceFlow = false
         self.sdkVersion = defaultSdkVersion
         self.responseType = .idToken
     }
     
-    init(from: Context, consentRequest: ConsentRequest) {
+    init(from: MeeContextWrapper, consentRequest: MeeConsentRequest) {
         self.id = from.id
         self.scope = OidcScopeList(scopes: [OidcScope.openid])
         self.claims = from.attributes
@@ -57,7 +57,7 @@ struct ConsentRequest {
           nonce: String,
           clientId: String,
           redirectUri: Url,
-          presentationDefinition: String?,
+          presentationDefinition: PresentationDefinition?,
           isCrossDevice: Bool,
           sdkVersion: SdkVersion
       ) {
@@ -74,7 +74,7 @@ struct ConsentRequest {
           self.sdkVersion = sdkVersion
       }
     
-    init?(from: RpAuthRequest, isCrossDevice: Bool, sdkVersion: SdkVersion) {
+    init?(from: OidcAuthRequest, isCrossDevice: Bool, sdkVersion: SdkVersion) {
         guard
             let parnterMetaData = PartnerMetadata(from: from.clientMetadata),
             let claims = from.claims,

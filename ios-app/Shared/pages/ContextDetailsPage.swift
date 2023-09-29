@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct PartnerDetails: View {
-    var connection: Connection
+struct ContextDetailsPage: View {
+    var connector: MeeConnectorWrapper
     @State var state = PartnerDetailsState()
     var core = MeeAgentStore.shared
-    init(connection: Connection) {
-            self.connection = connection
+    init(connector: MeeConnectorWrapper) {
+            self.connector = connector
     }
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var navigationState: NavigationState
@@ -20,7 +20,7 @@ struct PartnerDetails: View {
     
     func removeConsent() {
         Task.init {
-            await core.removeItembyName(id: connection.id)
+            await core.removeItembyName(id: connector.otherPartyConnectionId)
             await MainActor.run {
                 self.presentationMode.wrappedValue.dismiss()
             }
@@ -57,7 +57,7 @@ struct PartnerDetails: View {
                 .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                 ScrollViewReader { proxy in
                 ScrollView {
-                    PartnerEntry(connection: connection, hasEntry: false)
+                    PartnerEntry(connector: connector, hasEntry: false)
                         .border(Colors.meeBrand, width: 2)
                         .padding(.horizontal, 16)
                         .padding(.bottom, 48)
@@ -157,11 +157,12 @@ struct PartnerDetails: View {
                 .navigationBarHidden(true)
                 .onAppear{
                     Task.init {
-                        if let consentData = await core.getLastConnectionConsentById(id: connection.id) {
+                        if let contextData = await core.getLastConnectionConsentById(id: connector.otherPartyConnectionId) {
+                            print(contextData)
                             await MainActor.run {
-                                state.consentEntries = .SiopClaims(value: consentData.attributes)
+                                state.consentEntries = .SiopClaims(value: contextData.attributes)
                             }
-                        } else if let consentData = await core.getLastExternalConsentById(id: connection.id) {
+                        } else if let consentData = await core.getLastExternalConsentById(id: connector.otherPartyConnectionId) {
                             await MainActor.run {
                                 state.consentEntries = .GapiEntries(value: consentData)
                             }

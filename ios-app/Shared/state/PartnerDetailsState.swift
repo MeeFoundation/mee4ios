@@ -9,7 +9,7 @@ import Foundation
 
 enum ConsentEntriesType {
     case SiopClaims(value: [ConsentRequestClaim])
-    case GapiEntries(value: ExternalContext)
+    case GapiEntries(value: MeeExternalContextWrapper)
 }
 
 struct PartnerDetailsState {

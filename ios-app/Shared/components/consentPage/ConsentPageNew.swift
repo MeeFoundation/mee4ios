@@ -17,8 +17,8 @@ struct ConsentPageNew: View {
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
     
-    var onAccept: (ConsentRequest) -> Void
-    init(onAccept: @escaping (ConsentRequest) -> Void) {
+    var onAccept: (MeeConsentRequest) -> Void
+    init(onAccept: @escaping (MeeConsentRequest) -> Void) {
         self.onAccept = onAccept
     }
     

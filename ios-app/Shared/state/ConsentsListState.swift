@@ -13,10 +13,10 @@ enum WelcomeType {
 
 struct ConsentsListState {
     var selection: String? = nil
-    var existingPartnersWebApp: [Connection]?
-    var otherPartnersWebApp: [Connection]?
-    var existingPartnersMobileApp: [Connection]?
-    var otherPartnersMobileApp: [Connection]?
+    var existingPartnersWebApp: [MeeConnectorWrapper]?
+    var otherPartnersWebApp: [MeeConnectorWrapper]?
+    var existingPartnersMobileApp: [MeeConnectorWrapper]?
+    var otherPartnersMobileApp: [MeeConnectorWrapper]?
     var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
     var showCompatibleWarning: Bool = false
     var showIntroScreensSwitch: Bool = false

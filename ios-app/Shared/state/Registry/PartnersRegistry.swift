@@ -9,13 +9,13 @@ import Foundation
 
 class PartnersRegistry: ObservableObject {
     static let shared = PartnersRegistry()
-    var partners: [Connection]
+    var partners: [MeeConnectorWrapper]
     
     init() {
         self.partners = [
-            Connection(id: "https://mee.foundation/", name: "Mee Foundation", value: .Siop(value: SiopConnectionType(redirectUri: "https://mee.foundation/", clientMetadata: PartnerMetadata(name: "Mee Foundation", displayUrl: "mee.foundation", logoUrl: "https://mee.foundation/favicon.png", contacts: []), subject: .DidKey(value: "")))),
-            Connection(id: "https://oldeyorktimes.com/", name: "The Olde York Times", value: .Siop(value: SiopConnectionType(redirectUri: "https://oldeyorktimes.com/", clientMetadata: PartnerMetadata(name: "The Olde York Times", displayUrl: "oldeyorktimes.com", logoUrl: "https://oldeyorktimes.com/favicon.png", contacts: []), subject: .DidKey(value: "")))),
-            Connection(id: "https://google.com", name: "Google Account", value: .Gapi(value: GapiConnectionType(scopes: [])))
+            MeeConnectorWrapper(id: "https://mee.foundation/", name: "Mee Foundation", otherPartyConnectionId: "", connectorProtocol: .Siop(value: SiopConnectorProtocol(redirectUri: "https://mee.foundation/", clientMetadata: PartnerMetadata(name: "Mee Foundation", displayUrl: "mee.foundation", logoUrl: "https://mee.foundation/favicon.png", contacts: []), subject: .DidKey(value: "")))),
+            MeeConnectorWrapper(id: "https://oldeyorktimes.com/", name: "The Olde York Times", otherPartyConnectionId: "", connectorProtocol: .Siop(value: SiopConnectorProtocol(redirectUri: "https://oldeyorktimes.com/", clientMetadata: PartnerMetadata(name: "The Olde York Times", displayUrl: "oldeyorktimes.com", logoUrl: "https://oldeyorktimes.com/favicon.png", contacts: []), subject: .DidKey(value: "")))),
+            MeeConnectorWrapper(id: "https://google.com", name: "Google Account", otherPartyConnectionId: "", connectorProtocol: .Gapi(value: GapiConnectorProtocol(scopes: [])))
         ]
     }
 }
