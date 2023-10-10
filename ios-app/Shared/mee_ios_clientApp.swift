@@ -8,10 +8,23 @@
 import SwiftUI
 
 @main
-struct mee_ios_clientApp: App {
+struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
+    init() {
+        
+    }
     @StateObject var navigation = NavigationState()
     @StateObject var consent = ConsentState()
-    @StateObject var toast = ToastState()
+    @StateObject var appState = AppState()
+    @StateObject var core = MeeAgentStore()
+    var id = UUID()
+    
+    
+    
+    @State var error: AppErrorRepresentation? = nil
+    
+    func onError(error: AppErrorRepresentation) {
+        self.error = error
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -19,10 +32,27 @@ struct mee_ios_clientApp: App {
                 ContentView()
                     .environmentObject(navigation)
                     .environmentObject(consent)
-                    .environmentObject(toast)
+                    .environmentObject(appState)
+                    .environmentObject(core)
             }
-            
+            .overlay {
+                ZStack {
+                    BackgroundFaded()
+                    VStack {
+                        Spacer()
+                        UnrecoverableErrorDialog(error: error)
+                    }
+                }
+                .opacity(error != nil ? 1 : 0)
+                .ignoresSafeArea(edges: .bottom)
+                
+            }
+            .onAppear {
+                error = core.error
+                core.addErrorListener(self)
+            }
         }
+        
     }
 }
 

@@ -12,7 +12,7 @@ struct ConsentPageNew: View {
     @State private var state = ConsentPageNewState()
     @EnvironmentObject var data: ConsentState
     @AppStorage("isCompatibleWarningShown") var isCompatibleWarningShown: Bool = false
-    @EnvironmentObject var toastState: ToastState
+    @EnvironmentObject var appState: AppState
     @Environment(\.openURL) var openURL
     @EnvironmentObject private var navigationState: NavigationState
     @Environment(\.scenePhase) var scenePhase
@@ -164,7 +164,7 @@ struct ConsentPageNew: View {
                                     if let url = state.onDecline(data.consent) {
                                         openURL(url)
                                     } else {
-                                        toastState.toast = ToastMessage(type: .error, title: "Error", message: "Unknown Error")
+                                        appState.toast = ToastMessage(type: .error, title: "Error", message: "Unknown Error")
                                     }
                                 }
                                 navigationState.currentPage = .mainPage

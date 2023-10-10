@@ -118,30 +118,7 @@ struct FirstRunPagePrepare: View {
 struct FirstRunPageFaceIdSet: View {
     var onNext: () -> Void
     var body: some View {
-        ZStack {
-            VStack {
-                Image("greenCheckmark").resizable()
-                    .frame(width: 60.5, height: 60.5, alignment: .center)
-                    .padding(.top, 14)
-                    .zIndex(10)
-                Text("All Set!").font(Font.custom(FontNameManager.PublicSans.bold, size: 34))
-                    .foregroundColor(Colors.text)
-                    .lineSpacing(41)
-                    .padding(.bottom, 8)
-                Text("Use \(biometricsTypeText) next time you sign-in")
-                    .foregroundColor(Colors.text)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .multilineTextAlignment(.center).padding(.horizontal, 60)
-                    .padding(.bottom, 64)
-                MainButton("Continue", action: onNext, fullWidth: true)
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 65)
-                
-            }
-            .frame(maxWidth: .infinity)
-        }
-        .background(Colors.popupBackground)
-        .cornerRadius(10)
+        ContinueDialog(imageName: "greenCheckmark", text: "All Set!", description: "Use \(biometricsTypeText) next time you sign-in", buttonText: "Continue", onNext: onNext)
     }
 }
 

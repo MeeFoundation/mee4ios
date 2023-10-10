@@ -30,4 +30,5 @@ struct Colors {
     static let gray600 = Color("gray600Color")
     static let separatorLight = Color("separatorLightColor")
     static let labelLight = Color("labelColorLight")
+    static let destructiveAction = Color("destructiveActionColor")
 }

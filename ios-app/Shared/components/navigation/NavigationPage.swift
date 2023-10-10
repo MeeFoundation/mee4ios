@@ -38,6 +38,15 @@ struct NavigationPage: View {
                 ) {EmptyView()}
                 
                 NavigationLink(
+                    destination: SettingsPage()
+                        .navigationBarTitle("", displayMode: .inline)
+                        .navigationBarBackButtonHidden(true)
+                        .navigationBarHidden(true)
+                    ,tag: NavigationPages.settings
+                    ,selection: $navigationState.currentPage
+                ) {EmptyView()}
+                
+                NavigationLink(
                     destination: TutorialPage()
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)

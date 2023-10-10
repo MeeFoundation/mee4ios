@@ -31,9 +31,9 @@ struct MeeContextWrapper {
 struct MeeExternalContextWrapper {
     let id: String
     let name: String
-    let data: OtherPartyContextData
+    let data: OtherPartyContextDataUniffi
     
-    init(from: OtherPartyContext) {
+    init(from: OtherPartyContextUniffi) {
         self.id = from.id
         self.name = from.name
         self.data = from.data

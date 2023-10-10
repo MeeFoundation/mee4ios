@@ -11,7 +11,6 @@ class ConfigLoader {
     static let ConfigName = "Config.plist"
 
     static func parseFile(named fileName: String = ConfigName) -> Configuration {
-        print(Bundle.main.bundlePath)
         guard let filePath = Bundle.main.path(forResource: fileName, ofType: nil),
             let fileData = FileManager.default.contents(atPath: filePath)
         else {

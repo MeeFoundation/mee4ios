@@ -14,17 +14,19 @@ struct MainButton: View {
     private var fullWidth: Bool
     private var width: CGFloat?
     private var isDisabled: Bool
+    private var textWeight: Font.Weight
     
     private var color: Color
     
-    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false) {
+    init(_ title: String, action: @escaping () -> Void, image: Image? = nil, fullWidth: Bool? = false, width: CGFloat? = nil, isDisabled: Bool? = false, textColor: Color = Colors.mainButtonTextColor, textFontWeight: Font.Weight = .medium) {
         self.title = title
         self.action = action
         self.image = image
         self.fullWidth = fullWidth ?? false
         self.width = width
         self.isDisabled = isDisabled ?? false
-        self.color = isDisabled ?? false ? Colors.inactive : Colors.mainButtonTextColor
+        self.color = isDisabled ?? false ? Colors.inactive : textColor
+        self.textWeight = textFontWeight
     }
     
     var body: some View {
@@ -35,7 +37,7 @@ struct MainButton: View {
                     if let image {
                         image.resizable().scaledToFit()
                     }
-                    BasicText(text: title, color: color, size: 20, fontName: FontNameManager.PublicSans.semibold)
+                    BasicText(text: title, color: color, size: 20, fontName: FontNameManager.PublicSans.semibold, weight: textWeight)
                     if fullWidth {Spacer()}
                 }
             }

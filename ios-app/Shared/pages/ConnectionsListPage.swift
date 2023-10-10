@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct ConnectionsListPage: View, MeeAgentStoreListener {
-    var core = MeeAgentStore.shared
+    @EnvironmentObject var core: MeeAgentStore
     var registry = PartnersRegistry.shared
     @EnvironmentObject var navigationState: NavigationState
     
     @State private var state = ConsentsListState()
     @Environment(\.openURL) var openURL
+    @EnvironmentObject private var appState: AppState
     
     var id = UUID()
     func onUpdate() {
@@ -84,7 +85,17 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
             } else {
                 ZStack {
                     VStack {
-                        ZStack {
+                        HStack {
+                            Button(action: {
+                                withAnimation() {
+                                    appState.isSlideMenuOpened.toggle()
+                                }
+                                
+                            }) {
+                                Image("menuIcon")
+                            }
+                            
+                            Spacer()
                             BasicText(
                                 text: "Connections",
                                 color: .white ,
@@ -92,10 +103,14 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
                                 fontName: FontNameManager.PublicSans.semibold,
                                 weight: .semibold
                             )
+                            Spacer()
+                            ZStack{}
+                                .frame(width: 24)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, 59)
                         .padding(.bottom, 10)
+                        .padding(.horizontal, 9)
                         .background(Colors.meeBrand)
                         .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                         ScrollView {
@@ -169,7 +184,7 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
                 .background(Color.white)
                 .frame(maxWidth: .infinity)
                 .overlay {
-                    WarningPopup(text: "You will be redirected to your default browser to login to your Google Account and retrieve your data from it to the Mee Smartwallet local storage", iconName: "google") {
+                    WarningPopup(text: "Log in to your Google Account to retrieve your personal data held there to be stored in this smartwallet.", iconName: "google", onNext: {
                         state.showCompatibleWarning = false
                         Task.init {
                             if let url = await core.getGoogleIntegrationUrl() {
@@ -180,7 +195,10 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
                             }
                         }
                         
-                    }
+                    }, onClose: {
+                        state.showCompatibleWarning = false
+                    })
+                    
                     .ignoresSafeArea(.all)
                     .opacity(state.showCompatibleWarning ? 1 : 0)
                 }

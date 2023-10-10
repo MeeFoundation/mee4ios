@@ -13,16 +13,16 @@ struct ConsentPage: View {
     @EnvironmentObject var data: ConsentState
     @State var state = ConsentPageState()
     @EnvironmentObject var navigationState: NavigationState
-    @EnvironmentObject var toastState: ToastState
+    @EnvironmentObject var appState: AppState
     @Environment(\.openURL) var openURL
     @AppStorage("recoveryPassphrase") var recoveryPassphrase: String?
     @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     var webService = WebService()
-    var core = MeeAgentStore.shared
+    @EnvironmentObject var core: MeeAgentStore
     
     func onFail() async {
         await MainActor.run {
-            toastState.toast = ToastMessage(type: .error, title: "Fail", message: "The connection failed. Please try again.")
+            appState.toast = ToastMessage(type: .error, title: "Fail", message: "The connection failed. Please try again.")
             navigationState.currentPage = .mainPage
         }
     }
@@ -46,7 +46,7 @@ struct ConsentPage: View {
                             }
                             try await webService.passConsentOverRelay(id: data.consent.nonce ,data: idToken)
                             await MainActor.run {
-                                toastState.toast = ToastMessage(type: .success, title: "Success", message: "The connection has been set up! Check the device you started with.")
+                                appState.toast = ToastMessage(type: .success, title: "Success", message: "The connection has been set up! Check the device you started with.")
                                 navigationState.currentPage = .mainPage
                             }
                             
@@ -70,7 +70,7 @@ struct ConsentPage: View {
             if let response {
                 onNext(response, data.redirectUri)
             } else {
-                toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
+                appState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
             }
         }
         
@@ -87,7 +87,7 @@ struct ConsentPage: View {
             if let response {
                 onNext(response, url)
             } else {
-                toastState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
+                appState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection failed. Please try again.")
             }
         }
         

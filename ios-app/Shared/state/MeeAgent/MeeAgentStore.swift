@@ -14,15 +14,67 @@ protocol MeeAgentStoreListener {
     func onUpdate()
 }
 
+protocol MeeAgentStoreErrorListener {
+    var id: UUID {get}
+    func onError(error: AppErrorRepresentation)
+}
 
-class MeeAgentStore {
-    private let agent: MeeAgent
-    static let shared = MeeAgentStore()
+func getDbUrl() throws -> URL {
+    let fm = FileManager.default
+    let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+    let dbURL = folderURL.appendingPathComponent("mee.sqlite")
+    if !fm.fileExists(atPath: dbURL.path) {
+        fm.createFile(atPath: dbURL.path, contents: nil)
+    }
+    return dbURL
+}
+
+func getNewAgent() throws -> MeeAgent? {
+    let storage = KeyChainStorage()
+    var passcode: String? = storage.getItem(name: MEE_KEYCHAIN_SECRET_NAME)
+    if passcode == nil {
+        passcode = generateSecret(length: 30)
+        storage.editItem(name: MEE_KEYCHAIN_SECRET_NAME, value: passcode!)
+    }
+    guard let passcode else {
+        throw AppError.KeychainError
+    }
+    
+    let dbUrl = try getDbUrl()
+    print("passcode: ", passcode)
+    let agent = try getAgent(config: MeeAgentConfig(dsUrl: dbUrl.path, grandPassword: passcode, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
+    return agent
+    
+    
+    
+    
+}
+
+class MeeAgentStore: ObservableObject {
+    private var agent: MeeAgent?
+    var error: AppErrorRepresentation? = nil
     var listeners: [MeeAgentStoreListener] = []
+    var errorListeners: [MeeAgentStoreErrorListener] = []
     
     private func onConnectionsListUpdated() {
         for listener in listeners {
             listener.onUpdate()
+        }
+    }
+    
+    private func onError(_ error: AppErrorRepresentation) {
+        for listener in errorListeners {
+            listener.onError(error: error)
+        }
+    }
+    
+    func addErrorListener(_ listener: MeeAgentStoreErrorListener) {
+        errorListeners.append(listener)
+    }
+    
+    func removeErrorListener(_ listener: MeeAgentStoreErrorListener) {
+        errorListeners = errorListeners.filter { l in
+            listener.id == l.id
         }
     }
     
@@ -37,36 +89,71 @@ class MeeAgentStore {
     }
     
     init() {
-        let storage = KeyChainStorage()
-        var passcode: String? = storage.getItem(name: MEE_KEYCHAIN_SECRET_NAME)
-        if passcode == nil {
-            passcode = generateSecret(length: 30)
-            storage.editItem(name: MEE_KEYCHAIN_SECRET_NAME, value: passcode!)
-        }
-        guard let passcode else {
-            fatalError("Unable to init Mee Smartwallet")
-        }
-
-        let fm = FileManager.default
         do {
-            let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let dbURL = folderURL.appendingPathComponent("mee.sqlite")
-            print(dbURL)
-            if !fm.fileExists(atPath: dbURL.path) {
-                fm.createFile(atPath: dbURL.path, contents: nil)
+            if let agent = try getNewAgent() {
+                self.agent = agent
+                try agent.initUserAccount()
+//                throw AppError.CoreError(MeeError.MeeStorage(error: .AppLevelMigration(error: "some error")))
             }
             
-            agent = try getAgent(config: MeeAgentConfig(dsUrl: dbURL.path, grandPassword: passcode, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
+        } catch(let e) {
+            print(e)
+            error = AppErrorRepresentation(error: errorToAppError(e), action: .initialization)
             
-            try agent.initUserAccount()
-
-        } catch {
-            fatalError("Unable to init Mee Smartwallet: \(error)")
         }
-  
+        
+    }
+    
+    func reinit() -> Bool {
+        do {
+            if let agent = try getNewAgent() {
+                self.agent = agent
+                try agent.initUserAccount()
+//                throw AppError.CoreError(MeeError.MeeStorage(error: .Other(error: "some error")))
+                return true
+            } else {
+                throw AppError.UnknownError
+            }
+            
+        } catch(let e) {
+            print(e)
+            onError(AppErrorRepresentation(error: errorToAppError(e), action: .userDataRemoving))
+            return false
+        }
+        
+    }
+    
+    private func removeAllData(callback: (Bool) -> Void) {
+        guard let agent else {
+            return callback(false)
+        }
+        do {
+            try agent.deleteAllData()
+            let result = reinit()
+            callback(result)
+        } catch(let e) {
+            print(e)
+            callback(false)
+        }
+        
+    }
+    
+    func removeAllData() async -> Bool {
+        return await withCheckedContinuation { continuation in
+            removeAllData() { result in
+                continuation.resume(returning: result)
+            }
+        }
+        
+        
+        
     }
     
     private func getAllConnections (callback: ([MeeConnectionWrapper]) -> Void) {
+        guard let agent else {
+            callback([])
+            return
+        }
         do {
             let connectionsCore = try agent.otherPartyConnections();
             let connections = connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
@@ -94,6 +181,9 @@ class MeeAgentStore {
     }
     
     private func getAllConnectionConnectors (connectionId: String) -> [MeeConnectorWrapper] {
+        guard let agent else {
+            return []
+        }
         do {
             let connectorsCore = try agent.getOtherPartyConnectionConnectors(connId: connectionId);
             let connectors = connectorsCore.reduce([]) { (acc: [MeeConnectorWrapper], connector) in
@@ -120,6 +210,10 @@ class MeeAgentStore {
     }
     
     private func getAllConnectors (callback: ([MeeConnectorWrapper]) -> Void) {
+        guard let agent else {
+            callback([])
+            return
+        }
         do {
             let connectionsCore = try agent.otherPartyConnections();
             let allConnectorsCore = connectionsCore.reduce([]) { (acc: [MeeConnectorWrapper], connectionCore) in
@@ -145,6 +239,10 @@ class MeeAgentStore {
     }
     
     private func getAllContexts(callback: ([MeeContextWrapper]?) -> Void) {
+        guard let agent else {
+            callback(nil)
+            return
+        }
         do {
             let contextsCore = try agent.otherPartyConnections();
             let connections = contextsCore.reduce([]) { (acc: [MeeContextWrapper], connection) in
@@ -171,6 +269,9 @@ class MeeAgentStore {
     }
     
     func removeItembyName (id: String) async -> String? {
+        guard let agent else {
+            return nil
+        }
             let item = await self.getConnectionById(id: id)
             guard let id = item?.id else {
                 return nil
@@ -198,6 +299,9 @@ class MeeAgentStore {
     }
     
     private func getLastConnectionConsentById(id: String) -> MeeContextWrapper? {
+        guard let agent else {
+            return nil
+        }
         do {
             if let coreConsent = try agent.siopLastConsentByConnectionId(connId: id) {
                 return MeeContextWrapper(from: coreConsent)
@@ -217,6 +321,9 @@ class MeeAgentStore {
     }
     
     func getLastExternalConsentById(id: String) async -> MeeExternalContextWrapper? {
+        guard let agent else {
+            return nil
+        }
         return await withCheckedContinuation {continuation in
             do {
                 let coreConsent = try agent.otherPartyContextsByConnectionId(connId: id)
@@ -235,6 +342,9 @@ class MeeAgentStore {
     }
 
     func authorize (id: String, item: MeeConsentRequest) async -> OidcAuthResponseWrapper? {
+        guard let agent else {
+            return nil
+        }
         return await withCheckedContinuation { continuation in
             do {
                 let response = try agent.siopAuthRelyingParty(authRequest: OidcAuthRequest(from: item))
@@ -248,6 +358,9 @@ class MeeAgentStore {
     }
     
     func getGoogleIntegrationUrl() async -> URL? {
+        guard let agent else {
+            return nil
+        }
         return await withCheckedContinuation { continuation in
             do {
                 let url = try agent.googleApiProviderCreateOauthBrowsableUrl()
@@ -264,7 +377,10 @@ class MeeAgentStore {
     }
     
     private func createGoogleConnection (url: URL) async throws {
-        try self.agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
+        guard let agent else {
+            return
+        }
+        let _ = try agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
         onConnectionsListUpdated()
     }
     

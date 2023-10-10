@@ -11,10 +11,14 @@ struct WarningPopup: View {
     var text: String
     let iconName: String?
     var onNext: () -> Void
+    var onClose: () -> Void
     
     var body: some View {
         ZStack {
             BackgroundFaded()
+                .onTapGesture {
+                    onClose()
+                }
             VStack {
                 Spacer()
                 ZStack {
@@ -42,7 +46,13 @@ struct WarningPopup: View {
                 .ignoresSafeArea(.all)
             }
         }
-        
+        .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
+            .onEnded({ value in
+                if value.translation.height > 20 {
+                    onClose()
+                    
+                }
+            }))
     }
     
 }

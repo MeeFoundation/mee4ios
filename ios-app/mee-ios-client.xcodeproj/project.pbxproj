@@ -15,12 +15,15 @@
 		946D2E0627BB9A960055175C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DDD27BB9A960055175C /* ContentView.swift */; };
 		946D2E0827BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
 		946D2E0927BB9A960055175C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946D2DDE27BB9A960055175C /* Assets.xcassets */; };
+		A50D5D672ACEF13300D0FEBE /* UnrecoverableErrorDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50D5D662ACEF13300D0FEBE /* UnrecoverableErrorDialog.swift */; };
+		A50D5D692ACF047C00D0FEBE /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50D5D682ACF047C00D0FEBE /* Errors.swift */; };
+		A50D5D6C2AD00E6B00D0FEBE /* AppErrorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A50D5D6B2AD00E6B00D0FEBE /* AppErrorState.swift */; };
 		A518EA9129E9B58100B581BC /* RelayResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EA9029E9B58100B581BC /* RelayResponse.swift */; };
 		A518EAB529ED80CD00B581BC /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAB429ED80CD00B581BC /* ToastMessageView.swift */; };
 		A518EAB729ED812400B581BC /* ToastStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAB629ED812400B581BC /* ToastStyleExtension.swift */; };
 		A518EAB929ED81A200B581BC /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAB829ED81A200B581BC /* ToastMessage.swift */; };
 		A518EABC29ED836800B581BC /* ToastMessageModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABB29ED836800B581BC /* ToastMessageModifier.swift */; };
-		A518EABE29ED84D000B581BC /* ToastState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABD29ED84D000B581BC /* ToastState.swift */; };
+		A518EABE29ED84D000B581BC /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABD29ED84D000B581BC /* AppState.swift */; };
 		A518EAC029ED8A4200B581BC /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EABF29ED8A4200B581BC /* NetworkErrors.swift */; };
 		A518EAC529F0436700B581BC /* NavigationPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAC429F0436700B581BC /* NavigationPage.swift */; };
 		A518EAC729F15FB600B581BC /* AsyncImageRounded.swift in Sources */ = {isa = PBXBuildFile; fileRef = A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */; };
@@ -140,6 +143,11 @@
 		A5CBEDDF2A28F09200FD32A9 /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD42A28F09200FD32A9 /* background.js */; };
 		A5CBEDE02A28F09200FD32A9 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDD52A28F09200FD32A9 /* manifest.json */; };
 		A5CDCDBF2AC5A58F00EF3CC3 /* MeeConnectorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDCDBE2AC5A58F00EF3CC3 /* MeeConnectorWrapper.swift */; };
+		A5CDCDC22ACAE79A00EF3CC3 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDCDC12ACAE79A00EF3CC3 /* SideMenu.swift */; };
+		A5CDCDC42ACB114E00EF3CC3 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDCDC32ACB114E00EF3CC3 /* SettingsPage.swift */; };
+		A5CDCDC62ACB886400EF3CC3 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDCDC52ACB886400EF3CC3 /* Header.swift */; };
+		A5CDCDC92ACC439700EF3CC3 /* ContinueDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDCDC82ACC439700EF3CC3 /* ContinueDialog.swift */; };
+		A5CDCDCB2ACC463C00EF3CC3 /* DestructionConfirmationDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CDCDCA2ACC463C00EF3CC3 /* DestructionConfirmationDialog.swift */; };
 		A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */; };
 		A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */; };
 		A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */; };
@@ -273,12 +281,15 @@
 		946D2E0027BB9A960055175C /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "mee-ios-client (iOS).entitlements"; sourceTree = "<group>"; };
+		A50D5D662ACEF13300D0FEBE /* UnrecoverableErrorDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrecoverableErrorDialog.swift; sourceTree = "<group>"; };
+		A50D5D682ACF047C00D0FEBE /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		A50D5D6B2AD00E6B00D0FEBE /* AppErrorState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppErrorState.swift; sourceTree = "<group>"; };
 		A518EA9029E9B58100B581BC /* RelayResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayResponse.swift; sourceTree = "<group>"; };
 		A518EAB429ED80CD00B581BC /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		A518EAB629ED812400B581BC /* ToastStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastStyleExtension.swift; sourceTree = "<group>"; };
 		A518EAB829ED81A200B581BC /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		A518EABB29ED836800B581BC /* ToastMessageModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageModifier.swift; sourceTree = "<group>"; };
-		A518EABD29ED84D000B581BC /* ToastState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastState.swift; sourceTree = "<group>"; };
+		A518EABD29ED84D000B581BC /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		A518EABF29ED8A4200B581BC /* NetworkErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
 		A518EAC429F0436700B581BC /* NavigationPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPage.swift; sourceTree = "<group>"; };
 		A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageRounded.swift; sourceTree = "<group>"; };
@@ -385,6 +396,11 @@
 		A5CBEDD42A28F09200FD32A9 /* background.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
 		A5CBEDD52A28F09200FD32A9 /* manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
 		A5CDCDBE2AC5A58F00EF3CC3 /* MeeConnectorWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeConnectorWrapper.swift; sourceTree = "<group>"; };
+		A5CDCDC12ACAE79A00EF3CC3 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		A5CDCDC32ACB114E00EF3CC3 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
+		A5CDCDC52ACB886400EF3CC3 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		A5CDCDC82ACC439700EF3CC3 /* ContinueDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueDialog.swift; sourceTree = "<group>"; };
+		A5CDCDCA2ACC463C00EF3CC3 /* DestructionConfirmationDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestructionConfirmationDialog.swift; sourceTree = "<group>"; };
 		A5D0F02E291422BB00D8A34F /* PopupWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupWrapper.swift; sourceTree = "<group>"; };
 		A5D15D6D29BA0B0E0015D165 /* IntroductionPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionPopup.swift; sourceTree = "<group>"; };
 		A5D2AAE3291C087200F9806E /* keyboardHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = keyboardHelpers.swift; sourceTree = "<group>"; };
@@ -591,6 +607,8 @@
 		A550852F27BD18C200C5A2D1 /* components */ = {
 			isa = PBXGroup;
 			children = (
+				A5CDCDC72ACC438100EF3CC3 /* dialogs */,
+				A5CDCDC02ACAE77500EF3CC3 /* sideMenu */,
 				A518EAC129F01F9A00B581BC /* navigation */,
 				A5B48BD829CCA33400FE9A48 /* ConsentEntryInputs */,
 				A5D9E30D292677E000D0E12D /* consentPage */,
@@ -625,6 +643,7 @@
 				A518EAC629F15FB600B581BC /* AsyncImageRounded.swift */,
 				A5715E6D2A1586BA0031E25F /* ExternalConsentEntry.swift */,
 				A5A537242A331FA500E2865D /* FadedLoading.swift */,
+				A5CDCDC52ACB886400EF3CC3 /* Header.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -650,6 +669,7 @@
 				A518EAB829ED81A200B581BC /* ToastMessage.swift */,
 				A57D8E9C2A0BE58600443ED3 /* SdkVersion.swift */,
 				A57D8EA82A0D039600443ED3 /* ConfigLoader.swift */,
+				A50D5D682ACF047C00D0FEBE /* Errors.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -670,6 +690,7 @@
 				A5B48BDB29D317FE00FE9A48 /* TutorialPage.swift */,
 				A5B48BDD29D5AC7300FE9A48 /* TourPage.swift */,
 				A5EA445F29E6D396000BEB61 /* FirstRunIntroPage.swift */,
+				A5CDCDC32ACB114E00EF3CC3 /* SettingsPage.swift */,
 			);
 			path = pages;
 			sourceTree = "<group>";
@@ -768,7 +789,8 @@
 				A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */,
 				A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */,
 				A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */,
-				A518EABD29ED84D000B581BC /* ToastState.swift */,
+				A518EABD29ED84D000B581BC /* AppState.swift */,
+				A50D5D6B2AD00E6B00D0FEBE /* AppErrorState.swift */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -874,6 +896,24 @@
 				A5CBEDD22A28F09200FD32A9 /* rules.json */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		A5CDCDC02ACAE77500EF3CC3 /* sideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				A5CDCDC12ACAE79A00EF3CC3 /* SideMenu.swift */,
+			);
+			path = sideMenu;
+			sourceTree = "<group>";
+		};
+		A5CDCDC72ACC438100EF3CC3 /* dialogs */ = {
+			isa = PBXGroup;
+			children = (
+				A5CDCDC82ACC439700EF3CC3 /* ContinueDialog.swift */,
+				A5CDCDCA2ACC463C00EF3CC3 /* DestructionConfirmationDialog.swift */,
+				A50D5D662ACEF13300D0FEBE /* UnrecoverableErrorDialog.swift */,
+			);
+			path = dialogs;
 			sourceTree = "<group>";
 		};
 		A5D9E2FA29265E7000D0E12D /* activeConsents */ = {
@@ -1316,6 +1356,7 @@
 				A5327AA82954798900F08618 /* decoder.swift in Sources */,
 				A5327A6829535A8B00F08618 /* ConsentConfiguration.swift in Sources */,
 				A5B8E94E2938EF7F006058E6 /* mee.udl in Sources */,
+				A5CDCDC22ACAE79A00EF3CC3 /* SideMenu.swift in Sources */,
 				A550857027BD2E3700C5A2D1 /* fontHelpers.swift in Sources */,
 				A55085B027C3AA6000C5A2D1 /* SignUpPage.swift in Sources */,
 				A5D7510A28EB3E26003CD142 /* PartnerMetadata.swift in Sources */,
@@ -1352,14 +1393,16 @@
 				A5D9E32A292D067C00D0E12D /* ConsentPageNewState.swift in Sources */,
 				A5D7510128E7368B003CD142 /* RecoveryPhraseSetupPage.swift in Sources */,
 				A521B19829FBE2F400354A98 /* ConsentRequestClaim+isEmpty.swift in Sources */,
+				A50D5D692ACF047C00D0FEBE /* Errors.swift in Sources */,
 				A5D30C86287C5AF100481E85 /* LoadingCircle.swift in Sources */,
-				A518EABE29ED84D000B581BC /* ToastState.swift in Sources */,
+				A518EABE29ED84D000B581BC /* AppState.swift in Sources */,
 				A5D9E327292D05B500D0E12D /* ConsentPageAnimationState.swift in Sources */,
 				A518EAB529ED80CD00B581BC /* ToastMessageView.swift in Sources */,
 				A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */,
 				A518EAC729F15FB600B581BC /* AsyncImageRounded.swift in Sources */,
 				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
+				A5CDCDC62ACB886400EF3CC3 /* Header.swift in Sources */,
 				A5B48BD429CC92CC00FE9A48 /* ConsentCardEntryInput.swift in Sources */,
 				A5DB214627E37A690070B444 /* keyChain.swift in Sources */,
 				A5D9E3152926786D00D0E12D /* ConsentPageNew.swift in Sources */,
@@ -1370,6 +1413,7 @@
 				A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */,
 				A5D9E321292CF63700D0E12D /* ConsentPageState.swift in Sources */,
 				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
+				A5CDCDC92ACC439700EF3CC3 /* ContinueDialog.swift in Sources */,
 				A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */,
 				A518EAC529F0436700B581BC /* NavigationPage.swift in Sources */,
 				A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */,
@@ -1379,6 +1423,7 @@
 				A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0627BB9A960055175C /* ContentView.swift in Sources */,
+				A5CDCDC42ACB114E00EF3CC3 /* SettingsPage.swift in Sources */,
 				A5D9E3022926624300D0E12D /* PartnerEntry.swift in Sources */,
 				A5D30C89287DBD7300481E85 /* EmptyAppPage.swift in Sources */,
 				A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */,
@@ -1411,6 +1456,7 @@
 				A5327AA629546EBD00F08618 /* MeeResponse.swift in Sources */,
 				A5327AA0295462F600F08618 /* ConsentStorageDuration.swift in Sources */,
 				A55085BC27C3DA1A00C5A2D1 /* Text.swift in Sources */,
+				A5CDCDCB2ACC463C00EF3CC3 /* DestructionConfirmationDialog.swift in Sources */,
 				A5D0F02F291422BB00D8A34F /* PopupWrapper.swift in Sources */,
 				A550858927BE46CE00C5A2D1 /* ConsentEntry.swift in Sources */,
 				A528999C2A029D90002E9A0A /* MeeContextWrapper.swift in Sources */,
@@ -1418,6 +1464,7 @@
 				A5327AA4295463A300F08618 /* consentHelpers.swift in Sources */,
 				946D2E0427BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
 				A5D7510428EB0EE0003CD142 /* String.swift in Sources */,
+				A50D5D6C2AD00E6B00D0FEBE /* AppErrorState.swift in Sources */,
 				A55085A727BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
 				A5A4D382291433B700CA3F26 /* ConsentDuration.swift in Sources */,
 				A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */,
@@ -1431,6 +1478,7 @@
 				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085B927C3B61E00C5A2D1 /* MainButton.swift in Sources */,
+				A50D5D672ACEF13300D0FEBE /* UnrecoverableErrorDialog.swift in Sources */,
 				A518EABC29ED836800B581BC /* ToastMessageModifier.swift in Sources */,
 				A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */,
 				A5E00C12297EF7A800F9A59B /* PartnerRegistry.swift in Sources */,
@@ -1635,7 +1683,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Mee Smartwallet";
+				INFOPLIST_KEY_CFBundleDisplayName = Mee;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1649,7 +1697,7 @@
 					"@executable_path/Frameworks",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/debug";
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1678,7 +1726,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Mee Smartwallet";
+				INFOPLIST_KEY_CFBundleDisplayName = Mee;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1693,7 +1741,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";

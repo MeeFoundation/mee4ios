@@ -9,7 +9,7 @@ import SwiftUI
 import AuthenticationServices
 
 enum NavigationPages: Hashable {
-    case consent, login, tutorial, firstRun, connection, mainPage
+    case consent, login, tutorial, firstRun, connection, mainPage, settings
 }
 
 struct ContentView: View {
@@ -17,15 +17,21 @@ struct ContentView: View {
     @EnvironmentObject var data: ConsentState
     @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    var core = MeeAgentStore.shared
+    @EnvironmentObject var core: MeeAgentStore
     
     @EnvironmentObject private var navigationState: NavigationState
-    @EnvironmentObject private var toastState: ToastState
+    @EnvironmentObject private var appState: AppState
     @Environment(\.scenePhase) var scenePhase
     @State var isLoading: Bool = false
     
     
     @State var appWasMinimized: Bool = true
+    
+    func toggleMenu(_ isOpen: Bool) {
+        withAnimation() {
+            appState.isSlideMenuOpened = isOpen
+        }
+    }
     
     func setUnlocked(result: Bool) {
         print("unlocked: ", result)
@@ -43,14 +49,14 @@ struct ContentView: View {
                 do {
                     try await core.createGoogleConnectionAsync(url: url)
                     await MainActor.run {
-                        toastState.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
+                        appState.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
                         hadConnectionsBefore = true
                     }
                     
                 } catch {
                     print("google error: ", error)
                     await MainActor.run {
-                        toastState.toast = ToastMessage(type: .error, title: "Google Account", message: "Something went wrong")
+                        appState.toast = ToastMessage(type: .error, title: "Google Account", message: "Something went wrong")
                     }
                 }
             }
@@ -117,6 +123,38 @@ struct ContentView: View {
             FadedLoading()
                 .opacity((isLoading) ? 1 : 0)
         }
+        .overlay {
+            ZStack {
+               
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.black.opacity(0.4))
+            .opacity(appState.isSlideMenuOpened ? 1 : 0)
+            .onTapGesture(count: 1) {
+                toggleMenu(false)
+            }
+        }
+        .overlay {
+ 
+                if (appState.isSlideMenuOpened) {
+                    SideMenu() {
+                        toggleMenu(false)
+                    }
+                    .transition(.move(edge: .leading))
+                }
+        }
+        
+        .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
+            .onEnded({ value in
+                if value.translation.width < -20 {
+                    toggleMenu(false)
+                    
+                }
+
+                if value.translation.width > 20 {
+                    toggleMenu(true)
+                }
+            }))
         .overlay{
             LoginPage()
                 .opacity((launchedBefore && appWasMinimized) ? 1 : 0)
@@ -154,7 +192,7 @@ struct ContentView: View {
                 }
                 processUrl(url: url)
         }
-        .toastView(toast: $toastState.toast)
+        .toastView(toast: $appState.toast)
     }
 }
 

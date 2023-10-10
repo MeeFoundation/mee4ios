@@ -10,7 +10,7 @@ import SwiftUI
 struct ContextDetailsPage: View {
     var connector: MeeConnectorWrapper
     @State var state = PartnerDetailsState()
-    var core = MeeAgentStore.shared
+    @EnvironmentObject var core: MeeAgentStore
     init(connector: MeeConnectorWrapper) {
             self.connector = connector
     }
@@ -32,29 +32,9 @@ struct ContextDetailsPage: View {
         return (
             
             VStack {
-                HStack {
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                            
-                            Text("Back")
-                                .foregroundColor(Colors.text)
-                                .font(.custom(FontNameManager.PublicSans.regular , size: 18))
-                        }
-                        .padding(.leading, 9)
-                    }
-                    Spacer()
-                    BasicText(text: "Manage Connection", color: .black ,size: 17, fontName: FontNameManager.PublicSans.semibold)
-                        .padding(.trailing, 69)
-                    Spacer()
+                Header(text: "Manage Connection") {
+                    self.presentationMode.wrappedValue.dismiss()
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.top, 59)
-                .padding(.bottom, 10)
-                .background(Colors.backgroundAlt1)
-                .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                 ScrollViewReader { proxy in
                 ScrollView {
                     PartnerEntry(connector: connector, hasEntry: false)

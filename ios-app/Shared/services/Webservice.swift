@@ -14,11 +14,9 @@ class WebService {
     init() {
         let config = ConfigLoader.parseFile()
         baseUrl = config.proxyUrl
-        print("baseUrl: ", baseUrl)
     }
     
     func passConsentOverRelay(id: String, data: String) async throws {
-        print("baseUrl: ", baseUrl)
         guard let url = URL(string: "\(baseUrl)/put") else {
             throw NetworkError.badUrl
         }
