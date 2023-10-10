@@ -77,8 +77,10 @@ struct ConsentPage: View {
     }
     
     func recoverRequest (id: String, url: String, data: MeeConsentRequest) async {
-        guard let contextData = await core.getLastConnectionConsentById(id: id)
+        guard let contextData = await core.getLastConnectionConsentById(id: id.getHostname())
         else {
+            appState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection not found. Please try again.")
+            navigationState.currentPage = .mainPage
             return
         }
         let request = MeeConsentRequest(from: contextData, consentRequest: data)
@@ -117,7 +119,7 @@ struct ConsentPage: View {
         }
         .onAppear{
             Task.init {
-                let isReturningUser = await core.getConnectionById(id: data.consent.id) != nil
+                let isReturningUser = await core.getConnectionById(id: data.consent.id.getHostname()) != nil
                 await MainActor.run {
                     state.isReturningUser = isReturningUser
                 }
