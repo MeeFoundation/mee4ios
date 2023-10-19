@@ -9,18 +9,40 @@ import SafariServices
 import os.log
 
 let SFExtensionMessageKey = "message"
+let SFExtensionMessageTypeKey = "type"
+
+let extensionSharedDefaults = UserDefaults(suiteName: "group.extensionshare.foundation.mee.ios-client")
 
 class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
 
     func beginRequest(with context: NSExtensionContext) {
-        let item = context.inputItems[0] as! NSExtensionItem
-        let message = item.userInfo?[SFExtensionMessageKey]
-        os_log(.default, "Received message from browser.runtime.sendNativeMessage: %@", message as! CVarArg)
+        guard let item = context.inputItems[0] as? NSExtensionItem else {
+            return
+        }
+        let message = item.userInfo?[SFExtensionMessageKey] as? [String: String]
+        
+        let innerMessage = message?[SFExtensionMessageKey] as? String
+        let innerType = message?[SFExtensionMessageTypeKey] as? String
+        
+        var response: [String : Any]
+        switch(innerType) {
+        case "GET_DOMAIN_STATUS":
+            guard let innerMessage else {
+                response = ["hasConnection" : false]
+                break
+            }
+            let hasConnection = extensionSharedDefaults?.bool(forKey: innerMessage)
+            
+            response = ["hasConnection" : hasConnection == true]
+        default:
+            response = [ "error": "unsupportedQuery: \(innerType) \(innerMessage)" ]
+        }
 
-        let response = NSExtensionItem()
-        response.userInfo = [ SFExtensionMessageKey: [ "Response to": message ] ]
+        let responseItem = NSExtensionItem()
+        responseItem.userInfo = [ SFExtensionMessageKey:  response]
 
-        context.completeRequest(returningItems: [response], completionHandler: nil)
+
+        context.completeRequest(returningItems: [responseItem], completionHandler: nil)
     }
 
 }

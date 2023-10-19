@@ -26,3 +26,9 @@ extension View {
         self.modifier(ToastMessageModifier(toast: toast))
     }
 }
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners))
+    }
+}

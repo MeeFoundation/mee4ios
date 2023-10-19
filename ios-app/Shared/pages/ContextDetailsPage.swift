@@ -18,9 +18,9 @@ struct ContextDetailsPage: View {
     @EnvironmentObject var navigationState: NavigationState
     
     
-    func removeConsent() {
+    func removeConnector() {
         Task.init {
-            await core.removeItembyName(id: connector.otherPartyConnectionId)
+            await core.removeConnector(connector: connector)
             await MainActor.run {
                 self.presentationMode.wrappedValue.dismiss()
             }
@@ -84,7 +84,6 @@ struct ContextDetailsPage: View {
                         if case let .gapi(gapiEntries) = gapiUserInfo.data {
                             let entries: [(String, String)] = Mirror(reflecting: gapiEntries.userInfo).children
                                 .reduce([]){ (acc: [(String, String)] , item) in
-                                    print("item: ", item, gapiUserInfo)
                                     var copy = acc
                                     if let value = item.value as? String,
                                        let label = item.label
@@ -111,7 +110,7 @@ struct ContextDetailsPage: View {
                     
                     Spacer()
                     
-                    Button(action: removeConsent){
+                    Button(action: removeConnector){
                         HStack(spacing: 0) {
                             BasicText(text: "Delete Connection", color: Colors.error, size: 17)
                             Spacer()
@@ -142,7 +141,7 @@ struct ContextDetailsPage: View {
                             await MainActor.run {
                                 state.consentEntries = .SiopClaims(value: contextData.attributes)
                             }
-                        } else if let consentData = await core.getLastExternalConsentById(id: connector.otherPartyConnectionId) {
+                        } else if let consentData = await core.getLastExternalConsentById(connectorId: connector.id) {
                             await MainActor.run {
                                 state.consentEntries = .GapiEntries(value: consentData)
                             }

@@ -26,7 +26,6 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
         
         Task.init {
             let currentConnections = await core.getAllConnectors()
-            print("currentConnections: ", currentConnections)
             await MainActor.run {
                 refreshPartnersList(data: currentConnections)
             }
@@ -56,9 +55,7 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
         }
         state.otherPartnersWebApp = registry.partners.filter { context in
             let isNotPresentedInExistingList = state.existingPartnersWebApp?.firstIndex{$0.name == context.name} == nil
-            let isGapiInList = state.existingPartnersWebApp?.firstIndex{$0.isGapi} != nil
-            let isGapiInListAndEntryIsGapi = isGapiInList && context.isGapi
-            return isNotPresentedInExistingList && !isGapiInListAndEntryIsGapi
+            return isNotPresentedInExistingList || context.isGapi
             
         }
 
@@ -117,7 +114,7 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
                             VStack {
                                 ForEach([PartnerArray(data: state.existingPartnersWebApp, name: "Sites", editable: true),
                                          PartnerArray(data: state.existingPartnersMobileApp, name: "Mobile Apps", editable: true),
-                                         PartnerArray(data: state.otherPartnersWebApp, name: "Sites to connect to", editable: false)
+//                                         PartnerArray(data: state.otherPartnersWebApp, name: "Sites to connect to", editable: false)
                                         ]) { partnersArray in
                                     if !(partnersArray.data ?? []).isEmpty {
                                         HStack {
@@ -183,27 +180,6 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
                 .ignoresSafeArea(.all)
                 .background(Color.white)
                 .frame(maxWidth: .infinity)
-                .overlay {
-                    WarningPopup(text: "Log in to your Google Account to retrieve your personal data held there to be stored in this smartwallet.", iconName: "google", onNext: {
-                        state.showCompatibleWarning = false
-                        Task.init {
-                            if let url = await core.getGoogleIntegrationUrl() {
-                                await MainActor.run {
-                                    openURL(url)
-                                }
-                                
-                            }
-                        }
-                        
-                    }, onClose: {
-                        state.showCompatibleWarning = false
-                    })
-                    
-                    .ignoresSafeArea(.all)
-                    .opacity(state.showCompatibleWarning ? 1 : 0)
-                }
-                
-                
             }
             
         }
@@ -213,6 +189,9 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
         }
         .onDisappear {
             core.removeListener(self)
+        }
+        .overlay {
+            PlusMenu(availableItems: state.otherPartnersWebApp ?? [])
         }
         .ignoresSafeArea(.all)
         
