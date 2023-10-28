@@ -55,3 +55,23 @@
 ## Issues and bugs
 * No built-in backup capability. We rely on the user backing up their iOS device.
 * If the user deletes the Mee app and reinstalls it then the user will end up logging back into a site/app with a new/different OpenID identifier.
+# iOS app version 1.4.0 published to the App Store 10/14/23
+## Functionality
+* Login to a website on iOS device (i.e. Mobile Safari) using Connect-with-Mee.
+* No password is required and your login event is not tracked by a third-party (e.g. Apple, Google, Facebook, etc).
+* Uses iOS FaceID (or TouchID) for user authentication.
+* Safari extension added with option to send a “Do Not Sell My Personal Information” signal to websites.
+* Cross-device user flow is available.
+* Redirect to restore the context of the OIDC request is available.
+* Wizard is updated to ensure better UI/UX.
+* UI bugs are are fixed (including Consent Screen Required section overlap)
+* http->https redirect for the demo partner website works properly (in case the user starts the flow not from the Mee app).
+* Mee app is renamed to the Mee Smartwallet app.
+* Google Account integration is available.
+* Mee Core is updated to the latest version.
+* The ability to delete user data was added.
+* UI enhancements and error handling.
+* Dispaly name was changed to "Mee".
+## Issues and bugs
+* No built-in backup capability. We rely on the user backing up their iOS device.
+* If the user deletes the Mee app and reinstalls it then the user will end up logging back into a site/app with a new/different OpenID identifier.
