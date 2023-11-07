@@ -27,7 +27,7 @@ struct PartnerEntry: View  {
             self.clientMetadata = value.clientMetadata
             self.name = clientMetadata?.name ?? connector.name
             self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(connector.id)/favicon.ico")
-            hostname = value.redirectUri.getHostname()
+            hostname = value.redirectUri.getHostname() ?? value.redirectUri
         case .Gapi(_):
             self.clientMetadata = nil
             self.name = "Google Account"
@@ -46,8 +46,8 @@ struct PartnerEntry: View  {
         case .MeeBrowserExtension:
             self.clientMetadata = nil
             self.name = "Extension"
-            self.logoUri = nil
-            hostname = ""
+            self.logoUri = URL(string: "https://\(self.connector.otherPartyConnectionId)/favicon.ico")
+            hostname = self.connector.otherPartyConnectionId
         }
         
     }

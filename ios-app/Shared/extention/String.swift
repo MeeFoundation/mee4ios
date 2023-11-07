@@ -24,7 +24,7 @@ extension String {
 }
 
 extension String {
-    func getHostname() -> String {
+    func getHostname() -> String? {
         URL(string: self)?.host ?? self
     }
 }

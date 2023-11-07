@@ -48,6 +48,7 @@ struct ContentView: View {
             Task {
                 do {
                     try await core.createGoogleConnectionAsync(url: url)
+                    
                     await MainActor.run {
                         appState.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
                         hadConnectionsBefore = true
@@ -167,6 +168,7 @@ struct ContentView: View {
             switch (newPhase) {
             case .background:
                 print("background")
+                scheduleAppRefresh()
                 if (navigationState.currentPage == .consent) {
                     navigationState.currentPage = .mainPage
                 }
@@ -193,7 +195,6 @@ struct ContentView: View {
                 processUrl(url: url)
         }
         .toastView(toast: $appState.toast)
+
     }
 }
-
-

@@ -109,6 +109,21 @@
 		A57D8EB12A0D142900443ED3 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = A57D8EB02A0D142900443ED3 /* Config.plist */; };
 		A57D8EB32A0D1B0400443ED3 /* generateSecret.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D8EB22A0D1B0400443ED3 /* generateSecret.swift */; };
 		A57D8EB52A0D211500443ED3 /* KeychainStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57D8EB42A0D211500443ED3 /* KeychainStorage.swift */; };
+		A58CDA162AEAA1780089C8A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA152AEAA1780089C8A7 /* Date.swift */; };
+		A58CDA182AEACE2B0089C8A7 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA172AEACE2B0089C8A7 /* Decodable.swift */; };
+		A58CDA1E2AF1385D0089C8A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA1C2AF137FE0089C8A7 /* AppDelegate.swift */; };
+		A58CDA212AF2D0950089C8A7 /* MeeExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA202AF2D0950089C8A7 /* MeeExtensionEntry.swift */; };
+		A58CDA222AF2D09F0089C8A7 /* MeeExtensionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA202AF2D0950089C8A7 /* MeeExtensionEntry.swift */; };
+		A58CDA242AF2D0D00089C8A7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA232AF2D0D00089C8A7 /* Constants.swift */; };
+		A58CDA252AF2D0D60089C8A7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA232AF2D0D00089C8A7 /* Constants.swift */; };
+		A58CDA262AF2D1B80089C8A7 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA152AEAA1780089C8A7 /* Date.swift */; };
+		A58CDA272AF2D1D50089C8A7 /* Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA172AEACE2B0089C8A7 /* Decodable.swift */; };
+		A58CDA282AF2D1E30089C8A7 /* json.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D7510628EB186B003CD142 /* json.swift */; };
+		A58CDA2B2AF5743E0089C8A7 /* scheduleAppRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA2A2AF5743E0089C8A7 /* scheduleAppRefresh.swift */; };
+		A58CDA2C2AF574650089C8A7 /* scheduleAppRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA2A2AF5743E0089C8A7 /* scheduleAppRefresh.swift */; };
+		A58CDA302AF922E70089C8A7 /* ContextDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA2E2AF921E80089C8A7 /* ContextDetailsViewModel.swift */; };
+		A58CDA332AF93CB10089C8A7 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA312AF93C2D0089C8A7 /* ViewState.swift */; };
+		A58CDA372AF9A9230089C8A7 /* CoreAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A58CDA352AF9A8E10089C8A7 /* CoreAgent.swift */; };
 		A5A4D382291433B700CA3F26 /* ConsentDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D381291433B700CA3F26 /* ConsentDuration.swift */; };
 		A5A4D3852914A2A000CA3F26 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A4D3842914A2A000CA3F26 /* Triangle.swift */; };
 		A5A537232A320BA600E2865D /* Sequence+acyncReduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5A537222A320BA600E2865D /* Sequence+acyncReduce.swift */; };
@@ -366,6 +381,15 @@
 		A57D8EB02A0D142900443ED3 /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		A57D8EB22A0D1B0400443ED3 /* generateSecret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = generateSecret.swift; sourceTree = "<group>"; };
 		A57D8EB42A0D211500443ED3 /* KeychainStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStorage.swift; sourceTree = "<group>"; };
+		A58CDA152AEAA1780089C8A7 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		A58CDA172AEACE2B0089C8A7 /* Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decodable.swift; sourceTree = "<group>"; };
+		A58CDA1C2AF137FE0089C8A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A58CDA202AF2D0950089C8A7 /* MeeExtensionEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeExtensionEntry.swift; sourceTree = "<group>"; };
+		A58CDA232AF2D0D00089C8A7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A58CDA2A2AF5743E0089C8A7 /* scheduleAppRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scheduleAppRefresh.swift; sourceTree = "<group>"; };
+		A58CDA2E2AF921E80089C8A7 /* ContextDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextDetailsViewModel.swift; sourceTree = "<group>"; };
+		A58CDA312AF93C2D0089C8A7 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		A58CDA352AF9A8E10089C8A7 /* CoreAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreAgent.swift; sourceTree = "<group>"; };
 		A5A4D381291433B700CA3F26 /* ConsentDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentDuration.swift; sourceTree = "<group>"; };
 		A5A4D3842914A2A000CA3F26 /* Triangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		A5A537222A320BA600E2865D /* Sequence+acyncReduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sequence+acyncReduce.swift"; sourceTree = "<group>"; };
@@ -538,7 +562,9 @@
 		946D2DDB27BB9A960055175C /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A518EABA29ED834D00B581BC /* ViewModifiers */,
+				A58CDA342AF9A8CE0089C8A7 /* protocols */,
+				A58CDA2D2AF921C90089C8A7 /* viewModels */,
+				A518EABA29ED834D00B581BC /* viewModifiers */,
 				A5DAEB9F2993D0770083E346 /* services */,
 				A550856E27BD2E1400C5A2D1 /* helpers */,
 				A5DB213527E21D080070B444 /* extention */,
@@ -551,6 +577,7 @@
 				946D2DDC27BB9A960055175C /* mee_ios_clientApp.swift */,
 				946D2DDD27BB9A960055175C /* ContentView.swift */,
 				946D2DDE27BB9A960055175C /* Assets.xcassets */,
+				A58CDA1C2AF137FE0089C8A7 /* AppDelegate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -594,12 +621,12 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
-		A518EABA29ED834D00B581BC /* ViewModifiers */ = {
+		A518EABA29ED834D00B581BC /* viewModifiers */ = {
 			isa = PBXGroup;
 			children = (
 				A518EABB29ED836800B581BC /* ToastMessageModifier.swift */,
 			);
-			path = ViewModifiers;
+			path = viewModifiers;
 			sourceTree = "<group>";
 		};
 		A518EAC129F01F9A00B581BC /* navigation */ = {
@@ -678,6 +705,7 @@
 				A57D8E9C2A0BE58600443ED3 /* SdkVersion.swift */,
 				A57D8EA82A0D039600443ED3 /* ConfigLoader.swift */,
 				A50D5D682ACF047C00D0FEBE /* Errors.swift */,
+				A58CDA312AF93C2D0089C8A7 /* ViewState.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -769,6 +797,7 @@
 				A5B48BE329D5D95500FE9A48 /* formatters.swift */,
 				A5EA445129DC5A88000BEB61 /* matchesRegex.swift */,
 				A57D8EB22A0D1B0400443ED3 /* generateSecret.swift */,
+				A58CDA2A2AF5743E0089C8A7 /* scheduleAppRefresh.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -854,6 +883,30 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		A58CDA1F2AF2D0610089C8A7 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				A58CDA202AF2D0950089C8A7 /* MeeExtensionEntry.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		A58CDA2D2AF921C90089C8A7 /* viewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A58CDA2E2AF921E80089C8A7 /* ContextDetailsViewModel.swift */,
+			);
+			path = viewModels;
+			sourceTree = "<group>";
+		};
+		A58CDA342AF9A8CE0089C8A7 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				A58CDA352AF9A8E10089C8A7 /* CoreAgent.swift */,
+			);
+			path = protocols;
+			sourceTree = "<group>";
+		};
 		A5B48BD529CC936000FE9A48 /* InputTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -882,9 +935,11 @@
 		A5CBEBF32A1F7F0600FD32A9 /* mee-extension */ = {
 			isa = PBXGroup;
 			children = (
+				A58CDA1F2AF2D0610089C8A7 /* model */,
 				A5656B242ADD711B0065BDDB /* mee-extension.entitlements */,
 				A5CBEBF42A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift */,
 				A5CBEBF62A1F7F0600FD32A9 /* Resources */,
+				A58CDA232AF2D0D00089C8A7 /* Constants.swift */,
 			);
 			path = "mee-extension";
 			sourceTree = "<group>";
@@ -981,6 +1036,8 @@
 				A521B19729FBE2F400354A98 /* ConsentRequestClaim+isEmpty.swift */,
 				A5715E6F2A16E3770031E25F /* Binding.swift */,
 				A5A537222A320BA600E2865D /* Sequence+acyncReduce.swift */,
+				A58CDA152AEAA1780089C8A7 /* Date.swift */,
+				A58CDA172AEACE2B0089C8A7 /* Decodable.swift */,
 			);
 			path = extention;
 			sourceTree = "<group>";
@@ -1373,6 +1430,7 @@
 				A5656B232AD6D6F20065BDDB /* RoundedCorner.swift in Sources */,
 				A5DB214027E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
 				A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */,
+				A58CDA302AF922E70089C8A7 /* ContextDetailsViewModel.swift in Sources */,
 				A5D9E318292678CE00D0E12D /* Hint.swift in Sources */,
 				A5D9E324292D046E00D0E12D /* FirstRunPageInitializingState.swift in Sources */,
 				A518EAB929ED81A200B581BC /* ToastMessage.swift in Sources */,
@@ -1392,6 +1450,7 @@
 				A5D9E330292D109800D0E12D /* PartnerDetailsState.swift in Sources */,
 				A55085B627C3B55400C5A2D1 /* InputField.swift in Sources */,
 				A5B48BDE29D5AC7300FE9A48 /* TourPage.swift in Sources */,
+				A58CDA162AEAA1780089C8A7 /* Date.swift in Sources */,
 				A5E00C17297EF9BB00F9A59B /* MeeConsentRequest.swift in Sources */,
 				A5DB213D27E22B520070B444 /* urlTools.swift in Sources */,
 				A5327AA22954635400F08618 /* ConsentEntryType.swift in Sources */,
@@ -1400,6 +1459,7 @@
 				A5D9E2F52922C2CA00D0E12D /* VisualEffectView.swift in Sources */,
 				A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */,
 				A5DB215227EA2B690070B444 /* PopupWindow.swift in Sources */,
+				A58CDA182AEACE2B0089C8A7 /* Decodable.swift in Sources */,
 				A5E00C192980161C00F9A59B /* CoreExtentions.swift in Sources */,
 				A5D9E32A292D067C00D0E12D /* ConsentPageNewState.swift in Sources */,
 				A5D7510128E7368B003CD142 /* RecoveryPhraseSetupPage.swift in Sources */,
@@ -1430,7 +1490,9 @@
 				A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */,
 				A5B48BDA29CCA36200FE9A48 /* ConsentSimpleEntryInput.swift in Sources */,
 				A518EAB729ED812400B581BC /* ToastStyleExtension.swift in Sources */,
+				A58CDA2C2AF574650089C8A7 /* scheduleAppRefresh.swift in Sources */,
 				A5D9E30F2926780400D0E12D /* ConsentPageExisting.swift in Sources */,
+				A58CDA252AF2D0D60089C8A7 /* Constants.swift in Sources */,
 				A5D2AAE7291D210F00F9806E /* ColorBlend.swift in Sources */,
 				A550858027BD550000C5A2D1 /* Themes.swift in Sources */,
 				946D2E0627BB9A960055175C /* ContentView.swift in Sources */,
@@ -1443,6 +1505,7 @@
 				A5D30C8C287F0F2C00481E85 /* WebView.swift in Sources */,
 				A518EA9129E9B58100B581BC /* RelayResponse.swift in Sources */,
 				A550858C27BE4A7200C5A2D1 /* ConsentRequestClaim.swift in Sources */,
+				A58CDA332AF93CB10089C8A7 /* ViewState.swift in Sources */,
 				A5DB214C27E8D7AA0070B444 /* authentication.swift in Sources */,
 				A53F79CD27DA1BBC00A62589 /* optionalBinding.swift in Sources */,
 				A57D8E9D2A0BE58600443ED3 /* SdkVersion.swift in Sources */,
@@ -1453,6 +1516,7 @@
 				A5D7510728EB186B003CD142 /* json.swift in Sources */,
 				A5656B212AD6CE5F0065BDDB /* CustomCancellableDialog.swift in Sources */,
 				A5DB215B27EB2D8C0070B444 /* Switch.swift in Sources */,
+				A58CDA1E2AF1385D0089C8A7 /* AppDelegate.swift in Sources */,
 				A57D8EB32A0D1B0400443ED3 /* generateSecret.swift in Sources */,
 				A5A537232A320BA600E2865D /* Sequence+acyncReduce.swift in Sources */,
 				A550858627BE3B1400C5A2D1 /* Line.swift in Sources */,
@@ -1473,8 +1537,10 @@
 				A550858927BE46CE00C5A2D1 /* ConsentEntry.swift in Sources */,
 				A528999C2A029D90002E9A0A /* MeeContextWrapper.swift in Sources */,
 				A53F79C727D647B400A62589 /* validation.swift in Sources */,
+				A58CDA372AF9A9230089C8A7 /* CoreAgent.swift in Sources */,
 				A5327AA4295463A300F08618 /* consentHelpers.swift in Sources */,
 				946D2E0427BB9A960055175C /* mee_ios_clientApp.swift in Sources */,
+				A58CDA222AF2D09F0089C8A7 /* MeeExtensionEntry.swift in Sources */,
 				A5D7510428EB0EE0003CD142 /* String.swift in Sources */,
 				A50D5D6C2AD00E6B00D0FEBE /* AppErrorState.swift in Sources */,
 				A55085A727BFEB1A00C5A2D1 /* ButtonStyle.swift in Sources */,
@@ -1538,7 +1604,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A58CDA212AF2D0950089C8A7 /* MeeExtensionEntry.swift in Sources */,
 				A5CBEBF52A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift in Sources */,
+				A58CDA242AF2D0D00089C8A7 /* Constants.swift in Sources */,
+				A58CDA2B2AF5743E0089C8A7 /* scheduleAppRefresh.swift in Sources */,
+				A58CDA272AF2D1D50089C8A7 /* Decodable.swift in Sources */,
+				A58CDA262AF2D1B80089C8A7 /* Date.swift in Sources */,
+				A58CDA282AF2D1E30089C8A7 /* json.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1695,7 +1767,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Mee;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mee Smartwallet";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1709,7 +1781,7 @@
 					"@executable_path/Frameworks",
 				);
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/debug";
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1738,7 +1810,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "mee-ios-client--iOS--Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = Mee;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mee Smartwallet";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We need to unlock your data";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -1753,7 +1825,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "";
 				"LIBRARY_SEARCH_PATHS[arch=*]" = "$(SRCROOT)/../mee-core/target/universal/release";
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client";
 				PRODUCT_NAME = "mee-ios-client";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2005,7 +2077,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -2039,7 +2111,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,

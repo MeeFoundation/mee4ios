@@ -44,6 +44,8 @@ struct ConnectionsListPage: View, MeeAgentStoreListener {
                 return value.clientMetadata.type == .web
             case .Gapi(_):
                 return true
+            case .MeeBrowserExtension:
+                return true
             default: return false
             }
         }

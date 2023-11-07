@@ -7,6 +7,8 @@
 
 import SafariServices
 import os.log
+import UserNotifications
+import BackgroundTasks
 
 let SFExtensionMessageKey = "message"
 let SFExtensionMessageTypeKey = "type"
@@ -19,6 +21,10 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         guard let item = context.inputItems[0] as? NSExtensionItem else {
             return
         }
+        
+        let meeExtensionQueueData = extensionSharedDefaults?.string(forKey: MEE_EXTENSION_QUEUE)
+        let meeExtensionQueue = [MeeExtenstionEntry].fromString(meeExtensionQueueData) ?? []
+        
         let message = item.userInfo?[SFExtensionMessageKey] as? [String: String]
         
         let innerMessage = message?[SFExtensionMessageKey] as? String
@@ -28,14 +34,36 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
         switch(innerType) {
         case "GET_DOMAIN_STATUS":
             guard let innerMessage else {
-                response = ["hasConnection" : false]
+                response = [ "success": false, "gpcEnabled" : false]
                 break
             }
-            let hasConnection = extensionSharedDefaults?.bool(forKey: innerMessage)
+            if let connectionString = extensionSharedDefaults?.string(forKey: innerMessage), let connection = MeeExtenstionEntry.fromString(connectionString) {
+                let hasConnection = connection.gpcEnabled
+                response = [ "success": true, "gpcEnabled" : hasConnection]
+            }
             
-            response = ["hasConnection" : hasConnection == true]
+            response = [ "success": true, "gpcEnabled": false]
+        case "UPDATE_DOMAIN_STATUS":
+            scheduleAppRefresh()
+            
+            guard let innerMessage else {
+                response = [ "success": false ]
+                break
+            }
+            var newQueueArray = meeExtensionQueue
+
+            if let innerMessageDecoded = MeeExtenstionEntry.fromString(innerMessage) {
+                newQueueArray = newQueueArray.filter { $0.domain != innerMessageDecoded.domain }
+                let newValue = MeeExtenstionEntry(domain: innerMessageDecoded.domain, gpcEnabled: innerMessageDecoded.gpcEnabled, updated: Date().iso8601withFractionalSeconds)
+                newQueueArray.append(newValue)
+                extensionSharedDefaults?.set(encodeJson(newValue),forKey: newValue.domain)
+            }
+
+            extensionSharedDefaults?.set(encodeJson(newQueueArray),forKey: MEE_EXTENSION_QUEUE)
+//            sendNotification()
+            response = [ "success": true]
         default:
-            response = [ "error": "unsupportedQuery: \(innerType) \(innerMessage)" ]
+            response = [ "success": false, "error": "unsupportedQuery", "debug": "\(innerType) \(innerMessage) \(message)" ]
         }
 
         let responseItem = NSExtensionItem()
@@ -46,3 +74,4 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
     }
 
 }
+

@@ -44,26 +44,12 @@ func getNewAgent() throws -> MeeAgent? {
     print("passcode: ", passcode)
     let agent = try getAgent(config: MeeAgentConfig(dsUrl: dbUrl.path, grandPassword: passcode, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
     return agent
-    
-    
-    
-    
+
 }
 
 let extensionSharedDefaults = UserDefaults(suiteName: "group.extensionshare.foundation.mee.ios-client")
 
-func resetDefaults() {
-    guard let defaults = extensionSharedDefaults else {
-        return
-    }
-    let dictionary = defaults.dictionaryRepresentation()
-    dictionary.keys.forEach { key in
-        print("key: ", key)
-        defaults.removeObject(forKey: key)
-    }
-}
-
-class MeeAgentStore: ObservableObject {
+class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     private var agent: MeeAgent?
     var error: AppErrorRepresentation? = nil
     var listeners: [MeeAgentStoreListener] = []
@@ -101,11 +87,13 @@ class MeeAgentStore: ObservableObject {
         }
     }
     
-    init() {
+    override init() {
+        super.init()
         do {
             if let agent = try getNewAgent() {
                 self.agent = agent
                 try agent.initUserAccount()
+                extensionSharedDefaults?.addObserver(self, forKeyPath: "meeExtensionQueue", options: .new, context: nil)
 //                throw AppError.CoreError(MeeError.MeeStorage(error: .AppLevelMigration(error: "some error")))
             }
             
@@ -115,6 +103,25 @@ class MeeAgentStore: ObservableObject {
             
         }
         
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?,
+                               of object: Any?,
+                               change: [NSKeyValueChangeKey : Any]?,
+                               context: UnsafeMutableRawPointer?) {
+        guard keyPath == "meeExtensionQueue",
+              let change = change,
+              let meeExtensionQueue = change[.newKey] as? String else {
+            return
+        }
+        
+        if !meeExtensionQueue.isEmpty {
+            getAllConnectors() { _ in }
+        }
+    }
+    
+    deinit {
+        extensionSharedDefaults?.removeObserver(self, forKeyPath: "meeExtensionQueue")
     }
     
     func reinit() -> Bool {
@@ -135,65 +142,49 @@ class MeeAgentStore: ObservableObject {
         }
         
     }
-    
-    private func removeAllData(callback: (Bool) -> Void) {
-        guard let agent else {
-            return callback(false)
-        }
-        do {
-            try agent.deleteAllData()
-            let result = reinit()
-            callback(result)
-        } catch(let e) {
-            print(e)
-            callback(false)
-        }
         
-    }
-    
     func removeAllData() async -> Bool {
         return await withCheckedContinuation { continuation in
-            removeAllData() { result in
+            guard let agent else {
+                continuation.resume(returning: false)
+                return
+            }
+            do {
+                try agent.deleteAllData()
+                let result = reinit()
                 continuation.resume(returning: result)
+            } catch(let e) {
+                print(e)
+                continuation.resume(returning: false)
             }
         }
-        
-        
-        
     }
-    
-    private func getAllConnections (callback: ([MeeConnectionWrapper]) -> Void) {
-        guard let agent else {
-            callback([])
-            return
-        }
-        do {
-            let connectionsCore = try agent.otherPartyConnections();
-            let connections = connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
-                var copy = acc
-                
-                if let connection = MeeConnectionWrapper(from: connection) {
-                    copy.append(connection)
-                }
-                return copy
-            }
-            
-            callback(connections)
-        } catch {
-            print("error getting all contexts: \(error)")
-            callback([])
-        }
-    }
-    
-    func getAllConnections () async -> [MeeConnectionWrapper] {
+
+    private func getAllConnections () async -> [MeeConnectionWrapper] {
         return await withCheckedContinuation { continuation in
-            getAllConnections { result in
-                continuation.resume(returning: result)
+            guard let agent else {
+                continuation.resume(returning: [])
+                return
+            }
+            do {
+                let connectionsCore = try agent.otherPartyConnections();
+                let connections = connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
+                    var copy = acc
+
+                    if let connection = MeeConnectionWrapper(from: connection) {
+                        copy.append(connection)
+                    }
+                    return copy
+                }
+                continuation.resume(returning: connections)
+            } catch {
+                print("error getting all contexts: \(error)")
+                continuation.resume(returning: [])
             }
         }
     }
     
-    private func getAllConnectionConnectors (connectionId: String) -> [MeeConnectorWrapper] {
+    private func getAllConnectionConnectors(connectionId: String) -> [MeeConnectorWrapper] {
         guard let agent else {
             return []
         }
@@ -201,24 +192,61 @@ class MeeAgentStore: ObservableObject {
             let connectorsCore = try agent.getOtherPartyConnectionConnectors(connId: connectionId);
             let connectors = connectorsCore.reduce([]) { (acc: [MeeConnectorWrapper], connector) in
                 var copy = acc
-                
+
                 if let connector = MeeConnectorWrapper(from: connector) {
                     copy.append(connector)
                 }
                 return copy
             }
-            
+
             return connectors
         } catch {
             print("error getting all contexts: \(error)")
             return []
         }
     }
-    
+
     func getAllConnectionConnectors (connectionId: String) async -> [MeeConnectorWrapper] {
         return await withCheckedContinuation { continuation in
             let result = getAllConnectionConnectors(connectionId: connectionId)
             continuation.resume(returning: result)
+        }
+    }
+    
+    private func checkExtensionUpdates() {
+        let userDefaultsQueue = extensionSharedDefaults?.string(forKey: MEE_EXTENSION_QUEUE)
+        if let queue = [MeeExtenstionEntry].fromString(userDefaultsQueue) {
+            for entry in queue {
+                try? self.createExtensionConnection (url: entry.domain, gpcEnabled: entry.gpcEnabled)
+            }
+            extensionSharedDefaults?.set("", forKey: MEE_EXTENSION_QUEUE)
+            print("queue: ", queue)
+        }
+    }
+    
+    private func clearExtensionCache() {
+        print("clearExtensionCache")
+        guard let extensionSharedDefaults else {
+            return
+        }
+        let dictionary = extensionSharedDefaults.dictionaryRepresentation()
+        dictionary.keys.forEach { key in
+            if key != MEE_EXTENSION_QUEUE {
+                extensionSharedDefaults.removeObject(forKey: key)
+            }
+            
+        }
+    }
+    
+    private func updateExtensionCache(_ connectors: [MeeConnectorWrapper]) {
+        print("updateExtensionCache")
+        connectors.forEach { connector in
+//            print("meebrext:", connector.otherPartyConnectionId, try? agent?.meeBrextGetSiteAttributes(siteHostname: connector.otherPartyConnectionId))
+            if let attributes = try? agent?.meeBrextGetSiteAttributes(siteHostname: connector.otherPartyConnectionId) {
+                let extensionValue: MeeExtenstionEntry = .init(domain: connector.otherPartyConnectionId, gpcEnabled: attributes.gpcEnabled, updated: Date().iso8601withFractionalSeconds)
+                extensionSharedDefaults?.set(encodeJson(extensionValue), forKey: extensionValue.domain)
+                print("cache: ", extensionValue)
+            }
         }
     }
     
@@ -227,22 +255,19 @@ class MeeAgentStore: ObservableObject {
             callback([])
             return
         }
+        
         do {
-//            resetDefaults()
+            checkExtensionUpdates()
             let connectionsCore = try agent.otherPartyConnections();
             let allConnectorsCore = connectionsCore.reduce([]) { (acc: [MeeConnectorWrapper], connectionCore) in
                 var copy = acc
                 let connectorsCore = getAllConnectionConnectors(connectionId: connectionCore.id)
-                connectorsCore.forEach {connector in
-                    if case let .Siop(siopConnector) = connector.connectorProtocol {
-                        extensionSharedDefaults?.set(true as AnyObject, forKey: siopConnector.redirectUri.getHostname())
-                    }
-                    
-                }
+                
                 copy.append(contentsOf: connectorsCore)
                 return copy
             }
-            extensionSharedDefaults?.synchronize()
+            
+            updateExtensionCache(allConnectorsCore)
             callback(allConnectorsCore)
         } catch {
             print("error getting all contexts: \(error)")
@@ -252,38 +277,27 @@ class MeeAgentStore: ObservableObject {
     
     func getAllConnectors () async -> [MeeConnectorWrapper] {
         return await withCheckedContinuation { continuation in
-            getAllConnectors() { result in
-                continuation.resume(returning: result)
+            guard let agent else {
+                continuation.resume(returning: [])
+                return
             }
-        }
-    }
-    
-    private func getAllContexts(callback: ([MeeContextWrapper]?) -> Void) {
-        guard let agent else {
-            callback(nil)
-            return
-        }
-        do {
-            let contextsCore = try agent.otherPartyConnections();
-            let connections = contextsCore.reduce([]) { (acc: [MeeContextWrapper], connection) in
-                var copy = acc
-                if let context = getLastConnectionConsentById(id: connection.id) {
-                    copy.append(context)
+            
+            do {
+                checkExtensionUpdates()
+                let connectionsCore = try agent.otherPartyConnections();
+                let allConnectorsCore = connectionsCore.reduce([]) { (acc: [MeeConnectorWrapper], connectionCore) in
+                    var copy = acc
+                    let connectorsCore = getAllConnectionConnectors(connectionId: connectionCore.id)
+                    
+                    copy.append(contentsOf: connectorsCore)
+                    return copy
                 }
-                return copy
-            }
-            callback(connections)
-        } catch {
-            print("error getting all contexts: \(error)")
-            callback(nil)
-        }
-       
-    }
-    
-    func getAllContexts() async -> [MeeContextWrapper]? {
-        return await withCheckedContinuation { continuation in
-            getAllContexts { result in
-                continuation.resume(returning: result)
+                
+                updateExtensionCache(allConnectorsCore)
+                continuation.resume(returning: allConnectorsCore)
+            } catch {
+                print("error getting all contexts: \(error)")
+                continuation.resume(returning: [])
             }
         }
     }
@@ -299,8 +313,10 @@ class MeeAgentStore: ObservableObject {
             return await withCheckedContinuation { continuation in
                 do {
                     if connector.isGapi {
+                        print("googleApiProviderDetachAccount")
                         try agent.googleApiProviderDetachAccount(connectorId: connector.id)
                     } else {
+                        print("deleteOtherPartyConnection: ", id)
                         try agent.deleteOtherPartyConnection(connId: id)
                     }
                     continuation.resume(returning: id)
@@ -312,7 +328,7 @@ class MeeAgentStore: ObservableObject {
 
     }
 
-    func getConnectionById (id: String) async -> MeeConnectionWrapper? {
+    private func getConnectionById (id: String) async -> MeeConnectionWrapper? {
         let items = await self.getAllConnections()
         let item = items.first { $0.id == id }
         guard let item else {
@@ -322,12 +338,32 @@ class MeeAgentStore: ObservableObject {
 
     }
     
-    private func getLastConnectionConsentById(id: String) -> MeeContextWrapper? {
+    func getConnectorById(id: String) async -> MeeConnectorWrapper? {
+        let connectors = await getAllConnectors()
+        let connector = connectors.first { $0.id == id }
+        guard let connector else {
+            return nil
+        }
+        return connector
+    }
+    
+    func checkSiopConnectionExists (id: String) async -> Bool {
+        return (try? agent?.siopLastConsentByConnectionId(connId: id)) != nil
+    }
+    
+    func getLastSiopConsentByConnectionId (id: String) async -> MeeContextWrapper? {
+        if let consent = try? agent?.siopLastConsentByConnectionId(connId: id) {
+            return MeeContextWrapper(from: consent)
+        }
+        return nil
+    }
+    
+    internal func getLastConsentByConnectorId(id: String) -> MeeContextWrapper? {
         guard let agent else {
             return nil
         }
         do {
-            if let coreConsent = try agent.siopLastConsentByConnectionId(connId: id) {
+            if let coreConsent = try agent.siopLastConsentByConnectorId(connId: id) {
                 return MeeContextWrapper(from: coreConsent)
             } else {
                 return nil
@@ -337,9 +373,9 @@ class MeeAgentStore: ObservableObject {
         }
     }
     
-    func getLastConnectionConsentById(id: String) async -> MeeContextWrapper? {
+    func getLastConsentByConnectorId(id: String) async -> MeeContextWrapper? {
         return await withCheckedContinuation { continuation in
-            let result = getLastConnectionConsentById(id: id)
+            let result = getLastConsentByConnectorId(id: id)
             continuation.resume(returning: result)
         }
     }
@@ -351,7 +387,6 @@ class MeeAgentStore: ObservableObject {
         return await withCheckedContinuation {continuation in
             do {
                 let coreConsent = try agent.otherPartyContextsByConnectorId(connectorId: connectorId)
-                print("coreConsent: ", coreConsent)
                 guard coreConsent.count > 0 else {
                     continuation.resume(returning: nil)
                     return
@@ -362,9 +397,9 @@ class MeeAgentStore: ObservableObject {
                 continuation.resume(returning: nil)
             }
         }
-        
-        
     }
+    
+    
 
     func authorize (id: String, item: MeeConsentRequest) async -> OidcAuthResponseWrapper? {
         guard let agent else {
@@ -406,6 +441,19 @@ class MeeAgentStore: ObservableObject {
             return
         }
         let _ = try agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
+
+        onConnectionsListUpdated()
+    }
+    
+    @MainActor func createExtensionConnectionAsync (url: String, gpcEnabled: Bool) async throws {
+        try self.createExtensionConnection(url: url, gpcEnabled: gpcEnabled)
+    }
+    
+    private func createExtensionConnection (url: String, gpcEnabled: Bool) throws {
+        guard let agent else {
+            return
+        }
+        let _ = try agent.meeBrextUpdateSiteAttributes(siteHostname: url, attributes: .init(gpcEnabled: gpcEnabled))
         onConnectionsListUpdated()
     }
     
@@ -413,6 +461,7 @@ class MeeAgentStore: ObservableObject {
         return await withCheckedContinuation { continuation in
             do {
                 let partnerData = try siopRpAuthRequestFromUrl(siopUrl: url)
+                
                 let consent = MeeConsentRequest(from: partnerData, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
 
                 continuation.resume(returning: consent)

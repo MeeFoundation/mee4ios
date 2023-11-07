@@ -20,11 +20,11 @@ func getExternalConsentImageByName(_ name: String) -> String {
 
 struct ExternalConsentEntry: View {
     var name: String
-    var value: String
-
-    init(entry: (String, String)) {
-        self.name = entry.0
-        self.value = entry.1
+    @Binding var value: Any
+    
+    init(name: String, value: Binding<Any>) {
+        self.name = name
+        self._value = value
     }
     
     var body: some View {
@@ -36,9 +36,24 @@ struct ExternalConsentEntry: View {
                     .blending(Colors.meeBrand)
                     .frame(width: 18, height: 18, alignment: .center)
                     .padding(.trailing, 13)
-                Text(value)
-                    .foregroundColor(Colors.meeBrand)
-                    .font(.custom(FontNameManager.PublicSans.regular, size: 18))
+                if let stringValue = value as? String {
+                    Text(stringValue)
+                        .foregroundColor(Colors.meeBrand)
+                        .font(.custom(FontNameManager.PublicSans.regular, size: 18))
+                } else if let boolValue = value as? Bool {
+                    HStack {
+                        Text(name)
+                            .foregroundColor(Colors.meeBrand)
+                            .font(.custom(FontNameManager.PublicSans.regular, size: 18))
+                        Spacer()
+                        Checkbox(isToggled: Binding(get: {
+                            return boolValue
+                        }, set: {newValue in
+                            value = Bool(newValue)
+                        }))
+                    }
+                }
+                
                 Spacer()
             }
             

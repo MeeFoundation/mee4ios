@@ -95,7 +95,7 @@ struct PlusMenuItem: View {
             self.clientMetadata = value.clientMetadata
             self.name = clientMetadata?.name ?? item.name
             self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(item.id)/favicon.ico")
-            self.hostname = value.redirectUri.getHostname()
+            self.hostname = value.redirectUri.getHostname() ?? value.redirectUri
         case .Gapi(_):
             self.clientMetadata = nil
             self.name = "Google Account"

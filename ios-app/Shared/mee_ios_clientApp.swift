@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
+import UIKit
+import BackgroundTasks
 
 @main
 struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     init() {
         
     }
     @StateObject var navigation = NavigationState()
     @StateObject var consent = ConsentState()
     @StateObject var appState = AppState()
-    @StateObject var core = MeeAgentStore()
+
     var id = UUID()
     
     
@@ -33,7 +37,7 @@ struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
                     .environmentObject(navigation)
                     .environmentObject(consent)
                     .environmentObject(appState)
-                    .environmentObject(core)
+                    .environmentObject(appDelegate.core)
             }
             .overlay {
                 ZStack {
@@ -48,11 +52,12 @@ struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
                 
             }
             .onAppear {
-                error = core.error
-                core.addErrorListener(self)
+                error = appDelegate.core.error
+                appDelegate.core.addErrorListener(self)
             }
+
         }
-        
     }
+      
 }
 

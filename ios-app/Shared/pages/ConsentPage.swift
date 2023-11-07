@@ -77,9 +77,9 @@ struct ConsentPage: View {
     }
     
     func recoverRequest (id: String, url: String, data: MeeConsentRequest) async {
-        guard let contextData = await core.getLastConnectionConsentById(id: id.getHostname())
+        guard let contextData = await core.getLastSiopConsentByConnectionId(id: id.getHostname() ?? id)
         else {
-            appState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection not found. Please try again.")
+            appState.toast = ToastMessage(type: .error, title: "Fail", message: "Connection not found.")
             navigationState.currentPage = .mainPage
             return
         }
@@ -119,7 +119,7 @@ struct ConsentPage: View {
         }
         .onAppear{
             Task.init {
-                let isReturningUser = await core.getConnectionById(id: data.consent.id.getHostname()) != nil
+                let isReturningUser = await core.checkSiopConnectionExists(id: data.consent.id.getHostname() ?? data.consent.id)
                 await MainActor.run {
                     state.isReturningUser = isReturningUser
                 }
