@@ -9,44 +9,6 @@ import Foundation
 
 let MEE_KEYCHAIN_SECRET_NAME = "MEE_KEYCHAIN_SECRET_NAME"
 
-protocol MeeAgentStoreListener {
-    var id: UUID {get}
-    func onUpdate()
-}
-
-protocol MeeAgentStoreErrorListener {
-    var id: UUID {get}
-    func onError(error: AppErrorRepresentation)
-}
-
-func getDbUrl() throws -> URL {
-    let fm = FileManager.default
-    let folderURL = try fm.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-    let dbURL = folderURL.appendingPathComponent("mee.sqlite")
-    if !fm.fileExists(atPath: dbURL.path) {
-        fm.createFile(atPath: dbURL.path, contents: nil)
-    }
-    return dbURL
-}
-
-func getNewAgent() throws -> MeeAgent? {
-    let storage = KeyChainStorage()
-    var passcode: String? = storage.getItem(name: MEE_KEYCHAIN_SECRET_NAME)
-    if passcode == nil {
-        passcode = generateSecret(length: 30)
-        storage.editItem(name: MEE_KEYCHAIN_SECRET_NAME, value: passcode!)
-    }
-    guard let passcode else {
-        throw AppError.KeychainError
-    }
-    
-    let dbUrl = try getDbUrl()
-    print("passcode: ", passcode)
-    let agent = try getAgent(config: MeeAgentConfig(dsUrl: dbUrl.path, grandPassword: passcode, dsEncryptionPassword: nil, didRegistryConfig: MeeAgentDidRegistryConfig.didKey))
-    return agent
-
-}
-
 let extensionSharedDefaults = UserDefaults(suiteName: "group.extensionshare.foundation.mee.ios-client")
 
 class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
@@ -116,7 +78,9 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
         
         if !meeExtensionQueue.isEmpty {
-            getAllConnectors() { _ in }
+            Task {
+                await getAllConnectors()
+            }
         }
     }
     
@@ -124,38 +88,31 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         extensionSharedDefaults?.removeObserver(self, forKeyPath: "meeExtensionQueue")
     }
     
-    func reinit() -> Bool {
-        do {
-            if let agent = try getNewAgent() {
-                self.agent = agent
-                try agent.initUserAccount()
-//                throw AppError.CoreError(MeeError.MeeStorage(error: .Other(error: "some error")))
-                return true
-            } else {
-                throw AppError.UnknownError
-            }
-            
-        } catch(let e) {
-            print(e)
-            onError(AppErrorRepresentation(error: errorToAppError(e), action: .userDataRemoving))
-            return false
+    func reinit() throws {
+        if let agent = try getNewAgent() {
+            self.agent = agent
+            let _ = try agent.initUserAccount()
+            //                throw AppError.CoreError(MeeError.MeeStorage(error: .Other(error: "some error")))
+        } else {
+            throw AppError.UnknownError
         }
-        
     }
         
-    func removeAllData() async -> Bool {
-        return await withCheckedContinuation { continuation in
-            guard let agent else {
-                continuation.resume(returning: false)
-                return
-            }
+    func removeAllData() async throws {
+        return try await withCheckedThrowingContinuation { continuation in
             do {
+                guard let agent else {
+                    continuation.resume()
+                    throw AppError.UnknownError
+                }
+                
                 try agent.deleteAllData()
-                let result = reinit()
-                continuation.resume(returning: result)
+                try reinit()
+                continuation.resume()
             } catch(let e) {
                 print(e)
-                continuation.resume(returning: false)
+                onError(AppErrorRepresentation(error: errorToAppError(e), action: .userDataRemoving))
+                continuation.resume(throwing: e)
             }
         }
     }
@@ -206,7 +163,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
     }
 
-    func getAllConnectionConnectors (connectionId: String) async -> [MeeConnectorWrapper] {
+    private func getAllConnectionConnectors (connectionId: String) async -> [MeeConnectorWrapper] {
         return await withCheckedContinuation { continuation in
             let result = getAllConnectionConnectors(connectionId: connectionId)
             continuation.resume(returning: result)
@@ -240,38 +197,13 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     
     private func updateExtensionCache(_ connectors: [MeeConnectorWrapper]) {
         print("updateExtensionCache")
+        clearExtensionCache()
         connectors.forEach { connector in
-//            print("meebrext:", connector.otherPartyConnectionId, try? agent?.meeBrextGetSiteAttributes(siteHostname: connector.otherPartyConnectionId))
             if let attributes = try? agent?.meeBrextGetSiteAttributes(siteHostname: connector.otherPartyConnectionId) {
                 let extensionValue: MeeExtenstionEntry = .init(domain: connector.otherPartyConnectionId, gpcEnabled: attributes.gpcEnabled, updated: Date().iso8601withFractionalSeconds)
                 extensionSharedDefaults?.set(encodeJson(extensionValue), forKey: extensionValue.domain)
                 print("cache: ", extensionValue)
             }
-        }
-    }
-    
-    private func getAllConnectors (callback: ([MeeConnectorWrapper]) -> Void) {
-        guard let agent else {
-            callback([])
-            return
-        }
-        
-        do {
-            checkExtensionUpdates()
-            let connectionsCore = try agent.otherPartyConnections();
-            let allConnectorsCore = connectionsCore.reduce([]) { (acc: [MeeConnectorWrapper], connectionCore) in
-                var copy = acc
-                let connectorsCore = getAllConnectionConnectors(connectionId: connectionCore.id)
-                
-                copy.append(contentsOf: connectorsCore)
-                return copy
-            }
-            
-            updateExtensionCache(allConnectorsCore)
-            callback(allConnectorsCore)
-        } catch {
-            print("error getting all contexts: \(error)")
-            callback([])
         }
     }
     
@@ -302,30 +234,29 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
     }
     
-    func removeConnector(connector: MeeConnectorWrapper) async -> String? {
+    func removeConnector(connector: MeeConnectorWrapper) async throws {
         guard let agent else {
-            return nil
+            throw AppError.UnknownError
         }
         let item = await self.getConnectionById(id: connector.otherPartyConnectionId)
-            guard let id = item?.id else {
-                return nil
-            }
-            return await withCheckedContinuation { continuation in
-                do {
-                    if connector.isGapi {
-                        print("googleApiProviderDetachAccount")
-                        try agent.googleApiProviderDetachAccount(connectorId: connector.id)
-                    } else {
-                        print("deleteOtherPartyConnection: ", id)
-                        try agent.deleteOtherPartyConnection(connId: id)
-                    }
-                    continuation.resume(returning: id)
-                } catch {
-                    continuation.resume(returning: nil)
+        guard let id = item?.id else {
+            throw AppError.UnknownError
+        }
+        return try await withCheckedThrowingContinuation { continuation in
+            do {
+                if connector.isGapi {
+                    print("googleApiProviderDetachAccount")
+                    try agent.googleApiProviderDetachAccount(connectorId: connector.id)
+                } else {
+                    print("deleteOtherPartyConnection: ", id)
+                    try agent.deleteOtherPartyConnection(connId: id)
                 }
-                
+                continuation.resume()
+            } catch(let e) {
+                continuation.resume(throwing: e)
             }
-
+            
+        }
     }
 
     private func getConnectionById (id: String) async -> MeeConnectionWrapper? {
@@ -380,7 +311,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
     }
     
-    func getLastExternalConsentById(connectorId: String) async -> MeeExternalContextWrapper? {
+    func getLastExternalConsentByConnectorId(connectorId: String) async -> MeeExternalContextWrapper? {
         guard let agent else {
             return nil
         }

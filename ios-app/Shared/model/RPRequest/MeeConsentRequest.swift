@@ -76,21 +76,24 @@ struct MeeConsentRequest {
     
     init?(from: OidcAuthRequest, isCrossDevice: Bool, sdkVersion: SdkVersion) {
         guard
-            let parnterMetaData = PartnerMetadata(from: from.clientMetadata),
+            let clientMetadata = from.clientMetadata,
+            let parnterMetaData = PartnerMetadata(from: clientMetadata),
             let claims = from.claims,
-            let idToken = claims.idToken
+            let idToken = claims.idToken,
+            let scope = from.scope,
+            let redirectUri = from.redirectUri
         else {
             return nil
         }
         self.responseType = from.responseType
-        self.scope = from.scope
+        self.scope = scope
         self.isCrossDeviceFlow = isCrossDevice
         self.sdkVersion = sdkVersion
         self.clientMetadata = parnterMetaData
         self.nonce = from.nonce
         self.clientId = from.clientId
-        self.id = from.redirectUri
-        self.redirectUri = from.redirectUri
+        self.id = redirectUri
+        self.redirectUri = redirectUri
         self.presentationDefinition = from.presentationDefinition
         self.claims = idToken.reduce([]) { (acc: [ConsentRequestClaim], claim) in
             var copy = acc

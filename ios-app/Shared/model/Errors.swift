@@ -22,7 +22,7 @@ func openSettingsUrl() {
 }
 
 func errorToAppError(_ e: Error) -> AppError {
-    if let e = e as? MeeError {
+    if let e = e as? MeeErr {
         return AppError.CoreError(e)
     } else if let e = e as? AppError {
         return e
@@ -32,7 +32,7 @@ func errorToAppError(_ e: Error) -> AppError {
 }
 
 enum AppError: Error {
-    case CoreError(MeeError)
+    case CoreError(MeeErr)
     case KeychainError
     case UnknownError
 }
@@ -93,6 +93,9 @@ struct DisplayErrorType {
                 default:
                     self = unknownError
                 }
+            
+            case .NativeCapabilities(error: _):
+                self = unknownError
             }
         case .KeychainError:
             self = unknownError

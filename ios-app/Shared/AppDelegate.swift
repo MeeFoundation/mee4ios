@@ -33,7 +33,7 @@ class AppDelegate: NSObject, UNUserNotificationCenterDelegate, UIApplicationDele
     
     private func registerBackgroundTask() {
         print("registering background task")
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "extensionsync", using: nil) { task in
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: "foundation.mee.extensionsync", using: nil) { task in
             print("syncronizing app end extension: ", Date().iso8601withFractionalSeconds)
             Task {
                 

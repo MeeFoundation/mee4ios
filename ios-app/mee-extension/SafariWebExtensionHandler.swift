@@ -39,13 +39,13 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
             }
             if let connectionString = extensionSharedDefaults?.string(forKey: innerMessage), let connection = MeeExtenstionEntry.fromString(connectionString) {
                 let hasConnection = connection.gpcEnabled
-                response = [ "success": true, "gpcEnabled" : hasConnection]
+                response = [ "success": true, "gpcEnabled" : hasConnection, "updated": connection.updated ?? ""]
+                break
             }
             
             response = [ "success": true, "gpcEnabled": false]
         case "UPDATE_DOMAIN_STATUS":
-            scheduleAppRefresh()
-            
+
             guard let innerMessage else {
                 response = [ "success": false ]
                 break
@@ -56,7 +56,7 @@ class SafariWebExtensionHandler: NSObject, NSExtensionRequestHandling {
                 newQueueArray = newQueueArray.filter { $0.domain != innerMessageDecoded.domain }
                 let newValue = MeeExtenstionEntry(domain: innerMessageDecoded.domain, gpcEnabled: innerMessageDecoded.gpcEnabled, updated: Date().iso8601withFractionalSeconds)
                 newQueueArray.append(newValue)
-                extensionSharedDefaults?.set(encodeJson(newValue),forKey: newValue.domain)
+//                extensionSharedDefaults?.set(encodeJson(newValue),forKey: newValue.domain)
             }
 
             extensionSharedDefaults?.set(encodeJson(newQueueArray),forKey: MEE_EXTENSION_QUEUE)

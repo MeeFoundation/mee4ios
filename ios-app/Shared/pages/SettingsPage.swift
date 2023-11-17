@@ -54,12 +54,12 @@ struct SettingsPage: View {
                     Spacer()
                     DestructionConfirmationDialog(text: "Delete user data", description: "Are you sure you want to delete your data?", buttonText: "Yes, delete my data", onNext: {
                         Task {
-                            let result = await core.removeAllData()
-                            userDataRemoveDialog = false
-                            if (result) {
+                            do {
+                                try await core.removeAllData()
                                 userDataRemovedDialog = true
+                            } catch {
+                                userDataRemoveDialog = false
                             }
-                            
                         }
                         
                     }, onCancel: {

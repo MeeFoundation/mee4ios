@@ -91,7 +91,7 @@ struct PartnerEntry: View  {
             Task {
                 switch (connector.connectorProtocol) {
                 case .Gapi(_):
-                    let contextData = await core.getLastExternalConsentById(connectorId: connector.id)
+                    let contextData = await core.getLastExternalConsentByConnectorId(connectorId: connector.id)
                     if case let .gapi(gapiData) = contextData?.data {
                         displayedHostname = gapiData.userInfo.email ?? ""
                     }
