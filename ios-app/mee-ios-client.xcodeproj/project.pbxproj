@@ -103,6 +103,9 @@
 		A55C747D2B0656C700608B0B /* MeeAgentStoreErrorListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C747C2B0656C700608B0B /* MeeAgentStoreErrorListener.swift */; };
 		A55C747F2B066CBD00608B0B /* ConsentExternalClaim.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C747E2B066CBD00608B0B /* ConsentExternalClaim.swift */; };
 		A55C74812B07794E00608B0B /* NavigationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74802B07794E00608B0B /* NavigationViewModel.swift */; };
+		A55C74832B078DDD00608B0B /* helperUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74822B078DDD00608B0B /* helperUrls.swift */; };
+		A55C74852B078EE700608B0B /* ConsentPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */; };
+		A55C74872B079B5E00608B0B /* ConnectionListPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */; };
 		A5656B1F2AD6B2220065BDDB /* PlusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */; };
 		A5656B212AD6CE5F0065BDDB /* CustomCancellableDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B202AD6CE5F0065BDDB /* CustomCancellableDialog.swift */; };
 		A5656B232AD6D6F20065BDDB /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */; };
@@ -193,11 +196,9 @@
 		A5D9E318292678CE00D0E12D /* Hint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E317292678CE00D0E12D /* Hint.swift */; };
 		A5D9E31B2926841D00D0E12D /* ConsentDurationEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E31A2926841D00D0E12D /* ConsentDurationEntry.swift */; };
 		A5D9E31E2926845B00D0E12D /* ConsentDurationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E31D2926845B00D0E12D /* ConsentDurationOptions.swift */; };
-		A5D9E321292CF63700D0E12D /* ConsentPageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E320292CF63700D0E12D /* ConsentPageState.swift */; };
 		A5D9E324292D046E00D0E12D /* FirstRunPageInitializingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E323292D046E00D0E12D /* FirstRunPageInitializingState.swift */; };
 		A5D9E327292D05B500D0E12D /* ConsentPageAnimationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E326292D05B500D0E12D /* ConsentPageAnimationState.swift */; };
 		A5D9E32A292D067C00D0E12D /* ConsentPageNewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */; };
-		A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */; };
 		A5D9E330292D109800D0E12D /* PartnerDetailsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */; };
 		A5DAEB9E2993CB5E0083E346 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DAEB9D2993CB5E0083E346 /* Webservice.swift */; };
 		A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5DB212E27E1DF850070B444 /* StorageListItem.swift */; };
@@ -373,6 +374,9 @@
 		A55C747C2B0656C700608B0B /* MeeAgentStoreErrorListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStoreErrorListener.swift; sourceTree = "<group>"; };
 		A55C747E2B066CBD00608B0B /* ConsentExternalClaim.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentExternalClaim.swift; sourceTree = "<group>"; };
 		A55C74802B07794E00608B0B /* NavigationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModel.swift; sourceTree = "<group>"; };
+		A55C74822B078DDD00608B0B /* helperUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helperUrls.swift; sourceTree = "<group>"; };
+		A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageViewModel.swift; sourceTree = "<group>"; };
+		A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionListPageViewModel.swift; sourceTree = "<group>"; };
 		A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusMenu.swift; sourceTree = "<group>"; };
 		A5656B202AD6CE5F0065BDDB /* CustomCancellableDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCancellableDialog.swift; sourceTree = "<group>"; };
 		A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
@@ -464,11 +468,9 @@
 		A5D9E317292678CE00D0E12D /* Hint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hint.swift; sourceTree = "<group>"; };
 		A5D9E31A2926841D00D0E12D /* ConsentDurationEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentDurationEntry.swift; sourceTree = "<group>"; };
 		A5D9E31D2926845B00D0E12D /* ConsentDurationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentDurationOptions.swift; sourceTree = "<group>"; };
-		A5D9E320292CF63700D0E12D /* ConsentPageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageState.swift; sourceTree = "<group>"; };
 		A5D9E323292D046E00D0E12D /* FirstRunPageInitializingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstRunPageInitializingState.swift; sourceTree = "<group>"; };
 		A5D9E326292D05B500D0E12D /* ConsentPageAnimationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageAnimationState.swift; sourceTree = "<group>"; };
 		A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageNewState.swift; sourceTree = "<group>"; };
-		A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentsListState.swift; sourceTree = "<group>"; };
 		A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerDetailsState.swift; sourceTree = "<group>"; };
 		A5DAEB9D2993CB5E0083E346 /* Webservice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		A5DB212E27E1DF850070B444 /* StorageListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageListItem.swift; sourceTree = "<group>"; };
@@ -809,6 +811,7 @@
 				A57D8EB22A0D1B0400443ED3 /* generateSecret.swift */,
 				A58CDA2A2AF5743E0089C8A7 /* scheduleAppRefresh.swift */,
 				A55C747A2B06569B00608B0B /* agentHelpers.swift */,
+				A55C74822B078DDD00608B0B /* helperUrls.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -831,11 +834,9 @@
 				A5DB214227E3321C0070B444 /* StorageState.swift */,
 				A5D2AAE9291D2FB500F9806E /* URLs.swift */,
 				A5D9E31D2926845B00D0E12D /* ConsentDurationOptions.swift */,
-				A5D9E320292CF63700D0E12D /* ConsentPageState.swift */,
 				A5D9E323292D046E00D0E12D /* FirstRunPageInitializingState.swift */,
 				A5D9E326292D05B500D0E12D /* ConsentPageAnimationState.swift */,
 				A5D9E329292D067C00D0E12D /* ConsentPageNewState.swift */,
-				A5D9E32C292D0DD500D0E12D /* ConsentsListState.swift */,
 				A5D9E32F292D109800D0E12D /* PartnerDetailsState.swift */,
 				A518EABD29ED84D000B581BC /* AppState.swift */,
 				A50D5D6B2AD00E6B00D0FEBE /* AppErrorState.swift */,
@@ -907,6 +908,8 @@
 			children = (
 				A58CDA2E2AF921E80089C8A7 /* ContextDetailsViewModel.swift */,
 				A55C74802B07794E00608B0B /* NavigationViewModel.swift */,
+				A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */,
+				A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */,
 			);
 			path = viewModels;
 			sourceTree = "<group>";
@@ -1443,11 +1446,13 @@
 				A55C747D2B0656C700608B0B /* MeeAgentStoreErrorListener.swift in Sources */,
 				A5656B232AD6D6F20065BDDB /* RoundedCorner.swift in Sources */,
 				A5DB214027E23D2D0070B444 /* StorageItemDetails.swift in Sources */,
+				A55C74872B079B5E00608B0B /* ConnectionListPageViewModel.swift in Sources */,
 				A5E0F50B28C8B4480065058A /* TabBar.swift in Sources */,
 				A58CDA302AF922E70089C8A7 /* ContextDetailsViewModel.swift in Sources */,
 				A5D9E318292678CE00D0E12D /* Hint.swift in Sources */,
 				A5D9E324292D046E00D0E12D /* FirstRunPageInitializingState.swift in Sources */,
 				A518EAB929ED81A200B581BC /* ToastMessage.swift in Sources */,
+				A55C74852B078EE700608B0B /* ConsentPageViewModel.swift in Sources */,
 				A57D8EA92A0D039600443ED3 /* ConfigLoader.swift in Sources */,
 				A5B48BD729CC937A00FE9A48 /* CreditCardEntry.swift in Sources */,
 				A5B48BE029D5B8CD00FE9A48 /* CreditCardEntryExtension.swift in Sources */,
@@ -1483,7 +1488,6 @@
 				A518EABE29ED84D000B581BC /* AppState.swift in Sources */,
 				A5D9E327292D05B500D0E12D /* ConsentPageAnimationState.swift in Sources */,
 				A518EAB529ED80CD00B581BC /* ToastMessageView.swift in Sources */,
-				A5D9E32D292D0DD600D0E12D /* ConsentsListState.swift in Sources */,
 				A518EAC729F15FB600B581BC /* AsyncImageRounded.swift in Sources */,
 				A5DB214327E3321C0070B444 /* StorageState.swift in Sources */,
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
@@ -1496,7 +1500,6 @@
 				A5B48BDC29D317FF00FE9A48 /* TutorialPage.swift in Sources */,
 				A5B48BE229D5B98700FE9A48 /* ConsentRequestClaimExtension.swift in Sources */,
 				A5DB216427EDE9FA0070B444 /* autoFill.swift in Sources */,
-				A5D9E321292CF63700D0E12D /* ConsentPageState.swift in Sources */,
 				A5DB215527EB10940070B444 /* PasswordGenerator.swift in Sources */,
 				A5CDCDC92ACC439700EF3CC3 /* ContinueDialog.swift in Sources */,
 				A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */,
@@ -1506,6 +1509,7 @@
 				A5D15D6E29BA0B0E0015D165 /* IntroductionPopup.swift in Sources */,
 				A5B48BDA29CCA36200FE9A48 /* ConsentSimpleEntryInput.swift in Sources */,
 				A518EAB729ED812400B581BC /* ToastStyleExtension.swift in Sources */,
+				A55C74832B078DDD00608B0B /* helperUrls.swift in Sources */,
 				A58CDA2C2AF574650089C8A7 /* scheduleAppRefresh.swift in Sources */,
 				A5D9E30F2926780400D0E12D /* ConsentPageExisting.swift in Sources */,
 				A58CDA252AF2D0D60089C8A7 /* Constants.swift in Sources */,

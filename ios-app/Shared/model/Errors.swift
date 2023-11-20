@@ -5,22 +5,6 @@
 //  Created by Anthony Ivanov on 5.10.23..
 //
 
-import SwiftUI
-
-let FEEDBACK_URL = "mailto:contact@mee.foundation"
-
-func openFeedbackUrl() {
-    if let url = URL(string: FEEDBACK_URL) {
-        UIApplication.shared.open(url)
-    }
-}
-
-func openSettingsUrl() {
-    if let url = URL(string: UIApplication.openSettingsURLString) {
-        UIApplication.shared.open(url)
-    }
-}
-
 func errorToAppError(_ e: Error) -> AppError {
     if let e = e as? MeeErr {
         return AppError.CoreError(e)

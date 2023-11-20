@@ -22,8 +22,6 @@ struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
 
     var id = UUID()
     
-    
-    
     @State var error: AppErrorRepresentation? = nil
     
     func onError(error: AppErrorRepresentation) {
