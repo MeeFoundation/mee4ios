@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreditCardEntry: Codable {
+struct CreditCardEntry: Codable, Equatable {
     var number: String? {
         didSet {
             if let newNumber = number {

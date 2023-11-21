@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PartnerMetadata: Identifiable {
+struct PartnerMetadata: Identifiable, Equatable {
     var id: String {
         return name
     }

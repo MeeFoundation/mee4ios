@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ConsentEntryType: String, Codable {
+enum ConsentEntryType: String, Codable, Equatable {
     case string = "string"
     case date = "date"
     case boolean = "boolean"

@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct MeeConsentRequest {
+struct MeeConsentRequest: Equatable {
+
     let id: String
     let scope: OidcScopeList
     var claims: [ConsentRequestClaim]

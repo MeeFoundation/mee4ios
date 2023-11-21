@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-enum ConsentEntryValue: Codable {
+enum ConsentEntryValue: Codable, Equatable {
     case string(String?)
     case card(CreditCardEntry)
 }
 
-struct ConsentRequestClaim: Identifiable, Codable {
+struct ConsentRequestClaim: Identifiable, Codable, Equatable {
     let id = UUID()
     var code: String
     var name: String

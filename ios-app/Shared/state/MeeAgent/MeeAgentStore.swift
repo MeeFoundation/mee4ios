@@ -12,7 +12,7 @@ let MEE_KEYCHAIN_SECRET_NAME = "MEE_KEYCHAIN_SECRET_NAME"
 let extensionSharedDefaults = UserDefaults(suiteName: "group.extensionshare.foundation.mee.ios-client")
 
 class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
-    private var agent: MeeAgent?
+    var agent: MeeAgent?
     var error: AppErrorRepresentation? = nil
     var listeners: [MeeAgentStoreListener] = []
     var errorListeners: [MeeAgentStoreErrorListener] = []

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		946D2DF527BB9A960055175C /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DF427BB9A960055175C /* Tests_iOS.swift */; };
-		946D2DF727BB9A960055175C /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DF627BB9A960055175C /* Tests_iOSLaunchTests.swift */; };
 		946D2E0127BB9A960055175C /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2E0027BB9A960055175C /* Tests_macOS.swift */; };
 		946D2E0327BB9A960055175C /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */; };
 		946D2E0427BB9A960055175C /* mee_ios_clientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946D2DDC27BB9A960055175C /* mee_ios_clientApp.swift */; };
@@ -106,6 +104,8 @@
 		A55C74832B078DDD00608B0B /* helperUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74822B078DDD00608B0B /* helperUrls.swift */; };
 		A55C74852B078EE700608B0B /* ConsentPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */; };
 		A55C74872B079B5E00608B0B /* ConnectionListPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */; };
+		A55C75322B0CE04F00608B0B /* clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75312B0CE04F00608B0B /* clientTests.swift */; };
+		A55C75DA2B0D1A1800608B0B /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75D92B0D1A1800608B0B /* constants.swift */; };
 		A5656B1F2AD6B2220065BDDB /* PlusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */; };
 		A5656B212AD6CE5F0065BDDB /* CustomCancellableDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B202AD6CE5F0065BDDB /* CustomCancellableDialog.swift */; };
 		A5656B232AD6D6F20065BDDB /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */; };
@@ -149,7 +149,6 @@
 		A5B48BE029D5B8CD00FE9A48 /* CreditCardEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */; };
 		A5B48BE229D5B98700FE9A48 /* ConsentRequestClaimExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */; };
 		A5B48BE429D5D95500FE9A48 /* formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BE329D5D95500FE9A48 /* formatters.swift */; };
-		A5B88B59296D73E0003D075A /* mee_ios_clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */; };
 		A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */; };
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB72DB294B29970063A077 /* MeeEnv.swift */; };
@@ -237,21 +236,14 @@
 			);
 			isEditable = 1;
 			outputFiles = (
-				"$(DERIVED_FILE_DIR)/${INPUT_FILE_BASE}.swift",
-				"$(DERIVED_FILE_DIR)/${INPUT_FILE_BASE}FFI.h",
+				"$(SRCROOT)/${INPUT_FILE_BASE}.swift",
+				"$(SRCROOT)/${INPUT_FILE_BASE}FFI.h",
 			);
-			script = "cd ../mee-core\n$HOME/.cargo/bin/cargo run --bin mee_uniffi_bindgen generate \"$INPUT_FILE_PATH\" --language swift --out-dir \"$DERIVED_FILE_DIR\"\n";
+			script = "cd ../mee-core\n$HOME/.cargo/bin/cargo run --bin mee_uniffi_bindgen generate \"$INPUT_FILE_PATH\" --language swift --out-dir \"$SRCROOT\"\n";
 		};
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		946D2DF127BB9A960055175C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 946D2DD727BB9A950055175C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 946D2DE227BB9A960055175C;
-			remoteInfo = "mee-ios-client (iOS)";
-		};
 		946D2DFD27BB9A960055175C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 946D2DD727BB9A950055175C /* Project object */;
@@ -259,7 +251,7 @@
 			remoteGlobalIDString = 946D2DE827BB9A960055175C;
 			remoteInfo = "mee-ios-client (macOS)";
 		};
-		A5B88B5A296D73E0003D075A /* PBXContainerItemProxy */ = {
+		A55C752C2B0CDE5E00608B0B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 946D2DD727BB9A950055175C /* Project object */;
 			proxyType = 1;
@@ -296,9 +288,6 @@
 		946D2DE327BB9A960055175C /* mee-ios-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mee-ios-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		946D2DE927BB9A960055175C /* mee-ios-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mee-ios-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		946D2DEB27BB9A960055175C /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
-		946D2DF027BB9A960055175C /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		946D2DF427BB9A960055175C /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
-		946D2DF627BB9A960055175C /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
 		946D2DFC27BB9A960055175C /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		946D2E0027BB9A960055175C /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		946D2E0227BB9A960055175C /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
@@ -377,6 +366,9 @@
 		A55C74822B078DDD00608B0B /* helperUrls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helperUrls.swift; sourceTree = "<group>"; };
 		A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageViewModel.swift; sourceTree = "<group>"; };
 		A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionListPageViewModel.swift; sourceTree = "<group>"; };
+		A55C75282B0CDE5E00608B0B /* mee-ios-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mee-ios-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A55C75312B0CE04F00608B0B /* clientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clientTests.swift; sourceTree = SOURCE_ROOT; };
+		A55C75D92B0D1A1800608B0B /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = SOURCE_ROOT; };
 		A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusMenu.swift; sourceTree = "<group>"; };
 		A5656B202AD6CE5F0065BDDB /* CustomCancellableDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCancellableDialog.swift; sourceTree = "<group>"; };
 		A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
@@ -420,8 +412,6 @@
 		A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardEntryExtension.swift; sourceTree = "<group>"; };
 		A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentRequestClaimExtension.swift; sourceTree = "<group>"; };
 		A5B48BE329D5D95500FE9A48 /* formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatters.swift; sourceTree = "<group>"; };
-		A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mee-ios-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mee_ios_clientTests.swift; sourceTree = "<group>"; };
 		A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStore.swift; sourceTree = "<group>"; };
 		A5C0EE8F28F86F7300790179 /* WarningPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningPopup.swift; sourceTree = "<group>"; };
 		A5CB72DB294B29970063A077 /* MeeEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeEnv.swift; sourceTree = "<group>"; };
@@ -517,13 +507,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		946D2DED27BB9A960055175C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		946D2DF927BB9A960055175C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -531,7 +514,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5B88B53296D73E0003D075A /* Frameworks */ = {
+		A55C75252B0CDE5E00608B0B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -554,8 +537,8 @@
 				A55C74732B0635A600608B0B /* mee_agent.udl */,
 				A57D8EAE2A0D13E600443ED3 /* Generated */,
 				A57D8EA72A0D022500443ED3 /* Resources */,
-				A5B88B57296D73E0003D075A /* mee-ios-clientTests */,
 				A5CBEBF32A1F7F0600FD32A9 /* mee-extension */,
+				A55C75292B0CDE5E00608B0B /* mee-ios-clientTests */,
 				A5716E92292E6D3A00248961 /* Frameworks */,
 				A5716E8F292E6A9700248961 /* MeeHeader.h */,
 				948AD56427BF993A00A98D88 /* mee-ios-client (iOS).entitlements */,
@@ -563,7 +546,6 @@
 				A550856B27BD1C4E00C5A2D1 /* ios */,
 				946D2DDB27BB9A960055175C /* Shared */,
 				946D2DEA27BB9A960055175C /* macOS */,
-				946D2DF327BB9A960055175C /* Tests iOS */,
 				946D2DFF27BB9A960055175C /* Tests macOS */,
 				946D2DE427BB9A960055175C /* Products */,
 				A5DB216027EDDECA0070B444 /* Frameworks */,
@@ -598,10 +580,9 @@
 			children = (
 				946D2DE327BB9A960055175C /* mee-ios-client.app */,
 				946D2DE927BB9A960055175C /* mee-ios-client.app */,
-				946D2DF027BB9A960055175C /* Tests iOS.xctest */,
 				946D2DFC27BB9A960055175C /* Tests macOS.xctest */,
-				A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */,
 				A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */,
+				A55C75282B0CDE5E00608B0B /* mee-ios-clientTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -612,15 +593,6 @@
 				946D2DEB27BB9A960055175C /* macOS.entitlements */,
 			);
 			path = macOS;
-			sourceTree = "<group>";
-		};
-		946D2DF327BB9A960055175C /* Tests iOS */ = {
-			isa = PBXGroup;
-			children = (
-				946D2DF427BB9A960055175C /* Tests_iOS.swift */,
-				946D2DF627BB9A960055175C /* Tests_iOSLaunchTests.swift */,
-			);
-			path = "Tests iOS";
 			sourceTree = "<group>";
 		};
 		946D2DFF27BB9A960055175C /* Tests macOS */ = {
@@ -844,6 +816,15 @@
 			path = state;
 			sourceTree = "<group>";
 		};
+		A55C75292B0CDE5E00608B0B /* mee-ios-clientTests */ = {
+			isa = PBXGroup;
+			children = (
+				A55C75312B0CE04F00608B0B /* clientTests.swift */,
+				A55C75D92B0D1A1800608B0B /* constants.swift */,
+			);
+			path = "mee-ios-clientTests";
+			sourceTree = "<group>";
+		};
 		A5716E92292E6D3A00248961 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -939,14 +920,6 @@
 				A5B48BD329CC92CC00FE9A48 /* ConsentCardEntryInput.swift */,
 			);
 			path = ConsentEntryInputs;
-			sourceTree = "<group>";
-		};
-		A5B88B57296D73E0003D075A /* mee-ios-clientTests */ = {
-			isa = PBXGroup;
-			children = (
-				A5B88B58296D73E0003D075A /* mee_ios_clientTests.swift */,
-			);
-			path = "mee-ios-clientTests";
 			sourceTree = "<group>";
 		};
 		A5CBEBF32A1F7F0600FD32A9 /* mee-extension */ = {
@@ -1161,24 +1134,6 @@
 			productReference = 946D2DE927BB9A960055175C /* mee-ios-client.app */;
 			productType = "com.apple.product-type.application";
 		};
-		946D2DEF27BB9A960055175C /* Tests iOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 946D2E1227BB9A960055175C /* Build configuration list for PBXNativeTarget "Tests iOS" */;
-			buildPhases = (
-				946D2DEC27BB9A960055175C /* Sources */,
-				946D2DED27BB9A960055175C /* Frameworks */,
-				946D2DEE27BB9A960055175C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				946D2DF227BB9A960055175C /* PBXTargetDependency */,
-			);
-			name = "Tests iOS";
-			productName = "Tests iOS";
-			productReference = 946D2DF027BB9A960055175C /* Tests iOS.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		946D2DFB27BB9A960055175C /* Tests macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 946D2E1527BB9A960055175C /* Build configuration list for PBXNativeTarget "Tests macOS" */;
@@ -1197,22 +1152,22 @@
 			productReference = 946D2DFC27BB9A960055175C /* Tests macOS.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		A5B88B55296D73E0003D075A /* mee-ios-clientTests */ = {
+		A55C75272B0CDE5E00608B0B /* mee-ios-clientTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A5B88B5E296D73E0003D075A /* Build configuration list for PBXNativeTarget "mee-ios-clientTests" */;
+			buildConfigurationList = A55C752E2B0CDE5E00608B0B /* Build configuration list for PBXNativeTarget "mee-ios-clientTests" */;
 			buildPhases = (
-				A5B88B52296D73E0003D075A /* Sources */,
-				A5B88B53296D73E0003D075A /* Frameworks */,
-				A5B88B54296D73E0003D075A /* Resources */,
+				A55C75242B0CDE5E00608B0B /* Sources */,
+				A55C75252B0CDE5E00608B0B /* Frameworks */,
+				A55C75262B0CDE5E00608B0B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A5B88B5B296D73E0003D075A /* PBXTargetDependency */,
+				A55C752D2B0CDE5E00608B0B /* PBXTargetDependency */,
 			);
 			name = "mee-ios-clientTests";
 			productName = "mee-ios-clientTests";
-			productReference = A5B88B56296D73E0003D075A /* mee-ios-clientTests.xctest */;
+			productReference = A55C75282B0CDE5E00608B0B /* mee-ios-clientTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		A5CBEBF12A1F7F0600FD32A9 /* mee-extension */ = {
@@ -1239,7 +1194,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					946D2DE227BB9A960055175C = {
@@ -1248,16 +1203,12 @@
 					946D2DE827BB9A960055175C = {
 						CreatedOnToolsVersion = 13.1;
 					};
-					946D2DEF27BB9A960055175C = {
-						CreatedOnToolsVersion = 13.1;
-						TestTargetID = 946D2DE227BB9A960055175C;
-					};
 					946D2DFB27BB9A960055175C = {
 						CreatedOnToolsVersion = 13.1;
 						TestTargetID = 946D2DE827BB9A960055175C;
 					};
-					A5B88B55296D73E0003D075A = {
-						CreatedOnToolsVersion = 14.0.1;
+					A55C75272B0CDE5E00608B0B = {
+						CreatedOnToolsVersion = 15.0.1;
 						TestTargetID = 946D2DE227BB9A960055175C;
 					};
 					A5CBEBF12A1F7F0600FD32A9 = {
@@ -1283,11 +1234,10 @@
 			projectRoot = "";
 			targets = (
 				946D2DE227BB9A960055175C /* mee-ios-client (iOS) */,
-				A5B88B55296D73E0003D075A /* mee-ios-clientTests */,
 				946D2DE827BB9A960055175C /* mee-ios-client (macOS) */,
-				946D2DEF27BB9A960055175C /* Tests iOS */,
 				946D2DFB27BB9A960055175C /* Tests macOS */,
 				A5CBEBF12A1F7F0600FD32A9 /* mee-extension */,
+				A55C75272B0CDE5E00608B0B /* mee-ios-clientTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1346,13 +1296,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		946D2DEE27BB9A960055175C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		946D2DFA27BB9A960055175C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1360,7 +1303,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5B88B54296D73E0003D075A /* Resources */ = {
+		A55C75262B0CDE5E00608B0B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1596,15 +1539,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		946D2DEC27BB9A960055175C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				946D2DF727BB9A960055175C /* Tests_iOSLaunchTests.swift in Sources */,
-				946D2DF527BB9A960055175C /* Tests_iOS.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		946D2DF827BB9A960055175C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1614,11 +1548,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A5B88B52296D73E0003D075A /* Sources */ = {
+		A55C75242B0CDE5E00608B0B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A5B88B59296D73E0003D075A /* mee_ios_clientTests.swift in Sources */,
+				A55C75322B0CE04F00608B0B /* clientTests.swift in Sources */,
+				A55C75DA2B0D1A1800608B0B /* constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1639,20 +1574,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		946D2DF227BB9A960055175C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 946D2DE227BB9A960055175C /* mee-ios-client (iOS) */;
-			targetProxy = 946D2DF127BB9A960055175C /* PBXContainerItemProxy */;
-		};
 		946D2DFE27BB9A960055175C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 946D2DE827BB9A960055175C /* mee-ios-client (macOS) */;
 			targetProxy = 946D2DFD27BB9A960055175C /* PBXContainerItemProxy */;
 		};
-		A5B88B5B296D73E0003D075A /* PBXTargetDependency */ = {
+		A55C752D2B0CDE5E00608B0B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 946D2DE227BB9A960055175C /* mee-ios-client (iOS) */;
-			targetProxy = A5B88B5A296D73E0003D075A /* PBXContainerItemProxy */;
+			targetProxy = A55C752C2B0CDE5E00608B0B /* PBXContainerItemProxy */;
 		};
 		A5CBEC072A1F7F0600FD32A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1923,61 +1853,6 @@
 			};
 			name = Release;
 		};
-		946D2E1327BB9A960055175C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.privo.Tests-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "mee-ios-client (iOS)";
-			};
-			name = Debug;
-		};
-		946D2E1427BB9A960055175C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.privo.Tests-iOS";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "mee-ios-client (iOS)";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		946D2E1627BB9A960055175C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2034,49 +1909,57 @@
 			};
 			name = Release;
 		};
-		A5B88B5C296D73E0003D075A /* Debug */ = {
+		A55C752F2B0CDE5E00608B0B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 59TG46326T;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.mee-ios-clientTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client.mee-ios-clientTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mee-ios-client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mee-ios-client";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)";
 			};
 			name = Debug;
 		};
-		A5B88B5D296D73E0003D075A /* Release */ = {
+		A55C75302B0CDE5E00608B0B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 59TG46326T;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.getmee.mee-ios-clientTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "foundation.mee.ios-client.mee-ios-clientTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mee-ios-client.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/mee-ios-client";
+				"USER_HEADER_SEARCH_PATHS[arch=*]" = "$(SRCROOT)";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -2179,15 +2062,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		946D2E1227BB9A960055175C /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				946D2E1327BB9A960055175C /* Debug */,
-				946D2E1427BB9A960055175C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		946D2E1527BB9A960055175C /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2197,11 +2071,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A5B88B5E296D73E0003D075A /* Build configuration list for PBXNativeTarget "mee-ios-clientTests" */ = {
+		A55C752E2B0CDE5E00608B0B /* Build configuration list for PBXNativeTarget "mee-ios-clientTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A5B88B5C296D73E0003D075A /* Debug */,
-				A5B88B5D296D73E0003D075A /* Release */,
+				A55C752F2B0CDE5E00608B0B /* Debug */,
+				A55C75302B0CDE5E00608B0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

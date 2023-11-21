@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum UrlProcessResult {
+    case googleUrl(url: URL)
+    case siopUrl(url: URL)
+    case unknown
+}
+
 @MainActor class NavigationViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
@@ -30,57 +36,67 @@ import Foundation
             appState?.isSlideMenuOpened = isOpen
     }
     
+    init() {}
     
-    
-    func processUrl(url: URL) {
-        print(url)
-        if (url.scheme == "com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp") {
-            Task {
-                do {
-                    try await core?.createGoogleConnectionAsync(url: url)
-                    
-                    await MainActor.run {
-                        appState?.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
-                        hadConnectionsBefore = true
-                    }
-                    
-                } catch {
-                    print("google error: ", error)
-                    await MainActor.run {
-                        appState?.toast = ToastMessage(type: .error, title: "Google Account", message: "Something went wrong")
-                    }
-                }
-            }
-        }
-        if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
-            isLoading = true
-            var isCrossDevice = false
-            let sdkVersion = defaultSdkVersion
-            let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
-            
-            if let urlComponents = URLComponents(string: sanitizedUrl)
-            {
-                if let crossDeviceQuery = urlComponents.queryItems?.first(where: { $0.name == "respondTo" })?.value {
-                    if crossDeviceQuery == "proxy" {
-                        isCrossDevice = true
-                    }
-                }
-            }
-            Task {
-                let consent = await core?.authAuthRequestFromUrl(url: sanitizedUrl, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
-                await MainActor.run {
-                    guard let consent else {
-                        isLoading = false
-                        return
-                    }
-                    data?.consent = consent
-                    if let launchedBefore = self.launchedBefore, launchedBefore {
-                        navigationState?.currentPage = .consent
-                    }
-                    isLoading = false
-                }
-            }
-            
+    private func processGoogleUrl(url: URL) async {
+        do {
+            try await core?.createGoogleConnectionAsync(url: url)
+            appState?.toast = ToastMessage(type: .success, title: "Google Account", message: "Connection created")
+            hadConnectionsBefore = true
+        } catch {
+            appState?.toast = ToastMessage(type: .error, title: "Google Account", message: "Something went wrong")
         }
     }
+    
+    private func processSiopUrl(url: URL) async {
+        var isCrossDevice = false
+        let sdkVersion = defaultSdkVersion
+        let sanitizedUrl = url.absoluteString.replacingOccurrences(of: "/#/", with: "/")
+        
+        if let urlComponents = URLComponents(string: sanitizedUrl)
+        {
+            if let crossDeviceQuery = urlComponents.queryItems?.first(where: { $0.name == "respondTo" })?.value {
+                if crossDeviceQuery == "proxy" {
+                    isCrossDevice = true
+                }
+            }
+        }
+        
+        let consent = await core?.authAuthRequestFromUrl(url: sanitizedUrl, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
+        guard let consent else {
+            appState?.toast = ToastMessage(type: .error, title: "Error", message: "Something went wrong")
+            return
+        }
+        data?.consent = consent
+        if let launchedBefore = self.launchedBefore, launchedBefore {
+            navigationState?.currentPage = .consent
+        }
+    }
+    
+    private func sortUrl(_ url: URL) -> UrlProcessResult  {
+        print(url)
+        if (url.scheme == "com.googleusercontent.apps.1043231896197-v3uodk6t5u0i7o5al7h901m9s2t2culp") {
+            return .googleUrl(url: url)
+        }
+        if (url.host == "mee.foundation" || url.host == "www.mee.foundation" || url.host == "www-dev.mee.foundation" || url.host == "auth-dev.mee.foundation" || url.host == "auth.mee.foundation") {
+            return .siopUrl(url: url)
+        }
+        return .unknown
+    }
+    
+    func processUrl(url: URL) async {
+        isLoading = true
+        let sortedUrl = sortUrl(url)
+        switch(sortedUrl) {
+        case .googleUrl(let url):
+            await processGoogleUrl(url: url)
+        case .siopUrl(let url):
+            await processSiopUrl(url: url)
+        case .unknown:
+            appState?.toast = ToastMessage(type: .error, title: "Error", message: "Request is not valid")
+        }
+        isLoading = false
+    }
+    
+    
 }

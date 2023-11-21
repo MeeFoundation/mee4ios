@@ -120,13 +120,19 @@ struct ContentView: View {
             }
         }
         .onOpenURL { url in
-            viewModel.processUrl(url: url)
+            Task {
+                await viewModel.processUrl(url: url)
+            }
+            
         }
         .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
             guard let url = userActivity.webpageURL else {
                 return
             }
-            viewModel.processUrl(url: url)
+            Task {
+                await viewModel.processUrl(url: url)
+            }
+            
         }
         .toastView(toast: $appState.toast)
         
