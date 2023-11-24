@@ -104,8 +104,12 @@
 		A55C74832B078DDD00608B0B /* helperUrls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74822B078DDD00608B0B /* helperUrls.swift */; };
 		A55C74852B078EE700608B0B /* ConsentPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */; };
 		A55C74872B079B5E00608B0B /* ConnectionListPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */; };
-		A55C75322B0CE04F00608B0B /* clientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75312B0CE04F00608B0B /* clientTests.swift */; };
+		A55C75322B0CE04F00608B0B /* NavigationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75312B0CE04F00608B0B /* NavigationViewModelTests.swift */; };
 		A55C75DA2B0D1A1800608B0B /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75D92B0D1A1800608B0B /* constants.swift */; };
+		A55C75DC2B0D79D700608B0B /* MeeCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75DB2B0D79D700608B0B /* MeeCoreTests.swift */; };
+		A55C75E12B0E68D300608B0B /* SearchInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75E02B0E68D300608B0B /* SearchInput.swift */; };
+		A55C75E52B0F65D300608B0B /* VoiceRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75E42B0F65D300608B0B /* VoiceRecognition.swift */; };
+		A55C75EA2B0F8A3D00608B0B /* FuzzyMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = A55C75E92B0F8A3D00608B0B /* FuzzyMatching.swift */; };
 		A5656B1F2AD6B2220065BDDB /* PlusMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */; };
 		A5656B212AD6CE5F0065BDDB /* CustomCancellableDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B202AD6CE5F0065BDDB /* CustomCancellableDialog.swift */; };
 		A5656B232AD6D6F20065BDDB /* RoundedCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */; };
@@ -367,8 +371,12 @@
 		A55C74842B078EE700608B0B /* ConsentPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentPageViewModel.swift; sourceTree = "<group>"; };
 		A55C74862B079B5E00608B0B /* ConnectionListPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionListPageViewModel.swift; sourceTree = "<group>"; };
 		A55C75282B0CDE5E00608B0B /* mee-ios-clientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mee-ios-clientTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A55C75312B0CE04F00608B0B /* clientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = clientTests.swift; sourceTree = SOURCE_ROOT; };
+		A55C75312B0CE04F00608B0B /* NavigationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		A55C75D92B0D1A1800608B0B /* constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = SOURCE_ROOT; };
+		A55C75DB2B0D79D700608B0B /* MeeCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeCoreTests.swift; sourceTree = SOURCE_ROOT; };
+		A55C75E02B0E68D300608B0B /* SearchInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInput.swift; sourceTree = "<group>"; };
+		A55C75E42B0F65D300608B0B /* VoiceRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceRecognition.swift; sourceTree = "<group>"; };
+		A55C75E92B0F8A3D00608B0B /* FuzzyMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuzzyMatching.swift; sourceTree = "<group>"; };
 		A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusMenu.swift; sourceTree = "<group>"; };
 		A5656B202AD6CE5F0065BDDB /* CustomCancellableDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCancellableDialog.swift; sourceTree = "<group>"; };
 		A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCorner.swift; sourceTree = "<group>"; };
@@ -662,6 +670,8 @@
 				A5CDCDC52ACB886400EF3CC3 /* Header.swift */,
 				A5656B1E2AD6B2220065BDDB /* PlusMenu.swift */,
 				A5656B222AD6D6F20065BDDB /* RoundedCorner.swift */,
+				A55C75E02B0E68D300608B0B /* SearchInput.swift */,
+				A55C75E92B0F8A3D00608B0B /* FuzzyMatching.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -819,8 +829,9 @@
 		A55C75292B0CDE5E00608B0B /* mee-ios-clientTests */ = {
 			isa = PBXGroup;
 			children = (
-				A55C75312B0CE04F00608B0B /* clientTests.swift */,
+				A55C75312B0CE04F00608B0B /* NavigationViewModelTests.swift */,
 				A55C75D92B0D1A1800608B0B /* constants.swift */,
+				A55C75DB2B0D79D700608B0B /* MeeCoreTests.swift */,
 			);
 			path = "mee-ios-clientTests";
 			sourceTree = "<group>";
@@ -998,6 +1009,7 @@
 				A5DAEB9D2993CB5E0083E346 /* Webservice.swift */,
 				A518EABF29ED8A4200B581BC /* NetworkErrors.swift */,
 				A57D8EB42A0D211500443ED3 /* KeychainStorage.swift */,
+				A55C75E42B0F65D300608B0B /* VoiceRecognition.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -1421,6 +1433,7 @@
 				A5D9E2F52922C2CA00D0E12D /* VisualEffectView.swift in Sources */,
 				A53F79D027DA2DFC00A62589 /* ConsentState.swift in Sources */,
 				A5DB215227EA2B690070B444 /* PopupWindow.swift in Sources */,
+				A55C75E12B0E68D300608B0B /* SearchInput.swift in Sources */,
 				A58CDA182AEACE2B0089C8A7 /* Decodable.swift in Sources */,
 				A5E00C192980161C00F9A59B /* CoreExtentions.swift in Sources */,
 				A5D9E32A292D067C00D0E12D /* ConsentPageNewState.swift in Sources */,
@@ -1436,6 +1449,7 @@
 				A5DB214F27EA2B420070B444 /* Popup.swift in Sources */,
 				A5CDCDC62ACB886400EF3CC3 /* Header.swift in Sources */,
 				A5B48BD429CC92CC00FE9A48 /* ConsentCardEntryInput.swift in Sources */,
+				A55C75E52B0F65D300608B0B /* VoiceRecognition.swift in Sources */,
 				A5DB214627E37A690070B444 /* keyChain.swift in Sources */,
 				A5D9E3152926786D00D0E12D /* ConsentPageNew.swift in Sources */,
 				A53F79D327E08B9D00A62589 /* MainViewPage.swift in Sources */,
@@ -1521,6 +1535,7 @@
 				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,
 				A55085B927C3B61E00C5A2D1 /* MainButton.swift in Sources */,
+				A55C75EA2B0F8A3D00608B0B /* FuzzyMatching.swift in Sources */,
 				A50D5D672ACEF13300D0FEBE /* UnrecoverableErrorDialog.swift in Sources */,
 				A518EABC29ED836800B581BC /* ToastMessageModifier.swift in Sources */,
 				A5D30C832878624D00481E85 /* FirstRunPage.swift in Sources */,
@@ -1552,7 +1567,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55C75322B0CE04F00608B0B /* clientTests.swift in Sources */,
+				A55C75DC2B0D79D700608B0B /* MeeCoreTests.swift in Sources */,
+				A55C75322B0CE04F00608B0B /* NavigationViewModelTests.swift in Sources */,
 				A55C75DA2B0D1A1800608B0B /* constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

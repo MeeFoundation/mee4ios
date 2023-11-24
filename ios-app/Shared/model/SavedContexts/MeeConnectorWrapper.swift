@@ -60,6 +60,22 @@ struct MeeConnectorWrapper: Identifiable, Equatable {
         }
     }
     
+    var connectorType: String {
+        switch(self.connectorProtocol) {
+        case .Gapi(_):
+            return "Google Account"
+        case .MeeBrowserExtension:
+            return "Safari Browser Extension"
+        case .MeeTalk:
+            return "Mee Talk"
+        case .openId4Vc(_):
+            return "Verifiable Credentials"
+        default:
+            return "Connection"
+            
+        }
+    }
+    
     init?(from: OtherPartyConnectorUniffi) {
         self.id = from.id
         self.name = from.name

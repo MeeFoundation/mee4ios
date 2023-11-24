@@ -251,6 +251,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
                     print("deleteOtherPartyConnection: ", id)
                     try agent.deleteOtherPartyConnection(connId: id)
                 }
+                onConnectionsListUpdated()
                 continuation.resume()
             } catch(let e) {
                 continuation.resume(throwing: e)

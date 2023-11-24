@@ -12,3 +12,5 @@ let meeSiopUrl = URL(string: "https://auth.mee.foundation/authorize?scope=openid
 let nonValidUrl = URL(string: "https://google.com")!
 
 let nonValidRequest = URL(string: "https://auth.mee.foundation/authorize?scope=openid&request=eyJhbGciOiJFUzI1NiIsImp3ayI6eyJjcnYiOiJQLTI1NiIsImt0eSI6IkVDIiwieCI6ImUxeHNERllrMEFSN1JuQ3NZNEQwUnhZZG1pM0tqd0pTM3BvczlPVTZuY0EiLCJ5IjoiVXZHaENrVFhjWjFrYTlISnE4alVsaU5ZVllENUN0em9KQ0dFNEZEcV8tSSJ9f")!
+
+

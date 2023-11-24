@@ -36,31 +36,50 @@ struct ConnectionsListPage: View {
                 ZStack {
                     VStack {
                         HStack {
-                            Button(action: {
-                                withAnimation() {
-                                    appState.isSlideMenuOpened.toggle()
+                            if (viewModel.showSearchBar) {
+                                SearchInput("Search", text: $viewModel.connectorsSearchString)
+                                Spacer()
+                                Button(action: {
+                                    withAnimation() {
+                                        viewModel.showSearchBar.toggle()
+                                    }
+                                    
+                                }) {
+                                    BasicText(text: "Cancel", color: .white, size: 17)
                                 }
-                                
-                            }) {
-                                Image("menuIcon")
+                                .padding(.leading, 16)
+                            } else {
+                                BasicText(
+                                    text: "Connections",
+                                    color: .white ,
+                                    size: 18,
+                                    fontName: FontNameManager.PublicSans.semibold,
+                                    weight: .bold
+                                )
+                                Spacer()
+                                Button(action: {
+                                    withAnimation() {
+                                        viewModel.showSearchBar.toggle()
+                                    }
+                                    
+                                }) {
+                                    Image("searchIcon")
+                                }
+                                .padding(.trailing, 8)
+                                Button(action: {
+                                    withAnimation() {
+                                        appState.isSlideMenuOpened.toggle()
+                                    }
+                                    
+                                }) {
+                                    Image("menuIcon")
+                                }
                             }
-                            
-                            Spacer()
-                            BasicText(
-                                text: "Connections",
-                                color: .white ,
-                                size: 17,
-                                fontName: FontNameManager.PublicSans.semibold,
-                                weight: .semibold
-                            )
-                            Spacer()
-                            ZStack{}
-                                .frame(width: 24)
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, 59)
-                        .padding(.bottom, 10)
-                        .padding(.horizontal, 9)
+                        .padding(.bottom, viewModel.showSearchBar ? 10 : 22)
+                        .padding(.horizontal, 16)
                         .background(Colors.meeBrand)
                         .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                         ScrollView {
