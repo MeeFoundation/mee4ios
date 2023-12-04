@@ -249,7 +249,8 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
                     try agent.googleApiProviderDetachAccount(connectorId: connector.id)
                 } else {
                     print("deleteOtherPartyConnection: ", id)
-                    try agent.deleteOtherPartyConnection(connId: id)
+//                    try agent.deleteOtherPartyConnection(connectionId: id)
+                    try agent.deleteOtherPartyConnector(connectorId: connector.id)
                 }
                 onConnectionsListUpdated()
                 continuation.resume()

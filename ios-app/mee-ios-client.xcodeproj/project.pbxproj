@@ -243,7 +243,7 @@
 				"$(SRCROOT)/${INPUT_FILE_BASE}.swift",
 				"$(SRCROOT)/${INPUT_FILE_BASE}FFI.h",
 			);
-			script = "cd ../mee-core\n$HOME/.cargo/bin/cargo run --bin mee_uniffi_bindgen generate \"$INPUT_FILE_PATH\" --language swift --out-dir \"$SRCROOT\"\n";
+			script = "cd ../mee-core\nexport SDKROOT=$(xcrun --sdk macosx --show-sdk-path)\nexport LIBRARY_PATH=\"$LIBRARY_PATH:$SDKROOT/usr/lib\"\n$HOME/.cargo/bin/cargo run --bin mee_uniffi_bindgen generate \"$INPUT_FILE_PATH\" --language swift --out-dir \"$SRCROOT\"\n";
 		};
 /* End PBXBuildRule section */
 

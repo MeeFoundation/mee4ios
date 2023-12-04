@@ -49,6 +49,15 @@ struct ConnectionsListPage: View {
                                 }
                                 .padding(.leading, 16)
                             } else {
+                                Button(action: {
+                                    withAnimation() {
+                                        appState.isSlideMenuOpened.toggle()
+                                    }
+                                    
+                                }) {
+                                    Image("menuIcon")
+                                }
+                                Spacer()
                                 BasicText(
                                     text: "Connections",
                                     color: .white ,
@@ -65,15 +74,7 @@ struct ConnectionsListPage: View {
                                 }) {
                                     Image("searchIcon")
                                 }
-                                .padding(.trailing, 8)
-                                Button(action: {
-                                    withAnimation() {
-                                        appState.isSlideMenuOpened.toggle()
-                                    }
-                                    
-                                }) {
-                                    Image("menuIcon")
-                                }
+                                
                             }
                         }
                         .frame(maxWidth: .infinity)
