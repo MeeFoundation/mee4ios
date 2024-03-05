@@ -9,7 +9,20 @@ import Foundation
 
 extension ConnectionDetailsPage {
     
-    @MainActor class ConnectionDetailsViewModel: ObservableObject {
+    @MainActor class ConnectionDetailsViewModel: ObservableObject, MeeAgentStoreListener {
+        var id: UUID
+        var core: MeeAgentStore?
+        
+        nonisolated func onUpdate() {
+            Task {
+                await MainActor.run {
+                    if let core {
+                        loadConnectors(with: core)
+                    }
+                }
+            }
+        }
+        
         @Published private(set) var connection: MeeConnectionWrapper
         @Published private(set) var connectors: [MeeConnectorWrapper]?
         @Published var currentConnector: String?
@@ -26,12 +39,33 @@ extension ConnectionDetailsPage {
         
         init(connection: MeeConnectionWrapper) {
             self.connection = connection
+            self.id = UUID()
+        }
+        
+        func setup(core: MeeAgentStore) {
+            core.addListener(self)
+            self.core = core
         }
         
         func removeConnector(with core: MeeAgentStore) async {
             Task.init {
-                try await core.removeConnection(connection: connection)
+                if let connector = connectors?.first(where: {$0.id == currentConnector}) {
+                    try await core.removeConnector(connector: connector)
+                }
             }
+        }
+        
+        func getConnectorName() -> String {
+            if let connector = connectors?.first(where: {$0.id == currentConnector}) {
+                return switch(connector.connectorProtocol) {
+                case .Gapi( _): "Account"
+                case .MeeBrowserExtension: "Extension"
+                case .MeeTalk: "Mee Talk"
+                case .Siop( _): "Profile"
+                case .openId4Vc( _): "Openid 4 VC"
+                }
+            }
+            return "Connector"
         }
         
         func saveValues(with core: MeeAgentStore) {
@@ -57,6 +91,9 @@ extension ConnectionDetailsPage {
         func loadConnectors(with core: MeeAgentStore) {
             Task {
                 let connectors = await core.getAllConnectionConnectors(connectionId: connection.id)
+                if connectors.count != 0 {
+                    currentConnector = connectors.first?.id
+                }
                 self.connectors = connectors
                 viewState = .ready
             }

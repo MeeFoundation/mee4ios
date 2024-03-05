@@ -13,7 +13,7 @@ protocol CoreAgent {
     func removeConnector(connector: MeeConnectorWrapper) async throws
     func getConnectorById(id: String) async -> MeeConnectorWrapper?
     func checkSiopConnectionExists (id: String) async -> Bool
-    func getLastSiopConsentByConnectionId (id: String) async -> MeeContextWrapper?
+    func getLastSiopConsentByRedirectUri (id: String) async -> MeeContextWrapper?
     func getLastConsentByConnectorId(id: String) async -> MeeContextWrapper?
     func authorize(id: String, item: MeeConsentRequest) async -> OidcAuthResponseWrapper?
     func getGoogleIntegrationUrl() async -> URL?

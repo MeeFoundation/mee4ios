@@ -28,7 +28,7 @@ extension ConsentPage {
             self.core = core
             self.webService = webService
             Task.init {
-                let isReturningUser = await core.checkSiopConnectionExists(id: data.consent.id.getHostname() ?? data.consent.id)
+                let isReturningUser = await core.checkSiopConnectionExists(id: data.consent.id)
                 await MainActor.run {
                     self.isReturningUser = isReturningUser
                 }
@@ -105,7 +105,7 @@ extension ConsentPage {
         }
         
         func recoverRequest (id: String, url: String, data: MeeConsentRequest) async {
-            guard let contextData = await core?.getLastSiopConsentByConnectionId(id: id.getHostname() ?? id)
+            guard let contextData = await core?.getLastSiopConsentByRedirectUri(id: id)
             else {
                 appState?.toast = ToastMessage(type: .error, title: "Fail", message: "Connection not found.")
                 navigationState?.currentPage = .mainPage

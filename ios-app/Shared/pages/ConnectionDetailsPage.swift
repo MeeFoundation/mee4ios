@@ -16,7 +16,6 @@ struct ConnectionDetailsPage: View {
     init(connection: MeeConnectionWrapper) {
         _viewModel = StateObject(wrappedValue: ConnectionDetailsViewModel(connection: connection))
     }
-    
     var body: some View {
         return (
             
@@ -83,11 +82,10 @@ struct ConnectionDetailsPage: View {
                             Button(action: {
                                 Task {
                                     await viewModel.removeConnector(with: core)
-                                    self.presentationMode.wrappedValue.dismiss()
                                 }
                             }){
                                 HStack(spacing: 0) {
-                                    BasicText(text: "Delete Connection", color: Colors.error, size: 17)
+                                    BasicText(text: "Delete \(viewModel.getConnectorName())", color: Colors.error, size: 17)
                                     Spacer()
                                     Image("trashIcon").resizable().scaledToFit().frame(height: 17)
                                 }
@@ -111,11 +109,17 @@ struct ConnectionDetailsPage: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
+                    viewModel.setup(core: core)
                     viewModel.loadConsentData(with: core)
                     viewModel.loadConnectors(with: core)
                 }
                 .onChange(of: viewModel.currentConnector) {_ in
                     viewModel.loadConsentData(with: core)
+                }
+                .onChange(of: viewModel.connectors) { updatedConnectors in
+                    if (updatedConnectors?.count == 0) {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }
                 .onChange(of: viewModel.externalEntriesOptional) {newValue in
                     viewModel.saveValues(with: core)

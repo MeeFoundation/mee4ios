@@ -51,7 +51,7 @@ extension ConnectionsListPage {
         }
         
         deinit {
-            core?.addListener(self)
+            core?.removeListener(self)
         }
         
         nonisolated func onUpdate() {

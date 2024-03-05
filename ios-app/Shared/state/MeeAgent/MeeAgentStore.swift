@@ -126,11 +126,14 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
             do {
                 let connectionsCore = try agent.otherPartyConnections();
                 print("connectionsCore: ", connectionsCore)
-                let connections = connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
+                let connections = try connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
                     var copy = acc
-
+                    let connectionConnectors = try agent.getOtherPartyConnectionConnectors(connId: connection.id)
                     if let connection = MeeConnectionWrapper(from: connection) {
-                        copy.append(connection)
+                        if (connectionConnectors.count > 0) {
+                            copy.append(connection)
+                        }
+                       
                     }
                     return copy
                 }
@@ -299,13 +302,22 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     }
     
     func checkSiopConnectionExists (id: String) async -> Bool {
-        return (try? agent?.siopLastConsentByConnectionId(connId: id)) != nil
+        return await getLastSiopConsentByRedirectUri(id: id) != nil
     }
     
-    func getLastSiopConsentByConnectionId (id: String) async -> MeeContextWrapper? {
-        if let consent = try? agent?.siopLastConsentByConnectionId(connId: id) {
-            return MeeContextWrapper(from: consent)
+    func getLastSiopConsentByRedirectUri (id: String) async -> MeeContextWrapper? {
+        let allConnectors = await getAllConnectors()
+        let consent = allConnectors.first { connector in
+            if case .Siop(value: let siopConnector) = connector.connectorProtocol {
+                return siopConnector.redirectUri == id
+            }
+            return false
         }
+        if let consent {
+            let context = await self.getLastConsentByConnectorId(id: consent.id)
+            return context
+        }
+
         return nil
     }
     

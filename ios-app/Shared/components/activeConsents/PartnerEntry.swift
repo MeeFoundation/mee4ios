@@ -21,33 +21,6 @@ struct PartnerEntry: View  {
         self.logoUri = URL(string: "https://\(connection.id)/favicon.ico")
         self.hostname = connection.id
         self.name = connection.name
-//        switch (connector.connectorProtocol) {
-//        case .Siop(let value):
-//            self.clientMetadata = value.clientMetadata
-//            self.name = clientMetadata?.name ?? connector.name
-//            self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(connector.id)/favicon.ico")
-//            hostname = value.redirectUri.getHostname() ?? value.redirectUri
-//        case .Gapi(_):
-//            self.clientMetadata = nil
-//            self.name = "Google Account"
-//            self.logoUri = URL(string: "https://google.com/favicon.ico")
-//            hostname = "google.com"
-//        case .MeeTalk:
-//            self.clientMetadata = nil
-//            self.name = "Mee Talk"
-//            self.logoUri = URL(string: "https://mee.foundation/favicon.png")
-//            hostname = "mee.foundation"
-//        case .openId4Vc(value: let value):
-//            self.clientMetadata = nil
-//            self.name = "VC"
-//            self.logoUri = nil
-//            hostname = value.issuerUrl
-//        case .MeeBrowserExtension:
-//            self.clientMetadata = nil
-//            self.name = "Extension"
-//            self.logoUri = URL(string: "https://\(self.connector.otherPartyConnectionId)/favicon.ico")
-//            hostname = self.connector.otherPartyConnectionId
-//        }
         
     }
     
@@ -71,14 +44,38 @@ struct PartnerEntry: View  {
             }
             .padding(.leading, 8)
             Spacer()
-            if hasEntry {
+            
                 HStack {
                     Spacer()
-                    Image("arrowRight").resizable().scaledToFit()
-                        .frame(width: 7)
+                    if hasEntry {
+                        Image("arrowRight").resizable().scaledToFit()
+                            .frame(width: 7)
+                    } else {
+                        Menu {
+                            Button {
+                                Task {
+                                    do {
+                                        try await core.removeConnection(connection: connection)
+                                    } catch {
+                                        
+                                    }
+                                }
+                            } label: {
+                                Label {
+                                    BasicText(text: "Delete Connection", color: Colors.error, size: 17)
+                                } icon: {
+                                    Image("trashIcon").resizable().scaledToFit()
+                                        .frame(width: 24)
+                                }
+                            }
+                        } label: {
+                            Image("connectionMenuIcon").resizable().scaledToFit()
+                                .frame(width: 24)
+                                .padding(.trailing, 9)
+                        }
+                    }
                 }
                 .frame(width: 48, height: 48)
-            }
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 8)
