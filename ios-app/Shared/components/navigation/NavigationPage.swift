@@ -10,7 +10,7 @@ import SwiftUI
 struct NavigationPage: View {
     var isLocked: Bool
     @State var tutorialViewed: Bool = false
-    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = false
+    @AppStorage("hadConnectionsBefore") var hadConnectionsBefore: Bool = true
     @EnvironmentObject private var navigationState: NavigationState
     @AppStorage("launchedBefore") var launchedBefore: Bool = false
     @Environment(\.scenePhase) var scenePhase

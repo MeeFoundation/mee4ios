@@ -83,33 +83,24 @@ struct ConnectionsListPage: View {
                         .padding(.horizontal, 16)
                         .background(Colors.meeBrand)
                         .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
+                        
                         ScrollView {
                             VStack {
-                                ForEach([PartnerArray(data: viewModel.existingPartnersWebApp, name: "Sites", editable: true),
-                                         PartnerArray(data: viewModel.existingPartnersMobileApp, name: "Mobile Apps", editable: true),
-                                        ]) { partnersArray in
-                                    if !(partnersArray.data ?? []).isEmpty {
-                                        HStack {
-                                            BasicText(text: partnersArray.name, color: Colors.text, size: 16, fontName: FontNameManager.PublicSans.medium)
-                                            Spacer()
-                                        }
-                                        .padding(.leading, 4)
-                                        .padding(.top, 24)
-                                        .padding(.bottom, 4)
-                                    }
-                                    ForEach(partnersArray.data ?? []) { partnerData in
+                                if let connections = viewModel.showedConnections {
+                                    ForEach(connections) { connection in
                                         NavigationLink(
-                                            destination: ContextDetailsPage(connector: partnerData),
-                                            tag: partnerData.id,
+                                            destination: ConnectionDetailsPage(connection: connection),
+                                            tag: connection.id,
                                             selection: $viewModel.selection
                                         ){}
-                                        PartnerEntry(connector: partnerData, hasEntry: partnersArray.editable)
+                                        PartnerEntry(connection: connection, hasEntry: true)
                                             .onTapGesture(perform: {
-                                                viewModel.onEntryClick(id: partnerData.id)
+                                                viewModel.onEntryClick(id: connection.id)
                                             })
                                             .padding(.top, 8)
                                     }
                                 }
+                                
                                 Spacer()
                             }
                             .padding(.horizontal, 16)

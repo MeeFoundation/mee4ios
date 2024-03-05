@@ -8,6 +8,6 @@
 import Foundation
 
 protocol MeeAgentStoreListener {
-    var id: UUID {get}
-    func onUpdate()
+    nonisolated var id: UUID {get}
+    nonisolated func onUpdate()
 }

@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct ContextDetailsPage: View {
+struct ConnectionDetailsPage: View {
     @EnvironmentObject var core: MeeAgentStore
     @EnvironmentObject var navigationState: NavigationState
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @StateObject private var viewModel: ContextDetailsViewModel
+    @StateObject private var viewModel: ConnectionDetailsViewModel
     
-    init(connector: MeeConnectorWrapper) {
-        _viewModel = StateObject(wrappedValue: ContextDetailsViewModel(connector: connector))
+    init(connection: MeeConnectionWrapper) {
+        _viewModel = StateObject(wrappedValue: ConnectionDetailsViewModel(connection: connection))
     }
     
     var body: some View {
@@ -29,11 +29,14 @@ struct ContextDetailsPage: View {
                     }
                     ScrollViewReader { proxy in
                         ScrollView {
-                            PartnerEntry(connector: viewModel.connector, hasEntry: false)
+                            PartnerEntry(connection: viewModel.connection, hasEntry: false)
                                 .border(Colors.meeBrand, width: 2)
                                 .padding(.horizontal, 16)
-                                .padding(.bottom, 48)
+                                .padding(.bottom, 24)
                                 .padding(.top, 16)
+                            ConnectorTabs(connectors: viewModel.connectors ?? [], currentConnector: $viewModel.currentConnector)
+                                .padding(.horizontal, 16)
+                                .padding(.bottom, 24)
                             if viewModel.siopEntriesRequired.count > 0 {
                                 Expander(title: "Required info shared", isOpen: $viewModel.isRequiredOpen) {
                                     ForEach($viewModel.siopEntriesRequired) { $entry in
@@ -108,6 +111,10 @@ struct ContextDetailsPage: View {
                 .navigationBarBackButtonHidden(true)
                 .navigationBarHidden(true)
                 .onAppear{
+                    viewModel.loadConsentData(with: core)
+                    viewModel.loadConnectors(with: core)
+                }
+                .onChange(of: viewModel.currentConnector) {_ in
                     viewModel.loadConsentData(with: core)
                 }
                 .onChange(of: viewModel.externalEntriesOptional) {newValue in

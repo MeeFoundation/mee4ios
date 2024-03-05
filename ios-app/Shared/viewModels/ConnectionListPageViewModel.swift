@@ -14,12 +14,11 @@ enum WelcomeType {
 }
 
 extension ConnectionsListPage {
-    class ConnectionsListPageViewModel: ObservableObject, MeeAgentStoreListener {
+    @MainActor class ConnectionsListPageViewModel: ObservableObject, MeeAgentStoreListener {
         @Published var selection: String? = nil
-        @Published var existingPartnersWebApp: [MeeConnectorWrapper]?
+        @Published var connections: [MeeConnectionWrapper]?
+        @Published var showedConnections: [MeeConnectionWrapper]?
         @Published var otherPartnersWebApp: [MeeConnectorWrapper]?
-        @Published var existingPartnersMobileApp: [MeeConnectorWrapper]?
-        @Published var otherPartnersMobileApp: [MeeConnectorWrapper]?
         @Published var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
         @Published var showCompatibleWarning: Bool = false
         @Published var showIntroScreensSwitch: Bool = false
@@ -28,16 +27,19 @@ extension ConnectionsListPage {
         }}
         private var currentConnectors: [MeeConnectorWrapper] = [] { didSet {
             Task {
-                await filterCurrentConnectors()
+                await filterCurrentConnections()
             }
         }}
         @Published var connectorsSearchString: String? = nil { didSet {
             Task {
-                await filterCurrentConnectors()
+                await filterCurrentConnections()
             }
         }}
+        init() {
+            self.id = UUID()
+        }
         
-        var id = UUID()
+        var id: UUID
         var registry = PartnersRegistry.shared
         var core: MeeAgentStore?
         var openURL: ((_ url: URL) -> Void)?
@@ -52,67 +54,61 @@ extension ConnectionsListPage {
             core?.addListener(self)
         }
         
-        func onUpdate() {
-            onUpdate(isFirstRender: false)
+        nonisolated func onUpdate() {
+            Task {
+                await MainActor.run {
+                    onUpdate(isFirstRender: false)
+                }
+            }
+            
         }
         
         private func getConnectors() async {
             currentConnectors = await core?.getAllConnectors() ?? []
         }
         
-        private func filterCurrentConnectors() async {
-            let filteredConnectors = getCurrentConnectors(connectors: currentConnectors, searchString: connectorsSearchString)
+        private func getConnections() async {
+            connections = await core?.getAllConnections() ?? []
+        }
+        
+        private func filterCurrentConnections() async {
+            let filteredConnectors = getCurrentConnectors(connections: connections ?? [], searchString: connectorsSearchString)
             await MainActor.run {
-                refreshPartnersList(connectors: filteredConnectors)
+                refreshPartnersList(connections: filteredConnectors)
             }
         }
         
         func onUpdate(isFirstRender: Bool) {
             Task.init {
                 await getConnectors()
+                await getConnections()
+                await filterCurrentConnections()
             }
         }
         
-        private func getCurrentConnectors(connectors: [MeeConnectorWrapper], searchString: String?) -> [MeeConnectorWrapper] {
-            return connectors.filter { connector in
+        private func getCurrentConnectors(connections: [MeeConnectionWrapper], searchString: String?) -> [MeeConnectionWrapper] {
+            return connections.filter { connection in
                 guard let searchString, !searchString.isEmpty else { return true }
-                if let scoreName = connector.name.confidenceScore(searchString),
-                   let scoreConnectionType = connector.connectorType.confidenceScore(searchString)
+                if let scoreName = connection.name.confidenceScore(searchString)
                 {
-                    print(scoreName, connector.name, scoreConnectionType, connector.id, searchString)
-                    return scoreName < 0.6 || scoreConnectionType < 0.6
+                    return scoreName < 0.5
                 }
                 return true
             }
         }
         
-        private func refreshPartnersList(connectors: [MeeConnectorWrapper]) {
-            existingPartnersWebApp = connectors.filter{ context in
-                switch (context.connectorProtocol) {
-                case .Siop(let value):
-                    return value.clientMetadata.type == .web
-                case .Gapi(_):
-                    return true
-                case .MeeBrowserExtension:
-                    return true
-                default: return false
-                }
-            }
-            existingPartnersMobileApp = connectors.filter{ context in
-                if case let .Siop(value) = context.connectorProtocol {
-                    return value.clientMetadata.type == .mobile
-                }
-                return false
-            }
+        private func refreshPartnersList(connections: [MeeConnectionWrapper]) {
+            showedConnections = connections
+            
             otherPartnersWebApp = registry.partners.filter { context in
-                let isNotPresentedInExistingList = existingPartnersWebApp?.firstIndex{$0.name == context.name} == nil
+                let isNotPresentedInExistingList = currentConnectors.firstIndex{$0.name == context.name} == nil
                 return isNotPresentedInExistingList || context.isGapi
                 
             }
         }
         
         func onEntryClick(id: String) {
-                selection = id
+            selection = id
         }
         
     }

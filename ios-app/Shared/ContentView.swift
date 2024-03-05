@@ -95,8 +95,9 @@ struct ContentView: View {
                             navigationState: navigationState
             )
         }
-        .onChange(of: launchedBefore) {_ in
+        .onChange(of: launchedBefore) {lb in
             tryAuthenticate()
+            viewModel.changeLaunchedBefore(lb)
         }
         .onChange(of: scenePhase) { newPhase in
             switch (newPhase) {

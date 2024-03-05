@@ -32,6 +32,10 @@ enum UrlProcessResult {
         self.navigationState = navigationState
     }
     
+    func changeLaunchedBefore(_ launchedBefore: Bool) {
+        self.launchedBefore = launchedBefore
+    }
+    
     func toggleMenu(_ isOpen: Bool) {
             appState?.isSlideMenuOpened = isOpen
     }
@@ -63,6 +67,7 @@ enum UrlProcessResult {
         }
         
         let consent = await core?.authAuthRequestFromUrl(url: sanitizedUrl, isCrossDevice: isCrossDevice, sdkVersion: sdkVersion)
+        print("consent: ", consent)
         guard let consent else {
             appState?.toast = ToastMessage(type: .error, title: "Error", message: "Something went wrong")
             return

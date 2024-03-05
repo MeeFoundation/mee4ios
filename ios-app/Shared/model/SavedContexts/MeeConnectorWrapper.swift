@@ -35,9 +35,13 @@ enum MeeConnectorWrapperProtocol {
 }
 
 
-struct MeeConnectorWrapper: Identifiable, Equatable {
+struct MeeConnectorWrapper: Identifiable, Equatable, Hashable {
     static func == (lhs: MeeConnectorWrapper, rhs: MeeConnectorWrapper) -> Bool {
         lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     var id: String

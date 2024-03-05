@@ -117,7 +117,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
     }
 
-    private func getAllConnections () async -> [MeeConnectionWrapper] {
+    func getAllConnections () async -> [MeeConnectionWrapper] {
         return await withCheckedContinuation { continuation in
             guard let agent else {
                 continuation.resume(returning: [])
@@ -125,6 +125,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
             }
             do {
                 let connectionsCore = try agent.otherPartyConnections();
+                print("connectionsCore: ", connectionsCore)
                 let connections = connectionsCore.reduce([]) { (acc: [MeeConnectionWrapper], connection) in
                     var copy = acc
 
@@ -163,7 +164,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
     }
 
-    private func getAllConnectionConnectors (connectionId: String) async -> [MeeConnectorWrapper] {
+    func getAllConnectionConnectors (connectionId: String) async -> [MeeConnectorWrapper] {
         return await withCheckedContinuation { continuation in
             let result = getAllConnectionConnectors(connectionId: connectionId)
             continuation.resume(returning: result)
@@ -206,6 +207,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
             }
         }
     }
+
     
     func getAllConnectors () async -> [MeeConnectorWrapper] {
         return await withCheckedContinuation { continuation in
@@ -215,7 +217,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
             }
             
             do {
-                checkExtensionUpdates()
+                checkExtensionUpdates()               
                 let connectionsCore = try agent.otherPartyConnections();
                 let allConnectorsCore = connectionsCore.reduce([]) { (acc: [MeeConnectorWrapper], connectionCore) in
                     var copy = acc
@@ -231,6 +233,22 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
                 print("error getting all contexts: \(error)")
                 continuation.resume(returning: [])
             }
+        }
+    }
+    
+    func removeConnection(connection: MeeConnectionWrapper) async throws {
+        guard let agent else {
+            throw AppError.UnknownError
+        }
+        return try await withCheckedThrowingContinuation { continuation in
+            do {
+                try agent.deleteOtherPartyConnection(connectionId: connection.id)
+                onConnectionsListUpdated()
+                continuation.resume()
+            } catch(let e) {
+                continuation.resume(throwing: e)
+            }
+            
         }
     }
     

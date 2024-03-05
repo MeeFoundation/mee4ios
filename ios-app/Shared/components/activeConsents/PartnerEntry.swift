@@ -8,47 +8,46 @@
 import SwiftUI
 
 struct PartnerEntry: View  {
-    let connector: MeeConnectorWrapper
+    let connection: MeeConnectionWrapper
     let hasEntry: Bool
-    let isCertified: Bool
-    let clientMetadata: PartnerMetadata?
     let logoUri: URL?
     let name: String
     let hostname: String
-    @State var displayedHostname: String = ""
     @EnvironmentObject var core: MeeAgentStore
     
-    init(connector: MeeConnectorWrapper, hasEntry: Bool = false) {
-        self.connector = connector
+    init(connection: MeeConnectionWrapper, hasEntry: Bool = false) {
+        self.connection = connection
         self.hasEntry = hasEntry
-        self.isCertified = true
-        switch (connector.connectorProtocol) {
-        case .Siop(let value):
-            self.clientMetadata = value.clientMetadata
-            self.name = clientMetadata?.name ?? connector.name
-            self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(connector.id)/favicon.ico")
-            hostname = value.redirectUri.getHostname() ?? value.redirectUri
-        case .Gapi(_):
-            self.clientMetadata = nil
-            self.name = "Google Account"
-            self.logoUri = URL(string: "https://google.com/favicon.ico")
-            hostname = "google.com"
-        case .MeeTalk:
-            self.clientMetadata = nil
-            self.name = "Mee Talk"
-            self.logoUri = URL(string: "https://mee.foundation/favicon.png")
-            hostname = "mee.foundation"
-        case .openId4Vc(value: let value):
-            self.clientMetadata = nil
-            self.name = "VC"
-            self.logoUri = nil
-            hostname = value.issuerUrl
-        case .MeeBrowserExtension:
-            self.clientMetadata = nil
-            self.name = "Extension"
-            self.logoUri = URL(string: "https://\(self.connector.otherPartyConnectionId)/favicon.ico")
-            hostname = self.connector.otherPartyConnectionId
-        }
+        self.logoUri = URL(string: "https://\(connection.id)/favicon.ico")
+        self.hostname = connection.id
+        self.name = connection.name
+//        switch (connector.connectorProtocol) {
+//        case .Siop(let value):
+//            self.clientMetadata = value.clientMetadata
+//            self.name = clientMetadata?.name ?? connector.name
+//            self.logoUri = URL(string: clientMetadata?.logoUrl ?? "\(connector.id)/favicon.ico")
+//            hostname = value.redirectUri.getHostname() ?? value.redirectUri
+//        case .Gapi(_):
+//            self.clientMetadata = nil
+//            self.name = "Google Account"
+//            self.logoUri = URL(string: "https://google.com/favicon.ico")
+//            hostname = "google.com"
+//        case .MeeTalk:
+//            self.clientMetadata = nil
+//            self.name = "Mee Talk"
+//            self.logoUri = URL(string: "https://mee.foundation/favicon.png")
+//            hostname = "mee.foundation"
+//        case .openId4Vc(value: let value):
+//            self.clientMetadata = nil
+//            self.name = "VC"
+//            self.logoUri = nil
+//            hostname = value.issuerUrl
+//        case .MeeBrowserExtension:
+//            self.clientMetadata = nil
+//            self.name = "Extension"
+//            self.logoUri = URL(string: "https://\(self.connector.otherPartyConnectionId)/favicon.ico")
+//            hostname = self.connector.otherPartyConnectionId
+//        }
         
     }
     
@@ -68,7 +67,7 @@ struct PartnerEntry: View  {
                     Spacer()
                 }
                 
-                BasicText(text: displayedHostname, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
+                BasicText(text: hostname, color: Colors.text, size: 12, align: .left, fontName: FontNameManager.PublicSans.regular)
             }
             .padding(.leading, 8)
             Spacer()
@@ -88,17 +87,17 @@ struct PartnerEntry: View  {
         .padding(.trailing, 9)
         .background(Colors.gray100)
         .onAppear {
-            Task {
-                switch (connector.connectorProtocol) {
-                case .Gapi(_):
-                    let contextData = await core.getLastExternalConsentByConnectorId(connectorId: connector.id)
-                    if case let .gapi(gapiData) = contextData?.data {
-                        displayedHostname = gapiData.userInfo.email ?? ""
-                    }
-                default:
-                    displayedHostname = hostname
-                }
-            }
+//            Task {
+//                switch (connector.connectorProtocol) {
+//                case .Gapi(_):
+//                    let contextData = await core.getLastExternalConsentByConnectorId(connectorId: connector.id)
+//                    if case let .gapi(gapiData) = contextData?.data {
+//                        displayedHostname = gapiData.userInfo.email ?? ""
+//                    }
+//                default:
+//                    displayedHostname = hostname
+//                }
+//            }
             
         }
         

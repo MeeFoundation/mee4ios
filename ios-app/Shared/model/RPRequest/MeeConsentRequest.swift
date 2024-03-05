@@ -96,16 +96,20 @@ struct MeeConsentRequest: Equatable {
         self.id = redirectUri
         self.redirectUri = redirectUri
         self.presentationDefinition = from.presentationDefinition
-        self.claims = idToken.reduce([]) { (acc: [ConsentRequestClaim], claim) in
-            var copy = acc
-            if let value = claim.value,
-               let request = ConsentRequestClaim(from: value, code: claim.key)
-            {
-                copy.append(request)
-                return copy
+        self.claims = idToken
+            .sorted(by: { l, r in
+                l.value?.order ?? 0 < r.value?.order ?? 0
+            })
+            .reduce([]) { (acc: [ConsentRequestClaim], claim) in
+                var copy = acc
+                if let value = claim.value,
+                   let request = ConsentRequestClaim(from: value, code: claim.key)
+                {
+                    copy.append(request)
+                    return copy
+                }
+                return acc
             }
-            return acc
-        }
     }
-
+    
 }

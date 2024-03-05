@@ -26,6 +26,7 @@ struct ConsentRequestClaim: Identifiable, Codable, Equatable {
     var retentionDuration: ConsentStorageDuration = .untilConnectionDeletion
     var isRequired: Bool = false
     var isOn: Bool = false
+    var order: UInt64?
     var forceOpen: Bool?
     var isOpen: Bool {
         get {
@@ -53,16 +54,9 @@ struct ConsentRequestClaim: Identifiable, Codable, Equatable {
     private enum CodingKeys: String, CodingKey {
         case code, name, value, isRequired, providedBy, type, retentionDuration
     }
-    init(code: String, name: String, type: ConsentEntryType, value: String?, providedBy: String?, isRequired: Bool? = false, isOn: Bool? = false) {
-        self.code = code
-        self.name = name
-        self.type = type
-        self.value = type == .card ? .card(CreditCardEntry.fromString(value)) : .string(value)
-        self.providedBy = providedBy
-        self.isRequired = isRequired ?? false
-        self.isOn = isOn ?? false
-    }
+
     init?(from: OidcClaimParams, code: String) {
+        print("order: ", from.name, from.order)
         guard
                 let name = from.name,
                 let type = ConsentEntryType(rawValue: from.typ ?? "")
@@ -80,5 +74,6 @@ struct ConsentRequestClaim: Identifiable, Codable, Equatable {
         self.businessPurpose = from.businessPurpose
         self.isSensitive = from.isSensitive
         self.code = code
+        self.order = from.order
     }
 }

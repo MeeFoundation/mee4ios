@@ -53,5 +53,6 @@ extension OidcClaimParams {
         default: return 
         }
         self.value = val
+        self.order = from.order
     }
 }

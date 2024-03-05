@@ -7,10 +7,12 @@
 
 import Foundation
 
-extension ContextDetailsPage {
+extension ConnectionDetailsPage {
     
-    @MainActor class ContextDetailsViewModel: ObservableObject {
-        @Published private(set) var connector: MeeConnectorWrapper
+    @MainActor class ConnectionDetailsViewModel: ObservableObject {
+        @Published private(set) var connection: MeeConnectionWrapper
+        @Published private(set) var connectors: [MeeConnectorWrapper]?
+        @Published var currentConnector: String?
         @Published var durationPopupId: UUID? = nil
         @Published private(set) var consentEntries: ConsentEntriesType? = nil
         @Published var siopEntriesRequired: [ConsentRequestClaim] = []
@@ -22,13 +24,13 @@ extension ContextDetailsPage {
         @Published private(set) var scrollPosition: UUID?
         @Published private(set) var viewState: ViewState = .loading
         
-        init(connector: MeeConnectorWrapper) {
-            self.connector = connector
+        init(connection: MeeConnectionWrapper) {
+            self.connection = connection
         }
         
         func removeConnector(with core: MeeAgentStore) async {
             Task.init {
-                try await core.removeConnector(connector: connector)
+                try await core.removeConnection(connection: connection)
             }
         }
         
@@ -41,8 +43,8 @@ extension ContextDetailsPage {
                        let gpcEnabled = currentEntry.value as? Bool {
                         
                         Task {
-                            print("connector.otherPartyConnectionId: ", connector.otherPartyConnectionId)
-                            try? await core.createExtensionConnectionAsync(url: connector.otherPartyConnectionId, gpcEnabled: gpcEnabled)
+//                            print("connector.otherPartyConnectionId: ", connector.otherPartyConnectionId)
+//                            try? await core.createExtensionConnectionAsync(url: connector.otherPartyConnectionId, gpcEnabled: gpcEnabled)
                         }
                     }
                     
@@ -52,21 +54,31 @@ extension ContextDetailsPage {
             }
         }
         
-        func loadConsentData(with core: MeeAgentStore) {
-            Task.init {
-                if let contextData = await core.getLastConsentByConnectorId(id: connector.id) {
-                    print(contextData)
-                    await MainActor.run {
-                        consentEntries = .SiopClaims(value: contextData.attributes)
-                    }
-                } else if let consentData = await core.getLastExternalConsentByConnectorId(connectorId: connector.id) {
-                    await MainActor.run {
-                        consentEntries = .ExternalEntries(value: consentData)
-                        print("state.consentEntries: ", consentEntries)
-                    }
-                }
-                sortConsentEntries()
+        func loadConnectors(with core: MeeAgentStore) {
+            Task {
+                let connectors = await core.getAllConnectionConnectors(connectionId: connection.id)
+                self.connectors = connectors
                 viewState = .ready
+            }
+        }
+        
+        func loadConsentData(with core: MeeAgentStore) {
+            if let currentConnector {
+                Task.init {
+                    if let contextData = await core.getLastConsentByConnectorId(id: currentConnector) {
+                        print(contextData)
+                        await MainActor.run {
+                            consentEntries = .SiopClaims(value: contextData.attributes)
+                        }
+                    } else if let consentData = await core.getLastExternalConsentByConnectorId(connectorId: currentConnector) {
+                        await MainActor.run {
+                            consentEntries = .ExternalEntries(value: consentData)
+                            print("state.consentEntries: ", consentEntries)
+                        }
+                    }
+                    sortConsentEntries()
+                    viewState = .ready
+                }
             }
         }
         
@@ -74,7 +86,7 @@ extension ContextDetailsPage {
             switch (consentEntries) {
             case .SiopClaims(let claims):
                 siopEntriesRequired = claims.filter {$0.isRequired}
-                siopEntriesOptional = claims.filter {!$0.isRequired}
+                siopEntriesOptional = claims.filter {!$0.isRequired && !$0.isEmpty}
             case .ExternalEntries(let externalValues):
                 switch externalValues.data {
                 case .gapi(let gapiEntries):

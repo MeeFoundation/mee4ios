@@ -15,15 +15,19 @@ struct MeeContextWrapper {
         self.id = from.id
         self.otherPartyConnectionId = from.otherPartyConnectionId
         self.createdAt = from.createdAt
-        let claimDataConverted = from.attributes.reduce([]) { (acc: [ConsentRequestClaim], rec) in
-            var copy = acc
-            if let value = rec.value,
-               let request = ConsentRequestClaim(from: value, code: rec.key)
-            {
-                copy.append(request)
+        let claimDataConverted = from.attributes
+            .sorted(by: { l, r in
+                l.value?.order ?? 0 < r.value?.order ?? 0
+            })
+            .reduce([]) { (acc: [ConsentRequestClaim], rec) in
+                var copy = acc
+                if let value = rec.value,
+                   let request = ConsentRequestClaim(from: value, code: rec.key)
+                {
+                    copy.append(request)
+                }
+                return copy
             }
-            return copy
-        }
         self.attributes = claimDataConverted
     }
 }
