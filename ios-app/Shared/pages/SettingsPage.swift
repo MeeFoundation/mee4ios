@@ -52,7 +52,7 @@ struct SettingsPage: View {
                 BackgroundFaded()
                 VStack {
                     Spacer()
-                    DestructionConfirmationDialog(text: "Delete user data", description: "Are you sure you want to delete your data?", buttonText: "Yes, delete my data", onNext: {
+                    DestructionConfirmationDialog(text: "Delete user data", description: "Are you sure you want to delete your data?", buttonText: "Yes, delete my data", buttonTextColor: Colors.destructiveAction, onNext: {
                         Task {
                             do {
                                 try await core.removeAllData()
@@ -133,3 +133,4 @@ struct SettingsAction: View {
         
     }
 }
+

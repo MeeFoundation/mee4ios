@@ -93,7 +93,7 @@ struct ConnectionsListPage: View {
                                             tag: connection.id,
                                             selection: $viewModel.selection
                                         ){}
-                                        PartnerEntry(connection: connection, hasEntry: true)
+                                        PartnerEntry(connection: connection, hasEntry: true){}
                                             .onTapGesture(perform: {
                                                 viewModel.onEntryClick(id: connection.id)
                                             })

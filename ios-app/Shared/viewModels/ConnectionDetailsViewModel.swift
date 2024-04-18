@@ -36,6 +36,8 @@ extension ConnectionDetailsPage {
         @Published private(set) var selection: String? = nil
         @Published private(set) var scrollPosition: UUID?
         @Published private(set) var viewState: ViewState = .loading
+        @Published var showConnectorRemoveDialog: Bool = false
+        @Published var showConnectionRemoveDialog: Bool = false
         
         init(connection: MeeConnectionWrapper) {
             self.connection = connection
@@ -48,11 +50,16 @@ extension ConnectionDetailsPage {
         }
         
         func removeConnector(with core: MeeAgentStore) async {
-            Task.init {
+            do {
+                viewState = .loading
                 if let connector = connectors?.first(where: {$0.id == currentConnector}) {
                     try await core.removeConnector(connector: connector)
                 }
+                viewState = .ready
+            } catch {
+                viewState = .ready
             }
+            
         }
         
         func getConnectorName() -> String {

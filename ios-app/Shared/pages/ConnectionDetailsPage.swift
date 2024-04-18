@@ -28,7 +28,9 @@ struct ConnectionDetailsPage: View {
                     }
                     ScrollViewReader { proxy in
                         ScrollView {
-                            PartnerEntry(connection: viewModel.connection, hasEntry: false)
+                            PartnerEntry(connection: viewModel.connection, hasEntry: false) {
+                                viewModel.showConnectionRemoveDialog = true
+                            }
                                 .border(Colors.meeBrand, width: 2)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 24)
@@ -80,9 +82,7 @@ struct ConnectionDetailsPage: View {
                             Spacer()
                             
                             Button(action: {
-                                Task {
-                                    await viewModel.removeConnector(with: core)
-                                }
+                                viewModel.showConnectorRemoveDialog = true
                             }){
                                 HStack(spacing: 0) {
                                     BasicText(text: "Delete \(viewModel.getConnectorName())", color: Colors.error, size: 17)
@@ -104,6 +104,47 @@ struct ConnectionDetailsPage: View {
                 }
                 
             }
+                .overlay {
+                    ZStack {
+                        BackgroundFaded()
+                        VStack {
+                            Spacer()
+                            DestructionConfirmationDialog(text: "Delete \(viewModel.getConnectorName())", description: "Are you sure you want to delete the \(viewModel.getConnectorName())?", buttonText: "Yes, delete \(viewModel.getConnectorName())",
+                                                          buttonTextColor: Colors.error,
+                                                          onNext: {
+                                Task {
+                                    await viewModel.removeConnector(with: core)
+                                    viewModel.showConnectorRemoveDialog = true
+                                }
+                            }, onCancel: {
+                                viewModel.showConnectorRemoveDialog = false
+                            })
+                        }
+                    }
+                    .opacity(viewModel.showConnectorRemoveDialog ? 1 : 0)
+                }
+                .overlay {
+                    ZStack {
+                        BackgroundFaded()
+                        VStack {
+                            Spacer()
+                            DestructionConfirmationDialog(text: "Delete connection", description: "Are you sure you want to delete the connection?", buttonText: "Yes, delete connection",
+                                                          buttonTextColor: Colors.error,
+                                                          onNext: {
+                                Task {
+                                    do {
+                                        try await core.removeConnection(connection: viewModel.connection)
+                                    } catch {
+                                        
+                                    }
+                                }
+                            }, onCancel: {
+                                viewModel.showConnectionRemoveDialog = false
+                            })
+                        }
+                    }
+                    .opacity(viewModel.showConnectionRemoveDialog ? 1 : 0)
+                }
                 .edgesIgnoringSafeArea(.all)
                 .navigationBarTitle("", displayMode: .inline)
                 .navigationBarBackButtonHidden(true)

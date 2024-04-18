@@ -14,14 +14,15 @@ struct PartnerEntry: View  {
     let name: String
     let hostname: String
     @EnvironmentObject var core: MeeAgentStore
+    let onConnectionRemove: () -> Void
     
-    init(connection: MeeConnectionWrapper, hasEntry: Bool = false) {
+    init(connection: MeeConnectionWrapper, hasEntry: Bool = false, onConnectionRemove: (() -> Void)?) {
         self.connection = connection
         self.hasEntry = hasEntry
         self.logoUri = URL(string: "https://\(connection.id)/favicon.ico")
         self.hostname = connection.id
         self.name = connection.name
-        
+        self.onConnectionRemove = onConnectionRemove ?? {}
     }
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -53,13 +54,7 @@ struct PartnerEntry: View  {
                     } else {
                         Menu {
                             Button {
-                                Task {
-                                    do {
-                                        try await core.removeConnection(connection: connection)
-                                    } catch {
-                                        
-                                    }
-                                }
+                                onConnectionRemove()
                             } label: {
                                 Label {
                                     BasicText(text: "Delete Connection", color: Colors.error, size: 17)

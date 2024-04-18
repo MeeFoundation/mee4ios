@@ -11,6 +11,7 @@ struct DestructionConfirmationDialog: View {
     let text: String
     let description: String
     let buttonText: String
+    let buttonTextColor: Color
     var onNext: () -> Void
     var onCancel: () -> Void
     var body: some View {
@@ -33,7 +34,7 @@ struct DestructionConfirmationDialog: View {
                     .padding(.top, 16)
                 BasicText(text: description, size: 16)
                     .padding(.top, 16)
-                MainButton(buttonText, action: onNext, fullWidth: true, textColor: Colors.destructiveAction, textFontWeight: .semibold)
+                MainButton(buttonText, action: onNext, fullWidth: true, textColor: buttonTextColor, textFontWeight: .semibold)
                     .padding(.bottom, 64)
                     .padding(.top, 16)
                 
