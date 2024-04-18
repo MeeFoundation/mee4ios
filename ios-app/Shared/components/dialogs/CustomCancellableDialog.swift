@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CustomCancellableDialog<Content: View>: View {
     let text: String
+    @State private var dragOffset: CGSize = .zero
     var onCancel: () -> Void
     @State private var contentHeight: CGFloat = 0
     @ViewBuilder let content: Content
@@ -55,12 +56,19 @@ struct CustomCancellableDialog<Content: View>: View {
         }
         .background(Colors.popupBackground)
         .cornerRadius(10)
+        .offset(y: dragOffset.height)
         .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
+            .onChanged { value in
+                if value.translation.height > 0 {
+                    dragOffset = value.translation
+                }
+            }
             .onEnded({ value in
-                if value.translation.height > 20 {
+                if value.translation.height > 100 {
                     onCancel()
                     
                 }
+                dragOffset = .zero
             }))
     }
 }
