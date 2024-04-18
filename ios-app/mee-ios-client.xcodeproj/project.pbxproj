@@ -161,7 +161,7 @@
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB72DB294B29970063A077 /* MeeEnv.swift */; };
 		A5CBEBF52A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CBEBF42A1F7F0600FD32A9 /* SafariWebExtensionHandler.swift */; };
-		A5CBEC082A1F7F0600FD32A9 /* mee-extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A5CBEC082A1F7F0600FD32A9 /* mee-extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A5CBEBF22A1F7F0600FD32A9 /* mee-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A5CBEDD62A28F09200FD32A9 /* images in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCB2A28F09100FD32A9 /* images */; };
 		A5CBEDD72A28F09200FD32A9 /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCC2A28F09100FD32A9 /* popup.js */; };
 		A5CBEDD82A28F09200FD32A9 /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = A5CBEDCD2A28F09100FD32A9 /* content.js */; };
@@ -276,15 +276,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		948AD55E27BF8E0A00A98D88 /* Embed App Extensions */ = {
+		948AD55E27BF8E0A00A98D88 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				A5CBEC082A1F7F0600FD32A9 /* mee-extension.appex in Embed App Extensions */,
+				A5CBEC082A1F7F0600FD32A9 /* mee-extension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -1130,7 +1130,7 @@
 				A5716E96292E716700248961 /* Headers */,
 				946D2DE127BB9A960055175C /* Resources */,
 				946D2DE027BB9A960055175C /* Frameworks */,
-				948AD55E27BF8E0A00A98D88 /* Embed App Extensions */,
+				948AD55E27BF8E0A00A98D88 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 				A5B8E94D2938EEE7006058E6 /* PBXBuildRule */,
@@ -1225,7 +1225,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					946D2DE227BB9A960055175C = {
 						CreatedOnToolsVersion = 13.1;
@@ -1665,6 +1665,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1725,6 +1726,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1841,6 +1843,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 59TG46326T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1871,6 +1874,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 59TG46326T;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -1897,6 +1901,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -1925,6 +1930,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = 4UGU9PNWK8;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

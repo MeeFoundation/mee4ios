@@ -9,9 +9,10 @@ import Foundation
 
 extension ConnectionDetailsPage {
     
-    @MainActor class ConnectionDetailsViewModel: ObservableObject, MeeAgentStoreListener {
+    class ConnectionDetailsViewModel: ObservableObject, MeeAgentStoreListener {
         var id: UUID
-        var core: MeeAgentStore?
+        
+        @MainActor var core: MeeAgentStore?
         
         nonisolated func onUpdate() {
             Task {
@@ -39,17 +40,17 @@ extension ConnectionDetailsPage {
         @Published var showConnectorRemoveDialog: Bool = false
         @Published var showConnectionRemoveDialog: Bool = false
         
-        init(connection: MeeConnectionWrapper) {
+        @MainActor init(connection: MeeConnectionWrapper) {
             self.connection = connection
             self.id = UUID()
         }
         
-        func setup(core: MeeAgentStore) {
+        @MainActor func setup(core: MeeAgentStore) {
             core.addListener(self)
             self.core = core
         }
         
-        func removeConnector(with core: MeeAgentStore) async {
+        @MainActor func removeConnector(with core: MeeAgentStore) async {
             do {
                 viewState = .loading
                 if let connector = connectors?.first(where: {$0.id == currentConnector}) {
@@ -62,7 +63,7 @@ extension ConnectionDetailsPage {
             
         }
         
-        func getConnectorName() -> String {
+        @MainActor func getConnectorName() -> String {
             if let connector = connectors?.first(where: {$0.id == currentConnector}) {
                 return switch(connector.connectorProtocol) {
                 case .Gapi( _): "Account"
@@ -75,7 +76,7 @@ extension ConnectionDetailsPage {
             return "Connector"
         }
         
-        func saveValues(with core: MeeAgentStore) {
+        @MainActor func saveValues(with core: MeeAgentStore) {
             switch (consentEntries) {
             case .ExternalEntries(let externalEntries):
                 switch externalEntries.data {
@@ -95,7 +96,7 @@ extension ConnectionDetailsPage {
             }
         }
         
-        func loadConnectors(with core: MeeAgentStore) {
+        @MainActor func loadConnectors(with core: MeeAgentStore) {
             Task {
                 let connectors = await core.getAllConnectionConnectors(connectionId: connection.id)
                 if connectors.count != 0 {
@@ -106,7 +107,7 @@ extension ConnectionDetailsPage {
             }
         }
         
-        func loadConsentData(with core: MeeAgentStore) {
+        @MainActor func loadConsentData(with core: MeeAgentStore) {
             if let currentConnector {
                 Task.init {
                     if let contextData = await core.getLastConsentByConnectorId(id: currentConnector) {
@@ -126,7 +127,7 @@ extension ConnectionDetailsPage {
             }
         }
         
-        private func sortConsentEntries() {
+        @MainActor private func sortConsentEntries() {
             switch (consentEntries) {
             case .SiopClaims(let claims):
                 siopEntriesRequired = claims.filter {$0.isRequired}

@@ -14,7 +14,7 @@ enum WelcomeType {
 }
 
 extension ConnectionsListPage {
-    @MainActor class ConnectionsListPageViewModel: ObservableObject, MeeAgentStoreListener {
+    class ConnectionsListPageViewModel: ObservableObject, MeeAgentStoreListener {
         @Published var selection: String? = nil
         @Published var connections: [MeeConnectionWrapper]?
         @Published var showedConnections: [MeeConnectionWrapper]?
@@ -40,11 +40,11 @@ extension ConnectionsListPage {
         }
         
         var id: UUID
-        var registry = PartnersRegistry.shared
-        var core: MeeAgentStore?
-        var openURL: ((_ url: URL) -> Void)?
+        @MainActor var registry = PartnersRegistry.shared
+        @MainActor var core: MeeAgentStore?
+        @MainActor var openURL: ((_ url: URL) -> Void)?
         
-        func setup(core: MeeAgentStore, openURL: @escaping (_ url: URL) -> Void) {
+        @MainActor func setup(core: MeeAgentStore, openURL: @escaping (_ url: URL) -> Void) {
             core.addListener(self)
             self.core = core
             self.openURL = openURL
@@ -63,22 +63,22 @@ extension ConnectionsListPage {
             
         }
         
-        private func getConnectors() async {
+        @MainActor private func getConnectors() async {
             currentConnectors = await core?.getAllConnectors() ?? []
         }
         
-        private func getConnections() async {
+        @MainActor private func getConnections() async {
             connections = await core?.getAllConnections() ?? []
         }
         
-        private func filterCurrentConnections() async {
+        @MainActor private func filterCurrentConnections() async {
             let filteredConnectors = getCurrentConnectors(connections: connections ?? [], searchString: connectorsSearchString)
             await MainActor.run {
                 refreshPartnersList(connections: filteredConnectors)
             }
         }
         
-        func onUpdate(isFirstRender: Bool) {
+        @MainActor func onUpdate(isFirstRender: Bool) {
             Task.init {
                 await getConnectors()
                 await getConnections()
@@ -86,7 +86,7 @@ extension ConnectionsListPage {
             }
         }
         
-        private func getCurrentConnectors(connections: [MeeConnectionWrapper], searchString: String?) -> [MeeConnectionWrapper] {
+        @MainActor private func getCurrentConnectors(connections: [MeeConnectionWrapper], searchString: String?) -> [MeeConnectionWrapper] {
             return connections.filter { connection in
                 guard let searchString, !searchString.isEmpty else { return true }
                 if let scoreName = connection.name.confidenceScore(searchString)
@@ -97,7 +97,7 @@ extension ConnectionsListPage {
             }
         }
         
-        private func refreshPartnersList(connections: [MeeConnectionWrapper]) {
+        @MainActor private func refreshPartnersList(connections: [MeeConnectionWrapper]) {
             showedConnections = connections
             
             otherPartnersWebApp = registry.partners.filter { context in
@@ -107,7 +107,7 @@ extension ConnectionsListPage {
             }
         }
         
-        func onEntryClick(id: String) {
+        @MainActor func onEntryClick(id: String) {
             selection = id
         }
         
