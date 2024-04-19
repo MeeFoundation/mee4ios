@@ -11,7 +11,11 @@ import BackgroundTasks
 
 @main
 struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+//    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @Environment(\.openURL) var openURL
+    func openUrlWrapper(_ url: URL) {
+        openURL(url)
+    }
     
     init() {
         
@@ -19,6 +23,7 @@ struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
     @StateObject var navigation = NavigationState()
     @StateObject var consent = ConsentState()
     @StateObject var appState = AppState()
+    var core = MeeAgentStore()
 
     var id = UUID()
     
@@ -35,7 +40,7 @@ struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
                     .environmentObject(navigation)
                     .environmentObject(consent)
                     .environmentObject(appState)
-                    .environmentObject(appDelegate.core)
+                    .environmentObject(core)
             }
             .overlay {
                 ZStack {
@@ -50,8 +55,9 @@ struct mee_ios_clientApp: App, MeeAgentStoreErrorListener {
                 
             }
             .onAppear {
-                error = appDelegate.core.error
-                appDelegate.core.addErrorListener(self)
+                error = core.error
+                core.addErrorListener(self)
+                core.setup(openUrl: openUrlWrapper)
             }
 
         }
