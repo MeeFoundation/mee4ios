@@ -16,7 +16,6 @@ protocol CoreAgent {
     func getLastSiopConsentByRedirectUri (id: String) async -> MeeContextWrapper?
     func getLastConsentByConnectorId(id: String) async -> MeeContextWrapper?
     func authorize(id: String, item: MeeConsentRequest) async -> OidcAuthResponseWrapper?
-    func getGoogleIntegrationUrl() async -> URL?
     func createGoogleConnectionAsync(url: URL) async throws
     func createExtensionConnectionAsync (url: String, gpcEnabled: Bool) async throws
     func authAuthRequestFromUrl (url: String, isCrossDevice: Bool, sdkVersion: SdkVersion) async -> MeeConsentRequest?

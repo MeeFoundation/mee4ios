@@ -58,12 +58,7 @@ struct PlusMenu: View {
             WarningPopup(text: "Log in to your Google Account to retrieve your personal data held there to be stored in this smartwallet.", iconName: "google", onNext: {
                 showGoogleConnectionWarning = false
                 Task.init {
-                    if let url = await core.getGoogleIntegrationUrl() {
-                        await MainActor.run {
-                            openURL(url)
-                        }
-                        
-                    }
+                    await core.googleAuthRequest()
                 }
                 
             }, onClose: {

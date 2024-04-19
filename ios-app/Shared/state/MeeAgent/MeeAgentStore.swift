@@ -11,11 +11,28 @@ let MEE_KEYCHAIN_SECRET_NAME = "MEE_KEYCHAIN_SECRET_NAME"
 
 let extensionSharedDefaults = UserDefaults(suiteName: "group.extensionshare.foundation.mee.ios-client")
 
+class BrowserRedirector: BrowserRedirectCapability {
+    func openUrl(url: Url) throws {
+        if let urlParsed = URL(string: url) {
+            openURL(urlParsed)
+        }
+        
+    }
+    
+    var openURL: (URL) -> Void
+
+    public init(openURL: @escaping (URL) -> Void) {
+        self.openURL = openURL
+    }
+}
+
 class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     var agent: MeeAgent?
     var error: AppErrorRepresentation? = nil
     var listeners: [MeeAgentStoreListener] = []
     var errorListeners: [MeeAgentStoreErrorListener] = []
+    var gapiPlugin: GapiPlugin?
+    var siopPlugin: SiopPlugin?
     
     private func onConnectionsListUpdated() {
         for listener in listeners {
@@ -26,6 +43,15 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     private func onError(_ error: AppErrorRepresentation) {
         for listener in errorListeners {
             listener.onError(error: error)
+        }
+    }
+    
+    func setup(openUrl: @escaping (_ url: URL) -> Void) {
+        do {
+            self.gapiPlugin = try agent?.getGapiPlugin(browserRedirectCapability: BrowserRedirector(openURL: openUrl))
+            self.siopPlugin = try agent?.getSiopPlugin(browserRedirectCapability: BrowserRedirector(openURL: openUrl))
+        } catch (let e) {
+            onError((AppErrorRepresentation(error: errorToAppError(e), action: .initialization)))
         }
     }
     
@@ -267,7 +293,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
             do {
                 if connector.isGapi {
                     print("googleApiProviderDetachAccount")
-                    try agent.googleApiProviderDetachAccount(connectorId: connector.id)
+                    try gapiPlugin?.detachGoogleAccount(connectorId: connector.id)
                 } else {
                     print("deleteOtherPartyConnection: ", id)
 //                    try agent.deleteOtherPartyConnection(connectionId: id)
@@ -326,7 +352,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
             return nil
         }
         do {
-            if let coreConsent = try agent.siopLastConsentByConnectorId(connId: id) {
+            if let coreConsent = try siopPlugin?.lastConsentByConnectorId(connId: id) {
                 return MeeContextWrapper(from: coreConsent)
             } else {
                 return nil
@@ -365,12 +391,12 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     
 
     func authorize (id: String, item: MeeConsentRequest) async -> OidcAuthResponseWrapper? {
-        guard let agent else {
+        guard let siopPlugin else {
             return nil
         }
         return await withCheckedContinuation { continuation in
             do {
-                let response = try agent.siopAuthRelyingParty(authRequest: OidcAuthRequest(from: item))
+                let response = try siopPlugin.authRelyingParty(authRequest: OidcAuthRequest(from: item))
                 continuation.resume(returning: response)
             } catch {
                 print(error)
@@ -380,19 +406,16 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
        
     }
     
-    func getGoogleIntegrationUrl() async -> URL? {
-        guard let agent else {
-            return nil
-        }
+    func googleAuthRequest() async {
         return await withCheckedContinuation { continuation in
             do {
-                let url = try agent.googleApiProviderCreateOauthBrowsableUrl()
-                continuation.resume(returning: URL(string: url))
+                try gapiPlugin?.authRequestRedirect()
+                continuation.resume()
             } catch {
-                continuation.resume(returning: nil)
+                
             }
         }
-        
+                       
     }
     
     @MainActor func createGoogleConnectionAsync (url: URL) async throws {
@@ -400,10 +423,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
     }
     
     private func createGoogleConnection (url: URL) async throws {
-        guard let agent else {
-            return
-        }
-        let _ = try agent.googleApiProviderCreateOauthConnection(oauthResponseUrl: url.absoluteString)
+        try gapiPlugin?.handleAuthResponse(oauthResponseUrl: url.absoluteString)
 
         onConnectionsListUpdated()
     }
