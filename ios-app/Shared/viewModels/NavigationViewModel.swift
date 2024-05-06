@@ -37,7 +37,7 @@ enum UrlProcessResult {
     }
     
     func toggleMenu(_ isOpen: Bool) {
-            appState?.isSlideMenuOpened = isOpen
+        appState?.isSlideMenuOpened = isOpen
     }
     
     init() {}

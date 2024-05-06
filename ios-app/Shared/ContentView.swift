@@ -19,11 +19,14 @@ struct ContentView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @EnvironmentObject var core: MeeAgentStore
     @State var appWasMinimized: Bool = true
+    @State private var menuDragOffset: CGSize = .zero
     
     @EnvironmentObject private var navigationState: NavigationState
     @EnvironmentObject private var appState: AppState
     @Environment(\.scenePhase) var scenePhase
+    @State var isDraggingRight: Bool = false
     @StateObject private var viewModel = NavigationViewModel()
+    let minimumDragDistance: CGFloat = 100
     
     func setUnlocked(result: Bool) {
         print("unlocked: ", result)
@@ -64,21 +67,29 @@ struct ContentView: View {
                     viewModel.toggleMenu(false)
                 }
                 .transition(.move(edge: .leading))
+                .offset(x: menuDragOffset.width)
             }
         }
-        
-        .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
-            .onEnded({ value in
-                if value.translation.width < -20 {
-                    withAnimation {
-                        viewModel.toggleMenu(false)
-                    }
-                }
-                
-                if value.translation.width > 20 {
-                    withAnimation {
+        .gesture(DragGesture(coordinateSpace: .local)
+            .onChanged { value in
+                isDraggingRight = value.translation.width > 0 && value.startLocation.x < UIScreen.main.bounds.width / 4
+                if isDraggingRight {
+                    menuDragOffset = CGSize(width: (value.translation.width - 320) > 0 ? 0 : (value.translation.width - 320), height: 0)
+                    if !appState.isSlideMenuOpened {
                         viewModel.toggleMenu(true)
                     }
+                } else {
+                    menuDragOffset = CGSize(width: value.translation.width > 0 ? 0 : value.translation.width, height: 0)
+                }
+            }
+            .onEnded({ value in
+                withAnimation {
+                    if value.translation.width < -minimumDragDistance {
+                        viewModel.toggleMenu(false)
+                    } else if value.translation.width > minimumDragDistance {
+                        viewModel.toggleMenu(true)
+                    }
+                    menuDragOffset = .zero
                 }
             }))
         .overlay{
