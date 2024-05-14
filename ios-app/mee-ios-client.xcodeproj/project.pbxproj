@@ -157,6 +157,11 @@
 		A5B48BE029D5B8CD00FE9A48 /* CreditCardEntryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */; };
 		A5B48BE229D5B98700FE9A48 /* ConsentRequestClaimExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */; };
 		A5B48BE429D5D95500FE9A48 /* formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5B48BE329D5D95500FE9A48 /* formatters.swift */; };
+		A5BA056A2BEA2869001644F4 /* TagFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BA05692BEA2869001644F4 /* TagFilter.swift */; };
+		A5BA056C2BEA31CC001644F4 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BA056B2BEA31CC001644F4 /* Badge.swift */; };
+		A5BA056E2BEA443A001644F4 /* TagInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BA056D2BEA443A001644F4 /* TagInput.swift */; };
+		A5BA05702BEA9196001644F4 /* MultiSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BA056F2BEA9196001644F4 /* MultiSelectionView.swift */; };
+		A5BA05722BF26A3C001644F4 /* HashTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BA05712BF26A3C001644F4 /* HashTagView.swift */; };
 		A5C0EE4C28EB594500790179 /* MeeAgentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */; };
 		A5C0EE9028F86F7300790179 /* WarningPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C0EE8F28F86F7300790179 /* WarningPopup.swift */; };
 		A5CB72DC294B29970063A077 /* MeeEnv.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5CB72DB294B29970063A077 /* MeeEnv.swift */; };
@@ -427,6 +432,11 @@
 		A5B48BDF29D5B8CD00FE9A48 /* CreditCardEntryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardEntryExtension.swift; sourceTree = "<group>"; };
 		A5B48BE129D5B98700FE9A48 /* ConsentRequestClaimExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentRequestClaimExtension.swift; sourceTree = "<group>"; };
 		A5B48BE329D5D95500FE9A48 /* formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = formatters.swift; sourceTree = "<group>"; };
+		A5BA05692BEA2869001644F4 /* TagFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilter.swift; sourceTree = "<group>"; };
+		A5BA056B2BEA31CC001644F4 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		A5BA056D2BEA443A001644F4 /* TagInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagInput.swift; sourceTree = "<group>"; };
+		A5BA056F2BEA9196001644F4 /* MultiSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiSelectionView.swift; sourceTree = "<group>"; };
+		A5BA05712BF26A3C001644F4 /* HashTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTagView.swift; sourceTree = "<group>"; };
 		A5C0EE4B28EB594500790179 /* MeeAgentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeAgentStore.swift; sourceTree = "<group>"; };
 		A5C0EE8F28F86F7300790179 /* WarningPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningPopup.swift; sourceTree = "<group>"; };
 		A5CB72DB294B29970063A077 /* MeeEnv.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeeEnv.swift; sourceTree = "<group>"; };
@@ -689,6 +699,11 @@
 				A55C75E02B0E68D300608B0B /* SearchInput.swift */,
 				A55C75E92B0F8A3D00608B0B /* FuzzyMatching.swift */,
 				A53F95202B4D4FC6009CF0A7 /* WrappingHStack.swift */,
+				A5BA05692BEA2869001644F4 /* TagFilter.swift */,
+				A5BA056B2BEA31CC001644F4 /* Badge.swift */,
+				A5BA056D2BEA443A001644F4 /* TagInput.swift */,
+				A5BA056F2BEA9196001644F4 /* MultiSelectionView.swift */,
+				A5BA05712BF26A3C001644F4 /* HashTagView.swift */,
 			);
 			path = components;
 			sourceTree = "<group>";
@@ -1409,6 +1424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A55C74772B063EB600608B0B /* mee_agent.udl in Sources */,
+				A5BA05722BF26A3C001644F4 /* HashTagView.swift in Sources */,
 				A5327AA82954798900F08618 /* decoder.swift in Sources */,
 				A5327A6829535A8B00F08618 /* ConsentConfiguration.swift in Sources */,
 				A5CDCDC22ACAE79A00EF3CC3 /* SideMenu.swift in Sources */,
@@ -1499,6 +1515,7 @@
 				A5AA4CEC28A417BB00677ADD /* Expander.swift in Sources */,
 				A5D9E2FC29265FC400D0E12D /* ConnectionsListPage.swift in Sources */,
 				A55085AD27C3AA0400C5A2D1 /* LoginPage.swift in Sources */,
+				A5BA05702BEA9196001644F4 /* MultiSelectionView.swift in Sources */,
 				A5D30C8C287F0F2C00481E85 /* WebView.swift in Sources */,
 				A518EA9129E9B58100B581BC /* RelayResponse.swift in Sources */,
 				A550858C27BE4A7200C5A2D1 /* ConsentRequestClaim.swift in Sources */,
@@ -1508,6 +1525,7 @@
 				A57D8E9D2A0BE58600443ED3 /* SdkVersion.swift in Sources */,
 				A5B48BE429D5D95500FE9A48 /* formatters.swift in Sources */,
 				A5DB212F27E1DF850070B444 /* StorageListItem.swift in Sources */,
+				A5BA056C2BEA31CC001644F4 /* Badge.swift in Sources */,
 				A5D9E31E2926845B00D0E12D /* ConsentDurationOptions.swift in Sources */,
 				A55C74812B07794E00608B0B /* NavigationViewModel.swift in Sources */,
 				A5D2AAE4291C087200F9806E /* keyboardHelpers.swift in Sources */,
@@ -1524,6 +1542,7 @@
 				A55085C227CE33C500C5A2D1 /* SignupForm.swift in Sources */,
 				A5AA4CEF28AAAAA500677ADD /* View.swift in Sources */,
 				A5AA4CF228ABEBE700677ADD /* Checkbox.swift in Sources */,
+				A5BA056E2BEA443A001644F4 /* TagInput.swift in Sources */,
 				A55C74792B06568500608B0B /* MeeAgentStoreListener.swift in Sources */,
 				A55085C927CF741600C5A2D1 /* CurrentPageState.swift in Sources */,
 				A5715E702A16E3770031E25F /* Binding.swift in Sources */,
@@ -1552,6 +1571,7 @@
 				A5DAEB9E2993CB5E0083E346 /* Webservice.swift in Sources */,
 				A5715E6E2A1586BA0031E25F /* ExternalConsentEntry.swift in Sources */,
 				A518EAC029ED8A4200B581BC /* NetworkErrors.swift in Sources */,
+				A5BA056A2BEA2869001644F4 /* TagFilter.swift in Sources */,
 				A5D9E3122926784800D0E12D /* ConsentPageAnimation.swift in Sources */,
 				A5D2AAEA291D2FB500F9806E /* URLs.swift in Sources */,
 				A5DB213227E1F3F60070B444 /* PasswordEntryModel.swift in Sources */,

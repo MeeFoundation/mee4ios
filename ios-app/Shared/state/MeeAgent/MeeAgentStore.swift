@@ -265,6 +265,56 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
     }
     
+    func getAllTags () async -> [OtherPartyTagUniffi] {
+        return await withCheckedContinuation { continuation in
+            guard let agent else {
+                continuation.resume(returning: [])
+                return
+            }
+            
+            do {
+                let tagsCore = try agent.searchTags(substring: "");
+                print("tags: ", tagsCore)
+                continuation.resume(returning: tagsCore)
+            } catch {
+                print("error getting all contexts: \(error)")
+                continuation.resume(returning: [])
+            }
+        }
+    }
+    
+    func assignTagsToConnection(connectionId: String, tags: [OtherPartyTagUniffi]) async -> Void {
+        return await withCheckedContinuation { continuation in
+            guard let agent else {
+                continuation.resume()
+                return
+            }
+            do {
+                try agent.assignTagsToConnection(connId: connectionId, tagIds: tags.map{$0.id})
+                continuation.resume()
+            } catch {
+                continuation.resume()
+            }
+        }
+    }
+    
+    func createTag(tag: String) async -> Void {
+        return await withCheckedContinuation { continuation in
+            guard let agent else {
+                continuation.resume()
+                return
+            }
+            do {
+                let _ = try agent.getOrCreateTag(name: tag)
+                print("tag: ", tag)
+                continuation.resume()
+            } catch {
+                continuation.resume()
+            }
+        }
+    }
+    
+    
     func removeConnection(connection: MeeConnectionWrapper) async throws {
         guard let agent else {
             throw AppError.UnknownError

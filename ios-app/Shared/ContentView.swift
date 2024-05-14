@@ -72,10 +72,10 @@ struct ContentView: View {
         }
         .gesture(DragGesture(coordinateSpace: .local)
             .onChanged { value in
-                isDraggingRight = value.translation.width > 0 && value.startLocation.x < UIScreen.main.bounds.width / 4
+                isDraggingRight = value.translation.width > 0 && value.startLocation.x == 0
                 if isDraggingRight {
                     menuDragOffset = CGSize(width: (value.translation.width - 320) > 0 ? 0 : (value.translation.width - 320), height: 0)
-                    if !appState.isSlideMenuOpened {
+                    if !appState.isSlideMenuOpened && value.translation.width > minimumDragDistance {
                         viewModel.toggleMenu(true)
                     }
                 } else {

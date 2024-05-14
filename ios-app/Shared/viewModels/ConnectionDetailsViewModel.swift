@@ -19,6 +19,7 @@ extension ConnectionDetailsPage {
                 await MainActor.run {
                     if let core {
                         loadConnectors(with: core)
+                        
                     }
                 }
             }
@@ -39,6 +40,15 @@ extension ConnectionDetailsPage {
         @Published private(set) var viewState: ViewState = .loading
         @Published var showConnectorRemoveDialog: Bool = false
         @Published var showConnectionRemoveDialog: Bool = false
+        @Published var allTags: [OtherPartyTagUniffi] = []
+        @Published var tagSearchString: String? 
+        @Published var isTagsMenuActive: Bool = false
+        
+        @Published var selectedTags: Set<OtherPartyTagUniffi> = Set([]) { didSet {
+            Task {
+                await core?.assignTagsToConnection(connectionId: connection.id, tags: Array(selectedTags))
+            }
+        }}
         
         @MainActor init(connection: MeeConnectionWrapper) {
             self.connection = connection
@@ -48,6 +58,12 @@ extension ConnectionDetailsPage {
         @MainActor func setup(core: MeeAgentStore) {
             core.addListener(self)
             self.core = core
+        }
+        
+        @MainActor func getTags() async {
+            allTags = await core?.getAllTags() ?? []
+            print("connection.tags: ", connection.tags)
+            selectedTags = Set(connection.tags)
         }
         
         @MainActor func removeConnector(with core: MeeAgentStore) async {

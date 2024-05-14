@@ -13,6 +13,7 @@ struct Colors {
     static let backgroundAlt1 = Color("backgroundColorAlt1")
     static let text = Color("textColor")
     static let textGrey = Color("textColorGrey")
+    static let textInactive = Color("textColorInactive")
     static let gray = Color("grayColor")
     static let gray100 = Color("gray100Color")
     static let mainButtonBgColor = Color("mainButtonBgColor")

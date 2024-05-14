@@ -22,6 +22,10 @@ extension ConnectionsListPage {
         @Published var showCertifiedOrCompatible: CertifiedOrCompatible? = nil
         @Published var showCompatibleWarning: Bool = false
         @Published var showIntroScreensSwitch: Bool = false
+        @Published var isTagsMenuActive: Bool = false
+        
+        @Published var allTags: [OtherPartyTagUniffi] = []
+        @Published var tagSearchString: String?
         @Published var showSearchBar: Bool = false { didSet {
             connectorsSearchString = ""
         }}
@@ -35,6 +39,13 @@ extension ConnectionsListPage {
                 await filterCurrentConnections()
             }
         }}
+        
+        @Published var selectedTags: Set<OtherPartyTagUniffi> = Set([]) { didSet {
+            Task {
+                await filterCurrentConnections()
+            }
+        }}
+        
         init() {
             self.id = UUID()
         }
@@ -67,12 +78,16 @@ extension ConnectionsListPage {
             currentConnectors = await core?.getAllConnectors() ?? []
         }
         
+        @MainActor private func getTags() async {
+            allTags = await core?.getAllTags() ?? []
+        }
+        
         @MainActor private func getConnections() async {
             connections = await core?.getAllConnections() ?? []
         }
         
         @MainActor private func filterCurrentConnections() async {
-            let filteredConnectors = getCurrentConnectors(connections: connections ?? [], searchString: connectorsSearchString)
+            let filteredConnectors = getCurrentConnectors(connections: connections ?? [], searchString: connectorsSearchString, tags: self.selectedTags)
             await MainActor.run {
                 refreshPartnersList(connections: filteredConnectors)
             }
@@ -83,16 +98,22 @@ extension ConnectionsListPage {
                 await getConnectors()
                 await getConnections()
                 await filterCurrentConnections()
+                await getTags()
             }
         }
         
-        @MainActor private func getCurrentConnectors(connections: [MeeConnectionWrapper], searchString: String?) -> [MeeConnectionWrapper] {
+        @MainActor private func getCurrentConnectors(connections: [MeeConnectionWrapper], searchString: String?, tags: Set<OtherPartyTagUniffi>) -> [MeeConnectionWrapper] {
             return connections.filter { connection in
+                print("connection.tags: ", connection.tags, tags, !tags.intersection(connection.tags).isEmpty)
+                if !tags.isEmpty {
+                    return !tags.intersection(connection.tags).isEmpty
+                }
                 guard let searchString, !searchString.isEmpty else { return true }
                 if let scoreName = connection.name.confidenceScore(searchString)
                 {
                     return scoreName < 0.5
                 }
+                
                 return true
             }
         }

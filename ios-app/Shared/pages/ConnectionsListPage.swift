@@ -34,7 +34,7 @@ struct ConnectionsListPage: View {
                 }
             } else {
                 ZStack {
-                    VStack {
+                    VStack(spacing: 0) {
                         HStack {
                             if (viewModel.showSearchBar) {
                                 SearchInput("Search", text: $viewModel.connectorsSearchString)
@@ -84,6 +84,15 @@ struct ConnectionsListPage: View {
                         .background(Colors.meeBrand)
                         .shadow(color: Color.black.opacity(0.3), radius: 0, x: 0, y: 0.5)
                         
+                        TagFilter(text: "Filters", isTagsMenuActive: $viewModel.isTagsMenuActive, selectedTags: $viewModel.selectedTags, tags: $viewModel.allTags, filter: $viewModel.tagSearchString, onCreateNew: nil)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
+                        Divider()
+                            .frame(height: 1)
+                            .background(Colors.gray)
+                            .padding(.top, 16)
+                            .padding(.bottom, 16)
+                        
                         ScrollView {
                             VStack {
                                 if let connections = viewModel.showedConnections {
@@ -107,8 +116,10 @@ struct ConnectionsListPage: View {
                             
                         }
                         
+                        
                     }
                     .background(Color.white)
+                    
                     
                 }
                 .ignoresSafeArea(.all)
@@ -127,7 +138,13 @@ struct ConnectionsListPage: View {
             PlusMenu(availableItems: viewModel.otherPartnersWebApp ?? [])
         }
         .ignoresSafeArea(.all)
-        
+        .onTapGesture {
+            if (viewModel.isTagsMenuActive) {
+                withAnimation {
+                    viewModel.isTagsMenuActive = false
+                }
+            }
+        }
         
         
     }
