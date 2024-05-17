@@ -123,6 +123,13 @@ struct ConnectionDetailsPage: View {
                 }
                 
             }
+                .onTapGesture {
+                    if (viewModel.isTagsMenuActive) {
+                        withAnimation {
+                            viewModel.isTagsMenuActive = false
+                        }
+                    }
+                }
                 .overlay {
                     ZStack {
                         BackgroundFaded()

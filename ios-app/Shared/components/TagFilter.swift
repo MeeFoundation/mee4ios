@@ -54,7 +54,7 @@ struct TagFilter: View {
         }
         
             if (isOpen) {
-                DropDownMenu(options: tags, optionToString: {a in "#\(a.name)"}, selected: $selectedTags, filter: $filter, onCreateNew: onCreateNew)
+                DropDownMenu(options: tags, optionToString: {a in "#\(a.name)"}, selected: $selectedTags, filter: $filter, showDropdown: $isTagsMenuActive, onCreateNew: onCreateNew)
                     .padding(.top, 8)
                 HashtagView(tags: Array(selectedTags), optionToString: {a in a.name}, action: {id in
                     selectedTags = selectedTags.filter { tag in

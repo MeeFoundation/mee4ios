@@ -128,6 +128,13 @@ struct ConnectionsListPage: View {
             }
             
         }
+        .onTapGesture {
+            if (viewModel.isTagsMenuActive) {
+                withAnimation {
+                    viewModel.isTagsMenuActive = false
+                }
+            }
+        }
         .onAppear {
             viewModel.setup(core: core, openURL: { url in
                 openURL(url)
@@ -138,13 +145,7 @@ struct ConnectionsListPage: View {
             PlusMenu(availableItems: viewModel.otherPartnersWebApp ?? [])
         }
         .ignoresSafeArea(.all)
-        .onTapGesture {
-            if (viewModel.isTagsMenuActive) {
-                withAnimation {
-                    viewModel.isTagsMenuActive = false
-                }
-            }
-        }
+        
         
         
     }

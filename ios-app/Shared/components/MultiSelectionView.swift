@@ -17,7 +17,7 @@ struct DropDownMenu<Selectable: Identifiable & Hashable>: View  {
     @Binding var selected: Set<Selectable>
     @Binding var filter: String?
     
-    @State var showDropdown: Bool = false
+    @Binding var showDropdown: Bool
     
     @State private var scrollViewSize: CGSize = .zero
     

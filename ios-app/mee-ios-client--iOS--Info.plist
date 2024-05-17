@@ -27,10 +27,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Speech search input</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Speech search input</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>PublicSans-Italic.ttf</string>
@@ -43,7 +39,6 @@
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
-		<string>processing</string>
 	</array>
 </dict>
 </plist>

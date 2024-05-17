@@ -104,17 +104,19 @@ extension ConnectionsListPage {
         
         @MainActor private func getCurrentConnectors(connections: [MeeConnectionWrapper], searchString: String?, tags: Set<OtherPartyTagUniffi>) -> [MeeConnectionWrapper] {
             return connections.filter { connection in
-                print("connection.tags: ", connection.tags, tags, !tags.intersection(connection.tags).isEmpty)
+                var shouldShow = true
                 if !tags.isEmpty {
-                    return !tags.intersection(connection.tags).isEmpty
+                    shouldShow = !tags.intersection(connection.tags).isEmpty
                 }
-                guard let searchString, !searchString.isEmpty else { return true }
+                guard let searchString, !searchString.isEmpty else {
+                    return shouldShow
+                }
                 if let scoreName = connection.name.confidenceScore(searchString)
                 {
-                    return scoreName < 0.5
+                    shouldShow = scoreName < 0.5 && shouldShow
                 }
                 
-                return true
+                return shouldShow
             }
         }
         
