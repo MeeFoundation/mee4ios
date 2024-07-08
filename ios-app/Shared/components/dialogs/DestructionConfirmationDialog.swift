@@ -12,8 +12,9 @@ struct DestructionConfirmationDialog: View {
     let description: String
     let buttonText: String
     let buttonTextColor: Color
-    var onNext: () -> Void
+    var onNext: () async -> Void
     var onCancel: () -> Void
+    @State private var isLoading: Bool = false
     var body: some View {
         ZStack {
             VStack {
@@ -34,7 +35,13 @@ struct DestructionConfirmationDialog: View {
                     .padding(.top, 16)
                 BasicText(text: description, size: 16)
                     .padding(.top, 16)
-                MainButton(buttonText, action: onNext, fullWidth: true, textColor: buttonTextColor, textFontWeight: .semibold)
+                MainButton(buttonText, action: {
+                    Task {
+                        isLoading = true
+                        await onNext()
+                        isLoading = false
+                    }
+                }, fullWidth: true,  isDisabled: isLoading, textColor: buttonTextColor, textFontWeight: .semibold)
                     .padding(.bottom, 64)
                     .padding(.top, 16)
                 

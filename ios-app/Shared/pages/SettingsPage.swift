@@ -56,9 +56,16 @@ struct SettingsPage: View {
                         Task {
                             do {
                                 try await core.removeAllData()
-                                userDataRemovedDialog = true
+                                print("data removed")
+                                await MainActor.run {
+                                    userDataRemoveDialog = false
+                                    userDataRemovedDialog = true
+                                }
                             } catch {
-                                userDataRemoveDialog = false
+                                print("data remove exceprion")
+                                await MainActor.run {
+                                    userDataRemoveDialog = false
+                                }
                             }
                         }
                         

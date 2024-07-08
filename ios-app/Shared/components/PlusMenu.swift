@@ -55,7 +55,7 @@ struct PlusMenu: View {
             .opacity(isDialogOpened ? 1 : 0)
         }
         .overlay {
-            WarningPopup(text: "Log in to your Google Account to retrieve your personal data held there to be stored in this smartwallet.", iconName: "google", onNext: {
+            WarningPopup(text: "Log in to your Google account to retrieve your personal data held there and store it in this app.", iconName: "google", onNext: {
                 showGoogleConnectionWarning = false
                 Task.init {
                     await core.googleAuthRequest()

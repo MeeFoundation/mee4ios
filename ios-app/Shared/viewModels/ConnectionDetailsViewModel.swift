@@ -152,6 +152,9 @@ extension ConnectionDetailsPage {
                 switch externalValues.data {
                 case .gapi(let gapiEntries):
                     externalEntriesOptional = Mirror(reflecting: gapiEntries.userInfo).children
+                        .sorted(by: { l, r in
+                            l.label ?? "" < r.label ?? ""
+                        })
                         .reduce([]){ (acc: [ConsentExternalClaim] , item) in
                             var copy = acc
                             if let value = item.value as? String,

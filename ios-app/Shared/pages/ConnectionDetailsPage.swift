@@ -139,8 +139,10 @@ struct ConnectionDetailsPage: View {
                                                           buttonTextColor: Colors.error,
                                                           onNext: {
                                 Task {
+                                    viewModel.showConnectorRemoveDialog = false
                                     await viewModel.removeConnector(with: core)
-                                    viewModel.showConnectorRemoveDialog = true
+                                    self.presentationMode.wrappedValue.dismiss()
+                                   
                                 }
                             }, onCancel: {
                                 viewModel.showConnectorRemoveDialog = false
