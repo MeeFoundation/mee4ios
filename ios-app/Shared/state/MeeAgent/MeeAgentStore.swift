@@ -446,7 +446,7 @@ class MeeAgentStore: NSObject, ObservableObject, CoreAgent {
         }
         return await withCheckedContinuation { continuation in
             do {
-                let response = try siopPlugin.authRelyingParty(authRequest: OidcAuthRequest(from: item))
+                let response = try agent?.siopAuthRelyingParty(authRequest: OidcAuthRequest(from: item))
                 continuation.resume(returning: response)
             } catch {
                 print(error)

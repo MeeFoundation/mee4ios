@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>proxyUrl</key>
-	<string>https://relay-dev.mee.foundation</string>
+	<string>https://relay.mee.foundation</string>
 </dict>
 </plist>

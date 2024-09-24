@@ -66,7 +66,6 @@ extension ConsentPage {
                     hadConnectionsBefore = true
                     isReturningUser = true
                     if let data, data.consent.isCrossDeviceFlow {
-                        print("cross device flow")
                         Task.init {
                             do {
                                 guard let idToken = coreData.openidResponse.idToken else {
